@@ -1,0 +1,1484 @@
+﻿@model ContactCenterModel;
+
+@{
+    Layout = "_NavUsuarios";
+    ViewData["Title"] = "Rummet / Consola de leads";
+}
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/logo_oficial.png">
+    <link rel="stylesheet" href="~/css/main.css">
+
+    <link href="~/assets/css/material-bootstrap-wizard.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <link rel="stylesheet" href="~/css/estilosGenerales.css">
+
+    <link rel="stylesheet" href="~/css/consoldadeLeads.css">
+    @*   <link rel="stylesheet" href="~/css/styles-tablero-contact-center.css"> *@
+
+    @* <link rel="stylesheet" href="~/assets/css/material-bootstrap-wizard.css" />
+    <link rel="stylesheet" href="~/assets/css/material-bootstrap-wizard-2.css" /> *@
+
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+</head>
+
+<div class="container-fluid">
+    <div class="row row-cols-2">
+        <!--container-->
+        <div class="col-12">
+            <div class="btn-option shadow">
+                <!--botones de renderizacion-->
+                <div class="btn-option-cards  mt-2 d-flex justify-content-center">
+                    <div class="col-3 option-card border-0 bg-card-1 active2" id="btnOnboarding">
+                        <span id="cart-count-interesados" class="cart-count"></span>
+                        <div class="title mb-2">Interesado</div>
+                    </div>
+                    <div class="col-3 option-card border-0 bg-card-2" id="btnVenta">
+                        <span id="cart-count-brokers" class="cart-count">0</span>
+                        <div class="title mb-2">Broker</div>
+                    </div>
+                    <div class="col-3 option-card border-0 bg-card-3" id="btnEntrega">
+                        <span id="cart-count-contacto" class="cart-count">0</span>
+                        <div class="title mb-2">Contacto</div>
+                    </div>
+                </div>
+            </div>
+
+            <!--VISTA 1 -->
+            <div class="data-table active border shadow" id="tblOnboarding">
+                <div class="col-12">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalInteresado"><i class="fa-solid fa-plus"></i>  Añadir </button>
+                </div>
+                @* Tabla de la etapa de prospectos *@
+                <div class="align-items-baseline prospectos d-flex">
+                    <h5 class="my-2 mt-4">Prospectos:</h5>
+                    <p id="prospecto-counter" class="fw-bold"></p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="prospectos-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-2">Correo</th>
+                                <th class="col-1">Telefono</th>
+                                <th class="col-2">Etapa</th>
+                                <th class="col-2">Estatus</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < 10; i++)
+                            {
+                                <tr id="prospecto-row-@i" class="tabla-hover onboarding">                                   
+                                    <td id="prospecto-fecha-@i"></td>
+                                    <td id="prospecto-nombre-@i"></td>
+                                    <td id="prospecto-correo-@i"></td>
+                                    <td id="prospecto-telefono-@i"></td>
+                                    <td>
+                                        <p id="prospecto-etapa-@i" class="etapaProcesoPill"></p>
+                                    </td>
+                                    <td>
+                                        <p id="prospecto-estatus-@i" class="etapaProcesoPill"></p>
+                                    </td>
+                                    <td><a id="prospecto-ver-mas-@i" class="bg-status-blue-btns-gnrl">Ver más</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <footer id="paginaciononboarding_" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-prospectos">
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li id="prospecto-pages-boxes-container" style="display: flex;">
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+
+                @* Tabla de la etapa de oportunidad *@
+                <div class="align-items-baseline oportunidad d-flex">
+                    <h5 class="my-2 mt-4">Oportunidad:</h5>
+                    <p id="oportunidad-counter" class="fw-bold"></p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="oportunidad-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-2">Correo</th>
+                                <th class="col-1">Teléfono</th>
+                                <th class="col-2">Etapa</th>
+                                <th class="col-2">Estatus</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < 10; i++)
+                            {
+                                <tr id="oportunidad-row-@i" class="tabla-hover onboarding">
+                                    <td id="oportunidad-fecha-@i"></td>
+                                    <td id="oportunidad-nombre-@i"></td>
+                                    <td id="oportunidad-correo-@i"></td>
+                                    <td id="oportunidad-telefono-@i"></td>
+                                    <td>
+                                        <p id="oportunidad-etapa-@i" class="etapaProcesoPill"></p>
+                                    </td>
+                                    <td>
+                                        <p id="oportunidad-estatus-@i" class="etapaProcesoPill"></p>
+                                    </td>
+                                    <td><a id="oportunidad-ver-mas-@i" class="bg-status-blue-btns-gnrl">Ver más</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <footer id="paginaciononboarding_" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-oportunidad">
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li id="oportunidad-pages-boxes-container" style="display: flex;">
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+
+                @* Tabla de la etapa de entrega *@
+                <div class="align-items-baseline entrega d-flex">
+                    <h5 class="my-2 mt-4">Entrega:</h5>
+                    <p id="entrega-counter" class="fw-bold"></p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="entrega-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-2">Correo</th>
+                                <th class="col-1">Teléfono</th>
+                                <th class="col-2">Etapa</th>
+                                <th class="col-2">Estatus</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < 10; i++)
+                            {
+                                <tr id="entrega-row-@i" class="tabla-hover onboarding">
+                                    <td id="entrega-fecha-@i"></td>
+                                    <td id="entrega-nombre-@i"></td>
+                                    <td id="entrega-correo-@i"></td>
+                                    <td id="entrega-telefono-@i"></td>
+                                    <td>
+                                        <p id="entrega-etapa-@i" class="etapaProcesoPill"></p>
+                                    </td>
+                                    <td>
+                                        <p id="entrega-estatus-@i" class="etapaProcesoPill"></p>
+                                    </td>
+                                    <td><a id="entrega-ver-mas-@i" class="bg-status-blue-btns-gnrl">Ver más</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <footer id="paginaciononboarding_" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-entrega">
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li id="entrega-pages-boxes-container" style="display: flex;">
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+
+                @* Tabla de la etapa de Cierre *@
+                <div class="align-items-baseline cierre d-flex">
+                    <h5 class="my-2 mt-4">Cierre:</h5>
+                    <p id="cierre-counter" class="fw-bold"></p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="cierre-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-2">Correo</th>
+                                <th class="col-1">Teléfono</th>
+                                <th class="col-2">Etapa</th>
+                                <th class="col-2">Estatus</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < 10; i++)
+                            {
+                                <tr id="cierre-row-@i" class="tabla-hover onboarding">
+                                    <td id="cierre-fecha-@i"></td>
+                                    <td id="cierre-nombre-@i"></td>
+                                    <td id="cierre-correo-@i"></td>
+                                    <td id="cierre-telefono-@i"></td>
+                                    <td>
+                                        <p id="cierre-etapa-@i" class="etapaProcesoPill"></p>
+                                    </td>
+                                    <td>
+                                        <p id="cierre-estatus-@i" class="etapaProcesoPill"></p>
+                                    </td>
+                                    <td><a id="cierre-ver-mas-@i" class="bg-status-blue-btns-gnrl">Ver más</a></td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+                <footer id="paginaciononboarding_" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-cierre">
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li id="cierre-pages-boxes-container" style="display: flex;">
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+
+                @* Tabla de la etapa de Lealtad *@
+                <div class="align-items-baseline lealtad d-flex">
+                    <h5 class="my-2 mt-4">Lealtad:</h5>
+                    <p id="lealtad-counter" class="fw-bold"></p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="lealtad-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-2">Correo</th>
+                                <th class="col-1">Teléfono</th>
+                                <th class="col-2">Etapa</th>
+                                <th class="col-2">Estatus</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < 10; i++)
+                            {
+                                <tr id="lealtad-row-@i" class="tabla-hover onboarding">
+                                    <td id="lealtad-fecha-@i"></td>
+                                    <td id="lealtad-nombre-@i"></td>
+                                    <td id="lealtad-correo-@i"></td>
+                                    <td id="lealtad-telefono-@i"></td>
+                                    <td>
+                                        <p id="lealtad-etapa-@i" class="etapaProcesoPill"></p>
+                                    </td>
+                                    <td>
+                                        <p id="lealtad-estatus-@i" class="etapaProcesoPill"></p>
+                                    </td>
+                                    <td><a id="lealtad-ver-mas-@i" class="bg-status-blue-btns-gnrl">Ver más</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <footer id="paginaciononboarding_" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-lealtad">
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li id="lealtad-pages-boxes-container" style="display: flex;">
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+
+                @* Tabla de la etapa de no interesados*@
+                <div class="align-items-baseline bg-no-interesados d-flex">
+                    <h5 class="my-2 mt-4">No interesados:</h5>
+                    <p id="NoInteresado-counter" class="fw-bold"></p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="noInteresados-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-2">Correo</th>
+                                <th class="col-1">Teléfono</th>
+                                <th class="col-2">Etapa</th>
+                                <th class="col-2">Estatus</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < 10; i++)
+                            {
+                                <tr id="NoInteresado-row-@i" class="tabla-hover onboarding">
+                                    <td id="NoInteresado-fecha-@i"></td>
+                                    <td id="NoInteresado-nombre-@i"></td>
+                                    <td id="NoInteresado-correo-@i"></td>
+                                    <td id="NoInteresado-telefono-@i"></td>
+                                    <td>
+                                        <p id="NoInteresado-etapa-@i" class="etapaProcesoPill bg-noInteresados-etapa1"></p>
+                                    </td>
+                                    <td>
+                                        <p id="NoInteresado-estatus-@i" class="etapaProcesoPill bg-noInteresados-etapa1-status1"></p>
+                                    </td>
+                                    <td><a id="NoInteresado-ver-mas-@i" class="bg-status-blue-btns-gnrl">Ver más</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <footer id="paginacionNoInteresado" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-NoInteresados">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li id="nointeresado-pages-boxes-container" style="display: flex;">
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+            </div>
+
+            <!--VISTA 2 -->
+            <div class="data-table shadow" id="tblVenta">
+                <div class="col-12">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalLeadBroker"><i class="fa-solid fa-plus"></i>  Añadir </button>
+                </div>
+                @* Tabla de la etapa de prospectos *@
+                <div class="align-items-baseline prospectos d-flex">
+                    <h5 class="my-2 mt-4">Prospectos:</h5>
+                    <p class="fw-bold">&nbsp; 0</p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="prospectos-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-2">Correo</th>
+                                <th class="col-1">Teléfono</th>
+                                <th class="col-2">Etapa</th>
+                                <th class="col-2">Estatus</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-prospectos-etapa1 etapaProcesoPill">Interesado</p></td>
+                                <td><p class="bg-prospectos-etapa1 etapaProcesoPill">Interesado</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-prospectos-etapa2 etapaProcesoPill">Proceso de visita</p></td>
+                                <td><p class="bg-prospectos-etapa2 etapaProcesoPill">Realizada</p></td>
+                                <td>
+                                    <a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a>
+                                </td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-prospectos-etapa2 etapaProcesoPill">Proceso de visita</p></td>
+                                <td><p class="bg-prospectos-etapa2 etapaProcesoPill">Cancelada</p></td>
+                                <td>
+                                    <a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a>
+                                </td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-prospectos-etapa2 etapaProcesoPill">Proceso de visita</p></td>
+                                <td><p class="bg-prospectos-etapa2 etapaProcesoPill">Re agendada</p></td>
+                                <td>
+                                    <a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a>
+                                </td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-prospectos-etapa3 etapaProcesoPill">Confirmación de interés</p></td>
+                                <td><p class="bg-prospectos-etapa3 etapaProcesoPill">Confirmación de interés</p></td>
+                                <td>
+                                    <a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a>
+                                </td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-prospectos-etapa4 etapaProcesoPill">Validación de propietario</p></td>
+                                <td><p class="bg-prospectos-etapa4 etapaProcesoPill">Aprueba</p></td>
+                                <td>
+                                    <a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a>
+                                </td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-prospectos-etapa4 etapaProcesoPill">Validación de propietario</p></td>
+                                <td><p class="bg-prospectos-etapa4 etapaProcesoPill">Rechaza</p></td>
+                                <td>
+                                    <a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a>
+                                </td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-prospectos-etapa5 etapaProcesoPill">Anticipo</p></td>
+                                <td><p class="bg-prospectos-etapa5 etapaProcesoPill">Pendiente</p></td>
+                                <td>
+                                    <a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a>
+                                </td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-prospectos-etapa5 etapaProcesoPill">Anticipo</p></td>
+                                <td><p class="bg-prospectos-etapa5 etapaProcesoPill">Recibido</p></td>
+                                <td>
+                                    <a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <footer id="paginaciononboarding_" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-prospectos">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+
+                @* Tabla de la etapa de oportunidad *@
+                <div class="align-items-baseline oportunidad d-flex">
+                    <h5 class="my-2 mt-4">Oportunidad:</h5>
+                    <p class="fw-bold">&nbsp; 0</p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="oportunidad-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-2">Correo</th>
+                                <th class="col-1">Teléfono</th>
+                                <th class="col-2">Etapa</th>
+                                <th class="col-2">Estatus</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-oportunidad-etapa1 etapaProcesoPill">Contrato promesa</p></td>
+                                <td><p class="bg-oportunidad-etapa1 etapaProcesoPill">Enviado</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-oportunidad-etapa1 etapaProcesoPill">Contrato promesa</p></td>
+                                <td><p class="bg-oportunidad-etapa1 etapaProcesoPill">Firmado</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-oportunidad-etapa1 etapaProcesoPill">Contrato promesa</p></td>
+                                <td><p class="bg-oportunidad-etapa1 etapaProcesoPill">No firmado</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-oportunidad-etapa2 etapaProcesoPill">Contrato compra/venta</p></td>
+                                <td><p class="bg-oportunidad-etapa2 etapaProcesoPill">Enviado</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-oportunidad-etapa2 etapaProcesoPill">Contrato compra/venta</p></td>
+                                <td><p class="bg-oportunidad-etapa2 etapaProcesoPill">Firmado</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-oportunidad-etapa2 etapaProcesoPill">Contrato compra/venta</p></td>
+                                <td><p class="bg-oportunidad-etapa2 etapaProcesoPill">No firmado</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-oportunidad-etapa3 etapaProcesoPill">Enganche</p></td>
+                                <td><p class="bg-oportunidad-etapa3 etapaProcesoPill">En proceso</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-oportunidad-etapa3 etapaProcesoPill">Enganche</p></td>
+                                <td><p class="bg-oportunidad-etapa3 etapaProcesoPill">Recibido</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-oportunidad-etapa4 etapaProcesoPill">Envio de enganche a propietario</p></td>
+                                <td><p class="bg-oportunidad-etapa4 etapaProcesoPill">Pendiente</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-oportunidad-etapa4 etapaProcesoPill">Envio de enganche a propietario</p></td>
+                                <td><p class="bg-oportunidad-etapa4 etapaProcesoPill">Pagado</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <footer id="paginaciononboarding_" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-oportunidad">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+
+                @* Tabla de la etapa de entrega *@
+                <div class="align-items-baseline entrega d-flex">
+                    <h5 class="my-2 mt-4">Entrega:</h5>
+                    <p class="fw-bold">&nbsp; 0</p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="entrega-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-2">Correo</th>
+                                <th class="col-1">Teléfono</th>
+                                <th class="col-2">Etapa</th>
+                                <th class="col-2">Estatus</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-entrega-etapa1 etapaProcesoPill">Cita con notario</p></td>
+                                <td><p class="bg-entrega-etapa1 etapaProcesoPill">Agendada</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-entrega-etapa1 etapaProcesoPill">Cita con notario</p></td>
+                                <td><p class="bg-entrega-etapa1 etapaProcesoPill">Realizada</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-entrega-etapa1 etapaProcesoPill">Cita con notario</p></td>
+                                <td><p class="bg-entrega-etapa1 etapaProcesoPill">No realizada</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-entrega-etapa2 etapaProcesoPill">Pago total del inmueble</p></td>
+                                <td><p class="bg-entrega-etapa2 etapaProcesoPill">Pendiente</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-entrega-etapa2 etapaProcesoPill">Pago total del inmueble</p></td>
+                                <td><p class="bg-entrega-etapa2 etapaProcesoPill">Recibido</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-entrega-etapa3 etapaProcesoPill">Firma de escritura</p></td>
+                                <td><p class="bg-entrega-etapa3 etapaProcesoPill">Pendiente</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-entrega-etapa3 etapaProcesoPill">Firma de escritura</p></td>
+                                <td><p class="bg-entrega-etapa3 etapaProcesoPill">Firmado</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-entrega-etapa4 etapaProcesoPill">Firma de contrato</p></td>
+                                <td><p class="bg-entrega-etapa4 etapaProcesoPill">Pendiente</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-entrega-etapa4 etapaProcesoPill">Firma de contrato</p></td>
+                                <td><p class="bg-entrega-etapa4 etapaProcesoPill">Firmado</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-entrega-etapa5 etapaProcesoPill">Copia de escritura</p></td>
+                                <td><p class="bg-entrega-etapa5 etapaProcesoPill">Pendiente</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-entrega-etapa5 etapaProcesoPill">Copia de escritura</p></td>
+                                <td><p class="bg-entrega-etapa5 etapaProcesoPill">Recibido</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <footer id="paginaciononboarding_" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-entrega">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+
+                @* Tabla de la etapa de Cierre *@
+                <div class="align-items-baseline cierre d-flex">
+                    <h5 class="my-2 mt-4">Cierre:</h5>
+                    <p class="fw-bold">&nbsp; 0</p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="cierre-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-2">Correo</th>
+                                <th class="col-1">Teléfono</th>
+                                <th class="col-2">Etapa</th>
+                                <th class="col-2">Estatus</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-cierre-etapa1 etapaProcesoPill">Facturación de comisión a propietario</p></td>
+                                <td><p class="bg-cierre-etapa1 etapaProcesoPill">Pendiente</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-cierre-etapa1 etapaProcesoPill">Facturación de comisión a propietario</p></td>
+                                <td><p class="bg-cierre-etapa1 etapaProcesoPill">Enviada</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-cierre-etapa2 etapaProcesoPill">Pago de comisión al broker</p></td>
+                                <td><p class="bg-cierre-etapa2 etapaProcesoPill">Pendiente</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-cierre-etapa2 etapaProcesoPill">Pago de comisión al broker</p></td>
+                                <td><p class="bg-cierre-etapa2 etapaProcesoPill">Pagado</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <footer id="paginaciononboarding_" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-cierre">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+
+                @* Tabla de la etapa de Lealtad *@
+                <div class="align-items-baseline lealtad d-flex">
+                    <h5 class="my-2 mt-4">Lealtad:</h5>
+                    <p class="fw-bold">&nbsp; 0</p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="lealtad-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-2">Correo</th>
+                                <th class="col-1">Teléfono</th>
+                                <th class="col-2">Etapa</th>
+                                <th class="col-2">Estatus</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-lealtad-etapa1 etapaProcesoPill">Encuesta de satisfacción</p></td>
+                                <td><p class="bg-lealtad-etapa1 etapaProcesoPill">Enviada</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre interesado</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><p class="bg-lealtad-etapa1 etapaProcesoPill">Encuesta de satisfacción</p></td>
+                                <td><p class="bg-lealtad-etapa1 etapaProcesoPill">Cerrada</p></td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <footer id="paginaciononboarding_" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-lealtad">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+            </div>
+
+            <!--VISTA 3 -->
+            <div class="data-table shadow" id="tblEntrega">
+                <div class="col-12">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalLeadContacto"><i class="fa-solid fa-plus"></i>  Añadir </button>
+                </div>
+                @* TABLAS PARA LOS NUEVOS CONTACTOS *@
+                <div class="align-items-baseline nuevos-contactos d-flex">
+                    <h5 class="my-2 mt-4">Nuevos:</h5>
+                    <p class="fw-bold">&nbsp; 0</p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="nuevosContactos-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-3">Correo</th>
+                                <th class="col-1">Teléfono</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre nuevo contacto</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre nuevo contacto</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <footer id="paginaciononboarding_" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-nuevoContacto">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+
+                @* TABLA PARA LOS YA CONTACTADOS *@
+                <div class="align-items-baseline contactados d-flex">
+                    <h5 class="my-2 mt-4">Contactados:</h5>
+                    <p class="fw-bold">&nbsp; 0</p>
+                </div>
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="contactados-tr-th">
+                                <th class="col-1">Fecha</th>
+                                <th class="col-3 col-sm-2">Nombre</th>
+                                <th class="col-3">Correo</th>
+                                <th class="col-1">Teléfono</th>
+                                <th class="col-2 col-sm-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre nuevo contacto</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                            <tr class="tabla-hover onboarding">
+                                <td>Fecha</td>
+                                <td>Nombre nuevo contacto</td>
+                                <td>Correo</td>
+                                <td>Telefono</td>
+                                <td><a class="bg-status-blue-btns-gnrl " asp-controller="Contact" asp-action="DetallesDeLead">Ver más</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <footer id="paginaciononboarding_" class="d-flex justify-content-center">
+                    <nav>
+                        <ul class="pagination justify-content-center paginacion-contactados">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </footer>
+            </div>
+        </div>
+        @* este script no se bien para que es *@
+        <div class="col-3">
+            <div class="more-options d-cards ">
+                <!--Scripts-->
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var initialLocaleCode = 'es';
+                        var localeSelectorEl = document.getElementById('locale-selector');
+                        var calendarEl = document.getElementById('calendar');
+
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                            headerToolbar: {
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'dayGridMonth,listMonth'
+                            },
+                            locale: 'es',
+                            initialDate: '2022-09-12',
+                            locale: initialLocaleCode,
+                            theme: true,
+                            editable: false,
+                            buttonIcons: false, // show the prev/next text
+                            // weekNumbers: true,
+                            navLinks: false, // can click day/week names to navigate views
+                            editable: true,
+                            dayMaxEvents: true, // allow "more" link when too many events
+                            events: [
+                                {
+                                    title: 'All Day Event',
+                                    start: '2022-09-01'
+                                },
+                                {
+                                    title: 'Long Event',
+                                    start: '2020-09-07',
+                                    end: '2020-09-10'
+                                },
+                                {
+                                    groupId: 999,
+                                    title: 'Repeating Event',
+                                    start: '2020-09-09T16:00:00'
+                                },
+                                {
+                                    groupId: 999,
+                                    title: 'Repeating Event',
+                                    start: '2020-09-16T16:00:00'
+                                },
+                                {
+                                    title: 'Conference',
+                                    start: '2020-09-11',
+                                    end: '2020-09-13'
+                                },
+                                {
+                                    title: 'Meeting',
+                                    start: '2020-09-12T10:30:00',
+                                    end: '2020-09-12T12:30:00'
+                                },
+                                {
+                                    title: 'Lunch',
+                                    start: '2020-09-12T12:00:00'
+                                },
+                                {
+                                    title: 'Meeting',
+                                    start: '2020-09-12T14:30:00'
+                                },
+                                {
+                                    title: 'Happy Hour',
+                                    start: '2020-09-12T17:30:00'
+                                },
+                                {
+                                    title: 'Dinner',
+                                    start: '2020-09-12T20:00:00'
+                                },
+                                {
+                                    title: 'Birthday Party',
+                                    start: '2020-09-13T07:00:00'
+                                },
+                                {
+                                    title: 'Click for Google',
+                                    url: 'http://google.com/',
+                                    start: '2020-09-28'
+                                }
+                            ]
+                        });
+
+                        calendar.render();
+
+                        // build the locale selector's options
+                        calendar.getAvailableLocaleCodes().forEach(function (localeCode) {
+                            var optionEl = document.createElement('option');
+                            optionEl.value = localeCode;
+                            optionEl.selected = localeCode == initialLocaleCode;
+                            optionEl.innerText = localeCode;
+                            localeSelectorEl.appendChild(optionEl);
+                        });
+
+                        // when the selected option changes, dynamically change the calendar option
+                        localeSelectorEl.addEventListener('change', function () {
+                            if (this.value) {
+                                calendar.setOption('locale', this.value);
+                            }
+                        });
+
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--modal de interesado-->
+<div class="modal fade" id="modalInteresado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog  modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo interesado</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 my-2">
+                    <div class="col ">
+                        <h6 class="fw-normal size_letter_modal">Nombre(s)</h6>
+                        <input id="lead-nombre" type="text" class="inputFormularioInteresado" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 192 && event.charCode <= 255)" required>
+                    </div>
+                    <div class="col">
+                        <h6 class="letter_size fw-normal">Apellido paterno</h6>
+                        <input id="lead-apellido-paterno" type="text" class="inputFormularioInteresado" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 192 && event.charCode <= 255)" required>
+                    </div>
+                    <div class="col ">
+                        <h6 class="letter_size fw-normal">Apellido materno</h6>
+                        <input id="lead-apellido-materno" type="text" class="inputFormularioInteresado" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 192 && event.charCode <= 255)">
+                    </div>
+                </div>
+                @* para validación de los datos si se quiere telefono, correo, ambos *@
+                @* en este caso si se esta usando el id de los ckeck box *@
+                <div class="row mt-5">
+                    <div class="col">
+                        <input class="checkboxContact" type="radio" id="chkAmbos" name="tipoContacto" checked>
+                        <label for="chkAmbos">Ambos</label>
+                    </div>
+                    <div class="col">
+                        <input class="checkboxContact" type="radio" id="chkTelefono" name="tipoContacto">
+                        <label for="chkTelefono">Teléfono</label>
+                    </div>
+                    <div class="col">
+                        <input class="checkboxContact" type="radio" id="chkCorreo" name="tipoContacto">
+                        <label for="chkCorreo">Correo</label>
+                    </div>
+                </div>
+                <!--correo y telefono-->
+                <div class="row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mb-5 mt-2 telefono-correo-interesado">
+                    <div class="col telefono-interesado">
+                        <h6 class="letter_size fw-normal">Teléfono</h6>
+                        <div class="d-inline-flex w-100">
+                            <select id="lead-lada" class="inputFormularioInteresado w-50" required>
+                                <option value="+52" class="flag-icon flag-icon-mx">+52 (MX)</option>
+                                <option value="+54" class="flag-icon flag-icon-mx">+54 (ARG)</option>
+                                <option value="+57" class="flag-icon flag-icon-gb">+57 (COL)</option>
+                                <option value="+53" class="flag-icon flag-icon-gb">+53 (CUB)</option>
+                                <option value="+1" class="flag-icon flag-icon-us">+1 (EE.UU)</option>
+                                <option value="+48" class="flag-icon flag-icon-us">+48 (PL)</option>
+                                <option value="+44" class="flag-icon flag-icon-gb">+44 (UK)</option>
+                            </select>
+                            <input id="lead-telefono" type="tel" class="inputFormularioInteresado" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                        </div>
+                    </div>
+                    <div class="col correo-interesado">
+                        <h6 class="letter_size fw-normal">Correo electrónico</h6>
+                        <input id="lead-email" type="email" class="inputFormularioInteresado" required>
+                    </div>
+                </div>
+                @* input para buscar la propiedad del interesado y la fecha en que se contacto *@
+                <div class="row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 my-5">
+                    <div class="col ">
+                        <h6 class="letter_size fw-normal">Propiedad</h6>
+                        <input id="lead-id-propiedad" type="text" class="inputFormularioInteresado" autocomplete="off">
+                    </div>
+                    <div class="col ">
+                        <h6 class="letter_size fw-normal">Fecha de contacto</h6>
+                        <input id="lead-fecha-agendada" type="datetime-local" class="inputFormularioInteresado">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h6 class="letter_size fw-normal">Origen</h6>
+                        <div class="d-inline-flex w-100">
+                            <select id="lead-id-medio-origen" class="inputFormularioInteresado w-100">
+                                <option value="1">Facebook</option>
+                                <option value="2">Instagram</option>
+                                <option value="3">Linkedin</option>
+                                <option value="4">Llamada teléfono</option>           
+                                <option value="9">Lonas</option>
+                                <option value="5">Referido</option>
+                                <option value="6">Rummet E-commerce</option>
+                                <option value="7">Tiktok</option>
+                                <option value="8">WhatsApp</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col">
+                        <h6 class="letter_size fw-normal">Comentario</h6>
+                        <textarea id="lead-mensaje" class="inputFormularioInteresado" cols="30" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-bs-dismiss="modal" class="btn btn-primary btn-vermas" style="background-color:#102234" onclick="SaveLeadInteresado()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--modal de broker-->
+<div class="modal fade" id="modalLeadBroker" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog  modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo broker</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 my-2">
+                    <div class="col ">
+                        <h6 class="fw-normal size_letter_modal">Nombre(s)</h6>
+                        <input type="text" class="inputFormularioInteresado" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 192 && event.charCode <= 255)" required>
+                    </div>
+                    <div class="col">
+                        <h6 class="letter_size fw-normal">Apellido paterno</h6>
+                        <input type="text" class="inputFormularioInteresado" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 192 && event.charCode <= 255)" required>
+                    </div>
+                    <div class="col ">
+                        <h6 class="letter_size fw-normal">Apellido materno</h6>
+                        <input type="text" class="inputFormularioInteresado" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 192 && event.charCode <= 255)">
+                    </div>
+                </div>
+                <div class="row mt-5 mb-2">
+                    <div class="col">
+                        <input class="checkboxContactBroker" type="radio" id="chkTelefonoBroker" name="tipoContacto">
+                        <label for="chkTelefonoBroker">Teléfono</label>
+                    </div>
+                    <div class="col">
+                        <input class="checkboxContactBroker" type="radio" id="chkCorreoBroker" name="tipoContacto">
+                        <label for="chkCorreoBroker">Correo</label>
+                    </div>
+                    <div class="col">
+                        <input class="checkboxContactBroker" type="radio" id="chkAmbosBroker" name="tipoContacto">
+                        <label for="chkAmbosBroker">Ambos</label>
+                    </div>
+                </div>
+                <!--correo y telefono-->
+                <div class="row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mb-5">
+                    <div class="col telefonoBroker">
+                        <h6 class="letter_size fw-normal">Teléfono</h6>
+                        <div class="d-inline-flex w-100">
+                            <select class="inputFormularioInteresado w-50" required>
+                                <option value="+52" class="flag-icon flag-icon-mx">+52 (MX)</option>
+                                <option value="+54" class="flag-icon flag-icon-mx">+54 (ARG)</option>
+                                <option value="+57" class="flag-icon flag-icon-gb">+57 (COL)</option>
+                                <option value="+53" class="flag-icon flag-icon-gb">+53 (CUB)</option>
+                                <option value="+1" class="flag-icon flag-icon-us">+1 (EE.UU)</option>
+                                <option value="+48" class="flag-icon flag-icon-us">+48 (PL)</option>
+                                <option value="+44" class="flag-icon flag-icon-gb">+44 (UK)</option>
+                            </select>
+                            <input type="tel" class="inputFormularioInteresado" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                        </div>
+                    </div>
+                    <div class="col correoBroker">
+                        <h6 class="letter_size fw-normal">Correo electrónico</h6>
+                        <input type="email" class="inputFormularioInteresado" required>
+                    </div>
+                </div>
+                @* input para buscar la propiedad del interesado y la fecha en que se contacto *@
+                <div class="row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 my-5">
+                    <div class="col ">
+                        <h6 class="letter_size fw-normal">Fecha de contacto</h6>
+                        <input type="datetime-local" class="inputFormularioInteresado">
+                    </div>
+                    <div class="col ">
+                        <h6 class="letter_size fw-normal">Origen</h6>
+                        <div class="d-inline-flex w-100">
+                            <select class="inputFormularioInteresado w-100">
+                                <option value="Facebook">Facebook</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="Llamada">Llamada teléfono</option>
+                                <option value="Linkedin">Linkedin</option>
+                                <option value="Referido">Referido</option>
+                                <option value="RummetE-commerce">Rummet E-commerce</option>
+                                <option value="Tiktok">Tiktok</option>
+                                <option value="WhatsApp">WhatsApp</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ">
+                        <h6 class="letter_size fw-normal">Comentario</h6>
+                        <textarea class="inputFormularioInteresado" cols="30" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-bs-dismiss="modal" class="btn btn-primary btn-vermas" style="background-color:#102234">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--modal de contacto-->
+<div class="modal fade" id="modalLeadContacto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog  modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo contacto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 my-2">
+                    <div class="col ">
+                        <h6 class="fw-normal size_letter_modal">Nombre(s)</h6>
+                        <input type="text" class="inputFormularioInteresado" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 192 && event.charCode <= 255)" required>
+                    </div>
+                    <div class="col">
+                        <h6 class="letter_size fw-normal">Apellido paterno</h6>
+                        <input type="text" class="inputFormularioInteresado" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 192 && event.charCode <= 255)" required>
+                    </div>
+                    <div class="col ">
+                        <h6 class="letter_size fw-normal">Apellido materno</h6>
+                        <input type="text" class="inputFormularioInteresado" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 192 && event.charCode <= 255)">
+                    </div>
+                </div>
+                <div class="row mt-5 mb-2">
+                    <div class="col">
+                        <input class="checkboxContacto" type="radio" id="chkTelefonoContacto" name="tipoContacto">
+                        <label for="chkTelefonoContacto">Teléfono</label>
+                    </div>
+                    <div class="col">
+                        <input class="checkboxContacto" type="radio" id="chkCorreoContacto" name="tipoContacto">
+                        <label for="chkCorreoContacto">Correo</label>
+                    </div>
+                    <div class="col">
+                        <input class="checkboxContacto" type="radio" id="chkAmbosContacto" name="tipoContacto">
+                        <label for="chkAmbosContacto">Ambos</label>
+                    </div>
+                </div>
+                <!--correo y telefono-->
+                <div class="row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mb-5">
+                    <div class="col telefono-contacto">
+                        <h6 class="letter_size fw-normal">Teléfono</h6>
+                        <div class="d-inline-flex w-100">
+                            <select class="inputFormularioInteresado w-50" required>
+                                <option value="+52" class="flag-icon flag-icon-mx">+52 (MX)</option>
+                                <option value="+54" class="flag-icon flag-icon-mx">+54 (ARG)</option>
+                                <option value="+57" class="flag-icon flag-icon-gb">+57 (COL)</option>
+                                <option value="+53" class="flag-icon flag-icon-gb">+53 (CUB)</option>
+                                <option value="+1" class="flag-icon flag-icon-us">+1 (EE.UU)</option>
+                                <option value="+48" class="flag-icon flag-icon-us">+48 (PL)</option>
+                                <option value="+44" class="flag-icon flag-icon-gb">+44 (UK)</option>
+                            </select>
+                            <input type="tel" class="inputFormularioInteresado" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                        </div>
+                    </div>
+                    <div class="col correo-contacto">
+                        <h6 class="letter_size fw-normal">Correo electrónico</h6>
+                        <input type="email" class="inputFormularioInteresado" required>
+                    </div>
+                </div>
+                @* input para buscar la propiedad del interesado y la fecha en que se contacto *@
+                <div class="row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 my-5">
+                    <div class="col ">
+                        <h6 class="letter_size fw-normal">Fecha de contacto</h6>
+                        <input type="datetime-local" class="inputFormularioInteresado">
+                    </div>
+                    <div class="col ">
+                        <h6 class="letter_size fw-normal">Origen</h6>
+                        <div class="d-inline-flex w-100">
+                            <select class="inputFormularioInteresado w-100">
+                                <option value="Facebook">Facebook</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="Llamada">Llamada teléfono</option>
+                                <option value="Linkedin">Linkedin</option>
+                                <option value="Referido">Referido</option>
+                                <option value="RummetE-commerce">Rummet E-commerce</option>
+                                <option value="Tiktok">Tiktok</option>
+                                <option value="WhatsApp">WhatsApp</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h6 class="letter_size fw-normal">Comentario</h6>
+                        <textarea class="inputFormularioInteresado" cols="30" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-bs-dismiss="modal" class="btn btn-primary btn-vermas" style="background-color:#102234">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/@@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
+<script src="~/js/consolaLeads.js"></script><!--este script es para todo el js de esta vista-->
+<script src="~/js/ConsolaLeadsPaginacion.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+

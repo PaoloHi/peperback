@@ -1,0 +1,336 @@
+﻿@model ContactCenterModel;
+
+@{
+    Layout = "_NavUsuarios";
+    ViewData["Title"] = "Rummet / Detalles de lead contacto";
+}
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/logo_oficial.png">
+    <link rel="stylesheet" href="~/css/main.css">
+
+    <link rel="stylesheet" href="~/css/estilosGenerales.css">
+
+    <link rel="stylesheet" href="~/css/detallesDeLeads.css">
+
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</head>
+
+
+<!--animacion-->
+<ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+
+<div class="container-fluid  mx-auto">
+    <!--contenedor general-->
+
+    <div class="row row-col-3 contenedorGeneralBlanco  mx-3 mt-3">
+        <!--row de las estapas -->
+        <div class="col-1"></div>
+        <div class="col-10 ">
+
+            <section class="stage-line-container ">
+                <ul class="stage-line mb-0">
+                    <li class="phase">
+                        <span class="phase-label">Prospectos</span>
+                        <span class="phase-number">1</span>
+                    </li>
+                    <li class="phase  ">
+                        <span class="phase-label">Oportunidad</span>
+                        <span class="phase-number">2</span>
+                    </li>
+                    <li class="phase ">
+                        <span class="phase-label">Entrega</span>
+                        <span class="phase-number">3</span>
+                    </li>
+                    <li class="phase  ">
+                        <span class="phase-label">Cierre</span>
+                        <span class="phase-number">4</span>
+                    </li>
+                    <li class="phase ">
+                        <span class="phase-label">Lealtad</span>
+                        <span class="phase-number">5</span>
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+        <div class="col-1">
+            @* <div class="btnStatusHead mt-3 mx-auto">
+            <p class="py-1 mx-3 w-auto">Estatus: <span>Pendiente</span></p>
+            </div> *@
+        </div>
+    </div>
+
+
+    <div class="row row-cols-2  justify-content-between mx-3 my-3">
+
+        <!--columna izquierda de las etapas -->
+        <div class="col ">
+
+            <div class="contenedorGeneralBlanco row col row-cols-2 py-2  px-0 ">
+                <!--select de las etapas-->
+                <div class="col px-0">
+                    @{
+                        var etapa = "prospectos";
+                        var activeStage = "";
+
+                        if (etapa == "prospectos")
+                        {
+                            activeStage = "phase-prospecto";
+                        }
+                        else if (etapa == "oportunidad")
+                        {
+                            activeStage = "phase-oportunidad ";
+                        }
+                        else if (etapa == "entrega")
+                        {
+                            activeStage = "phase-entrega ";
+                        }
+                        else if (etapa == "cierre")
+                        {
+                            activeStage = "phase-cierre ";
+                        }
+                        else if (etapa == "lealtad")
+                        {
+                            activeStage = "phase-lealtad ";
+                        }
+                    }
+
+
+
+                    <select class="customSelectStage customSelectStagePhase  d-flex mx-auto @activeStage">
+                        <option value="Prospectos">Prospectos</option>
+                        <option value="Oportunidad">Oportunidad</option>
+                        <option value="Entrega">Entrega</option>
+                        <option value="Cierre">Cierre</option>
+                        <option value="Lealtad">Lealtad</option>
+                    </select>
+                </div>
+                <div class="col px-0">
+                    <select class="customSelectStage d-flex mx-auto">
+                        <option>status</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="contenedorGeneralBlanco row col row-cols-2 my-2 py-2 px-0 ">
+                <div class="col my-auto">
+
+                    <p class="col d-inline-flex my-auto text-black-50">Reservar una cita </p>
+                </div>
+                <div class="col">
+
+                    <input class=" customSelectDate  StylesTxtLabel text-white bg-status-blue-btns-gnrl px-4" type="datetime-local" />
+                </div>
+            </div>
+
+
+            <div class="row px-0 my-2 py-4 contenedorGeneralBlanco">
+                <!--datos del cliente-->
+
+                <h5 class="ms-3  tituloDeSeccion ">Datos del cliente</h5>
+
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label ">Nombre: </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label ">Apellido paterno: </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Apellido materno: </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Correo: </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Teléfono: </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Fecha agendada: </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Mensaje: </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+
+            </div>
+         @*    <div class="row px-0 my-2 py-4 contenedorGeneralBlanco">
+                <!--datos del cliente-->
+
+                <h5 class="ms-3  tituloDeSeccion">Datos de la propiedad</h5>
+
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label"> ID: </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label ">Dirección : </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Precio : </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Tipo de operación: </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Broker asignado: </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+
+
+            </div>
+            <div class="row px-0 my-2 py-4 contenedorGeneralBlanco">
+                <!--datos del cliente-->
+
+                <h5 class="ms-3  tituloDeSeccion">Datos del broker</h5>
+
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label"> Nombre</label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label ">Apellido Materno : </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Apellido Paterno : </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Telefono: </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Correo: </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Meses : </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Mensaje : </label>
+                    <input type="text" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+            </div> *@
+            <div class="row px-0 my-2 py-4 contenedorGeneralBlanco">
+                <div class="col my-auto d-inline-flex">
+                    <button type="button" class="checkbox-button btn my-auto" data-toggle="modal" data-target="#miModal"> </button>
+
+                    <p class="col d-inline-flex my-auto text-black-50 ms-2">Lead no interesado </p>
+                </div>
+
+            </div>
+        </div>
+        <!--columna derecha de las la fecha -->
+        <div class="col ">
+
+            <div class="contenedorGeneralBlanco h-100  mr-0 ms-auto row" style="max-height: fit-content">
+                <div class="headerComments row px-0 mx-auto">
+                    <p class="my-3 ms-4">Comentarios </p>
+                </div>
+                <div id="dropAreaComment" class="dropAreaComment align-content-start mx-auto row h-100">
+
+                    @*  <div class="comment_item mx-auto">
+                    <div class="row row-cols-3 ">
+                    <div class="col-4 d-inline-flex"><p>Fecha: <span class="span_comment">3 de julio 2023</span></p></div>
+                    <div class="col-4 d-inline-flex"><p>Usuario : <span class="span_comment">Jhon wick</span></p> </div>
+                    <div class="col-4 d-inline-flex"><div class="mx-auto status_id_comment"><p class="m-auto px-3 py-1">Stattus</p> </div> </div>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    *@
+
+                    @* <div class="row row-cols-3 my-2 justify-content-between">
+                    <div class="d-flex elemento">
+                    <div class="fecha">3-12-2023</div>
+                    </div>
+                    <div class="d-flex elemento">
+                    <div class="etapa"> Prospectos </div>
+                    </div>
+                    <div class="d-flex elemento">
+                    <div class="fecha">3-12-2023</div>
+                    </div>
+                    </div> *@
+
+                </div>
+                <div id="message_Seccion" class="message_Seccion row  mt-auto mx-auto px-0">
+                    <div class="row row-cols-2  d-inline-flex">
+
+                        <div class="col-10 d-inline-flex">
+                            <textarea id="commentInput" class="w-100 message_textarea py-2" placeholder="escribe tus comentarios" maxlength="500"></textarea>
+                        </div>
+                        <div class="col-2 d-inline-flex">
+                            <button class="btnSendMesssage" onclick="agregarComentario()"><i class="fa-solid fa-paper-plane"></i></button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal del rechazo del lead -->
+<div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Lead no interesado </h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="text-danger">Motivo de rechazo </h6>
+                <div class="form-floating">
+                    <textarea class="form-control" id="mensajeRechazo" style="height: 100px;" placeholder="Describe el motivo del rechazo " required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary bg-status-blue-btns-gnrl" data-dismiss="modal" onclick="toggleCheckbox(this)">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="~/js/leadInteresado.js"></script>
+
+
+

@@ -1,0 +1,103 @@
+﻿@model PaginacionPropModel
+@{
+    var cantidadPaginas = (int)Math.Ceiling((double)Model.TotalDeRegistrosPropProceso / Model.RegistrosPorPaginaPropProceso);
+}
+
+<!--Funcionalidad: Anterior y siguiente-->
+
+<ul class="pagination d-flex justify-content-lg-center justify-content-center">
+    <!--Funcionalidad: Páginas-->
+    @{
+        int Inicial = 1;
+        var radio = 3;
+        var cantidadMaximaDePaginas = radio * 2 + 1;
+        int Final = (cantidadPaginas > cantidadMaximaDePaginas) ? cantidadMaximaDePaginas : cantidadPaginas;
+        if (Model.PaginaActualPropProceso > radio + 1)
+        {
+            Inicial = Model.PaginaActualPropProceso - radio;
+            if (cantidadPaginas > Model.PaginaActualPropProceso + radio)
+            {
+                Final = Model.PaginaActualPropProceso + radio;
+            }
+            else
+            {
+                Final = cantidadPaginas;
+            }
+        }
+    }
+    @if (Model.PaginaActualPropProceso == 1)
+    {
+        <li class="page-item disabled">
+            <a>@Html.ActionLink("", null, new {paginaPropProceso = 1, act = 3}, new {@class = "page-link py-2 me-1 fa-solid fa-chevron-left"})</a>
+        </li>
+    }
+    else
+    {
+        <li>
+            <a> @Html.ActionLink("", null, new {paginaPropProceso = Model.PaginaActualPropProceso - 1, act = 3}, new {@class = "page-link py-2 me-1 fa-solid fa-chevron-left"})</a>
+        </li>
+    }
+
+    @for (int i = Inicial; i <= Final; i++)
+    {
+        if (i == Model.PaginaActualPropProceso)
+        {
+            <li class="page-item active me-1">@Html.ActionLink(i.ToString(), null, new {paginaPropProceso = i , act = 3}, new {@class = "page-link"})</li>
+        }
+        else
+        {
+            <li class="page-item me-1">@Html.ActionLink(i.ToString(), null, new {paginaPropProceso= i, act = 3}, new {@class = "page-link"})</li>
+        }
+    }
+
+    @if (Model.PaginaActualPropProceso == cantidadPaginas)
+    {
+        <li class="page-item disabled">
+            <a> @Html.ActionLink("", null, new {paginaPropProceso = cantidadPaginas , act = 3}, new {@class = "page-link py-2 fa-solid fa-chevron-right"})</a>
+        </li>
+    }
+    else
+    {
+        <li>
+            <a> @Html.ActionLink("", null, new {paginaPropProceso = Model.PaginaActualPropProceso + 1, act = 3}, new {@class = "page-link py-2 fa-solid fa-chevron-right"})</a>
+        </li>
+    }
+</ul>
+
+@*<!--Funcionalidad: Páginas-->
+@{
+    int Inicial = 1;
+    var radio = 3;
+    var cantidadMaximaDePaginas = radio * 2 + 1;
+    int Final = (cantidadPaginas > cantidadMaximaDePaginas) ? cantidadMaximaDePaginas : cantidadPaginas;
+    if (Model.PaginaActual > radio + 1)
+    {
+        Inicial = Model.PaginaActual - radio;
+        if (cantidadPaginas > Model.PaginaActual + radio)
+        {
+            Final = Model.PaginaActual + radio;
+        }
+        else
+        {
+            Final = cantidadPaginas;
+        }
+    }
+}*@
+
+
+@*<ul class="pagination">
+
+    @for (int i = Inicial; i <= Final; i++)
+    {
+        if (i == Model.PaginaActual)
+        {
+            <li class="page-item active me-1">@Html.ActionLink(i.ToString(), null, new {pagina = i}, new {@class = "page-link"})</li>
+        }
+        else
+        {
+            <li>@Html.ActionLink(i.ToString(), null, new {pagina = i}, new {@class = "page-link"})</li>
+        }
+    }
+
+</ul>
+*@

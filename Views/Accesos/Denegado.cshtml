@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Rummet / Acceso denegado";
+    Layout = "_NavUsuarios";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/styleGeneral.css" />
+    <link rel="stylesheet" href="~/css/estilosGenerales.css" />
+    <link rel="stylesheet" href="~/css/consolaUsuarios.css " />
+</head>
+
+
+<body>
+    <div class="px-4 py-5 my-5 text-center">
+        <img class="d-block mx-auto mb-4" src="~/img/bienvenido/prohibido.png" alt="" width="72" height="57">
+        <h1 class="display-5 fw-bold">Acceso denegado</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Lo sentimos, tu usuario no tiene los permisos necesarios para navegar esta página.</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <form  style="width: -webkit-fill-available;">
+                  <button type="submit" class="ms-2 row row-cols-2 d-inline-flex btnExperimento p-0 mresponsive" asp-controller="Accesos" asp-action="Bienvenida">
+                        <div class="col-9 suContainGrande text-black" style="font-size: 12.3px;">
+                            Regresar
+                        </div>
+                        <div class="col-3 subContain">
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                        </div>
+                    </button>
+                    </form>
+            </div>
+        </div>
+    </div>
+</body>

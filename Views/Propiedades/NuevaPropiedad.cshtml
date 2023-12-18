@@ -1,0 +1,1724 @@
+﻿@model PropiedadesModel;
+@using Microsoft.AspNetCore.Identity
+
+<!--INYECCIÓN DE DEPENDENCIAS PARA EL USO DE INICIO DE SESIÓN :)-->
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@{
+    Layout = "_NavUsuarios";
+    ViewData["Title"] = "Rummet / Nueva propiedad";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Proyecto_administracion</title>
+
+    <link href="~/assets/css/material-bootstrap-wizard.css" rel="stylesheet">
+    <link href="~/assets/css/material-bootstrap-wizard-2.css" rel="stylesheet">
+
+
+    <!--<link rel="stylesheet" href="~/css/style_form_nuevo_usuario.css">
+        -->
+    <!-- <link rel="stylesheet" href="~/css/Style_form.css">-->
+    <link rel="stylesheet" href="~/css/estilosGenerales.css" />
+    <link rel="stylesheet" href="~/css/style_nueva_propiedad.css">
+    <link rel="stylesheet" href="~/css/Style_form.css">
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/logo_oficial.png">
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+
+<ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+
+<div class="area">
+
+    <h4 class="ms-4 tituloVista">Nueva propiedad </h4>
+    <div class="container-lg ">
+        <div class="row">
+            <div class="col">
+                <!--      Wizard container        -->
+                <div class="wizard-container">
+
+                    <div class="card wizard-card contenedorGeneralBlanco" data-color="orange" id="wizardProfile">
+
+                        <form id="myform" asp-controller="Propiedades" asp-action="GuardarPropiedad" enctype="multipart/form-data" method="post">
+                            <div class="wizard-navigation ">
+                                <ul>
+                                    <li><a href="#generales" data-toggle="tab">Generales</a></li>
+                                    <li><a href="#direccion" data-toggle="tab">Dirección</a></li>
+                                    <li><a href="#superficie" data-toggle="tab">Superficie</a></li>
+                                    <li><a href="#caracteristicas" data-toggle="tab">Características</a></li>
+                                    <li><a href="#documentos" data-toggle="tab">Documentos</a></li>
+                                    <li><a href="#propietario" data-toggle="tab">Propietario</a></li>
+                                    <!--<li><a href="#progr_agenda" data-toggle="tab">Programar agenda</a></li>-->
+                                    <li><a href="#vista_previa" data-toggle="tab">Vista previa</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="tab-content">
+
+                                <!--aqui comienza la primera pestañas GENERALES-->
+                                <div class="tab-pane" id="generales">
+                                    <div class="row ">
+
+                                        <!-- Steps -->
+
+                                        <label for="">
+                                            <h5 class="ms-1 text-black">Datos generales</h5>
+                                        </label>
+
+                                        <div class="input-group justify-content-between  ">
+                                            <div class="row row-cols-3 d-inline-flex w-100 mx-auto">
+
+                                                <div class="col d-flex flex-column">
+                                                    <label class="ms-1 color_letter2">
+                                                        <h6>Tipo de operación</h6>
+                                                    </label>
+                                                    <div class="" style="margin: 2px 0 0 0;">
+
+                                                        <input asp-for="Operacion" type="radio" value="1" name="Operacion" class="btn-check"
+                                                               id="comprar" autocomplete="off" checked>
+                                                        <label class="btn btn-outline-light ms-1 rounded-3 bg-white"
+                                                               for="comprar">Venta</label>
+
+                                                        <input asp-for="Operacion" type="radio" value="2" name="Operacion" class="btn-check"
+                                                               id="renta" autocomplete="off">
+
+                                                        <label class="btn btn-outline-light rounded-3 bg-white "
+                                                               for="renta">Renta</label>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="col d-inline-flex width-n-propiedad ">
+                                                    @if (SignInManager.IsSignedIn(User))
+                                                    {
+                                                        <input type="hidden" asp-for="UserC" value="@UserManager.GetUserName(User)">
+                                                    }
+
+                                                    <div class=" d-inline-flex flex-column w-100  form-group label-floating is-empty" style="margin: -6px 0 0 -7rem;">
+                                                        <label for="n_propiedad" class=" color_letter2   ">
+                                                            <h6 class="mb-4">
+                                                                Nombre de la propiedad
+                                                            </h6>
+                                                        </label>
+                                                        <input type="text" asp-for="NombrePropiedad" name="NombrePropiedad" id="nombre_propiedad"
+                                                               class="form-control  w-100 margin-t-Npropiedad" required /><!--required-->
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col d-inline-block flex-row form-group label-floating is-empty">
+                                                    <label for="t_propiedad" class="color_letter2">
+                                                        <h6>Tipo de propiedad</h6>
+                                                    </label>
+
+                                                    <div class="d-inline-flex">
+
+                                                        @Html.DropDownListFor(model => model.TPropiedad, new
+                                                        SelectList(Model.TPropiedadL,"IDtipoP","Tipo"), "--Tipo--",new
+                                                        {@class="size-select2 form-control  text-center", @id="TipoPropiedadID", required = "required"})
+
+                                                        @Html.DropDownListFor(model => model.SubPropiedad, new List<SelectListItem>(),
+                                                        "--Subtipo--", new { @class = "size-select2  form-control text-center d-lg-inline-block ", @id="SubTipoPropiedadID"})
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <!--SECCION DE PRECIO-->
+                                        <label for="">
+                                            <h5 class=" ms-1 text-black">Precio</h5>
+                                        </label>
+
+                                        <div class=" d-flex justify-content-between mt-lg-0 align-content-between row row-cols-2">
+                                            <div class="d-flex row col">
+                                                <div class="d-lg-inline-block mt-1 mb-3 col form-group label-floating is-empty" style="margin-left:18px;">
+                                                    <label for="" class="text-start color_letter2">
+                                                        <h6>Tipo de moneda</h6>
+                                                    </label>
+                                                    @Html.DropDownListFor(model => model.Moneda, new
+                                                    SelectList(Model.MonedaL,"IDMoneda","Moneda"), "--Moneda--",new
+                                                    {@class="size-select2 form-control text-center", @id="IDMoneda", required = "required",@style="margin: 2px 0 0 0;"})
+                                                </div>
+
+                                                <div class="d-lg-inline-block mt-1 mb-3 col">
+                                                    <div class="d-inline form-group  ">
+                                                        <label for="precio" class="control-label color_letter2 ">
+                                                            <h6 class="mb-3">Precio</h6>
+                                                        </label>
+                                                        <input type="number" asp-for="Precio" name="Precio" id="precioProp" class="form-control NobtnNumber"
+                                                               min="1" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row row-cols-3 alinear col" id="rentaOpcions" >
+                                                <div class="alinear w-auto" id="rentaOpcions2" style="display:none;">
+                                                    <label for="" class="me-3 color_letter2 d-lg-inline-block ">
+                                                        <h6 class="color_letter2" style="color:#6c757d;">Período  </h6>
+                                                    </label>
+                                                    <div id="renta" class="d-block ">
+                                                        <label style="color:#6c757d;">
+                                                            <input asp-for="PeriodoRenta" type="radio" name="PeriodoRenta" value="3"
+                                                                   class="d-inline-flex border-radio_buttons" required />Semanal
+                                                        </label><!--required-->
+                                                        <label style="color:#6c757d;">
+                                                            <input asp-for="PeriodoRenta" type="radio" name="PeriodoRenta" value="1"
+                                                                   class="d-inline-flex border-radio_buttons" required />Mensual
+                                                        </label><!--required-->
+                                                        <label style="color:#6c757d;">
+                                                            <input asp-for="PeriodoRenta" type="radio" name="PeriodoRenta" value="2"
+                                                                   class="d-inline-flex border-radio_buttons" required />Anual
+                                                        </label><!--required-->
+                                                    </div>
+                                                </div>
+                                                <div class=" d-flex">
+                                                    <div class="form-group mt-0">
+                                                        <label for="n_propiedad" class=" control-label color_letter2">
+                                                            <h6 class="mb-4">Mantenimiento</h6>
+                                                        </label>
+                                                        <input asp-for="MantenimientoPrecio" type="number" id="mantenimiento"
+                                                               min="0" class="form-control NobtnNumber" />
+                                                    </div>
+                                                </div>
+                                                <div class="d-block" id="renta2">
+                                                    <label for="" class="me-3 color_letter2 " style="color:#6c757d;">
+                                                        <h6 class="color_letter2">Período</h6>
+                                                    </label>
+                                                    <label style="color:#6c757d;">
+                                                        <input asp-for="PeriodoMantenimiento" type="radio" name="PeriodoMantenimiento" value="3"
+                                                               class="d-inline-flex border-radio_buttons"  />Semanal
+                                                    </label>
+                                                    <label style="color:#6c757d;">
+                                                        <input asp-for="PeriodoMantenimiento" type="radio" name="PeriodoMantenimiento" value="1"
+                                                               class="d-inline-flex border-radio_buttons" />Mensual
+                                                    </label>
+                                                    <label style="color:#6c757d;">
+                                                        <input asp-for="PeriodoMantenimiento" type="radio" name="PeriodoMantenimiento" value="2"
+                                                               class="d-inline-flex border-radio_buttons" />Anual
+
+                                                    </label>
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <hr>
+
+                                        <!--SECCION DE COMISION-->
+                                        <label for="comisión" class="flex-column">
+                                            <h5 class=" ms-1 text-black">Comisión</h5>
+                                            <p class="text-success ms-3 my-2" style="max-width: 37%;"> </p>
+                                        </label>
+                                        <div class=" d-flex justify-content-between  mt-lg-0 align-content-between ">
+
+                                            <div class="col d-inline-flex  " style="margin-left:18px;">
+                                                <div class=" form-group  mt-0">
+                                                    <label for="precio" class="control-label color_letter2 ">
+                                                        <h6 class="mb-3">Porcentaje de comisión</h6>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-percent"></i></span>
+                                                        </div>
+
+                                                        <input id="comision" type="number" class="form-control NobtnNumber" step="0.01" min="0" pattern="\d+(\.\d{1,2})?">
+
+                                                        <input asp-for="porcentaje" class="d-none" />
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col  " id="comisionOpcion" style="display:none;">
+                                                <div class="form-group mt-0">
+                                                    <label for="n_propiedad" class=" control-label color_letter2">
+                                                        <h6 class="mb-3">Meses de comisión</h6>
+                                                    </label>
+
+                                                    <input id="mesesComision" type="number" class="mt-2 form-control NobtnNumber w-75" step="0.01" min="0" pattern="\d+(\.\d{1,2})?" />
+
+                                                    <input asp-for="mesesTotal" class="d-none" />
+
+                                                </div>
+                                            </div>
+
+                                            <!--Comision Pactada-->
+                                            <div class="col " id="">
+                                                <div class="form-group mt-0">
+                                                    <label for="n_propiedad" class=" control-label color_letter2">
+                                                        <h6 class="mb-3">Comisión pactada</h6>
+                                                    </label>
+                                                    <input id="comisionPactadaInput" type="number" class="mt-2 form-control NobtnNumber w-75" step="0.01" min="0" pattern="\d+(\.\d{1,2})?" value="" />
+                                                    <input asp-for="comisionPactada" class="d-none" value="0" />
+
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="d-block mx-auto user-select-none form-group">
+
+                                                <label for="n_propiedad" class=" control-label color_letter2 flex-column">
+                                                    <p class="text-danger txtcomision"></p>
+
+                                                    <h6 class="label-orange text-center mb-0 pt-1 pb-1 w-100 ">Total de comisión</h6>
+
+                                                </label>
+                                                <div class="bg-white  rounded-bottom">
+                                                    <h6 class="text-center d-flex justify-content-center">
+                                                        <i class="fa-solid fa-coins color_orange d-flex ms-2  align-items-center me-1"></i>
+                                                        <input id="comisionTotal" type="text" min="0" class="form-control NobtnNumber user-select-none" onkeypress="return event.charCode >= 48 && event.charCode <= 57" style="width:90%;" readonly value="" /><!--required-->
+                                                        <input class="d-none" value="" type="text" id="TotalComision" name="TotalComision" />
+
+                                                    </h6>
+
+                                                </div>
+
+
+
+                                            </div>
+                                            <p class="mensaje-comision msnComision" style="margin:  -8px 52px 22px 13px;">Recuerda que recibirás el 75% de la comisión generada en la operación</p>
+                                        </div>
+                                        <hr>
+
+                                        <label for="">
+                                            <h5 class="ms-1 text-black">Descripción</h5>
+                                        </label>
+                                        <div class=" d-inline  ms-1 ">
+                                            <textarea asp-for="Descripcion" name="descripcion" id="descripcion" class="size-text-area2" placeholder="Describe tu propiedad mínimo con 250 caracteres" oninput="validarTextarea()" required></textarea>
+                                        </div><!--required-->
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="tab-pane" id="direccion">
+                                    <div class="row">
+                                        <label for="direccion">
+                                            <h5 class="text-black">Dirección</h5>
+                                        </label>
+                                        <!--row 1 -->
+                                        <div class=" d-flex justify-content-between">
+
+                                            <div class="d-lg-inline-block me-3 " style="margin-left:1.5rem;">
+                                                <div class="d-inline form-group ">
+                                                    <label for="c.p" class=" control-label color_letter2">
+                                                        <h6>C.P.</h6>
+                                                    </label>
+                                                    <input type="text" asp-for="CP" name="CP" min="0" id="CP" class="form-control NobtnNumber" requiered onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+
+
+                                                    <span class="d-none" id="CPInvalid"> Introduce un CP que sea valido</span>
+
+                                                    @*
+                                                    <input type="number"  min="0" id="c.p" class="d-none form-control NobtnNumber" requiered/>
+                                                    *@
+                                                </div>
+
+                                            </div>
+
+                                            <div class="d-lg-inline-block me-3 size-nombre-calle ">
+                                                <div class="d-inline form-group ">
+                                                    <label for="n_calle" class=" control-label color_letter2">
+                                                        <h6>Nombre de la calle</h6>
+                                                    </label>
+                                                    <input asp-for="Calle" name="Calle" type="text" id="n_calle"
+                                                           class="form-control" required /><!--required-->
+                                                </div>
+                                            </div>
+
+                                            <div class="d-lg-inline-block  ">
+                                                <div class="d-inline form-group ">
+                                                    <label for="n_exterior" class=" control-label color_letter2">
+                                                        <h6>No. Ext.</h6>
+                                                    </label>
+                                                    <input asp-for="NoExt" type="text" id="n_exterior"
+                                                           class="form-control NobtnNumber size-numeros-ext w-75" required /><!--required-->
+                                                </div>
+                                            </div>
+
+                                            <div class="d-lg-inline-block me-3">
+                                                <div class="d-inline form-group ">
+                                                    <label for="n_interior" class=" control-label color_letter2">
+                                                        <h6>No. Int.</h6>
+                                                    </label>
+                                                    <input asp-for="NoInt" type="text" id="n_interior"
+                                                           class="form-control NobtnNumber size-numeros-ext w-75" />
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                        <!--row 2 colonia/ alcaldia o municipio / estado o ciudad / pais-->
+                                        <div class="mx-2 d-inline-flex justify-content-between mt-4 row row-cols-4">
+
+                                            <!--colonia-->
+                                            <div class=" col form-group label-floating">
+
+                                                <label for="colonia" class=" control-label color_letter2">
+                                                    <h6>Colonia</h6>
+                                                </label>
+
+
+                                                <select asp-for="Colonia" id="Colonia" class="form-control longitudColonia" required>
+                                                    <option value="">Selecciona una colonia</option>
+                                                </select>
+
+                                                <input type="text" asp-for="Colonia" name="Colonia" id="colonia" class="d-none form-control"
+                                                       placeholder=" " required /><!--required-->
+
+                                                <input asp-for="IDcolonia" class="d-none" id="IDcolonia" value="" />
+
+
+                                            </div>
+
+                                            <!--alcaldia o municipio-->
+                                            <div class="d-inline-flex col form-group label-floating flex-column">
+                                                <label for="alc-muni" class=" control-label color_letter2">
+                                                    <h6>Alcaldía o Municipio</h6>
+                                                </label>
+                                                <input type="text" asp-for="Municipio" name="Municipio" autocomplete="off" id="alc-municipio" class="form-control" required />
+                                                <input type="text" name="Municipio" id="alc-muni" class="d-none form-control" required />
+
+                                            </div>
+                                            <!--Estado o Ciudad-->
+                                            <div class="d-inline-flex col form-group label-floating flex-column">
+                                                <label for="estado" class=" control-label color_letter2">
+                                                    <h6>Estado o Ciudad</h6>
+                                                </label>
+                                                <input type="text" asp-for="Estado" name="Estado" id="estado" class="form-control" required /><!--required-->
+
+                                            </div>
+                                            <!--pais-->
+                                            <div class="d-inline-flex col form-group label-floating flex-column">
+                                                <label for="pais" class=" control-label color_letter2">
+                                                    <h6>País</h6>
+                                                </label>
+                                                <input type="text" asp-for="Pais" name="Pais" id="pais" class="form-control" required style="width:77%;" /><!--required-->
+                                            </div>
+
+                                            <div class="d-none">
+                                                <div class="col-md-4">
+                                                    <input type="text" asp-for="txtLat" name="txtLat" id="txtLat" class="form-control" placeholder="latitude"
+                                                           style="visibility: hidden; overflow: hidden; display: none;" required><!--required-->
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" asp-for="txtLng" name="txtLng" id="txtLng" class="form-control" placeholder="longitud"
+                                                           style="visibility: hidden; overflow: hidden; display: none;" required><!--required-->
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <!--row 3 direccion completa-->
+                                        <div class="input-group mt-3 ms-3 flex-column">
+                                            <label for="Direccion completa" class="color_letter2">
+                                                <h6>Dirección completa</h6>
+                                            </label>
+
+
+                                            <div class="row">
+
+
+                                                <div class="   col-7">
+
+                                                    <input type="text" asp-for="DireccionC" name="DireccionC" id="direccion_completa" class="form-control me-2 w-100 " readonly /><!--required-->
+                                                </div>
+
+
+                                                <label class="color_letter2 col-4  custom-checkbox">
+                                                    <input class="shadow-none" type="checkbox" id="cambiarDireccion" />
+
+                                                    <p class="ms-2   d-flex justify-content-center align-items-center"> Cambiar la dirección al mover el pin <i class="fa-solid fa-location-dot ms-2 me-2 pin-brand-color "></i></p>
+
+                                                </label>
+                                            </div>
+
+
+
+                                        </div>
+
+
+                                    </div>
+                                    <div class="input-group mt-3">
+                                        <div class="input-group mt-3" id="map" style="height:350px"></div>
+                                    </div>
+
+                                </div>
+
+
+                                <!--aqui comienza la pestaña SUPERFICIE-->
+                                <div class="tab-pane" id="superficie">
+                                    <div class="row">
+
+                                        <label for="superficie" class="fw-bold  ms-2">
+                                            <h5 class="text-black">Superficie</h5>
+                                        </label>
+                                        <br>
+                                        <div class="justify-content-between row row-cols-4 mt-3 mx-3">
+
+                                            <div class="d-flex col flex-column flex-column form-group label-floating is-empty">
+
+                                                <label for="n_interior" class=" control-label color_letter2">
+                                                    <h6>Terreno</h6>
+                                                </label>
+                                                <input type="text" asp-for="Superficie" name="Superficie" min="0" id="Superficieval"
+                                                       class="form-control NobtnNumber text-center me-3" pattern="[0-9]+(\.[0-9]+)?" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 46" required />
+                                                @Html.DropDownListFor(model => model.SuperficieUMedida, new
+                                                SelectList(Model.UMedidaL,"IDUm","UnidadMedida"), "-- Unidad medida --",new
+                                                {@class="size-select2 form-control text-center me-2 w-100 my-0", @id="UnidadSuperficie", required = "required"})
+                                            </div>
+
+                                            <div class="d-flex col flex-column form-group label-floating is-empty">
+                                                <label for="n_interior" class=" control-label color_letter2" style="margin-top: 0.6rem;">
+                                                    <h6>Construcción</h6>
+                                                </label>
+                                                <input type="text" asp-for="SuperficieContruccion" name="SuperficieContruccion" min="0" id="SuperficieContruccion"
+                                                       class="form-control NobtnNumber text-center ms-2" pattern="[0-9]+(\.[0-9]+)?" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 46" required />
+                                                @Html.DropDownListFor(model => model.SuperficieContruccionUMedida, new
+                                                SelectList(Model.UMedidaL,"IDUm","UnidadMedida"), "-- Unidad medida --",new
+                                                {@class="size-select2   form-control text-center ms-2 w-100  my-0",  @id="UnidadConstruccion",required = "required"})
+                                            </div>
+
+                                            <div class="d-flex col flex-column form-group label-floating is-empty">
+                                                <label for="n_interior" class=" control-label color_letter2">
+                                                    <h6>Antigüedad (años)</h6>
+                                                </label>
+                                                <input type="text" asp-for="Antiguedad" name="antiguedad" id="valueantiguedad" min="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                                       class=" form-control me-3 NobtnNumber text-center" required><!--required-->
+
+                                            </div>
+
+                                            <div class="d-flex col flex-column borderadio form-group label-floating is-empty">
+                                                <label for="uso_de_suelo" class=" control-label color_letter2 ">
+                                                    <h6>Uso de suelo</h6>
+                                                </label>
+
+                                                @Html.DropDownListFor(model => model.UsoSuelo, new
+                                                SelectList(Model.SueloL,"IDSuelo","Suelo"), "-- Uso de suelo --",new
+                                                {@class="size-select3 mt-suelo me-5 form-control   text-center ", @required = "required" , style = "margin-top:2px;"})
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <!--aqui comienza CARACTERISTICAS-->
+                                <div class="tab-pane" id="caracteristicas">
+
+                                    <!--ACCORDION start here -->
+                                    <div class="row" style="margin-left:1rem;">
+                                        <label for="caracteristicas" class="fw-bold">
+                                            <h5 class="text-black ms-2">Características</h5>
+                                        </label>
+                                        <!---item 1-->
+                                        <div id="accordion " class="accordion ms-3">
+                                            <div class="card m-b-0 bg-transparent">
+
+                                                <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseOne">
+                                                    <a class="card-title color_letter2" style="color:#6C757D">Principales</a>
+                                                </div>
+
+                                                <div class="card-block collapse text-aling-left fs-8 " id="collapseOne" style="max-height:fit-content">
+                                                    <div class="row row-cols-3 mt-3 ms-4 " style="margin: 0 66px;">
+                                                        <!--estimade desarrollador BACK-END: todas las cosas que pongas
+                                                            en este div se acomodaran dinamicamente :)
+                                                        -->
+                                                        @for (var i = 0; i < Model.CaracteristicasL.Count; ++i)
+                                                        {
+                                                            if (Model.CaracteristicasL[i].TipoCaract == "Principales" && Model.CaracteristicasL[i].tipoSelect == "num")
+                                                            {
+                                                                <div class="d-inline-flex ms-4 me-4 mb-3 form-group">
+                                                                    @Html.TextBoxFor(model => model.CaracteristicasL[i].Cantidad, new {@class = "text-center caracteriticasGenerales form-control ", @id=@Model.CaracteristicasL[i].Caracteristica, maxlength = 3, oninput="soloNumeros(this)" })
+                                                                    @Html.HiddenFor(model => model.CaracteristicasL[i].IDCaracteristica)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasL[i].tipoSelect)
+                                                                    <label for="" class="ms-2 color_letter2 control-label fs-6 align-items-center">
+                                                                        @Html.DisplayFor(model => model.CaracteristicasL[i].Caracteristica)
+                                                                    </label>
+                                                                </div>
+                                                            }
+                                                        }
+                                                        <!--hasta aqui el dinamismo-->
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--item 2 -->
+                                        <div id="accordion" class="accordion ms-3">
+                                            <div class="card m-b-0 bg-transparent">
+                                                <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseTwo">
+                                                    <a class="card-title color_letter2" style="color:#6C757D">Generales</a>
+                                                </div>
+
+                                                <div class="card-block collapse" id="collapseTwo" style="max-height:fit-content">
+                                                    <div class="row row-cols-4 mt-3 ms-4">
+
+                                                        @for (var i = 0; i < Model.CaracteristicasL.Count; ++i)
+                                                        {
+                                                            if (Model.CaracteristicasL[i].TipoCaract == "Generales" && Model.CaracteristicasL[i].tipoSelect == "check")
+                                                            {
+                                                                <div class="d-inline-flex ms-4 me-4 mb-3 ">
+                                                                    @Html.CheckBoxFor(model => model.CaracteristicasL[i].isSelected, new {@class = "caracteriticasGeneralesJS  size-adicionales", @id=@Model.CaracteristicasL[i].Caracteristica})
+                                                                    @Html.HiddenFor(model => model.CaracteristicasL[i].IDCaracteristica)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasL[i].tipoSelect)
+
+                                                                    <label for="" class="ms-2 color_letter2">
+                                                                        @Html.DisplayFor(model => model.CaracteristicasL[i].Caracteristica)
+                                                                    </label>
+
+                                                                </div>
+                                                            }
+                                                        }
+                                                        <!--termina acomodado dinamico-->
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!--item 3-->
+                                        <div id="accordion" class="accordion ms-3">
+                                            <div class="card m-b-0 bg-transparent">
+                                                <div class="card-header collapsed collapsible2 " data-toggle="collapse" data-patent="#accordion" href="#collapseThree">
+                                                    <a class="card-title color_letter2" style="color:#6C757D">Servicios</a>
+                                                </div>
+                                                <div class="card-block collapse fSizeDireciones" id="collapseThree" style="max-height:fit-content">
+                                                    <div class="row row-cols-4 mt-3 ms-4">
+                                                        <!--estimade desarrollador BACK-END: todas las cosas que pongas
+                                                            en este div se acomodaran dinamicamente :)
+                                                        -->
+                                                        @for (var i = 0; i < Model.CaracteristicasL.Count; ++i)
+                                                        {
+                                                            if (Model.CaracteristicasL[i].TipoCaract == "Servicios" && Model.CaracteristicasL[i].tipoSelect == "check")
+                                                            {
+                                                                <div class="d-inline-flex ms-4 me-4 mb-3 ">
+                                                                    @Html.CheckBoxFor(model => model.CaracteristicasL[i].isSelected, new {@class = " caracteristicasExteriores  size-adicionales", @id=@Model.CaracteristicasL[i].Caracteristica})
+                                                                    @Html.HiddenFor(model => model.CaracteristicasL[i].IDCaracteristica)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasL[i].tipoSelect)
+
+                                                                    <label for="" class="ms-2 color_letter2">
+                                                                        @Html.DisplayFor(model => model.CaracteristicasL[i].Caracteristica)
+                                                                    </label>
+
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--item 4 -->
+                                        <div id="accordion" class="accordion ms-3">
+                                            <div class="card m-b-0 bg-transparent">
+                                                <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseFour">
+                                                    <a class="card-title color_letter2" style="color:#6C757D">Exteriores</a>
+                                                </div>
+                                                <div class="card-block collapse" id="collapseFour" style="max-height:fit-content">
+                                                    <div class="row row-cols-4 mt-3 ms-4">
+                                                        <!--estimade desarrollador BACK-END: todas las cosas que pongas
+                                                            en este div se acomodaran dinamicamente :)
+                                                        -->
+                                                        @for (var i = 0; i < Model.CaracteristicasL.Count; ++i)
+                                                        {
+                                                            if (Model.CaracteristicasL[i].TipoCaract == "Exteriores" && Model.CaracteristicasL[i].tipoSelect == "check")
+                                                            {
+                                                                <div class="d-inline-flex ms-4 me-4 mb-3 ">
+                                                                    @Html.CheckBoxFor(model => model.CaracteristicasL[i].isSelected, new {@class = " caracteristicasAmbientes size-adicionales", @id=@Model.CaracteristicasL[i].Caracteristica})
+                                                                    @Html.HiddenFor(model => model.CaracteristicasL[i].IDCaracteristica)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasL[i].tipoSelect)
+
+                                                                    <label for="" class="ms-2 color_letter2">
+                                                                        @Html.DisplayFor(model => model.CaracteristicasL[i].Caracteristica)
+                                                                    </label>
+
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--item 5-->
+                                        <div id="accordion" class="accordion ms-3">
+                                            <div class="card m-b-0 bg-transparent">
+                                                <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseFive">
+                                                    <a class="card-title color_letter2" style="color:#6C757D">Ambientes</a>
+                                                </div>
+                                                <div class="card-block collapse" id="collapseFive" style="max-height:fit-content">
+                                                    <div class="row row-cols-4 mt-3 ms-4">
+                                                        @for (var i = 0; i < Model.CaracteristicasL.Count; ++i)
+                                                        {
+                                                            if (Model.CaracteristicasL[i].TipoCaract == "Ambientes " && Model.CaracteristicasL[i].tipoSelect == "check")
+                                                            {
+                                                                <div class="d-inline-flex ms-4 me-4 mb-3 ">
+                                                                    @Html.CheckBoxFor(model => model.CaracteristicasL[i].isSelected, new {@class = "  size-adicionales", @id=@Model.CaracteristicasL[i].Caracteristica})
+                                                                    @Html.HiddenFor(model => model.CaracteristicasL[i].IDCaracteristica)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasL[i].tipoSelect)
+                                                                    <label for="" class="ms-2 color_letter2">
+                                                                        @Html.DisplayFor(model => model.CaracteristicasL[i].Caracteristica)
+                                                                    </label>
+
+                                                                </div>
+                                                            }
+                                                        }
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--item 6-->
+                                        <div id="accordion" name="carctAdicionales" class="accordion ms-3">
+                                            <div class="card m-b-0 bg-transparent">
+                                                <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseSix">
+                                                    <a class="card-title color_letter2" style="color:#6C757D">Adicionales</a>
+                                                </div>
+                                                <div class="card-block collapse" id="collapseSix" style="max-height:fit-content">
+                                                    <div class="row row-cols-3 mt-3 ms-4">
+                                                        @for (var i = 0; i < Model.CaracteristicasL.Count; ++i)
+                                                        {
+                                                            if (Model.CaracteristicasL[i].TipoCaract == "Ambientes " && Model.CaracteristicasL[i].tipoSelect == "num")
+                                                            {
+                                                                <div class="d-inline-flex ms-4 me-4 mb-3 form-group">
+                                                                    @Html.TextBoxFor(model => model.CaracteristicasL[i].Cantidad, new {@class = "caracteristicasAdicionales text-center form-control", @id=@Model.CaracteristicasL[i].Caracteristica, maxlength = 3, oninput="soloNumeros(this)" })
+                                                                    @Html.HiddenFor(model => model.CaracteristicasL[i].IDCaracteristica)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasL[i].tipoSelect)
+                                                                    <label for="" class="ms-2 color_letter2 control-label fs-6 align-items-center">
+                                                                        @Html.DisplayFor(model => model.CaracteristicasL[i].Caracteristica)
+                                                                    </label>
+
+                                                                </div>
+                                                            }
+                                                        }
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--comienza la pestaña DOCUMENTOS-->
+                                <div class="tab-pane" id="documentos">
+                                    <div class="row">
+                                        <label for="documentos" class=" ms-lg-2">
+                                            <h5 class="text-black">Fotografías de la propiedad</h5>
+                                        </label>
+                                        <label for="documentos" class=" color_letter2 ms-lg-2">
+                                            <h6>Por favor, adjunta un <b class="text-danger">mínimo de 5 fotografías </b> y, si es posible, hasta 20 imágenes</h6>
+                                        </label>
+                                        <div class="container-fluid d-flex justify-content-center px-5">
+                                            <section id="Images" class="images-cards">
+                                                <div id="imagenesLista" class="row row-cols-6">
+                                                    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-xs-12"
+                                                         id="add-photo-container">
+                                                        <div class="add-new-photo first" id="add-photo">
+                                                            <i class="fa-solid fa-file-image ms-5 mt-4"></i>
+
+                                                            <br>
+                                                            <div class="">
+                                                                <h6 class=" size-text-add-photo  text-center">
+                                                                    Sube tus
+                                                                    fotografías
+                                                                </h6>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <input asp-for="Files" type="file" multiple id="add-new-photo" accept="image/jpeg,image/jpg,image/png">
+
+                                                        <input asp-for="OrdenImagenes" multiple accept="">
+
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                            </section>
+
+                                        </div>
+                                        <label for="documentos" class=" ms-lg-2">
+                                            <h5 class="text-black">Documentos</h5>
+                                        </label>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <div class=" my-custom-scrollbar table-responsive table-height">
+                                                    <table class="table border-gray h-100">
+
+                                                        <tbody>
+                                                            @{
+                                                                int indice = 1;
+                                                            }
+                                                            <tr class="tabla-hover">
+                                                                <th scope="row">1</th>
+                                                                <td colspan="2"><h6 class="font-size-visualizador">Pago del último predial</h6> </td>
+                                                                <td>
+                                                                    <div class="fileContainer2 input-group btn" title="Subir documento">
+                                                                        <i class="fa-solid fa-file-arrow-up size-icon ">
+                                                                            <input asp-for="Predial" type="file" name="Predial" id="archivoInput_1" class=" position-absolute top-0 start-0 claseBtnTruco"
+                                                                                   onchange="SubirVisualizar(1)">
+
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3  input-group btn" title="Borrar">
+                                                                        <input type="button" name="d_archivo" id="archivoInput_delete_1" onclick="borrarArchivo(1)" class="eliminarprueba  position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-trash-can size-icon "></i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn" title="Visualizar">
+                                                                        <i class="fa-solid fa-eye size-icon ">
+                                                                            <input type="button" name="v_archivo4" id="" onclick="visorExt(1)" class=" position-absolute top-0 start-0 claseBtnTruco">
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+
+
+
+                                                                    <input id="statusDoc_@indice" value="28" class="d-none">
+                                                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+
+
+                                                                </td>
+
+
+                                                            </tr>
+                                                            <tr class="tabla-hover">
+                                                                <th scope="row">2</th>
+                                                                <td colspan="2"><h6 class="font-size-visualizador">Escritura anterior</h6> </td>
+                                                                <td>
+                                                                    <div class="fileContainer2 input-group btn" title="Subir archivo">
+                                                                        <i class="fa-solid fa-file-arrow-up size-icon ">
+                                                                            <input asp-for="Escritura" type="file" name="Escritura" id="archivoInput_2" onchange="SubirVisualizar(2)" class="position-absolute top-0 start-0 claseBtnTruco">
+
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3  input-group btn" title="Borrar">
+                                                                        <input type="button" name="d_archivo" id="archivoInput_delete_2" onclick="borrarArchivo(2)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-trash-can size-icon "></i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn" title="Visualizar">
+
+
+                                                                        <i class="fa-solid fa-eye size-icon ">
+                                                                            <input type="button" name="v_archivo4" id="" onclick="visorExt(2)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+
+                                                                    @{
+                                                                        indice = 2;
+                                                                    }
+
+
+                                                                    <input id="statusDoc_@indice" value="28" class="d-none">
+                                                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr class="tabla-hover">
+                                                                <th scope="row">3</th>
+                                                                <td colspan="2"><h6 class="font-size-visualizador">Régimen de condominio</h6></td>
+                                                                <td>
+                                                                    <div class="fileContainer2 input-group btn" title="Subir archivo">
+                                                                        <i class="fa-solid fa-file-arrow-up size-icon ">
+                                                                            <input asp-for="Regimen" type="file" name="Regimen" id="archivoInput_3" onchange="SubirVisualizar(3)" class=" position-absolute top-0 start-0 claseBtnTruco">
+
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn" title="Borrar">
+                                                                        <input type="button" name="d_archivo2" id="archivoInput_delete_3" onclick="borrarArchivo(3)" class="eliminarprueba  position-absolute top-0 start-0 claseBtnTruco ">
+                                                                        <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+
+                                                                    <div class="fileContainer3 input-group btn " title="Visualizar">
+
+                                                                        <i class="fa-solid fa-eye  size-icon">
+                                                                            <input type="button" name="v_archivo4" id="" onclick="visorExt(3)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+
+                                                                    @{
+                                                                        indice = 3;
+                                                                    }
+
+
+
+                                                                    <input id="statusDoc_@indice" value="28" class="d-none">
+                                                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr class="tabla-hover">
+                                                                <th scope="row">4</th>
+                                                                <td colspan="2"><h6 class="font-size-visualizador">Certificado de no gravamen</h6></td>
+                                                                <td>
+                                                                    <div class="fileContainer2 input-group btn" title="Subir archivo">
+                                                                        <i class="fa-solid fa-file-arrow-up size-icon ">
+                                                                            <input asp-for="NoGravamen" type="file" name="NoGravamen" id="archivoInput_4" onchange="SubirVisualizar(4)" class=" position-absolute top-0 start-0 claseBtnTruco" />
+
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn" title="Borrar">
+                                                                        <input type="button" name="d_archivo3" id="archivoInput_delete_4" onclick="borrarArchivo(4)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+
+                                                                    <div class="fileContainer3 input-group btn" title="Visualizar">
+
+                                                                        <i class="fa-solid fa-eye  size-icon">
+                                                                            <input type="button" name="v_archivo4" id="" onclick="visorExt(4)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+
+                                                                    @{
+                                                                        indice = 4;
+                                                                    }
+
+
+
+                                                                    <input id="statusDoc_@indice" value="28" class="d-none">
+                                                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr class="tabla-hover">
+                                                                <th scope="row">5</th>
+                                                                <td colspan="2"><h6 class="font-size-visualizador">Certificado de no adeudo</h6></td>
+                                                                <td>
+                                                                    <div class="fileContainer2 input-group btn" title="Subir archivo">
+                                                                        <i class="fa-solid fa-file-arrow-up size-icon">
+                                                                            <input asp-for="NoAdeudo" type="file" name="NoAdeudo" id="archivoInput_5" onchange="SubirVisualizar(5)" class=" position-absolute top-0 start-0 claseBtnTruco">
+
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn" title="Borrar">
+                                                                        <input type="button" name="d_archivo4" id="archivoInput_delete_5" onclick="borrarArchivo(5)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-trash-can size-icon "></i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn" title="Visualizar">
+
+                                                                        <i class="fa-solid fa-eye size-icon">
+                                                                            <input type="button" name="v_archivo4" id="" onclick="visorExt(5)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+
+                                                                    @{
+                                                                        indice = 5;
+                                                                    }
+
+
+
+                                                                    <input id="statusDoc_@indice" value="28" class="d-none">
+                                                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                                                </td>
+
+
+                                                            </tr>
+                                                            <tr class="tabla-hover">
+                                                                <th scope="row">6</th>
+                                                                <td colspan="2"><h6 class="font-size-visualizador">Avalúo</h6></td>
+                                                                <td>
+                                                                    <div class="fileContainer2 input-group btn" title="Subir documento">
+                                                                        <i class="fa-solid fa-file-arrow-up size-icon">
+                                                                            <input type="file" asp-for="Avaluo" id="archivoInput_6" onchange="SubirVisualizar(6)" class=" position-absolute top-0 start-0 claseBtnTruco">
+
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn" title="Borrar">
+                                                                        <input type="button" name="d_archivo4" id="archivoInput_delete_6" onclick="borrarArchivo(6)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-trash-can size-icon "></i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn" title="Visualizar">
+
+                                                                        <i class="fa-solid fa-eye size-icon ">
+                                                                            <input type="button" name="v_archivo4" id="" onclick="visorExt(6)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+
+                                                                    @{
+                                                                        indice = 6;
+                                                                    }
+
+
+
+                                                                    <input id="statusDoc_@indice" value="28" class="d-none">
+                                                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+
+                                                                </td>
+
+
+                                                            </tr>
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                                <div class="input-group d-flex justify-content-start">
+                                                </div>
+                                            </div>
+                                            <div class="col border">
+                                                <div class="input-group d-flex mx-auto">
+                                                    <div id="visorArchivo"  class="size-file d-flex justify-content-center mx-auto">
+                                                      <div id="id_1" class="juanito_1">
+                                                            <iframe id="visualizador" src="" width="270px" height="400px" frameborder="0" allowfullscreen></iframe>
+                                                        </div>
+                                                        <!--Paolo acuerdate del iframe  :)-->
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!--comienza la pestaña PROPIETARIO-->
+                                <div class="tab-pane" id="propietario">
+                                    <div class="row">
+                                        <label for="documentos" class=" ms-lg-1">
+                                            <h5 class="text-black">Propietario</h5>
+                                        </label>
+
+                                        <div class="container-fluid  mb-4">
+                                            <div class="">
+                                                <div class="row row-cols-2 mt-4 ms-2">
+
+                                                    <div class="col d-flex  flex-column">
+
+                                                        <label for="correo" class=" control-label color_letter2">
+                                                            <h6>Correo</h6>
+                                                        </label>
+                                                        <div class="form-group"><input type="string" name="email" id="email" class="form-control" value=""><span class="material-input"></span></div>
+                                                    </div>
+                                                    <div class="col d-flex">
+                                                        <input type="button" class="correoVerif btn btn-orange-agenda" name="correoVerif " id="btncorreo" value="Verificar">
+                                                        <label id="labelVerif" class="d-none text-success posicionMSN">Propietario verificado</label>
+                                                        <label id="labelNoVerif" class="d-none text-danger posicionMSN">Propietario no existente, por favor llene los campos correspondientes</label>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="d-flex d-none mt-2 justify-content-lg-between justify-content-around row row-cols-4" id="datosPropietarioNoExistente" style="margin: 3px 11px;">
+
+
+                                                <div class="col d-inline-flex">
+                                                    <div class="d-inline form-group  ">
+                                                        <label for="nombre_p" class=" control-label color_letter2">
+                                                            <h6 style="color:#6C757D;">Nombre</h6>
+                                                        </label>
+
+                                                        <input asp-for="Nombre" type="string" name="Nombre" id="nombre"
+                                                               class="form-control" required />
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col d-inline-flex">
+                                                    <div class="d-inline form-group ">
+                                                        <label for="a_paterno" class=" control-label color_letter2">
+                                                            <h6>Apellido paterno</h6>
+                                                        </label>
+                                                        <input asp-for="apellidoPaterno" type="string" name="apellidoPaterno" id="apellidoPaterno"
+                                                               class="form-control" required /><!--required-->
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col d-inline-flex">
+                                                    <div class="d-inline form-group ">
+                                                        <label for="a_materno" class=" control-label color_letter2">
+                                                            <h6>Apellido materno</h6>
+                                                        </label>
+                                                        <input asp-for="apellidoMaterno" type="string" name="apellidoMaterno" id="apellidoMaterno"
+                                                               class="form-control" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col d-inline-flex">
+                                                    <div class="d-inline form-group ">
+                                                        <label for="telefono" class=" control-label color_letter2">
+                                                            <h6>Teléfono</h6>
+                                                        </label>
+                                                        <div class="d-inline-flex">
+                                                            <select class="d-flex form-control" style="width: 90px;">
+                                                                <option value="+52" class="flag-icon flag-icon-mx">+52 (MX)</option>
+                                                                <option value="+54" class="flag-icon flag-icon-mx">+54 (ARG)</option>
+                                                                <option value="+57" class="flag-icon flag-icon-gb">+57 (COL)</option>
+                                                                <option value="+53" class="flag-icon flag-icon-gb">+53 (CUB)</option>
+                                                                <option value="+1" class="flag-icon flag-icon-us">+1 (EE.UU)</option>
+                                                                <option value="+48" class="flag-icon flag-icon-us">+48 (PL)</option>
+                                                                <option value="+44" class="flag-icon flag-icon-gb">+44 (UK)</option>
+
+                                                            </select>
+                                                            <input asp-for="telefono" type="text" name="telefono" id="telefono"
+                                                                   class="form-control" min="0" maxlength="10" required /><!--required-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <input type="hidden" asp-for="PExistente" id="Existente"
+                                                       class="form-control" required />
+
+                                            </div>
+
+
+                                            @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin root") || (User.IsInRole("Mesa de control")) || (User.IsInRole("Contact Center"))))
+                                            {
+                                                <div>
+                                                    <div class="mt-5 ui-widget col d-flex  flex-column" style="margin: 3px 22px;">
+
+                                                        <label class="color_letter2">Ingrese el nombre del broker</label>
+                                                        <div class="d-flex flex-row">
+
+                                                            <div class="form-group ">
+
+                                                                <input class="form-control w-50 fw-normal" type="text" name="nombreBroker" id="nombreBroker" style="width: 300px!important" />
+                                                            </div>
+
+                                                            <label id="nombreBrokerLabel" class="d-none "></label>
+
+
+                                                        </div>
+
+                                                        <input class="d-none" id="emailBroker" asp-for="UserBId" />
+
+
+                                                    </div>
+
+                                                </div>
+
+
+
+
+
+                                            }
+
+
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                                <!--comienza la pestaña VISTA PREVIA-->
+                                <div class="tab-pane" id="vista_previa">
+                                    <div class="row">
+                                        <label for="">
+                                            <h4 class="text-black">Vista previa</h4>
+                                        </label>
+
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <!--calendario-->
+                                                <div class="col d-flex  ">
+
+                                                    <div class="caja-calendar ">
+                                                        <div class="d-flex mx-auto justify-content-center mt-3">
+                                                            <label for="">
+                                                                <h6 class=" color_letter2" style=" margin: -2px 0 0 0;">
+                                                                    Programa tu publicación en Rummet
+                                                                </h6>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class=" justify-content-center mt-2  d-flex">
+
+                                                            <input asp-for="FechaPublicacion" name="FechaPublicacion" type="date" id="fecha"
+                                                                   value="" class="w-75  border back_orange-calendar date-prog-agenda text-center ">
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                                <!--tarjeta de vista previa-->
+                                                <div class="col d-flex justify-content-start">
+                                                    <div class="caja-a-mp mb-3 mt-3  ms-lg-5 ms-md-4 h-auto ms-3 shadow position-relative row row-cols-1">
+                                                        <!--informacion principal de la tarjeta-->
+                                                        <div class="row card-main col-12 mb-3  d-flex  ms-1">
+                                                            <div class="col-6 mt-4 px-0">
+                                                                <div id="carouselExampleControlsmini" class="carousel slide-fade"
+                                                                     data-ride="carousel">
+
+                                                                    <div class="carousel-inner" id="lista_imgMini">
+                                                                    </div>
+
+
+                                                                    <a class="carousel-control-prev" href="#carouselExampleControlsmini" role="button"
+                                                                       data-slide="prev">
+                                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                        <span class="sr-only">Previous</span>
+                                                                    </a>
+                                                                    <a class="carousel-control-next" href="#carouselExampleControlsmini" role="button"
+                                                                       data-slide="next">
+                                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                        <span class="sr-only">Next</span>
+                                                                    </a>
+                                                                </div>
+
+                                                                <div class="d-flex justify-content-center mt-2 size-mp-name-main-house ">
+                                                                    <!--baños previa-->
+                                                                    <div class="side-2-header d-inline-flex me-2">
+                                                                        <i class="fa-solid fa-toilet me-1  text-orange size-mp-icons"></i>
+                                                                        <h6 for="" class=" ms-1 me-1 ssize-mp-name-icons" id="verBanos">@*1*@</h6>
+                                                                    </div>
+                                                                    <!--estacionamientos previa-->
+                                                                    <div class="side-2-header d-inline-flex me-1">
+                                                                        <i class="fa-solid fa-car-side ms-1  me-1 text-orange size-mp-icons"></i>
+                                                                        <h6 for="" class="ms-1 me-1 ssize-mp-name-icons" id="verEstacionamiento">@*2*@</h6>
+                                                                    </div>
+                                                                    <!--recamaras-->
+                                                                    <div class="side-2-header d-inline-flex">
+                                                                        <i class="fa-solid fa-bed ms-1  me-1 text-orange size-mp-icons"></i>
+                                                                        <h6 for="" class="ms-1 me-1 size-mp-name-icon" id="verRecamaras">@*4*@</h6>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <!--etiquetado de la tarjeta de vista previa-->
+                                                            <div class="col-5 text-cards ms-2 mt-2 position-relative">
+                                                                <div class="d-inline-flex  etiquetadoOperacion justify-content-between px-3">
+                                                                    <p class="px-1 text-white m-auto txtOperacion">
+                                                                    </p>
+                                                                </div>
+                                                                <div id="etiquetadoSM" class="d-flex etiquetadoSM justify-content-between title-cards-mp-depto">
+
+                                                                    <h6 class=" size-mp-cards mt-1 ms-1" id="verTipoProp"> @*Depto*@</h6>
+                                                                    <h6 class=" size-mp-cards mt-1 me-2 d-flex justify-content-center">
+                                                                        <i class="fa-solid fa-maximize size-mp-cards  mr-2"></i> <p id="verSuperficie" class="ms-1"></p>
+                                                                    </h6>
+                                                                </div>
+
+                                                                <div class=" d-inline-flex w-100" style="margin-top:38px;">
+                                                                    <h6 class="fw-bold ms-2 text-orange w-100" id="verPrecio" style="font-size:11px;">@*970,300*@</h6>
+                                                                </div>
+
+                                                                <div class="">
+                                                                    <h6 class="fw-bold ms-2 text-orange " id="verPrecio">@*970,300*@</h6>
+
+                                                                </div>
+
+                                                                <div class=" size-mp-name-main-house fw-bold ms-2 ">
+
+
+                                                                    <h6 class="size-mp-name-house fw-bold longitudDePrueba" id="verNombre">
+                                                                        @*Real del encanto*@
+                                                                    </h6>
+                                                                    
+                                                                </div>
+
+                                                                <div class="size-mp-name-main-house ">
+
+                                                                    <h6 class="mt-1 size-mp-name-house ms-2 mb-1  longitudDePruebaUbicacion" id="verUbicacion">@*Santa maria guadalupe la quebrada.*@</h6>
+                                                                </div>
+
+                                                                @*   <div class="size-mp-name-house">
+                                                                <h6 class="size-mp-name-house ms-2" id="verEstado"></h6>
+
+                                                            </div> *@
+
+                                                            <!--iconos-->
+                                                            <!--fin iconos-->
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!--botones de las tarjetas-->
+                                                    <div class="d-flex position-relative ms-2 row row-cols-2 ">
+                                                        <!--id de la tarjeta-->
+                                                        <div class="col-5 mt-2 d-flex  justify-content-center  size-mp-icons" style="margin: 0 47px 0px -25px;">
+
+                                                            <h6 class=" size-mp-text mx-auto">
+                                                                <i class="fa-solid fa-hashtag" style="color:darkorange;"></i>  20230428-2
+                                                            </h6>
+
+                                                        </div>
+
+                                                        <div class="col-7  d-inline-flex   row row-cols-2">
+                                                            <!--id de la propiedad-->
+                                                            <div class="col-8 d-inline-flex">
+                                                                <!-- <button type="button" class="btn btn_white-mp mt-1 "  style="pointer-events:none;">
+                                                                     <a class="" asp-controller="Ecommerce"
+                                                                        asp-action="PropiedadesVerMas" >
+                                                                         <h6 class="my-auto size-mp-text "
+                                                                             style="color:#ff7f40;">
+                                                                             Ver más
+                                                                         </h6>
+                                                                     </a>
+                                                                 </button>-->
+                                                                <div type="button" class="btn btn_white-mp mt-1 " id="btnNoHover" style="color:#ff7f40;pointer-events:none;">
+                                                                    Ver más
+                                                                </div>
+                                                            </div>
+
+                                                            <!--boton de mas informacion enla tarjeta-->
+                                                            <div class="col-2 d-inline-flex mt-1" style="color:#ff7f40;">
+                                                                <i class="fa-solid fa-circle-info"></i>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!--Aqui empieza la vista border del cuadro grande -->
+                                <div class=" vista-border-r  mt-3 ">
+
+                                    <div class="container-fluid">
+                                        <div class="shadow vista-border-r mt-5 backgr-contain border">
+                                            <div class="row bg-white">
+                                                <div class="col-lg-7 position-relative">
+                                                    <div class="d-inline-flex  etiquetadoOperacionXL justify-content-between px-3">
+                                                        <p class="px-1 text-white m-auto txtOperacion">
+                                                        </p>
+                                                    </div>
+                                                    <div id="etiquetadoXX" class="shadow d-flex etiquetadoXXClase ">
+                                                        <h6 class=" mx-auto my-auto" id="verTipoProp2">@*Departamento*@</h6>
+                                                    </div>
+                                                    <div id="carouselExampleFade" class="carousel slide-fade" data-ride="carousel">
+                                                        <div class="carousel-inner margin-t-imagen-s ms-3 mb-2" id="listaImagenes">
+                                                        </div>
+
+                                                        <a class="carousel-control-prev" href="#carouselExampleFade" role="button"
+                                                           data-slide="prev">
+                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Previous</span>
+                                                        </a>
+
+                                                        <a class="carousel-control-next" href="#carouselExampleFade" role="button"
+                                                           data-slide="next">
+                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Next</span>
+                                                        </a>
+                                                    </div>
+
+                                                    <div id="DespuesCarrusel" class="d-inline-flex ms-3 mt-1">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <div class=" d-flex justify-content-end mt-3">
+
+                                                        <div class="d-flex price-indicator shadow precioMcro">
+                                                            <h4 class="mx-auto my-auto fw-bold px-2 precioMcroContent" id="verPrecio2" style="font-size: 25px;">@*$1175,547,500 MXN*@</h4>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class=" d-flex color_orange">
+                                                        <div class="mt-3">
+
+                                                            <h4 class="longitudDePruebaXX" id="verNombre2">@*Espectacular casa en Fraccionamiento Maravillas*@</h4>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="d-inline-flex justify-content-between size-np-name-main-house ">
+
+                                                        <div class="side-2-header d-inline-flex">
+                                                            <i class="fa-solid fa-toilet color_orange ms-1  mt-1"></i>
+                                                            <h6 for="" class="ms-1 me-1" id="verBanos2" style="font-size:1.1em;"> @*1 Baño *@</h6>
+                                                        </div>
+                                                        <div class="d-inline-flex">
+                                                            <i class="fa-solid fa-car-side ms-2 me-1 color_orange mt-1"></i>
+                                                            <h6 for="" class="ms-1 me-1 " id="verEstacionamiento2" style="font-size:1.1em;"> @*2 Estacionamientos*@</h6>
+                                                        </div>
+                                                        <div class="d-inline-flex">
+                                                            <i class="fa-solid fa-bed ms-2 color_orange mt-1 "></i>
+                                                            <h6 for="" class="ms-1 me-1 " id="verRecamaras2" style="font-size:1.1em;"> @*4 Recamaras*@</h6>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    <div class="">
+
+                                                        <a class="color_letter2 text-black ms-3" style="font-size:15px;">Descripción </a>
+
+                                                        <p id="verDescripcion" class=" mt-2 descriptionVPrv"></p>
+                                                    </div>
+
+
+
+                                                    <!--ACCORDION VISTA PREVIA start here -->
+                                                    <div class="row">
+                                                        <!--item 2 -->
+                                                        <div id="accordion" class="accordion">
+                                                            <div class="card m-b-0 bg-transparent">
+                                                                <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseSeven">
+                                                                    <a class="color_letter2 text-black">Dirección</a>
+                                                                </div>
+
+                                                                <div class="card-block collapse mx-auto mt-2" id="collapseSeven" style="max-height:fit-content;  width: 23rem;">
+                                                                    <div class="row">
+                                                                        <div class="d-flex">
+                                                                            <i class="fa-solid fa-location-dot mr-2" style="color:#f4971c"></i>
+                                                                                <h6 class="font-size-collapse ms-2" id="verCalle"></h6>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                          
+
+
+                                                            <div class="input-group mt-3" id="map2" style="height:350px"></div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--item 3-->
+                                                <div id="accordion" class="accordion">
+                                                    <div class="card m-b-0 bg-transparent">
+                                                        <div class="card-header collapsed collapsible2 " data-toggle="collapse" data-patent="#accordion" href="#collapseEigth">
+                                                            <a class="color_letter2 text-black">Características </a>
+                                                        </div>
+                                                        <div class="card-block collapse" id="collapseEigth" style="max-height:fit-content">
+                                                            <div class="accordion-body row row-cols-2 mt-4">
+                                                                <p id="caracteristicasCollapsable">No existen características seleccionadas.</p>
+                                                                <div class="font-size-collapse" id="generalesDiv">
+                                                                    <h6 class="punto-vinetas">Generales</h6>
+                                                                    <ul id="caracteristicasSeleccionadasGenerales"></ul>
+                                                                </div>
+                                                                <div class="font-size-collapse" id="serviciosDiv">
+                                                                    <h6 class="punto-vinetas">Servicios</h6>
+                                                                    <ul id="caracteristicasSeleccionadasServicios"> </ul>
+                                                                </div>
+                                                                <div class="font-size-collapse" id="exterioresDiv">
+                                                                    <h6 class="punto-vinetas">Exteriores</h6>
+                                                                    <ul id="caracteristicasSeleccionadasExteriores">
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="font-size-collapse" id="ambientesDiv">
+                                                                    <h6 class="punto-vinetas">Ambientes</h6>
+                                                                    <ul id="caracteristicasSeleccionadasAmbientes"></ul>
+                                                                </div>
+                                                                <div class="font-size-collapse" id="adicionalesDiv">
+
+                                                                    <h6 class="punto-vinetas">Adicionales</h6>
+                                                                    <ul id="caracteristicasSeleccionadasAdicionales">
+                                                                        @*   <li id="verBodegas"></li>
+                                                                        <li id="verClosets"></li>
+                                                                        <li id="verElevadores"></li> *@
+                                                                    </ul>
+
+
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--item 4 -->
+                                                <div id="accordion" class="accordion">
+                                                    <div class="card m-b-0 bg-transparent">
+                                                        <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseNine">
+                                                            <a class="color_letter2 text-black">Superficie</a>
+                                                        </div>
+                                                        <div class="card-block collapse" id="collapseNine" style="max-height:fit-content">
+                                                            <div class="accordion-body d-flex justify-content-center mt-4">
+                                                                <div class="d-block mx-auto">
+
+                                                                    <h6 class=" size-mp-cards mt-0 ms-1 m-0" id="verTipoProp"> @*Depto*@</h6>
+                                                                    <h6 class="label-orange text-center">Antigüedad</h6>
+                                                                    <h6 class="text-center d-flex justify-content-center">
+                                                                        <i class="fa-solid fa-clock color_orange me-1"></i><p id="outputAntiguedad"></p>
+                                                                    </h6>
+                                                                </div>
+                                                                <div class="d-block mx-auto">
+                                                                    <h6 class="label-orange text-center">
+                                                                        Terreno
+                                                                    </h6>
+                                                                    <h6 class="text-center d-flex  justify-content-center">
+                                                                        <i class="fa-solid fa-maximize color_orange me-1"></i>
+                                                                        <p id="verSuperficie2"></p>@*10000m2*@
+                                                                    </h6>
+
+                                                                </div>
+                                                                <div class="d-block mx-auto">
+                                                                    <h6 class="label-orange text-center">Construcción</h6>
+                                                                    <h6 class="text-center d-flex justify-content-center">
+                                                                        <i class="fa-solid fa-maximize color_orange me-1"></i><p id="verConstruccion"></p>@*50m2*@
+                                                                    </h6>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class=" d-flex justify-content-evenly mt-2 mb-2">
+
+                                                    <h6 class=" size-mp-text mt-2" style="font-size:13px;">
+                                                                    <i class="fa-solid fa-hashtag" style="color:darkorange;"></i>  20230428-2
+                                                    </h6>
+
+                                                    <div class="btn-sugerencias-agendar ">
+                                                        Más información
+                                                        <i class=" ms-3 fa-solid fa-circle-info"></i>
+                                                    </div>
+                                                    <!--<a class="style-whatsapp text-orange ms-3  mt-1 ">
+                                                        <i class="fa-solid fa-circle-info"></i>
+                                                    </a>-->
+                                                </div>
+                                                <div class="d-flex justify-content-center my-4">
+                                                    <img src="~/img/imagenes__e-commerce/Boton_rummet-removebg-preview 1 (1).png" class="btnHipoteca mx-auto" style=" width: 307px;" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="wizard-footer">
+                <div class="pull-right d-flex justify-content-between">
+                    <input type='button' class='btn btn-previous btn-fill btn-dark-blue text-white btn-wd' name='Regresar' value='Regresar' />
+                                    <input type='button' class='btn btn-next btn-fill btn-warning  btn-wd' name='siguiente' value='Siguiente' onclick="verificaDesc()" />
+                    <input type='submit' id="btn-finalizar" class="btn btn-finish btn-fill btn-warning  btn-wd" name='finalizar' value='Finalizar' />
+                </div>
+
+                <div class="pull-right d-flex justify-content-end">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <!--Este es el form que nos hace falta poner -->
+            </form>
+        </div>
+    </div> <!-- wizard container -->
+</div>
+        </div><!-- fin del row -->
+    </div>
+</div>
+
+
+
+<script src="~/js/collapsable.js"></script>
+
+<!--Esta es la seccion de Scripts que corre el MAPS-->
+<script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALRWuVx6gxkmUDTEJNiigxwGBgcYBX00Y&libraries=places&callback=initMap">
+</script>
+
+
+<script src="~/js/googleMaps.js"></script>
+
+<!--Este es el CDN de SWEET ALERT -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<!--Estas dos lineas de codigo es para cargar el JQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+
+<script src="~/js/script.js"></script>
+<script src="~/js/archivo.js"></script>
+
+
+<script src="~/assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="~/js/invoice.js"></script>
+
+
+
+
+<!--   Core JS Files   -->
+
+<script src="~/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="~/assets/js/jquery.bootstrap.js" type="text/javascript"></script>
+
+
+<!--  Plugin for the Wizard -->
+<script src="~/assets/js/material-bootstrap-wizard.js"></script>
+
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+<script src="~/assets/js/jquery.validate.min.js"></script>
+
+
+@*
+para ordenar las imagenes  *@
+<!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+@*
+para comprimir las imagenes  *@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js"
+        integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<!--El autocomplete-->
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script src="~/js/guardarNuevaPropiedad.js"></script>
+<script src="~/js/bloquearBoton.js"></script>
+
+
+<script>
+    // Obtener el elemento
+    var SinToolTip = document.querySelectorAll(".fileContainer3");
+
+    for (elemento of SinToolTip) {
+        // Remover el atributo data-toggle
+        elemento.removeAttribute("data-toggle");
+
+        // Remover el atributo data-placement
+        elemento.removeAttribute("data-placement");
+    }
+</script>
+
+<script>
+    function validarTextarea() {
+        var textarea = document.getElementById("descripcion");
+        var contenido = textarea.value;
+        // La expresión regular permite letras, números, acentos, puntos, comas, dos puntos, punto y coma, paréntesis y la letra "ñ".
+        var patron = /^[a-zA-Z0-9áéíóúÁÉÍÓÚ.,;:;()ñ\s\n\r]+$/;
+
+        if (!patron.test(contenido)) {
+            textarea.value = contenido.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚ.,;:;()ñ\s\n\r]+/g, '');
+        }
+    }
+
+    function soloNumeros(input){
+        input.value = input.value.replace(/[^0-9]/g, '');
+    }
+
+</script>
+
+<!--funciones para el renderizado del modal-->
+<script src="~/js/modalFunciones.js"></script>
+
+
+
+<!--Este es el script del AJAX que carga la parte de verificar Usuario-->
+<script src="~/js/ajaxPropiedades.js" cache=true></script>
+<script src="~/js/comision.js"></script>
+
+<!--script de la fecha-->
+<script>
+    // Obtener el input de fecha
+    var inputFecha = document.getElementById("fecha");
+
+    // Obtener la fecha actual
+    var fechaActual = new Date();
+
+    fechaActual.setDate(fechaActual.getDate() + 1);  // Agregar un día a la fecha actual
+
+    var fechaMinima = fechaActual.toISOString().split("T")[0];    // Convertir la fecha actual en formato ISO
+
+    inputFecha.min = fechaMinima;// fecha mínima del input como un día después a la fehca actual
+
+</script>

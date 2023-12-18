@@ -1,0 +1,329 @@
+﻿@model AccesoModel;
+@{
+    ViewData["Title"] = "Rummet / Inicio de sección";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/StyleLogin.css">
+    <link rel="stylesheet" href="~/css/styless.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/ISOTIPO_RUMMET2.png">
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+    <title>Inicio de sesión</title>
+</head>
+
+
+
+<body>
+    <!--animacion de fondo-->
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <!--container general-->
+    <div class="container-lg contenedorGeneral mx-auto row ">
+        <div class="col-lg-8 col-sm-12  ">
+            <!--formulario-->
+            <div class="contenedorForm">
+                <h6 class="titlePrincipal fw-bold shadowtxt">Inicia sesión</h6>
+
+                <form asp-controller="Accesos" asp-action="Acceso" method="post" role="form" asp-route-returnurl="@ViewData["ReturnUrl"]">
+                    <div class="mb-lg-4 mb-md-2">
+                        <input asp-for="Email" type="email" class="inputFormulario" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Correo electrónico">
+                    </div>
+                    <div class="mb-lg-4 mb-md-2">
+
+                        <div class="password-input-container">
+                            <input asp-for="Password" type="password" class="inputFormulario " id="exampleInputPassword1" placeholder="Contraseña">
+                            <span class="password-toggle" onclick="togglePasswordVisibility()"><i class="far fa-eye"></i></span>
+                        </div>
+                    </div>
+
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {          
+                    <div class="alert alert-danger my-2 mx-auto">@ViewBag.ErrorMessage</div>
+                }
+                    <!--button-->
+                    <button type="submit" class="btn-send mx-auto"><h6 class="my-auto fw-bold ">Iniciar sesión</h6></button>
+
+
+
+
+                </form>
+
+
+                <a class="btnSalir mt-3 ms-2" href="https://rummet.mx" title="Regresar">
+                    <img class="imgSalir" src="~/img/imagen-logo/ISOTIPO_RUMMET.png" />
+                </a>
+
+            </div>
+        </div>
+        <div class="col-lg-4 p-0 columnaDecortivacontent">
+            <div class="columnaDecortiva">
+                <img class="imgColumnaDecor" src="~/img/imagenes__e-commerce/cerrar-con-llave.png" />
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+<footer>
+    <div class="footer-columns">
+        <div class="footer-column absoluteColumnOrange">
+
+            <ul class="mx-auto">
+
+                <li class="image-list"><img src="~/img/imagen-logo/ISOTIPO_BCO.png" class="isotipo" /></li>
+
+                <li class="mx-auto">
+                    <a class="mx-auto enlaze d-inline-flex" href="https://dev.rummet.mx/contactanos-rummet" target="_blank">
+                        <p class="mx-auto text-white ">¡Comunícate con nosotros!</p>
+                    </a>
+                </li>
+
+
+
+            </ul>
+
+        </div>
+        <div class="segundaColumna footer-column">
+
+            <ul class="mt-3">
+                <li>
+                    <a class="enlaze d-inline-flex" href="https://www.facebook.com/rummet.mx" target="_blank">
+
+                        <img src="~/img/imagen-logo/facebook.png" />
+                        <p class="ms-3 my-auto">Facebook</p>
+                    </a>
+                </li>
+                <li>
+                    <a class="enlaze d-inline-flex" href="https://www.instagram.com/rummetmx/" target="_blank">
+
+                        <img src="~/img/imagen-logo/instagram.png" />
+                        <p class="ms-3 my-auto">Instagram</p>
+                    </a>
+                </li>
+                <li>
+                    @{
+                        var urlWa = "http://api.whatsapp.com/send?phone=5617561472&text=%C2%A1Hola!%20Me%20interesa%20conocer%20m%C3%A1s%20de%20Rummet";
+                    }
+                    <a class="enlaze d-inline-flex" href="@urlWa" target="_blank">
+
+                        <img src="~/img/imagen-logo/whatsapp.png" />
+                        <p class="ms-3 my-auto">Whatsapp</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="enlaze d-inline-flex" href="https://www.linkedin.com/company/rummet-cvo/" target="_blank">
+
+                        <img src="~/img/imagen-logo/logotipo-de-linkedin.png" />
+                        <p class="ms-3 my-auto ">Linkedin</p>
+                    </a>
+                </li>
+                <li>
+                    <a class="enlaze d-inline-flex" href="https://www.tiktok.com/&#64;rummetmx" target="_blank">
+
+                        <img src="~/img/imagen-logo/tik-tok.png" />
+                        <p class="ms-3 my-auto ">Tik tok</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-column">
+
+            <ul class="d-inline-flex mt-3 cardDirection">
+                <li class="col w-auto mx-1"><img class="logoCardPayment my-1" src="~/img/imagen-logo/VISA_img (1).jpeg" /></li>
+                <li class="col w-auto mx-1"><img class="logoCardPayment my-1" src="~/img/imagen-logo/MASTERCARD_img.jpeg" /></li>
+
+            </ul>
+        </div>
+        <div class="footer-column columnaLegal">
+
+            <ul class="mt-4">
+                <li>
+                    <a class=" d-flex" data-bs-toggle="modal" data-bs-target="#ModalLegalDoc1" style="text-decoration: none; ">
+                        <p class="enlaze my-auto">Aviso de privacidad</p>
+                    </a>
+                </li>
+                <li>
+                    <a class=" d-flex" data-bs-toggle="modal" data-bs-target="#ModalLegalDoc2" style="text-decoration: none;">
+                        <p class="enlaze my-auto">Carta de derechos del consumidor</p>
+                    </a>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+    <div class="footer-columns">
+        <div class="footer-column d-flex flex-column align-items-center borde">
+
+            <p class="ms-3 text-white text-decoration-underline">&copy;2023 Rummet</p>
+
+            <a class="enlaze d-inline-flex" href="https://goo.gl/maps/LrFBWmRGjwJ32xXz6" target="_blank">
+                <i class="fa-solid fa-location-dot my-auto" style="color: #ffffff;"></i>
+                <p class="ms-2 text-white my-auto">Sierra Gorda 42, Lomas de Chapultepec, Miguel Hidalgo, CDMX </p>
+            </a>
+
+
+
+
+        </div>
+    </div>
+</footer>
+<!--FOOTER NUEVO -->
+<!-- Modal aviso de privacidad  -->
+<div class="modal fade" id="ModalLegalDoc1" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-normal" id="exampleModalLabel">Aviso de privacidad</h5>
+                <button type="button" class="btn-close " data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="txtModales" style="text-align:justify;">
+
+                    En cumplimiento con el Artículo 16 fracción II de la Constitución Política de los Estados Unidos Mexicanos y a lo que dispone la Ley Federal de Protección de Datos  Personales en  Posesión de particulares, (LFDPPP) para garantizar la privacidad de los datos personales, tomando en consideración que para Corporativo Valle Oriente, S.A.P.I. de C.V. (CVO), la protección de sus datos personales, su privacidad y confianza son nuestra prioridad, ponemos a su disposición el presente Aviso de Privacidad.
+                    I. IDENTIFICACIÓN, DOMICILIO Y DATOS DE CONTACTO DE LOS RESPONSABLES DEL TRATAMIENTO DE SUS DATOS PERSONALES: CORPORATIVO VALLE ORIENTE, S.A.P.I. DE C.V. (CVO), con domicilio ubicado en Sierra Gorda número 42, Piso 1, Lomas de Chapultepec VIII Sección, 11000, Ciudad de México, teléfono 56 3084-3215, correo electrónico: contacto@rummet.mx,  página  de internet: www.rummet.mx. La recepción de los datos   personales y uso que de los mismos y de su protección son responsabilidad de CVO.
+                    II. FINALIDADES: Más que una política, en CVO tenemos la filosofía de mantener una relación estrecha y activa con nuestros clientes y asesores. La finalidad de recabar y utilizar sus datos personales será para la prestación del servicio de intermediación inmobiliaria, incluyendo: informar sobre cambios que afecten al cliente, propietario o asesor sobre lo contratado o adquirido, evaluar la calidad del servicio que le sea brindada, así como de materiales para difusión, promoción y publicidad de CVO, procesar solicitudes, realizar actividades de cobranza, facturación, aclaraciones, cumplir con leyes, reglamentos y demás disposiciones legales aplicables, mantener actualizados nuestros registros y expedientes para cumplir con las Normas Oficiales Mexicanas que atañen a los servicios y actividades de intermediación que presta el responsable.
+                    III. MEDIOS DE OBTENCIÓN DE DATOS PERSONALES: Podemos recabar datos de la siguiente forma: datos personales que recabamos de forma directa o por conducto de nuestros Asesores; los datos personales cuando los proporciona por diversos medios, o nos da la información con el objeto de que le prestemos un servicio; los datos que obtenemos por este medio pueden ser entre otros: Nombre del cliente, propietario o asesor, fecha de nacimiento, domicilio, ocupación, números telefónicos, correo   electrónico, datos de propiedades, entre otros. Datos personales que obtenemos por este medio pueden ser, entre otros: Municipio, Estado y País. Para cumplir con las finalidades previstas en este aviso de privacidad, serán recabados y tratados datos personales sensibles como aquellos que se refieren a: Nombre, domicilio, número telefónico, número de cuenta bancaria y propiedades inmobiliarias.
+                    CVO le informa que posee, recaba o recabará de usted, los datos personales necesarios para la adecuada contratación y prestación de los servicios que CVO brinda, así como para la celebración de los demás actos que la responsable puede realizar conforme a la Ley y sus estatutos sociales. Dichos datos personales pueden haber sido o pueden ser obtenidos de usted personalmente o bien, por cualquier medio electrónico, óptico, sonoro, visual, o a través de otra tecnología.
+                    Asimismo, le informamos que CVO cuenta con sistemas de video vigilancia en sus oficinas. Las imágenes y grabaciones temporales captadas por los sistemas son utilizadas como medidas de seguridad, así como para el monitoreo y control del acceso físico a las instalaciones.
+                    En virtud de lo anterior, al haber abierto la presente sección de Aviso de Privacidad de nuestra página de internet, usted acepta haber leído su contenido y en consecuencia, otorga su consentimiento para el tratamiento de su datos personales, bajo los términos y condiciones que en él se expresan.
+                    IV. OPCIONES PARA LIMITAR EL USO O DIVULGACIÓN DE SUS DATOS PERSONALES: CVO le comunica que, si usted desea dejar de recibir correos electrónicos, mensajes de información o actualización sobre promociones, mercadotecnia, publicidad o prospección, debe enviar la siguiente solicitud a los correos: contacto@rummet.mx. Su solicitud deberá contener la siguiente información: Fecha, lugar y asunto y el siguiente texto: “Yo (nombre completo) solicito que sea eliminada mi información personal de su base de datos por los siguientes inconvenientes enlistados.”
+                    V. SOLICITUD DE ACCESO, RECTIFICACIÓN, CANCELACIÓN U OPOSICIÓN DE DATOS PERSONALES (DERECHOS ARCO) Y REVOCACIÓN DE CONSENTIMIENTO. Todos sus datos personales son tratados de acuerdo a la legislación aplicable y vigente, por ello le informamos que usted tiene en todo momento el derecho de acceder a sus datos personales y a los detalles del tratamiento de los mismos así como a rectificarlos en caso de ser inexactos o incompletos; cancelarlos cuando se  considere que no se requieren para alguna de las finalidades señaladas en el presente aviso de privacidad, estén siendo utilizados para finalidades no consentidas o haya finalizado la relación contractual de servicio, o bien, oponerse al tratamiento de los mismos para fines específicos. Usted puede hacer válidos estos derechos mediante el envío de la solicitud respectiva a la siguiente dirección electrónica: contacto@rummet.mx (CVO). Su solicitud deberá contener la siguiente información: Nombre y domicilio del titular, los documentos que acrediten la identidad o, en su caso la representación legal del titular, fecha, lugar, asunto y el siguiente texto: “Yo (nombre completo) solicito acceder a la información recabada por ustedes (describirlos datos que desee obtener) con el fin de (describir clara y precisamente los datos personales respecto de los cuales el titular busca ejercer alguno de sus derechos de acceso, rectificación, cancelación u oposición).”
+                    En el caso de solicitudes de rectificación de datos personales, el titular deberá indicar además de lo señalado, las modificaciones a realizarse y aportar, en su caso, la documentación que sustente la petición. Para el caso de revocación, cancelación u oposición del consentimiento que Usted nos ha otorgado para el tratamiento de sus datos personales con el fin de que dejemos de hacer uso de los mismos, deberá agregar este texto: “Yo (nombre completo) solicito anular toda autorización de usar mi información personal recabada por ustedes debido a (razones).” El plazo para atender su solicitud será de veinte días hábiles informando al interesado o a su apoderado legal sobre la procedencia de la misma a través de correo electrónico: contacto@rummet.mx. En caso de haber solicitado información adicional el plazo se contabilizará a partir de la fecha de recepción de la información complementaria.
+                    VI.- TRANSFERENCIA DE DATOS PERSONALES: De conformidad con lo dispuesto en el artículo 37 Fracción IV de La Ley Federal de Protección de Datos Personales en Posesión de Particulares, CORPORATIVO VALLE ORIENTE S.A.P.I. DE C.V. transferirá a propietarios, asesores y clientes los datos personales recabados de Usted, razón por la que desde este momento se hace de su conocimiento que los mismos estarán obligados a respetar la Confidencialidad en el manejo de la Información.
+                    Asimismo, nos comprometemos a no transferir su información personal a terceros sin su consentimiento, salvo las excepciones previstas en el artículo 37 de la Ley federal de Protección de Datos Personales en Posesión de los Particulares y la establecida en el párrafo que antecede, así como a realizar esta transferencia en los términos que fija esa ley. Si Usted no manifiesta su oposición para que sus datos personales sean transferidos, su entenderá que ha otorgado su autorización para ello.
+                    VII.- MODIFICACIONES AL AVISO DE PRIVACIDAD: Nos reservamos el derecho de efectuar en   cualquier momento modificaciones o actualizaciones al presente aviso de privacidad, para la atención de novedades legislativas, políticas internas o nuevos requerimientos para la prestación u ofrecimiento de nuestros servicios. Estas modificaciones estarán disponibles a través de los siguientes medios: 1. Anuncios visibles en nuestro establecimiento; 2. En nuestra página de Internet: www.rummet.mx, sección Aviso de Privacidad. 3. Cualquier otro medio de comunicación oral, impreso o electrónico que CVO determine para tal efecto.
+                    VIII. QUEJAS Y DENUNCIAS. Si Usted considera que su derecho de protección de datos personales ha sido lesionado por alguna conducta de nuestros empleados, asesores, de nuestras actuaciones o respuestas, o presume que existe alguna violación a las disposiciones previstas en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, podrá interponer la queja o denuncia correspondiente ante el Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI). Para mayor información visite: www.inai.org.mx.
+
+
+                </p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnn"
+                        data-bs-dismiss="modal">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal  Carta de derechos del consumidor  -->
+<div class="modal fade" id="ModalLegalDoc2" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-normal" id="exampleModalLabel">Carta de derechos del consumidor </h5>
+                <button type="button" class="btn-close " data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="txtModales" style="text-align:justify;">
+                    Corporativo Valle Oriente S.A.P.I. de C.V. pone a su disposición de manera escrita y por este medio, la presente Carta de Derechos del Consumidor para hacer de su conocimiento la protección que le brinda la Ley Federal de Protección al Consumidor, su Reglamento, así como a la NOM-247-SE-2021, al adquirir un inmueble en territorio mexicano.
+
+                    Contenido de la Carta de Derechos del Consumidor
+
+                    En todas las transacciones comerciales de compraventa de casa habitación, el proveedor se compromete a que éstas se lleven a cabo conforme lo dispuesto en la Ley Federal de Protección al Consumidor (LFPC), su Reglamento y a la NOM-247-SE-2021, por lo cual reconoce que los consumidores cuentan con los siguientes derechos:
+
+                    1. Recibir, respecto de los Bienes Inmuebles ofertados, información y publicidad veraz, clara y actualizada, sin importar el medio por el que se comunique, incluyendo los medios digitales, de forma tal que le permita al consumidor tomar la mejor decisión de compra conociendo de manera veraz las características del inmueble que está adquiriendo, conforme a lo dispuesto por la Ley.
+
+                    2. Conocer la información sobre las características del inmueble, entre éstas: la extensión del terreno, superficie construida, tipo de estructura, instalaciones, acabados, accesorios, lugar de estacionamiento, áreas de uso común, servicios con los que cuenta y estado general físico del inmueble.
+
+                    3. Elegir libremente el inmueble que mejor satisfaga sus necesidades y se ajuste a su capacidad de compra.
+
+                    4. No realizar pago alguno hasta que conste por escrito la relación contractual, exceptuando los referentes a anticipos y gastos operativos, en los términos previstos por la LFPC.
+
+                    5. Firmar un contrato de adhesión bajo el modelo inscrito en la Procuraduría Federal del Consumidor, en el que consten los Términos y Condiciones de la compraventa del bien inmueble. Posterior a su firma, el proveedor tiene la obligación de entregar una copia del contrato firmado al consumidor.
+
+                    6. Adquirir un inmueble que cuente con las características de seguridad y calidad que estén contenidas en la normatividad aplicable en la información y publicidad que haya recibido.
+
+                    7. Recibir el bien inmueble en el plazo y condiciones acordados con el proveedor en el contrato de adhesión respectivo.
+
+                    8. En su caso, ejercer las garantías sobre Bienes Inmuebles previstas en la LFPC, considerando las especificaciones previstas en el contrato de adhesión respectivo.
+
+                    9. Recibir la bonificación o compensación correspondiente en términos de la LFPC, en caso de que una vez ejercida la garantía, persistan defectos o fallas en el inmueble. Asimismo, a que se realicen las reparaciones necesarias en caso de defectos o fallas imputables al proveedor, u optar por la sustitución del inmueble o rescisión del contrato cuando proceda.
+
+                    10. Contar con canales y mecanismos de atención gratuitos y accesibles para consultas, solicitudes, reclamaciones y sugerencias al proveedor, y conocer el domicilio señalado por el proveedor para oír y recibir notificaciones.
+
+                    11. Derecho a la protección por parte de las autoridades competentes y conforme a las leyes aplicables, incluyendo el derecho a presentar denuncias y reclamaciones ante las mismas.
+
+                    12. Tener a su disposición un Aviso de Privacidad para conocer el tratamiento que se dará a los datos personales que proporcione y consentirlo, en su caso; que sus datos personales sean tratados conforme a la normatividad aplicable y, conocer los mecanismos disponibles para realizar el ejercicio de sus Derechos de Acceso, Rectificación, Cancelación y Oposición.
+
+                    13. Recibir un trato libre de discriminación, sin que se le pueda negar o condicionar la atención o venta de una vivienda por razones de género, nacionalidad, étnicas, preferencia sexual, religiosas o cualquiera otra particularidad en los términos de la legislación aplicable.
+
+                    14. Elegir libremente al notario público para realizar el trámite de escrituración.
+
+
+                </p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnn"
+                        data-bs-dismiss="modal">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("exampleInputPassword1");
+        var passwordToggle = document.querySelector(".password-toggle");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordToggle.innerHTML = '<i class="far fa-eye-slash"></i>'; // Cambia el icono a un ojo tachado
+        } else {
+            passwordInput.type = "password";
+            passwordToggle.innerHTML = '<i class="far fa-eye"></i>'; // Cambia el icono a un ojo
+        }
+    }
+</script>
+
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!--  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script> -->

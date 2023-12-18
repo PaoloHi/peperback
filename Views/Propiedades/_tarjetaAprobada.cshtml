@@ -1,0 +1,268 @@
+﻿@{
+    var countA = 0;
+    var idCarusel = "";
+    var count = 0;
+    var activa = "";
+
+
+
+    var PP = Model.propiedadTarjeta;
+
+    var ListaImagenes = Model.propiedadTarjeta.ListaImagenesPropiedad;
+
+    countA = countA + 1;
+   
+
+    idCarusel = "carouselExampleFade" + PP.IDPropiedadG;
+
+    count = 0;
+
+    <div class="col mb-2 ">
+        <div class="caja-a-propie my-2 pb-2 bg-white shadow position-relative">
+
+            <div class="row indicators d-flex justify-content-center">
+            </div>
+
+            <div class="row card-main col-12 d-flex  ms-1 Fila1">
+                <!--carrusel de fotos-->
+                <div class="col-5 mt-4 ms-1 px-0">
+                    <div id="@idCarusel" class="carousel slide carousel-fade"
+                         data-bs-ride="carousel-1">
+                        <div class="carousel-inner">
+
+
+                            @foreach (var Imagen in ListaImagenes)
+                            {
+
+                                var activa1 = count == 0 ? "carousel-item active" : "carousel-item";
+                                <div class="@activa1">
+                                    <img class="image-contain carousel-adaptar lazy-load" src="@Imagen.txt64" src="" loading="lazy" alt="Imagen de propiedad">
+                                </div>
+                                count++;
+                            }
+
+                        </div>
+                        <button class="carousel-control-prev" type="button"
+                                data-bs-target="#@idCarusel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button"
+                                data-bs-target="#@idCarusel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                </div>
+
+                @{
+                    var classAbrev = "";
+                    var medidaFinal = "";
+
+                    double superficie = Convert.ToDouble(@PP.Superficie);
+                    var superficieF = superficie.ToString("N0", new System.Globalization.CultureInfo("en-US"));
+
+                    double construccion = Convert.ToDouble(@PP.SuperficieC);
+                    var construccionF = construccion.ToString("N0", new System.Globalization.CultureInfo("en-US"));
+
+                    switch (@PP.Abrev)
+                    {
+                        case "Depto.":
+                            classAbrev = "title-cards-mp-depto ";
+                            medidaFinal = construccionF;
+                            break;
+                        case "Bodega":
+                            classAbrev = "title-cards-mp-bodega";
+                            medidaFinal = construccionF;
+                            break;
+                        case "Casa":
+                            classAbrev = "title-cards-mp-casa";
+                            medidaFinal = construccionF;
+                            break;
+                        case "Edif.":
+                            classAbrev = "title-cards-mp-edificio";
+                            medidaFinal = construccionF;
+                            break;
+                        case "Huerta":
+                            classAbrev = "title-cards-mp-huerta";
+                            medidaFinal = construccionF;
+                            break;
+                        case "Local":
+                            classAbrev = "title-cards-mp-local";
+                            medidaFinal = construccionF;
+                            break;
+                        case "Nave":
+                            classAbrev = "title-cards-mp-nave";
+                            medidaFinal = construccionF;
+                            break;
+                        case "Ofic.":
+                            classAbrev = "title-cards-mp-oficina";
+                            medidaFinal = construccionF;
+                            break;
+                        case "Quinta":
+                            classAbrev = "title-cards-mp-quinta";
+                            medidaFinal = construccionF;
+                            break;
+                        case "Rancho":
+                            classAbrev = "title-cards-mp-rancho";
+                            medidaFinal = construccionF;
+                            break;
+                        case "Terreno":
+                            classAbrev = "title-cards-mp-terreno";
+                            medidaFinal = superficieF;
+                            break;
+                        case "Villa":
+                            classAbrev = "title-cards-mp-villa";
+                            medidaFinal = construccionF;
+                            break;
+                        case "Hosp.":
+                            classAbrev = "title-cards-mp-hospital";
+                            medidaFinal = construccionF;
+                            break;
+                        case "Esc.":
+                            classAbrev = "title-cards-mp-escuela";
+                            medidaFinal = construccionF;
+                            break;
+                        default:
+                            classAbrev = "title-cards-mp-depto";
+                            medidaFinal = construccionF;
+                            break;
+                    }
+                }
+
+                @{
+                    var tipoOperacionPP = "";
+                    switch (PP.Operacion)
+                    {
+                        case "Renta":
+                            tipoOperacionPP = "operacionRenta";
+                            break;
+                        case "Venta":
+                            tipoOperacionPP = "operacionVenta";
+                            break;
+                        default:
+                            tipoOperacionPP = "title-cards-mp-depto";
+                            break;
+                    }
+                }
+
+                <div class="d-inline-flex @tipoOperacionPP etiquetadoOperacion justify-content-between ">
+                    <p class="px-2 text-white m-auto txtOperacion">
+                        @PP.Operacion
+                    </p>
+                </div>
+                <div class="col-6 text-cards ms-2 mt-2 position-relative bloqueTextCard">
+                    <!--etiqueta-->
+                    <div class="d-inline-flex justify-content-between etiquetaTipoPublicadas @classAbrev">
+                        <h6 class=" size-mp-cards my-auto ms-1"> @PP.Abrev</h6>
+
+                        <h6 class=" size-mp-cards my-auto me-1">
+                            @{
+                                var ump = "";
+                                if (PP.UM == "m2")
+                                {
+                                    ump = "m²";
+                                }
+                                else
+                                {
+                                    ump = "ha";
+                                }
+                            }
+
+
+                            <i class="fa-solid fa-maximize size-mp-cards "></i> @medidaFinal @ump
+                        </h6>
+
+                    </div>
+                    <!--precio-->
+                    <div class="mt-3">
+                        <h6 class="fw-bold ms-2 text-orange longitudDePrecio" style="font-size:inherit;">
+
+                            @{
+
+                                string numero = @PP.Precio;
+                                decimal valor = decimal.Parse(numero);
+
+                                string precioTotalP;
+                                if (valor % 1 == 0)
+                                {
+                                    precioTotalP = valor.ToString("N0"); // Formato sin decimales ni separadores de miles
+                                }
+                                else
+                                {
+                                    precioTotalP = valor.ToString("N2"); // Formato con dos decimales y separadores de miles
+                                }
+
+                            }
+
+
+                            @precioTotalP @PP.ISO
+                        </h6>
+                    </div>
+                    <!--descripcion-->
+                    <div class="size-mp-name-main-house ms-2">
+                        @{
+                            var descripcion = PP.Descripcion; //(PP.Descripcion).Substring(0, 100);
+                        }
+                        <h6 class="size-mp-name-main-house fw-bold longitudDePrueba " minlength="100" style="width: 95%;">
+                            @PP.Titulo
+                        </h6>
+                    </div>
+                    <!--direccion-->
+                    <div class="size-mp-name-house ms-2">
+                        <h6 class="size-mp-name-house  mb-1 longitudDePruebaD" style="width: 95%;">@PP.Direccion </h6>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row row-cols-1 my-2 Fila2">
+                <p class="mx-3 my-0">
+                    <i class="fa-solid fa-hashtag" style="color:darkorange;"></i>  @PP.IDPropiedadG
+                </p>
+                <p class="mx-3 text-black"><b style="color:darkorange;">Broker: </b> @PP.NBroker </p>
+            </div>
+            <div class="row row-cols-2 align-items-center justify-content-center Fila3">
+
+                <div class=" d-flex justify-content-center pos-t-publicada flex-column">
+
+                    <div class="d-inline-flex " style="width:max-content;">
+                        <h6 class=" ms-2 my-auto fw-bold size-text-publi ">Tiempo publicada</h6>
+                        <h6 class=" ms-2 my-auto size-text-publi">@PP.DiasP días</h6>
+                    </div>
+
+                    <div class=" row row-cols-2  size-mp-name-main-house pos-indicadores-vv " style="width:max-content;">
+                        <div class="col side-2-header d-flex w-auto"
+                             data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ver detalles">
+                            <i class="fa-solid fa-eye ms-1 me-1 text-orange size-icons-indicators "></i>
+                            <h6 for="" class="ms-1 size-text-indicators">@PP.Vistas Vistas </h6>
+                        </div>
+                        <div class="col side-2-header d-flex w-auto">
+                            <i class="fa-solid fa-address-book ms-1 me-1 text-orange size-icons-indicators"></i>
+                            <h6 for="" class="ms-1  size-text-indicators">@PP.Visitas Visitas</h6>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-1 d-flex ms-5">
+                    <a class="style-vermas2" data-toggle="tooltip" data-placement="top" title="Editar"
+                   asp-controller="Propiedades" asp-action="EditarPropiedad" asp-route-PROPIEDADID=@PP.IDPropiedadG>
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                </div>
+                <div class="col-1 d-flex">
+                    @* Ver mas seccion de Detalles de propiedad Publiacada *@
+
+
+                    <a class="  style-vermas2" data-toggle="tooltip" data-placement="top" title="Ver detalles"
+                   asp-controller="Propiedades" asp-action="DetallesPropiedad" asp-route-PROPIEDADID=@PP.IDPropiedadG>
+                        <i class="fa-solid fa-eye"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}

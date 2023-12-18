@@ -1,0 +1,482 @@
+﻿@model UsuariosModel;
+@{
+    Layout = "_NavUsuarios";
+    ViewData["Title"] = "Rummet / Mi Perfil de usuario";
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/styles.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <link rel="stylesheet" href="~/css/estilosGenerales.css" />
+    <link rel="stylesheet" href="~/css/miperfil.css" />
+    <link rel="stylesheet" href="~/css/perfilUsuario.css" />
+
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/ISOTIPO_RUMMET2.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://kit.fontawesome.com/9682158e46.js" crossorigin="anonymous"></script>
+    @* 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-..." crossorigin="anonymous"> *@
+</head>
+
+
+<body>
+
+    <!--animacion de fondo-->
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <h4 class="ms-4 tituloVista">Mi perfil </h4>
+
+    <form id="myform" asp-controller="Usuarios" asp-action="miPerfil" enctype="multipart/form-data" class="container-fluid row px-3" style="margin: 0 0 0 49px; width: -webkit-fill-available;">
+        <div class="row row-cols-1 row-cols-lg-2 px-0 mb-2">
+            <div class="col-lg-6 col-md-12 ps-0">
+                <!-- ----TARJETA DE DATOS GENERALES -->
+                <div class="row mb-2 contenedorGeneralBlanco">
+                    <h6 class="text-black mb-3 fs-5">Datos generales</h6>
+                    <!--foto de perfil-->
+                    <div class="px-0 col-lg-4 col-md-12 d-flex align-items-center">
+                        <div class="mt-3 col mb-2 d-flex flex-column flex-wrap align-items-center">
+                            <div class="fileContainer imgPerfilContainer text-center">
+                                @if (Model.txtBase64 != null)
+                                {
+                                    <img src="@Model.txtBase64" id="preview" alt="" class="profile_picture rounded-circle">
+                                }
+                                else
+                                {
+                                    <img src="/img/image-form-usuario/Recurso_usuario.png" id="preview" alt="" class="profile_picture rounded-circle">
+                                }
+                                <label for="archivo" class="editIcon">
+                                    <img asp-for="imgPerfil" src="~/img/imagen-logo/circulo.png" />
+                                </label>
+                                <input type="file" asp-for="imgPerfil" id="archivo" onchange="cargarImagen()" class="inputFoto d-none" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-lg-8 col-md-12">
+                        <i class="fa-solid fa-pen-circle"></i>
+                        <div class="input-containerData">
+                            <input class="input-fieldData" type="text" asp-for="Nombre" oninput="limitarLetrasConAcentos(this)" aria-required="true" required maxlength="47">
+                            <label class="input-labelData" for="Nombre">Nombre</label>
+                        </div>
+                        <div class="row row-cols-2 my-5">
+                            <div class="input-containerData col">
+                                <input class="input-fieldData " type="text" asp-for="ApellidoP" oninput="limitarLetrasConAcentos(this)" maxlength="47" aria-required="true" required>
+                                <label class="input-labelData inputsModified" for="Apelido Paterno">Apellido paterno</label>
+                            </div>
+                            <div class="input-containerData col">
+                                <input class="input-fieldData" type="text" asp-for="ApellidoM" oninput="limitarLetrasConAcentos(this)" maxlength="47" aria-required="true" required>
+                                <label class="input-labelData inputsModified" for="Apelido Materno">Apellido materno</label>
+                            </div>
+                        </div>
+                        <div class="input-containerData" name="fecha-nacimiento">
+                            <label class="input-labelData " for="fecha de cumpleaños">Fecha de nacimiento</label>
+                            <input asp-for="FecCump" for="fecha de cumpleaños" class="input-fieldData fechaNacimiento" type="text" onfocus="(this.type='date')" onblur="if(!this.value) this.type='text'" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- TARJETA DE datos de contacto -->
+            <div class="col-lg-6 col-md-12 datosContacto">
+                <!-- TARJETA DE DATOS PERSONALES -->
+                <div class="contenedorGeneralBlanco mb-2">
+                    <h6 class="text-black fs-5 mb-4">Datos personales</h6>
+                    <div class="row row-cols-2 pe-0">
+                        <div class="input-containerData col">
+                            <input class="input-fieldData uppercaseText" type="text" maxlength="18" asp-for="Curp" oninput="limitarLetrasYNumeros(this)" required>
+                            <label class="input-labelData inputsModified" for="CURP">CURP</label>
+                        </div>
+                        <div class="input-containerData col pe-0">
+                            <input class="input-fieldData uppercaseText" maxlength="13" type="text" asp-for="Rfc" oninput="limitarLetrasYNumeros(this)" required>
+                            <label class="input-labelData inputsModified" for="rfc">RFC</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="contenedorGeneralBlanco">
+                    <h6 class="text-black fs-5 mb-4">Datos de contacto</h6>
+                    <div class="px-2">
+                        <div class="input-containerData">
+                            <input class="input-fieldData" asp-for="Correo" type="text" required>
+                            <input type="hidden" asp-for="CorreoPE" value="@Model.Correo" />
+                            <input type="hidden" asp-for="IDusuario" />
+
+                            <label class="input-labelData " for="correo electronico">Correo electrónico</label>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-3 col-sm-6 col-lg-6 col-md-4">
+                                <div class="input-containerData ml-personalizado d-inline-flex w-100">
+                                    <select class="selector-estilos" asp-for="Lada" id="Lada" aria-invalid="false">
+                                        <option value="+52" class="flag-icon flag-icon-mx">+52 (MX)</option>
+                                        <option value="+54" class="flag-icon flag-icon-mx">+54 (ARG)</option>
+                                        <option value="+57" class="flag-icon flag-icon-gb">+57 (COL)</option>
+                                        <option value="+53" class="flag-icon flag-icon-gb">+53 (CUB)</option>
+                                        <option value="+1" class="flag-icon flag-icon-us">+1 (EE.UU)</option>
+                                        <option value="+48" class="flag-icon flag-icon-us">+48 (PL)</option>
+                                        <option value="+44" class="flag-icon flag-icon-gb">+44 (UK)</option>
+                                    </select>
+                                    <input class="input-fieldData w-100" type="text" asp-for="Tel" oninput="validarNumeros(this)" maxlength="10" required>
+                                    <label class="input-labelData" for="telefono">Teléfono</label>
+                                </div>
+                            </div>
+
+                            <div class="col-3 col-sm-6 col-lg-6 col-md-4">
+                                <div class="input-containerData ml-personalizado d-inline-flex w-100">
+                                    <select class="selector-estilos" id="Lada2" asp-for="Lada2" aria-invalid="false">
+                                        <option value="+52" class="flag-icon flag-icon-mx">+52 (MX)</option>
+                                        <option value="+54" class="flag-icon flag-icon-mx">+54 (ARG)</option>
+                                        <option value="+57" class="flag-icon flag-icon-gb">+57 (COL)</option>
+                                        <option value="+53" class="flag-icon flag-icon-gb">+53 (CUB)</option>
+                                        <option value="+1" class="flag-icon flag-icon-us">+1 (EE.UU)</option>
+                                        <option value="+48" class="flag-icon flag-icon-us">+48 (PL)</option>
+                                        <option value="+44" class="flag-icon flag-icon-gb">+44 (UK)</option>
+                                    </select>
+                                    <input class="input-fieldData w-100" type="tel" asp-for="Tel2" oninput="validarNumeros(this)" maxlength="10">
+                                    <label class="input-labelData" for="telefono2">Teléfono 2</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row my-2 p-sm-0 tabla-documentos">
+            <div class="col contenedorGeneralBlanco row row-cols-2 p-0">
+                <h6 class="text-black fs-5">Documentación</h6>
+                <div class="col-8 contenedorDocumentos">
+                    <div class=" my-custom-scrollbar  table-height table-responsive">
+                        <table class="table table-hover border-gray h-100 border">
+                            <tbody>
+                                @{
+                                    var documento = Model.DocEUsuario;
+                                    int estadoDocumento;
+                                    string fileNombre;
+                                    List<string> DocList = new List<string>();
+                                    DocList.Add("Identificación oficial (Passaporte, INE, FM3)");
+                                    DocList.Add("CURP");
+                                    DocList.Add("RFC");
+                                    DocList.Add("Acta de nacimiento");
+                                    DocList.Add("Comprobante de domicilio");
+                                    DocList.Add("Constancia de situación fiscal");
+                                    int indice = 0;
+                                }
+
+
+                                @for (int i = 0; i < 6; i++)
+                                {
+                                    indice = indice + 1;
+                                    <tr class="tabla-hover">
+                                        <th scope="row">@indice</th>
+                                        <td colspan="2">@DocList[i]</td>
+                                        <td>
+                                            <div class="fileContainer2 input-group btn btnm" style="background-color:transparent">
+                                                <input type="file" asp-for="DocEUsuario[i].Documento" id="archivoInput_@i" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                       onchange="SubirVisualizar(@i)">
+                                                <i class="fa-solid fa-file-arrow-up size-icon "></i>
+                                                <input asp-for="DocEUsuario[i].IDdocUsuario" class="d-none" value="@documento[i].IDdocUsuario" />
+                                                <input asp-for="DocEUsuario[i].IDtipoArchivo" value="@documento[i].IDtipoArchivo" class="d-none">
+                                                <input asp-for="DocEUsuario[i].archivoNombre" id="DocumentoNombre_@i" value="@documento[i].archivoNombre" class="d-none">
+                                                <input class="d-none" id="txt64_@i" value="@documento[i].txt64">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="fileContainer3  input-group btn btnm" style="background-color:transparent">
+                                                <input type="button" name="d_archivo" id="archivoInput_delete_@i" onclick="borrarArchivo(@i,'usuarios',@documento[i].IDdocUsuario, @documento[i].IDStatusDoc);"
+                                                       class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                <i class="fa-solid fa-trash-can size-icon "></i>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="fileContainer3 input-group btn btnm" style="background-color:transparent">
+                                                <input type="button" name="v_archivo4" id="" onclick="visorExt(@i)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                <i class="fa-solid fa-eye size-icon "></i>
+                                            </div>
+                                        </td>
+
+                                        <td>
+
+                                            <input id="IDdoc_@i" class="d-none" value="@documento[i].IDdocUsuario" />
+                                            <div class="soloIconos" id="IconoEstatus_@i"></div>
+                                            <input id="statusDoc_@i" value="@Model.DocEUsuario[i].IDStatusDoc" class="d-none">
+
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="input-group d-flex justify-content-start">
+                    </div>
+                </div>
+                @* ESTE ES EL VISUALIZADOR *@
+                <div class="col-4 border contenedorVisualizador">
+                    <div class="input-group d-flex">
+                        <div id="visorArchivo" class="size-file d-flex justify-content-end">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row my-2 p-sm-0">
+            <div class="col contenedorGeneralBlanco row row-cols-2 changepassword row-cols-sm-1  rounded-top">
+                <h6 class="text-black fs-5">Restablecer contraseña</h6>
+                <div class="mb-2">
+                    <button type="button" class="btn btn-fill btn-dark-blue text-white btn-wd" data-toggle="modal" data-target="#cambioPasswordperfil">Restablecer contraseña</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottomBar oculta ">
+            <h6>¿Desea guardar los cambios realizados?</h6>
+            <button class=" btn-aceptar" id="aceptarButton">Aceptar</button>
+            <button type="button" class=" btn-rechazar" id="cancelarButton">Cancelar</button>
+        </div>
+    </form>
+
+
+    @* MODAL DEL CAMBIO DE CONTRASEÑA *@
+    <form method="post" asp-controller="Usuarios" asp-action="ResetPassword" id="formcontra">
+        <div class="modal fade" id="cambioPasswordperfil" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fs-5 modal-modificado-titulo" id="exampleModalLabel">Restablecer la contraseña</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border:none;">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body px-4 pt-0">
+                        <input type="hidden" name="idUsuarioP">
+                        <input type="hidden" name="emailUser" id="eU" value="tuhogarenmorelos@hotmail.com" autocomplete="off">
+                        <div class="form-group is-empty">
+                            <div class="d-inline form-group label-floating is-empty ms-3">
+                                <div class="d-flex">
+                                    <label for="modalResetPassword" class="color_letter2 fs-6">Nueva contraseña</label>
+                                </div>
+                                <input type="password" id="modalResetPassword" class="mt-2 form-control inputContraseñaModal" style="width:85%;">
+                                <span class="password-toggle1" onclick="togglePasswordVisibility1()"><i class="far fa-eye" aria-hidden="true"></i></span>
+                                <span class="material-input"></span>
+                            </div>
+                        </div>
+                        <div class="form-group is-empty">
+                            <div class="d-inline form-group label-floating is-empty ms-3">
+                                <div class="d-flex">
+                                    <label for="modalconfirmPassword" class="color_letter2 fs-6">Confirma la contraseña</label>
+                                </div>
+                                <input type="password" id="modalconfirmPassword" class="mt-2 form-control inputContraseñaModal" style="width:85%;">
+                                <span class="password-toggle2" onclick="togglePasswordVisibility2()"><i class="far fa-eye" aria-hidden="true"></i></span>
+                                <span class="material-input"></span>
+                            </div>
+                        </div>
+                        <ul class="condicionesContraseña ps-3">
+                            <li class="caracteres8">Al menos 8 carácteres</li>
+                            <li class="valfa">Un valor alfanumérico</li>
+                            <li class="cespecial">Un carácter especial</li>
+                            <li class="cmayus">Al menos 1 carácter en mayúsculas</li>
+                        </ul>
+                    </div>
+                    <div class="cuadro-alerta">
+                        <div class="alert alert-success d-none mensajeError mx-auto text-center w-50" role="alert" id="mensajeAlertaContra"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark-blue text-white" id="btnEnviarContraseña" style="text-transform:inherit;">Guardar cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    @* <div class="bottomBar oculta ">
+        <h6>¿Desea guardar los cambios realizados? Esta se esta editando</h6>
+        <button class=" btn-aceptar" id="aceptarButton">Aceptar</button>
+        <button type="button" class="btn btn-rechazar" onclick="cancelarEsconder()">Cancelar</button>
+    </div> *@
+</body>
+</html>
+
+
+
+<script>
+        window.UsuarioTienepermiso = false;
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="~/assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+
+
+
+<!--funcion para cargar la imagen de perfil-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="~/js/miPerfil.js"></script>
+<script src="~/js/archivo.js"></script>
+
+
+<script>
+    document.getElementById('btnEnviarContraseña').addEventListener('click', function () {
+        var password = document.getElementById('modalResetPassword').value;
+        var confirmPassword = document.getElementById('modalconfirmPassword').value;
+
+        console.log(confirmPassword);
+        if (password !== confirmPassword) {
+    @* // Si las contraseñas no coinciden, muestra una alerta
+                alert("Las contraseñas no coinciden. Por favor, asegúrate de ingresar la misma contraseña en ambos campos."); *@
+                } else {
+            var user = $('#CorreoPE').val();
+    @* var mensajeError = document.getElementsByClassName("msnContraseña")[0];
+                mensajeError.textContent = ""; *@
+                    if (password.length < 8) {
+    @* mensajeError.textContent = "La contraseña debe tener al menos 8 caracteres, un valor alfanumérico y al menos 1 caracter en mayúsculas."; *@
+                    } else {
+                var newPassword = confirmPassword;
+                $.ajax({
+                    type: 'POST',
+                    url: '/Usuarios/ResetPassword',
+                    data: {
+                        emailUser: user,
+                        newPassword: password
+                    },
+                    success: function (result) {
+                        if (result) {
+                            Swal.fire({
+                                title: '¡Registro exitoso!',
+                                html: 'La contraseña se actualizó correctamente.',
+                                icon: 'success',
+                                confirmButtonText: "Ok",
+                                customClass: {
+                                    confirmButton: 'button_confirmacion'
+                                }
+                            }).then(function () {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Ups...",
+                                text: "Hubo un problema intenta nuevamente",
+                            });
+                        }
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        // Manejar el resultado no exitoso aquí
+                        console.log('Error:', textStatus);
+                        console.log('Error lanzado:', errorThrown);
+                    }
+                });
+            }
+        }
+    });
+</script>
+
+
+<!--script para la animacion de la visivilidad de la contraseña en el modal*******************************************************************-->
+<script>
+    function togglePasswordVisibility1() {
+        var passwordInput = document.getElementById("modalResetPassword");
+        var passwordToggle = document.querySelector(".password-toggle1");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordToggle.innerHTML = '<i class="far fa-eye-slash"></i>'; // Cambia el icono a un ojo tachado
+        } else {
+            passwordInput.type = "password";
+            passwordToggle.innerHTML = '<i class="far fa-eye"></i>'; // Cambia el icono a un ojo
+        }
+    }
+    function togglePasswordVisibility2() {
+        var passwordInput = document.getElementById("modalconfirmPassword");
+        var passwordToggle = document.querySelector(".password-toggle2");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordToggle.innerHTML = '<i class="far fa-eye-slash"></i>'; // Cambia el icono a un ojo tachado
+        } else {
+            passwordInput.type = "password";
+            passwordToggle.innerHTML = '<i class="far fa-eye"></i>'; // Cambia el icono a un ojo
+        }
+    }
+</script>
+
+<script src="~/js/modalFunciones.js"></script>
+
+
+<script>
+    const inputElements = document.getElementsByClassName("input-fieldData");//obteniendo inputDatos
+    // para los select de banco, lada, colonia
+    const selectDatos = document.getElementsByClassName("selector-estilos");
+    // console.log(selectDatos);
+    const canvasButton = document.querySelector(".bottomBar");
+    const aceptarButton = document.getElementById("aceptarButton");
+
+    // const cancelarButton = document.getElementById("cancelarButton");
+    // variable para la foto
+    const imagenPerfil = document.getElementById("preview");
+
+    for (let i = 0; i < inputElements.length; i++) {
+        inputElements[i].addEventListener("focus", function () {
+            canvasButton.classList.remove("oculta");
+            canvasButton.classList.add("mostrando");
+        });
+    }
+
+    // ciclo para los select de los datos
+    for (let i = 0; i < selectDatos.length; i++) {
+        // Agregar un evento de clic a cada select
+        selectDatos[i].addEventListener("click", function () {
+            // Tu lógica para cambiar las clases de canvasButton
+            canvasButton.classList.remove("oculta");
+            canvasButton.classList.add("mostrando");
+        });
+    }
+
+    aceptarButton.addEventListener("click", function () {
+        canvasButton.classList.add("oculta");
+        canvasButton.classList.remove("mostrando");
+    });
+
+    function cancelarEsconder(){
+        canvasButton.classList.add("oculta");
+        canvasButton.classList.remove("mostrando");
+    }
+    cancelarButton.addEventListener("click", function () {
+        cancelarEsconder();
+    });
+
+    // esta parte lanza la función cuando la imagen se ha cargado
+    imagenPerfil.addEventListener("load", function () {
+        // Aplicar el nuevo estilo a .elementoCambiarCSS
+        canvasButton.classList.remove("oculta");
+        canvasButton.classList.add("mostrando");
+    });
+
+</script>

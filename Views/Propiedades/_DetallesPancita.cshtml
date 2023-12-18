@@ -1,0 +1,233 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+    *@
+
+
+
+
+
+<!-- mmmmmmmm pancitaaaaaaa -->
+
+<div class=" col ">
+    <div class=" shadow datos-casa  rounded p-2 " style=" height: -webkit-fill-available;">
+        <h5 class="ms-2">Datos de la propiedad</h5>
+        <div class="position-relative">
+
+
+            @{
+                var classAbrev = "";
+                switch (@Model.Abrev)
+                {
+                    case "Depto.":
+                        classAbrev = "title-cards-mp-depto ";
+                        break;
+                    case "Bodega":
+                        classAbrev = "title-cards-mp-bodega";
+                        break;
+                    case "Casa":
+                        classAbrev = "title-cards-mp-casa";
+                        break;
+                    case "Edif.":
+                        classAbrev = "title-cards-mp-edificio";
+                        break;
+                    case "Huerta":
+                        classAbrev = "title-cards-mp-huerta";
+                        break;
+                    case "Local":
+                        classAbrev = "title-cards-mp-local";
+                        break;
+                    case "Nave":
+                        classAbrev = "title-cards-mp-nave";
+                        break;
+                    case "Ofic.":
+                        classAbrev = "title-cards-mp-oficina";
+                        break;
+                    case "Quinta":
+                        classAbrev = "title-cards-mp-quinta";
+                        break;
+                    case "Rancho":
+                        classAbrev = "title-cards-mp-rancho";
+                        break;
+                    case "Terreno":
+                        classAbrev = "title-cards-mp-terreno";
+                        break;
+                    case "Villa":
+                        classAbrev = "title-cards-mp-villa";
+                        break;
+                    case "Hosp.":
+                        classAbrev = "title-cards-mp-hospital";
+                        break;
+                    case "Esc.":
+                        classAbrev = "title-cards-mp-escuela";
+                        break;
+                    default:
+                        classAbrev = "title-cards-mp-depto";
+                        break;
+                }
+            }
+            <div class="shadow d-flex  t-de-inmueble-casa  @classAbrev">
+
+                <h6 class=" mx-auto my-auto ">@Model.Abrev</h6>
+            </div>
+        </div>
+        <div class="d-inline-flex mb-3 mt-1 pt-4">
+            <label class="ms-2 text-black me-2">Título: </label>
+            <textarea class="tituloArea" readonly>@Model.Titulo</textarea>
+        
+        </div>
+        <br>
+        <div class="d-inline-flex mt-2">
+
+
+            @{
+
+                string numero = @Model.Precio;
+                decimal valor = decimal.Parse(numero);
+
+                string precioTotalP;
+                if (valor % 1 == 0)
+                {
+                    precioTotalP = valor.ToString("N0"); // Formato sin decimales ni separadores de miles
+                }
+                else
+                {
+                    precioTotalP = valor.ToString("N2"); // Formato con dos decimales y separadores de miles
+                }
+
+            }
+
+            <label class="ms-2 me-2 text-black">Precio: </label> <input type="text" disabled name="" id="" value="@precioTotalP @Model.ISO">
+        </div>
+
+        <div class="seccion-construccion mt-3">
+            <h6 class="ms-2">Construcción</h6>
+            <div class="d-flex justify-content-center responsiveExtraSmall">
+                <div class="d-block me-4">
+                    <h6 class="label-orange text-center">Antigüedad</h6>
+                    <h6 class="text-center"><i class="fa-solid fa-clock  color_orange me-1"></i> @Model.Antiguedad años </h6>
+                </div>
+                <div class="d-block me-4">
+                    <h6 class="label-orange text-center">Terreno</h6>
+                    <h6 class="text-center">
+                        <i class="fa-solid fa-maximize color_orange me-1"></i>
+
+
+
+                        @{
+                            double superficie = Convert.ToDouble(@Model.Superficie);
+                            var superficieF = superficie.ToString("N0", new System.Globalization.CultureInfo("en-US"));
+                        }
+
+                        @superficieF @Model.UM
+                    </h6>
+                </div>
+
+                <div class="d-block ">
+                    <h6 class="label-orange text-center">Construcción</h6>
+
+                    @{
+                        double superficieC = Convert.ToDouble(@Model.SuperficieC);
+                        var superficieCF = superficieC.ToString("N0", new System.Globalization.CultureInfo("en-US"));
+                    }
+                    <h6 class="text-center"><i class="fa-solid fa-maximize color_orange me-1"></i>@superficieCF @Model.UMC</h6>
+                </div>
+
+
+            </div>
+
+            <h6 class="ms-2 mt-3">Características principales</h6>
+
+            <div class="d-flex justify-content-center mt-1 size-mp-name-main-house ">
+                @{
+                    @foreach (var propiedadesCaract in Model.ListaCaracteristicasD)
+                    {
+                        if (propiedadesCaract.Caracteristicas == "Baños")
+                        {
+                            var elementosb = "";
+                            if (@propiedadesCaract.NoElementos == "")
+                            {
+                                elementosb = "0";
+                            }
+                            else
+                            {
+                                elementosb = @propiedadesCaract.NoElementos;
+                            }
+
+                            <div class="side-2-header d-inline-flex me-2">
+                                <i class="fa-solid fa-toilet me-1 mt-1 text-orange size-mp-icons"></i>
+                                <h6 for="" class=" me-1 size-mp-name-icons">  @elementosb Baños</h6>
+                            </div>
+                        }
+
+                        if (propiedadesCaract.Caracteristicas == "Estacionamientos")
+                        {
+                              var elementosE = "";
+                            if (@propiedadesCaract.NoElementos == "")
+                            {
+                                elementosE = "0";
+                            }
+                            else
+                            {
+                                elementosE = @propiedadesCaract.NoElementos;
+                            }
+
+
+                            <div class="side-2-header d-inline-flex me-1">
+                                <i class="fa-solid fa-car-side ms-1 mt-1 me-1 text-orange size-mp-icons"></i>
+                                <h6 for="" class="ms-1 me-1 size-mp-name-icons">  @elementosE Estacionamientos</h6>
+                            </div>
+                        }
+
+                        if (propiedadesCaract.Caracteristicas == "Recamaras")
+                        {
+                            var elementosR = "";
+                            if (@propiedadesCaract.NoElementos == "")
+                            {
+                                elementosR = "0";
+                            }
+                            else
+                            {
+                                elementosR = @propiedadesCaract.NoElementos;
+                            }
+
+                            <div class="side-2-header d-inline-flex">
+                                <i class="fa-solid fa-bed ms-1 mt-1 me-1 text-orange size-mp-icons"></i>
+                                <h6 for="" class="ms-1 me-1 size-mp-name-icons">  @elementosR Recámaras  </h6>
+                            </div>
+                        }
+
+                    }
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script>
+    // ajusta el textarea dependiendo del contenido
+    function ajustarAlturaTextArea(textarea) {
+        textarea.style.height = "auto"; 
+        if (textarea.scrollHeight <= 50) {
+            textarea.style.height = "23px"; 
+        } else {
+            textarea.style.height = Math.max(textarea.scrollHeight, 23) + "px"; // Establece la altura calculada o 23px como mínimo
+        }
+    }
+
+    // ajusta altura de textarea al cargar la pagina 
+    document.addEventListener("DOMContentLoaded", function () {
+        var tituloTextarea = document.querySelector(".tituloArea");
+        ajustarAlturaTextArea(tituloTextarea);
+    });
+
+    // ajusta altura de textarea al cambiar el contenido
+    document.querySelector(".tituloArea").addEventListener("input", function () {
+        ajustarAlturaTextArea(this);
+    });
+
+</script>

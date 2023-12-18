@@ -1,0 +1,696 @@
+﻿@using adminRummet.Models;
+@model PropiedadesModelPropiedad;
+
+@{
+    Layout = "_NavUsuarios";
+    ViewData["Title"] = "Rummet / Detalles de propiedad publicada";
+}
+<!--///////////////////////////////HEAD ELEMENT IMPORTING/////////////////////////////////////////////////////-->
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Proyecto_administracion</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/logo_oficial.png">
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/styleDetallePropiedad.css">
+    <link rel="stylesheet" href="~/css/estilosGenerales.css" />
+    <link rel="stylesheet" href="~/css/contenedorImagenes.css">
+
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <title>Detalle Propiedad</title>
+</head>
+
+<!--///////////////////////////////ANIMACION//////////////////////////////////////////////////////////////////-->
+
+<ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+
+</ul>
+
+<input id="PropiedadGUID" value="@Model.IDPropiedadG" class="d-none">
+
+<!--///////////////////////////////CONTENIDO//////////////////////////////////////////////////////////////////-->
+<h4 class="tituloVista ms-3">Detalles de la propiedad : <b>@Model.Titulo </b></h4>
+<div class="container-lg  contenedorGeneralBlanco ">
+    <partial name="DetallesHead" />
+
+    <div class="container-lg ">
+        <div class="row">
+
+            <div class="col-lg-5 col ">
+                <div class="shadow botones-modal  d-flex justify-content-between  p-3 rounded ">
+                    <!-- BOTON MODAL 1 DOCUMENTOS -->
+                    <button type="button" class="btn btn-modals" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Documentos
+                    </button>
+
+
+
+                    <!--BOTON MODAL 2 FOTOS -->
+                    <button type="button" class="btn btn-modals" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                        Fotos
+                    </button>
+
+
+
+                    <!--BOTON MODAL 3 CONTRATOS-->
+                    <button type="button" class="btn btn-modals" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                        Contratos
+                    </button>
+
+
+                </div>
+
+                <!--Aquí empieza la seccion del propietario-->
+                <div class="shadow seccion-propietario mt-2 rounded pt-2 mb-2 pb-3">
+                    <h5 class="ms-3  ">Propietario</h5>
+                    <br>
+                    <div class="d-inline-flex my-2 w-100">
+                        <label class="ms-3 text-black ">Nombre: </label>
+                        <input type="text" disabled class="mx-2 w-100" value="@Model.NombreP">
+                    </div>
+                    <div class="d-inline-flex my-2 w-100">
+                        <label class="ms-3 text-black " style="width:52%;">Apellido paterno: </label>
+                        <input type="text" disabled class="mx-2 w-100" value="@Model.ApellidoPP">
+                    </div>
+                    <div class="d-inline-flex my-2 w-100">
+                        <label class="ms-3 text-black" style="width:60%;">Apellido materno: </label>
+                        <input type="text" disabled class="mx-2 w-100" value="@Model.ApellidoMP">
+                    </div>
+                    <div class="d-inline-flex my-2 w-100">
+                        <label class="ms-3 text-black">Correo: </label>
+                        <input type="text" disabled class="mx-2 w-100" value="@Model.CorreoP">
+                    </div>
+                    <div class="d-inline-flex my-2 w-100">
+                        <label class="ms-3 text-black">Teléfono: </label>
+                        <input type="text" disabled class="mx-2 w-100" value="@Model.TelefonoP">
+                    </div>
+                </div>
+
+                <div class="shadow seccion-fecha-publicacion   mt-2 pt-2 mb-2 rounded">
+
+                    <div class="fecha-publi p-1 mt-1">
+                        <h5 class=" mx-auto text-center label-orange-3">Fecha programada</h5>
+                        @{
+                            var fechaProgramada = "dd/mm/aaaa";
+                            if (@Model.fechaProgramada != null)
+                            {
+                                fechaProgramada = Model.fechaProgramada;
+                            }
+                        }
+                        <p class="text-center">@fechaProgramada </p>
+                    </div>
+
+                    <div class="fecha-publi p-1 mt-1">
+                        <h5 class=" mx-auto text-center label-orange-3">Fecha de publicación</h5>
+                        @{
+                            var fecha = "dd/mm/aaaa";
+                            if (@Model.fechaPublicacion != null)
+                            {
+                                fecha = Model.fechaPublicacion;
+                            }
+                        }
+                        <p class="text-center">@fecha </p>
+                    </div>
+
+
+
+                    <div class="tiempo-publi  p-1">
+                        <h5 class="text-center mx-auto label-blue-2">Tiempo publicada</h5>
+                        <div class="d-flex justify-content-center">
+                            <p class="text-center d-flex d-inline-flex ">
+
+                           
+                                <div class="d-inline-flex ms-1">
+                                    @Model.DiasP <p class="ms-1">días</p>
+                                </div>
+                                <div class="d-inline-flex ms-1">
+                                    @Model.HorasP <p class="ms-1">horas</p>
+                                </div>
+                            </p>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <partial name="_DetallesPancita" />
+        </div>
+
+    </div>
+</div>
+@{
+    var Usuario = "";
+}
+
+<!-- Modal de documentos -->
+<div class="modal fade" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" style="background-color: rgba(128, 128, 128, 0.5)">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label for="documentos" class="fw-bold color_letter ms-lg-2">
+                    Documentos
+                </label>
+                <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <br>
+                    <div class="row d-inline-flex">
+                        <div class="col-lg-8">
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive table-height">
+                                <!--docs pack 1-->
+                                <partial name="_DocPropiedades" />
+                                @{
+                                    var Thaliz = "En Proceso";
+                                }
+
+
+                                <hr />
+
+
+                            </div>
+                            <div class="input-group d-flex justify-content-start">
+                            </div>
+                        </div>
+                        <div class="col border">
+                            <div class="input-group d-flex mx-auto">
+                                <div id="visorArchivo" class="d-flex justify-content-end mx-auto ">
+                                
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-modals" id="Guardarbtn">Guardar cambios</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal de fotos-->
+<div class="modal fade" id="exampleModal2" tabindex="1" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-bs-backdrop="static" style="background-color: rgba(128, 128, 128, 0.5)">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label for="documentos" class="fw-bold color_letter ms-lg-2">
+                    Fotografías
+                </label>
+                <h1 class="modal-title fs-5" id="exampleModalLabel2"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="container-fluid d-flex  justify-content-center">
+                    <div class="container-img m-auto">
+
+                        @foreach (var img642 in Model.ImagenesPropiedad)
+                        {
+                            <div class="box-img">
+
+                                <figure class="image-figure">
+                                    <img src="@img642.txt64" alt="img-galeria">
+                                </figure>
+
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal de contratos -->
+<div class="modal fade" id="exampleModal3" tabindex="1" aria-labelledby="exampleModalLabel3" aria-hidden="true" data-bs-backdrop="static" style="background-color: rgba(128, 128, 128, 0.5)">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label for="documentos" class="fw-bold color_letter ms-lg-2">
+                    Contratos
+                </label>
+                <h1 class="modal-title fs-5" id="exampleModalLabel3"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive table-height">
+                            <table class="table table-hover border-gray h-100">
+
+                                <tbody>
+                                    <tr class="tabla-hover">
+                                        <th scope="row" class="col-1">1</th>
+                                        <td class="col-5">
+                                            <h6 class="font-size-visualizador">Contrato intermediación</h6>
+                                        </td>
+                                        <td class="col-2">
+                                            <div class="fileContainer2 input-group btn btnm">
+                                                <i class="fa-solid fa-file-arrow-up size-icon "> </i>
+                                                <input type="file" name="s_archivo" id="archivoInput_1" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                       onchange="return validarExt(1)">
+
+
+                                            </div>
+                                        </td>
+                                        <td class="col-2">
+                                            <div class="fileContainer3 input-group btn btnm">
+                                                <input type="button" name="v_archivo4" id="" onclick="visorExt(1)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                <i class="fa-solid fa-eye size-icon "></i>
+                                            </div>
+                                        </td>
+                                        <td class="col-2">
+                                            @{
+
+                                                if (Usuario == "MesaDeControl")
+                                                {
+                                                    <div class="fileContainer3 input-group btn btnm" data-toggle="tooltip" data-placement="top" title="Documento enviado">
+                                                        <input type="button" name="p_archivo5" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-paper-plane  size-icon"></i>
+
+                                                    </div>
+
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento pendiente">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-arrow-rotate-right size-icon "></i>
+
+                                                    </div>
+
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento firmado">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-badge-check"></i>
+
+                                                    </div>
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento no firmado">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-octagon-xmark"></i>
+
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="fileContainer3 input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento enviado">
+                                                        <input type="button" name="p_archivo5" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-paper-plane size-icon"></i>
+
+                                                    </div>
+
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento pendiente">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-arrow-rotate-right size-icon "></i>
+
+                                                    </div>
+
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento firmado">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-badge-check"></i>
+
+                                                    </div>
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento no firmado">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-octagon-xmark"></i>
+
+                                                    </div>
+
+                                                }
+
+                                            }
+
+                                        </td>
+                                    </tr>
+                                    <tr class="tabla-hover">
+                                        <th scope="row">2</th>
+                                        <td>
+                                            <h6 class="font-size-visualizador">Contrato promesa</h6>
+                                        </td>
+                                        <td>
+                                            <div class="fileContainer2 input-group btn btnm">
+                                                <i class="fa-solid fa-file-arrow-up size-icon  size-icon "></i>
+                                                <input type="file" name="s_archivo" id="archivoInput_2" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                       onchange="return validarExt(2)">
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="fileContainer3 input-group btn btnm">
+                                                <input type="button" name="v_archivo6" id="" onclick="visorExt(2)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                <i class="fa-solid fa-eye size-icon"></i>
+                                            </div>
+                                        </td>
+                                        <td class="col-2">
+                                            @{
+
+                                                if (Usuario == "MesaDeControl")
+                                                {
+                                                    <div class="fileContainer3 input-group btn btnm" data-toggle="tooltip" data-placement="top" title="Documento enviado">
+                                                        <input type="button" name="p_archivo5" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-paper-plane  size-icon"></i>
+
+                                                    </div>
+
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento pendiente">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-arrow-rotate-right size-icon "></i>
+
+                                                    </div>
+
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento firmado">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-badge-check"></i>
+
+                                                    </div>
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento no firmado">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-octagon-xmark"></i>
+
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="fileContainer3 input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento enviado">
+                                                        <input type="button" name="p_archivo5" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-paper-plane size-icon"></i>
+
+                                                    </div>
+
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento pendiente">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-arrow-rotate-right size-icon "></i>
+
+                                                    </div>
+
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento firmado">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-badge-check"></i>
+
+                                                    </div>
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento no firmado">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-octagon-xmark"></i>
+
+                                                    </div>
+
+                                                }
+
+                                            }
+
+                                        </td>
+                                    </tr>
+                                    <tr class="tabla-hover">
+                                        <th scope="row">3</th>
+                                        <td>
+                                            <h6 class="font-size-visualizador">Contrato venta</h6>
+                                        </td>
+                                        <td>
+                                            <div class="fileContainer2 input-group btn btnm">
+                                                <input type="file" name="s_archivo" id="archivoInput_3" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                       onchange="return validarExt(3)">
+                                                <i class="fa-solid fa-file-arrow-up  size-icon"></i>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="fileContainer3 input-group btn btnm">
+                                                <input type="button" name="v_archivo7" id="" onclick="visorExt(3)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                <i class="fa-solid fa-eye  size-icon"></i>
+                                            </div>
+                                        </td>
+                                        <td class="col-2">
+                                            @{
+
+                                                if (Usuario == "MesaDeControl")
+                                                {
+                                                    <div class="fileContainer3 input-group btn btnm" data-toggle="tooltip" data-placement="top" title="Documento enviado">
+                                                        <input type="button" name="p_archivo5" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-paper-plane  size-icon"></i>
+
+                                                    </div>
+
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento pendiente">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-arrow-rotate-right size-icon "></i>
+
+                                                    </div>
+
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento firmado">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-badge-check"></i>
+
+                                                    </div>
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento no firmado">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-octagon-xmark"></i>
+
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="fileContainer3 input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento enviado">
+                                                        <input type="button" name="p_archivo5" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-paper-plane  size-icon"></i>
+
+                                                    </div>
+
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento pendiente">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-arrow-rotate-right size-icon "></i>
+
+                                                    </div>
+
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento firmado">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-badge-check"></i>
+
+                                                    </div>
+
+                                                    <div class="fileContainer3 d-none input-group  btn btnm" data-toggle="tooltip" data-placement="top" title="Documento no firmado">
+                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                        <i class="fa-solid fa-octagon-xmark"></i>
+
+                                                    </div>
+
+                                                }
+
+                                            }
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+
+                            </table>
+                        </div>
+                        <div class="input-group d-flex justify-content-start">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group d-flex justify-content-center">
+                            <div id="visorArchivo2" class="size-file d-flex h-auto">
+                                <h5 class="text-center">Visualizador de archivos</h5>
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--////////////////////////////////SCRIPTS///////////////////////////////////////////////////////////////////-->
+
+<script>
+    modal()
+    function modal() {
+        const btnModal = document.getElementById('btn-modal'); // boton de calendario
+        btnCloseModal = document.getElementById('close-modal'); // boton de cerrar calendario
+
+        const contModal = document.getElementById('cont-modal'); // Contenido del calendario
+
+
+        // LLamado de FullCalendar
+        var initialLocaleCode = 'es';
+        var localeSelectorEl = document.getElementById('locale-selector');
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+            },
+            initialDate: '2020-09-12',
+            locale: initialLocaleCode,
+            theme: true,
+            editable: true,
+            buttonIcons: false, // show the prev/next text
+            // weekNumbers: true,
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            dayMaxEvents: true, // allow "more" link when too many events
+            events: [
+                {
+                    title: 'All Day Event',
+                    start: '2020-09-01'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2020-09-07',
+                    end: '2020-09-10'
+                },
+                {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2020-09-09T16:00:00'
+                },
+                {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2020-09-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2020-09-11',
+                    end: '2020-09-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2020-09-12T10:30:00',
+                    end: '2020-09-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2020-09-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2020-09-12T14:30:00'
+                },
+                {
+                    title: 'Happy Hour',
+                    start: '2020-09-12T17:30:00'
+                },
+                {
+                    title: 'Dinner',
+                    start: '2020-09-12T20:00:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2020-09-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'http://google.com/',
+                    start: '2020-09-28'
+                }
+            ]
+        });
+
+        btnModal.onclick = function () { // Funcion al precionar el boton de calendario
+            contModal.classList.add('active')
+
+            calendar.render();
+
+            // build the locale selector's options
+            calendar.getAvailableLocaleCodes().forEach(function (localeCode) {
+                var optionEl = document.createElement('option');
+                optionEl.value = localeCode;
+                optionEl.selected = localeCode == initialLocaleCode;
+                optionEl.innerText = localeCode;
+                localeSelectorEl.appendChild(optionEl);
+            });
+
+            // when the selected option changes, dynamically change the calendar option
+            localeSelectorEl.addEventListener('change', function () {
+                if (this.value) {
+                    calendar.setOption('locale', this.value);
+                }
+            });
+
+        }
+
+        btnCloseModal.onclick = function () { // boton de cerrar calendario
+            contModal.classList.remove('active')
+        }
+
+
+    }
+</script>
+
+<!--Este es el CDN de SWEET ALERT -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+<script src="~/js/detallesModal.js"></script>
+<script src="~/js/descargaPDF.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="~/js/script.js"></script>
+<script src="~/js/script-visualizadores.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="~/js/modalFunciones.js"></script>
+<script src="~/js/archivo.js"></script>
+<script src="~/js/propiedadesEli.js"></script>

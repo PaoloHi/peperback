@@ -1,0 +1,493 @@
+﻿@model AccesoModel
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@{
+    Layout = "_NavUsuarios";
+    ViewData["Title"] = "Rummet ";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/css/estilosGenerales.css" />
+    <link rel="stylesheet" href="~/css/custom.css">
+    <!-- AOS -->
+    <link rel="stylesheet" href="~/css/aos.css">
+
+
+
+    <link rel="stylesheet" type="text/css" href="ruta/slick.css">
+    <link rel="stylesheet" type="text/css" href="ruta/slick-theme.css">
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+</head>
+<!-- banner -->
+
+<!--animacion de fondo-->
+<ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+<div class="container-fluid contenedorGeneralBlanco mt-4 row pt-4 px-4" style="margin: 0px 2rem; width: -webkit-fill-available;">
+    <div class="row px-0">
+
+        <div class="col-lg-8 col-md-12 ">
+            <div class="contenedorGeneralBlanco shadow mb-4 mt-2 d-inline-flex w-100" style="height: 90%;">
+                <div class="col-lg-8 col-md-12 ps-4 py-4">
+
+                    <h1 class="titletext my-2" id="saludo"> </h1>
+                    <p class="ms-2 subtittletext">Es un placer tenerte de vuelta.</p>
+
+                    <input value="@Model.NombreUsuario" id="elNombre" class="d-none" />
+
+                    <div class="reloj ">
+                        <h1 id="reloj"></h1>
+                    </div>
+                    @if (SignInManager.IsSignedIn(User) && ((User.IsInRole("Broker"))))
+                    {
+                        <div class="openModalButtondiv">
+                            <!-- Botón para abrir el modal -->
+                            <img src="~/img/imagenes__e-commerce/video.png" id="openModalButton" />
+
+                        </div>
+                    }
+                </div>
+                <div class="col-lg-4 responsiveSmalldesaparecer  4 ">
+                    <img src="~/img/imagenes__e-commerce/Recurso-persona-1.png" class="imgReloj" />
+                </div>
+            </div>
+
+        </div>
+        <!--columna de inforumm-->
+        <div class="col-lg-4 col-md-12 ">
+            <div class="enterate shadow">
+                <div class="title-enterate">InfoRumm</div>
+                <div class="img-enterate">
+                    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+
+                            <div class="carousel-item active">
+                                <img src="~/img/imagenes-mesa-de-control/CAPACITACION-RUMMET.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                            </div>
+                            <div class="carousel-item">
+
+                                <img src="~/img/imagenes-mesa-de-control/CRM-RUMMET.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                            </div>
+                            <div class="carousel-item">
+                                <img src="~/img/imagenes-mesa-de-control/POST-BROKERS.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                            </div>
+                            <div class="carousel-item">
+                                <img src="~/img/imagenes-mesa-de-control/POST-ESPACIOS.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                            </div>
+                            <div class="carousel-item">
+                                <img src="~/img/imagenes-mesa-de-control/POST-FOTOGRAFOS.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                            </div>
+                            <div class="carousel-item">
+                                <img src="~/img/imagenes-mesa-de-control/POST-PROPIEDAD.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                            </div>
+                            <div class="carousel-item">
+                                <img src="~/img/imagenes-mesa-de-control/POST-REDES.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                            </div>
+                            <div class="carousel-item">
+                                <img src="~/img/imagenes-mesa-de-control/TIPS-RUMMET.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev" style="height: 222px;">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next" style="height: 222px;">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row col contenedorGeneralBlanco  my-4 mx-auto" style="height:235px;">
+        <div class=" d-inline-flex caruselContainer ">
+            <!--Mi Perfil -->
+            
+                <div class="cardCarousel card shadow ">
+                    <a class=" education" asp-controller="Accesos" asp-action="Perfil">
+                        <div class="overlay overlay1"></div>
+                        <p>Mi perfil</p>
+                        <img src="~/img/imagenes__e-commerce/miPerfil2.png" class="imgMiPerfil imgCarrusel" />
+                    </a>
+
+                </div>
+         
+            <!--Bitrix 24 -->
+            @if (SignInManager.IsSignedIn(User) && ((User.IsInRole("Broker")) || (User.IsInRole("Ejecutivo comercial")) || (User.IsInRole("Mesa de control")) || (User.IsInRole("Contact Center")) || (User.IsInRole("Admin comercial")) || (User.IsInRole("Admin root"))))
+            {
+               @*  <div class="cardCarousel card shadow ">
+                    <a href="https://rummet.bitrix24.es/" class=" education">
+                        <div class="overlay overlay2"></div>
+                        <p>Bitrix 24</p>
+                        <!--<img src="~/img/Login/cloudman-04.png" class="imgB24CloudMan"  />-->
+                        <img src="~/img/imagenes__e-commerce/bitrix24.png" class="imgB24 imgCarrusel" />
+                    </a>
+
+                </div> *@
+            }
+
+            <!--TABLERO -->
+            @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Broker")))
+            {
+                <div class="cardCarousel card shadow ">
+                    <a class=" education" asp-controller="Brokers" asp-action="TableroBroker">
+                        <div class="overlay overlay3"></div>
+                        <p>Tablero</p>
+                        <img src="~/img/imagenes__e-commerce/tablero.png" class="imgTblro imgCarrusel" />
+
+                    </a>
+
+                </div>
+            }
+            else if (SignInManager.IsSignedIn(User) && (User.IsInRole("Finanzas")))
+            {
+
+                <div class="cardCarousel card shadow ">
+                    <a class=" education" asp-controller="Accesos" asp-action="Bienvenida">
+                        <div class="overlay overlay3"></div>
+                        <p>Tablero</p>
+                        <img src="~/img/imagenes__e-commerce/tablero.png" class="imgTblro imgCarrusel" />
+
+                    </a>
+
+                </div>
+            }
+            else if (SignInManager.IsSignedIn(User) && (User.IsInRole("Aliado")))
+            {
+
+                <div class="cardCarousel card shadow ">
+                    <a class=" education" asp-controller="Propietarios" asp-action="TableroPropietario">
+                        <div class="overlay overlay3"></div>
+                        <p>Tablero</p>
+                        <img src="~/img/imagenes__e-commerce/tablero.png" class="imgTblro imgCarrusel" />
+
+                    </a>
+
+                </div>
+            }
+            else if (SignInManager.IsSignedIn(User) && (User.IsInRole("Contact Center")))
+            {
+
+                <div class="cardCarousel card shadow ">
+                    <a class=" education" asp-controller="Contact" asp-action="TabContactCenter">
+                        <div class="overlay overlay3"></div>
+                        <p>Tablero</p>
+                        <img src="~/img/imagenes__e-commerce/tablero.png" class="imgTblro imgCarrusel" />
+
+                    </a>
+
+                </div>
+            }
+            else if (SignInManager.IsSignedIn(User) && (User.IsInRole("Mesa de control")))
+            {
+
+                <div class="cardCarousel card shadow ">
+                    <a class=" education" asp-controller="MesaControl" asp-action="TabMesaControl">
+                        <div class="overlay overlay3"></div>
+                        <p>Tablero</p>
+                        <img src="~/img/imagenes__e-commerce/tablero.png" class="imgTblro imgCarrusel" />
+
+                    </a>
+
+                </div>
+            }
+            else if (SignInManager.IsSignedIn(User) && (User.IsInRole("Propietario")))
+            {
+
+                <div class="cardCarousel card shadow ">
+                    <a class=" education" asp-controller="Propietarios" asp-action="TableroPropietario">
+                        <div class="overlay overlay3"></div>
+                        <p>Tablero</p>
+                        <img src="~/img/imagenes__e-commerce/tablero.png" class="imgTblro imgCarrusel" />
+
+                    </a>
+
+                </div>
+            }
+            else if (SignInManager.IsSignedIn(User) && (User.IsInRole("Legal")))
+            {
+
+                <div class="cardCarousel card shadow ">
+                    <a class=" education" asp-controller="Accesos" asp-action="Bienvenida">
+                        <div class="overlay overlay3"></div>
+                        <p>Tablero</p>
+                        <img src="~/img/imagenes__e-commerce/tablero.png" class="imgTblro imgCarrusel" />
+
+                    </a>
+
+                </div>
+            }
+
+            <!--Propiedades -->
+            @if (SignInManager.IsSignedIn(User) && ((User.IsInRole("Broker")) || (User.IsInRole("Ejecutivo comercial")) || (User.IsInRole("Mesa de control")) || (User.IsInRole("Contact Center")) || (User.IsInRole("Admin comercial")) || (User.IsInRole("Admin root"))))
+            {
+                <div class="cardCarousel card shadow ">
+                    <a class=" education" asp-controller="Propiedades" asp-action="PropiedadesTab">
+                        <div class="overlay overlay4"></div>
+                        <p>Propiedades</p>
+
+                        <img src="~/img/imagenes__e-commerce/propiedades2.png" class="imgPrpiedds imgCarrusel" />
+                    </a>
+
+                </div>
+            }
+
+
+
+        </div>
+
+    </div>
+</div>
+
+
+@if (SignInManager.IsSignedIn(User) && ((User.IsInRole("Broker"))))
+{
+    <!-- Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <div class="modal-header" style="    padding: 10px;
+    background-color: black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: none;">
+                <button type="button" class="close" id="closeModalButton">&times;</button>
+            </div>
+            @{
+                var play = "";
+            }
+            @if(@Model.FechaIngreso == "1"){
+                play = "autoplay";
+            }
+            <div class="modal-body">
+
+                 @if(@Model.FechaIngreso == "1"){
+                  <video class="modal-video" id="videoBienvenidaBroker" src="~/img/imagenes__e-commerce/rummet2_v3.mp4" type="video/mp4" controls autoplay></video>
+            }else{
+                  <video class="modal-video" id="videoBienvenidaBroker" src="~/img/imagenes__e-commerce/rummet2_v3.mp4" type="video/mp4" controls></video>
+            }
+
+              
+
+            </div>
+        </div>
+    </div>
+}
+
+
+<input class="d-none" id="NumIngresos" value=@Model.FechaIngreso>
+
+
+
+
+
+<!-- AOS -->
+<script src="~/js/aos.js"></script>
+<script>
+    /*AOS.init({
+    });*/
+</script>
+
+
+<!--slick-slider-->
+@if (SignInManager.IsSignedIn(User) && (User.IsInRole("Ejecutivo comercial") || User.IsInRole("Admin comercial") || User.IsInRole("Admin root")))
+{
+    <script>
+        $(document).ready(function () {
+            $('.caruselContainer').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                        breakpoint: 992, // Dispositivos grandes
+                        settings: {
+                            slidesToShow: 2, // Mostrar 3 tarjetas en dispositivos grandes
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 576,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+}
+else if (SignInManager.IsSignedIn(User) && (User.IsInRole("Finanzas") || User.IsInRole("Aliado") || User.IsInRole("Propietario") || User.IsInRole("Legal")))
+{
+    <script>
+        $(document).ready(function () {
+            $('.caruselContainer').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                        breakpoint: 992, // Dispositivos grandes
+                        settings: {
+                            slidesToShow: 2, // Mostrar 3 tarjetas en dispositivos grandes
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 576,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+}
+else if (SignInManager.IsSignedIn(User) && (User.IsInRole("Mesa de control") || User.IsInRole("Contact Center") || User.IsInRole("Broker") || User.IsInRole("APJWR")))
+{
+    <script>
+        $(document).ready(function () {
+            $('.caruselContainer').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                        breakpoint: 1200, // Dispositivos grandes
+                        settings: {
+                            slidesToShow: 2, // Mostrar 3 tarjetas en dispositivos grandes
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 576,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 270,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+
+}
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+
+
+<script>
+    var elNombre = document.getElementById("elNombre");
+
+    /* Saludo */
+    function obtenerSaludo() {
+        var fecha = new Date(); // fecha y hora
+        var horas = fecha.getHours();
+        var saludo;
+
+        if (horas >= 6 && horas < 12) {
+            saludo = 'Buenos días, ' + elNombre.value;
+        } else if (horas >= 12 && horas < 18) {
+            saludo = 'Buenas tardes, ' + elNombre.value;
+        } else {
+            saludo = 'Buenas noches, ' + elNombre.value;
+        }
+
+        document.getElementById("saludo").textContent = saludo; // Actualiza el "saludo"
+    }
+
+    // Actualiza el saludo al cargar la página
+    obtenerSaludo();
+</script>
+
+
+
+<script>
+    var NumIngresos = document.getElementById("NumIngresos");
+    NumIngresos = $("#NumIngresos").val();
+   //NumIngresos = "1";
+
+   console.log(NumIngresos);
+
+    console.log("Pruebaaa " + NumIngresos)
+
+    if (NumIngresos === "1") {
+        openModal();
+    }
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>

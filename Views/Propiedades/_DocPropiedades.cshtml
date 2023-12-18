@@ -1,0 +1,493 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+
+
+
+
+
+@using adminRummet.Models;
+
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+@{
+    int indice = 0;
+    int estadoDocumento;
+}
+<input class="d-none" id="controlador" value="Propiedades" />
+
+<!--documentos de la propiedad-->
+<div id="accordion" class="accordion controlador_Propiedades ">
+    <div class="card m-b-0 bg-transparent" style="border:none;">
+        <div class="card-header collapsed collapsible2 " data-toggle="collapse" data-patent="#accordion" href="#collapseOne">
+            <a class="card-title color_letter2">De la propiedad</a>
+        </div>
+        <div class="card-block collapse " id="collapseOne">
+
+            <table class="table table-hover border-gray h-auto">
+                <tbody>
+
+                    @{
+                        List<string> TipodeArchivoPropiedad = new List<string>()
+                    {
+                    "Pago del último predial",
+                    "Escritura anterior",
+                    "Régimen de condominio",
+                    "Certificado de no gravamen",
+                    "Certificado de no adeudo",
+                    "Avalúo"
+                    };
+
+
+                    }
+
+
+                    @foreach (ArchivoClasePropiedad documento in @Model.DocumentosDetalles)
+                    {
+                        indice += 1;
+                        <tr class="tabla-hover">
+                            <th scope="row">@indice</th>
+                            <td colspan="2"><h6 class="font-size-visualizador">@TipodeArchivoPropiedad[indice-1]</h6> </td>
+                            <td>
+                                <div class="fileContainer2 input-group btn btnm">
+                                    <input type="file" name="s_archivo" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                           onchange=SubirVisualizar(@indice)>
+                                    <i class="fa-solid fa-file-arrow-up size-icon "></i>
+                                    <input id="IDdoc_@indice" class="d-none" value="@documento.IDdocPropiedad" />
+                                    <input id="IDTipoArchivo_@indice" value="@documento.IDtipoArchivo" class="d-none">
+                                    <input id="FileNombre_@indice" value="@documento.archivoNombre" class="d-none">
+                                    <input id="DocumentoNombre_@indice" value="@documento.archivoNombre" class="d-none">
+
+
+                                    <input id="PropiedadID_@indice" value="@documento.IDPropiedad" class="d-none">
+
+                                    <input id="@indice" value="@documento.IDPropiedad" class="d-none">
+                                    <input id="Identificador_@indice" value="@documento.IDPropiedad" class="d-none">
+                                    <input id="statusDoc_@indice" value="@documento.IDStatusDoc" class="d-none">
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fileContainer3  input-group btn btnm">
+                                    <input type="button" name="d_archivo" id="archivoInput_delete" onclick="borrarArchivo(@indice,'propiedades', @documento.IDdocPropiedad,@documento.IDStatusDoc)" class="eliminarprueba  position-absolute top-0 start-0 claseBtnTruco">
+                                    <i class="fa-solid fa-trash-can size-icon "></i>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fileContainer3 input-group btn btnm">
+                                    <input type="button" name="v_archivo4" id="visor_@indice" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco" value="">
+                                    <input class="d-none" id="txt64_@indice" value="@documento.txt64">
+
+
+                                    <i class="fa-solid fa-eye size-icon "></i>
+                                    <input value="" id="docBase64_@indice" class="d-none">
+                                </div>
+                            </td>
+                            <td>
+                                @{
+                                    estadoDocumento = documento.IDStatusDoc;
+                                }
+
+                                <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                            </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+@{
+    string Rol = Model.Rol;
+    string RolBorrar = '\u0022' + "usuarios" + '\u0022';
+    string controller = "usuarios";
+
+    if (Rol == "Broker")
+    {
+        RolBorrar = '\u0022' + "brokers" + '\u0022';
+        controller = "brokers";
+    }
+
+
+}
+
+<!--documentos del propietario -->
+
+<div id="accordion" class="accordion controlador_usuarios">
+    <div class="card m-b-0 bg-transparent" style="border:none;">
+        <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseTwo">
+            <a class="card-title color_letter2">
+                Del vendedor
+            </a>
+
+
+        </div>
+        <div class="card-block collapse" id="collapseTwo">
+
+            @{
+                List<string> TipodeArchivo = new List<string>()
+            {
+            "Identificación oficial",
+            "CURP",
+            "RFC",
+            "Comprobante de domicilio",
+            "Constancia de situación fiscal",
+            "Estado de cuenta (carátula)"
+            };
+
+
+            }
+
+
+            @if (@Model.DocumentosEditarPropietario[0].IDUsuario > 0)
+            {
+                <table class="table table-hover border-gray h-auto">
+                    <tbody>
+
+                        @foreach (ArchivoClaseUsuario documento in @Model.DocumentosEditarPropietario)
+                        {
+                            indice += 1;
+                            <tr class="tabla-hover">
+                                <th scope="row">@indice</th>
+                                <td colspan="2"><h6 class="font-size-visualizador"> @TipodeArchivo[indice-7]</h6> </td>
+                                <td>
+                                    <div class="fileContainer2 input-group btn btnm">
+                                        <input type="file" name="s_archivo" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                               onchange=SubirVisualizar(@indice)>
+                                        <i class="fa-solid fa-file-arrow-up size-icon  "></i>
+                                        <input id="IDdoc_@indice" class="d-none" value="@documento.IDdocUsuario " />
+                                        <input id="IDTipoArchivo_@indice" value="@documento.IDtipoArchivo" class="d-none">
+                                        <input id="FileNombre_@indice" value="@documento.archivoNombre" class="d-none">
+                                        <input value="@documento.archivoNombre" class="d-none" id="DocumentoNombre_@indice">
+
+                                        <input id="Identificador_@indice" value="@documento.IDUsuario" class="d-none">
+
+                                        <input id="controller_@indice" value="@controller" type="hidden">
+
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fileContainer3  input-group btn btnm">
+                                        <input type="button" name="d_archivo" id="archivoInput_delete" onclick="borrarArchivo(@indice,'' + @RolBorrar +'', @documento.IDdocUsuario,@documento.IDStatusDoc)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                        <i class="fa-solid fa-trash-can size-icon "></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fileContainer3 input-group btn btnm">
+                                        <input type="button" name="v_archivo4" id="visor_@indice" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco" value="">
+                                        <input class="d-none" id="txt64_@indice" value="@documento.txt64">
+
+
+                                        <i class="fa-solid fa-eye size-icon "></i>
+                                        <input value="" id="docBase64_@indice" class="d-none">
+                                    </div>
+                                </td>
+                                <td>
+                                    @{
+
+                                        estadoDocumento = Model.DocumentosEditarPropietario[@indice - 7].IDStatusDoc;
+                                    }
+
+                                    <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+
+                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+
+            }
+            else
+            {
+                <p> </p>
+
+            }
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@if (Model.StatusPublicacion == "En proceso de renta"||Model.StatusPublicacion == "En proceso de venta")
+{
+
+    <!--Para los documentos del cliente comprador (LeadInteresado ) -->
+    <div id="accordion" class="accordion ">
+        <div class="card m-b-0 bg-transparent" style="border:none;">
+            <div class="card-header collapsed collapsible2 " data-toggle="collapse" data-patent="#accordion" href="#collapseLead">
+                <a class="card-title color_letter2">De el comprador</a>
+            </div>
+            <div class="card-block collapse " id="collapseLead">
+
+                <table class="table table-hover border-gray h-auto">
+                    <tbody>
+                        @{
+                            indice = 13;
+                        }
+                        @foreach (DocumentosLead documento in @Model.DocumentosDetallesLead)
+                        {
+                            indice += 1;
+                            <tr class="tabla-hover">
+                                <th scope="row">@indice</th>
+                                <td colspan="2"><h6 class="font-size-visualizador">@documento.TipoArchivo</h6> </td>
+                                <td>
+                                    <div class="fileContainer2 input-group btn btnm">
+                                        <input type="file" name="s_archivo" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                               onchange=SubirVisualizar(@indice)>
+                                        <i class="fa-solid fa-file-arrow-up size-icon "></i>
+                                        <input id="IDdoc_@indice" class="d-none" value="@documento.IDdocLead" />
+                                        <input id="IDTipoArchivo_@indice" value="@documento.IDtipoArchivo" class="d-none">
+                                        <input id="FileNombre_@indice" value="@documento.fileNombre" class="d-none">
+                                        <input id="DocumentoNombre_@indice" value="@documento.fileNombre" class="d-none">
+
+                                        <input id="Identificador_@indice" value="@documento.IDLead" class="d-none">
+                                        <input id="statusDoc_@indice" value="@documento.IDStatusDoc" class="d-none">
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fileContainer3  input-group btn btnm">
+                                        <input type="button" name="d_archivo" id="archivoInput_delete" onclick="borrarArchivo(@indice,'Lead', @documento.IDdocLead,@documento.IDStatusDoc)" class="eliminarprueba  position-absolute top-0 start-0 claseBtnTruco">
+                                        <i class="fa-solid fa-trash-can size-icon "></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fileContainer3 input-group btn btnm">
+                                        <input type="button" name="v_archivo4" id="visor_@indice" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco" value="">
+                                        <input class="d-none" id="txt64_@indice" value="@documento.txt64">
+
+
+                                        <i class="fa-solid fa-eye size-icon "></i>
+                                        <input value="" id="docBase64_@indice" class="d-none">
+                                    </div>
+                                </td>
+                                <td>
+                                    @{
+                                        estadoDocumento = documento.IDStatusDoc;
+                                    }
+
+                                    <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                </td>
+
+                            </tr>
+
+                        }
+
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+<!--Para los documentos del  Hipotecario -->
+    List<string> TitulosHipo = new List<string>() {"De el hipotecario existente", "De el hipotecario futuro"};
+        List<string> acordion = new List<string>() {"HipoE", "HipoF"};
+            
+    @for(int p = 0; p< 2; p++)
+    {
+        <!--Para los documentos del Hipotecario Existente  -->
+        <div id="accordion" class="accordion ">
+            <div class="card m-b-0 bg-transparent" style="border:none;">
+                <div class="card-header collapsed collapsible2 " data-toggle="collapse" data-patent="#accordion" href="#collapse_@acordion[p]">
+                    <a class="card-title color_letter2">@TitulosHipo[p]</a>
+                </div>
+                <div class="card-block collapse " id="collapse_@acordion[p]">
+
+                    <table class="table table-hover border-gray h-auto">
+                        <tbody>
+                            @{
+                                DocumentosHipo documentoHipo = Model.DocumentosDetallesHipo[p];
+                                indice = 21+p;
+                            }
+
+                            <tr class="tabla-hover">
+                                <th scope="row">@indice</th>
+                                <td colspan="2"><h6 class="font-size-visualizador">@documentoHipo.TipoArchivo</h6> </td>
+                                <td>
+                                    <div class="fileContainer2 input-group btn btnm">
+                                        <input type="file" name="s_archivo" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                               onchange=SubirVisualizar(@indice)>
+                                        <i class="fa-solid fa-file-arrow-up size-icon "></i>
+                                        <input id="IDdoc_@indice" class="d-none" value="@documentoHipo.IDdocHipo" />
+                                        <input id="IDTipoArchivo_@indice" value="@documentoHipo.IDtipoArchivo" class="d-none">
+                                        <input id="FileNombre_@indice" value="@documentoHipo.fileNombre" class="d-none">
+                                        <input id="DocumentoNombre_@indice" value="@documentoHipo.fileNombre" class="d-none">
+
+                                        <input id="Identificador_@indice" value="@documentoHipo.IDPropiedad" class="d-none">
+                                        <input id="statusDoc_@indice" value="@documentoHipo.IDStatusDoc" class="d-none">
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fileContainer3  input-group btn btnm">
+                                        <input type="button" name="d_archivo" id="archivoInput_delete" onclick="borrarArchivo(@indice,'Hipo', @documentoHipo.IDdocHipo,@documentoHipo.IDStatusDoc)" class="eliminarprueba  position-absolute top-0 start-0 claseBtnTruco">
+                                        <i class="fa-solid fa-trash-can size-icon "></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fileContainer3 input-group btn btnm">
+                                        <input type="button" name="v_archivo4" id="visor_@indice" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco" value="">
+                                        <input class="d-none" id="txt64_@indice" value="@documentoHipo.txt64">
+
+
+                                        <i class="fa-solid fa-eye size-icon "></i>
+                                        <input value="" id="docBase64_@indice" class="d-none">
+                                    </div>
+                                </td>
+                                <td>
+                                    @{
+                                        estadoDocumento = documentoHipo.IDStatusDoc;
+                                    }
+
+                                    <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    }
+
+
+
+
+   
+
+}
+
+
+<partial name="_modalAprobarRechazar" />
+
+
+
+@* 
+@if (SignInManager.IsSignedIn(User) && (!User.IsInRole("Broker") && !User.IsInRole("Finanzas") && !User.IsInRole("Aliado") && !User.IsInRole("Legal") && !User.IsInRole("Propietario") && !User.IsInRole("Propietario") && !User.IsInRole("APJWR") && !User.IsInRole("Fotografia")))
+{
+
+    <div id="openModal" class="modalDialog">
+        <div>
+            <a href="#close" title="Close" class="close" onclick="resetModal()">X</a>
+            <div class="">
+                <div class="modal-header" id="modal-header" style="border-bottom:none;">
+                    <h1 class="modal-title fs-5">¿Qué deseas hacer con este documento?</h1>
+
+                </div>
+                <div class="modal-body mx-auto p-0">
+
+                    <div class="d-flex d-inline-flex" style=" margin: 0px 0 22px 75px;">
+                        <button class="btn btn-success mr-1" id="aprbarBtn" onclick="aprovar()">Aprobar</button>
+
+                        <button class="btn btn-danger ms-1" id="rechazrBtn" onclick="rechazar()">Rechazar</button>
+                    </div>
+
+                    <div class=" " id="motivoRechazo" style="display:none;">
+                        <h4 class="text-danger my-2 fs-5 modal-title">Motivo de rechazo </h4>
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="¿Por qué rechazas el documento?" id="mensajeRechazado" style="height: 103px;"></textarea>
+                            <!--<label for="floatingTextarea" style="font-size:12px;">¿Por qué rechazas el documento?</label>-->
+                        </div>
+
+ 
+                        <div id="alertaRazonRechazo">
+
+
+                        </div>
+
+                        <a class="btn btn-danger " id="Rechazar" onclick="guardarCambiosRechazar()" style="margin: 8px 0 -22px 113px;">Rechazar</a>
+                          
+                    
+                    </div>
+
+                    <div class="mt-2 text-success" id="motivoAprovado" style="display:none;">
+                        <h6 class="modal-title fs-5">¿Estás seguro que deseas aprobar este documento?</h6>
+
+                        <button class="btn btn-success " id="guardarCambios" href="#close" onclick="guardarCambiosAprobar()" style=" margin:17px 0 -22px 125px;">
+                            Aprobar
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+}
+
+ *@
+
+
+    @*
+        <script>
+  // Agregar evento mouseleave a los elementos con la clase fileContainer3
+    $('.fileContainer3').mouseleave(function () {
+        $(this).css('height', '40px'); // Mantener la misma altura al quitar el mouse
+    });
+</script>
+    *@
+  
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+
+
+
+<script>
+
+    @{
+
+        bool TienePermisos = false;
+        @if (SignInManager.IsSignedIn(User) && (!User.IsInRole("Broker") && !User.IsInRole("Finanzas") && !User.IsInRole("Aliado") && !User.IsInRole("Legal") && !User.IsInRole("Propietario") && !User.IsInRole("Propietario") && !User.IsInRole("APJWR") && !User.IsInRole("Fotografia")))
+        {
+            TienePermisos = true;
+        }
+        else
+        {
+            TienePermisos = false;
+        }
+    }
+
+        window.UsuarioTienepermiso = JSON.parse('@Html.Raw(Json.Serialize(TienePermisos))');
+
+</script>

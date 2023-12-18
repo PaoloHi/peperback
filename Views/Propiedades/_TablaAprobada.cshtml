@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+
+
+
+@{
+    var PPT = Model.propiedadTarjeta;
+
+    <tr class=" table PP tabla-hover">
+        <td scope="row">@PPT.IDPropiedadG</td>
+        <td class="fw-lighter text-center longitudDePrueba">@PPT.Titulo</td>
+        <td class="fw-light text-center">@PPT.Direccion</td>
+        @if (SignInManager.IsSignedIn(User) && ((User.IsInRole("Ejecutivo comercial")) || (User.IsInRole("Mesa de control")) || (User.IsInRole("Contact Center")) || (User.IsInRole("Admin comercial")) || (User.IsInRole("Admin root"))))
+        {
+            <td class="fw-light text-center">@PPT.NBroker</td>
+        }
+        <td class="fw-light text-center">@PPT.DiasP días</td>
+        <td class="fw-light text-center">@PPT.Vistas</td>
+        <td class="fw-light text-center">@PPT.Visitas</td>
+        <td>
+            <div class=" d-flex justify-content-evenly">
+                <a class="style-vermas2" asp-controller="Propiedades" asp-action="DetallesPropiedad" asp-route-PROPIEDADID=@PPT.IDPropiedadG data-toggle="tooltip" data-placement="top" title="Ver detalles">
+                    <i class="fa-solid fa-eye"></i>
+                </a>
+                <a class="style-vermas2" asp-controller="Propiedades" asp-action="EditarPropiedad" asp-route-PROPIEDADID=@PPT.IDPropiedadG data-toggle="tooltip" data-placement="top" title="Editar">
+                    <i class="fa-solid fa-pen-to-square "></i>
+                </a>
+                <a class="style-vermas2" onclick="validateDataDelate('@PPT.IDPropiedadG')" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                    <i class="fa-solid fa-trash-can "></i>
+                </a>
+
+            </div>
+        </td>
+    </tr>
+}
+
+
+

@@ -1,0 +1,1598 @@
+﻿@model BrokersModel
+@{
+    Layout = "_NavUsuarios";
+    ViewData["Title"] = "Rummet / Edición broker";
+}
+
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+<!--EDICION DE USUARIO BROKER-->
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/logo_oficial.png">
+
+    <link rel="stylesheet" href="~/css/style_form_nuevo_usuario.css">
+    <link rel="stylesheet" href="~/css/Style_form.css" />
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="~/css/edicionBroker.css" />
+
+
+    <link rel="stylesheet" href="~/css/estilosGenerales.css" />
+
+    <link href="~/assets/css/material-bootstrap-wizard.css" rel="stylesheet">
+    <link href="~/assets/css/material-bootstrap-wizard-2.css" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+
+
+
+    <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+
+
+
+
+</head>
+
+<!--////////////////////////ANIMACION///////////////////////-->
+
+<ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+<h4 class="tituloVista ms-4">Edición de broker</h4>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!--      Wizard container        -->
+
+            <div class="wizard-container">
+
+                <div class="wizard-inner card wizard-card contenedorGeneralBlanco" data-color="orange" id="wizardProfile">
+                    <div class="connecting-line"></div>
+                    <div class="wizard-navigation ">
+                        <ul class="nav nav-tabs " role="tablist">
+                            <li role="presentation" class="active" data-target="#step1">
+                                <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">Generales</a>
+                            </li>
+                            <li role="presentation" class="active" data-target="#step2">
+                                <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">Personales</a>
+                            </li>
+                            <li role="presentation" class="active" data-target="#step3">
+                                <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">Documentación</a>
+                            </li>
+                            <li role="presentation" class="active" data-target="#step4">
+                                <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="Step 4">Contratos</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <form id="myform" asp-controller="Brokers" asp-action="Editar" enctype="multipart/form-data">
+
+
+                        <div class="tab-content controlador_usuarios">
+
+                            <!--VISTA 1 pestaña => generales-->
+                            <div class="tab-pane active" role="tabpanel" id="step1" name="generales">
+
+                                <div class="row ">
+
+
+                                    <!--seccion de datos del broker-->
+                                    <label for="" class="">
+                                        <h6 class="ms-1  text-black" style="font-size:20px;">Datos del broker</h6>
+                                    </label>
+
+                                    <div class="row">
+                                        <!--columna izquierda-->
+                                        <div class="col-4">
+
+
+                                            <div class="col mb-2 d-flex flex-column flex-wrap  align-items-center ">
+                                                <label for="t_operacion" class="align-content-start fw-normal fs-6  color_letter mb-3" style="margin: -1% 0 0 0;">
+                                                    Selecciona tu imagen de perfil
+                                                </label>
+
+                                                <div class=" fileContainer  imgPerfilContainer text-center">
+                                                    <input type="file" asp-for="imgPerfil" id="archivo" style="height: 10vw;  width: 10vw;" onchange="cargarImagen()">
+                                                    @if (Model.txtBase64 != null)
+                                                    {
+                                                        <img src="@Model.txtBase64" id="preview" alt="" class="profile_picture rounded-circle">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="/img/image-form-usuario/Recurso_usuario.png" id="preview" alt="" class="profile_picture rounded-circle">
+                                                    }
+
+                                                    <label for="" class="  text-center btn-orange text-light mt-1 size_text_profile" style="    padding: 0.1vw 1vw;   border-radius: 7px;">
+                                                        Dale click
+                                                        aquí
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--columna derecha derecha donde estan los datos-->
+                                        <div class="col-8 row row-cols-1 d-flex">
+
+                                            <div class="row row-cols-3 ">
+
+                                                <!-- Nombre-->
+                                                <div class="col" style="margin: 0px 0 0 -8px;">
+                                                    <div class="d-inline form-group label-floating is-empty">
+                                                        <div class="d-flex  ">
+                                                            <label for="nombres" class="color_letter2 size-text control-label">Nombre(s)</label>
+                                                        </div>
+                                                        <input type="text" asp-for="Nombre" id="nombres" class="mt-2 form-control" aria-required="true">
+                                                        <span class="material-input"></span>
+                                                    </div>
+                                                </div>
+
+                                                <!--Apellido Materno-->
+                                                <div class=" col">
+                                                    <div class="d-inline form-group label-floating is-empty">
+                                                        <div class="d-flex">
+                                                            <label for="" class=" color_letter2 size-text control-label">Apellido paterno</label>
+                                                        </div>
+                                                        <input type="text" asp-for="ApellidoP" class="mt-2 form-control ms-1">
+                                                        <span class="material-input"></span>
+                                                    </div>
+                                                </div>
+
+                                                <!--Apellido Paterno-->
+                                                <div class=" col">
+                                                    <div class="d-inline form-group label-floating  is-empty">
+                                                        <div class="d-flex">
+                                                            <label for="" class=" color_letter2 size-text control-label">Apellido materno</label>
+                                                        </div>
+                                                        <input type="text" asp-for="ApellidoM" class="form-control mt-2  ms-1" aria-required="true">
+                                                        <span class="material-input"></span>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+
+                                            <!--fcha de cumpleaños-->
+                                            <div class="row row-cols-3">
+
+
+                                                <div class="d-flex form-group flex-column col px-0" style=" margin-top: 1.2vw;">
+                                                    <div class="d-flex  ">
+                                                        <label for="" class=" color_letter2 size-text control-label" style="font-size:14px;">Fecha de cumpleaños</label>
+                                                    </div>
+
+                                                    <input type="date" class=" form-control mt-2 w-auto" asp-for="FecCump" aria-required="true">
+                                                    <span class="material-input"></span>
+
+                                                </div>
+
+
+                                                <div class="d-flex form-group flex-column col px-0" style=" margin-top: 1.2vw;">
+                                                    <div class="d-flex ms-2 ">
+                                                        <label for="nombres" class=" color_letter2 size-text control-label" style="font-size:14px;">Asociado</label>
+                                                    </div>
+
+                                                    <input type="text" class=" mt-4 form-control ms-1" id="asociadoName" asp-for="Asociado" aria-required="true">
+                                                    <input type="hidden" class=" mt-4 form-control ms-1" id="asociadoId" asp-for="AsociadoID" aria-required="true">
+                                                    <span class="material-input"></span>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <hr>
+
+                                    </div>
+
+
+                                    <!--seccion de contacto-->
+                                    <h5 class="ms-1 mt-3 text-black">Contacto</h5>
+                                    <div class="mt-3 d-inline-flex mt-1 ms-3 row row-cols-3">
+
+                                        <div class="d-flex form-group flex-column col px-0  ">
+                                            <label for="correo_elec" class="color_letter2">Correo electrónico </label>
+                                            <input type="text" asp-for="Correo" class=" form-control mt-2" />
+                                            <input type="hidden" asp-for="CorreoPE" value="@Model.Correo" />
+                                            <input type="hidden" asp-for="@Model.IDBroker" value="@Model.IDBroker" />
+
+                                        </div>
+                                        <div class="d-flex form-group flex-column col ">
+                                            <label for="tel" class="color_letter2 ">Teléfono</label>
+
+                                            <div class="d-inline-flex" style="width:88%;">
+
+                                                <select class="d-flex form-control" style="width: 100px;" asp-for="Lada">
+                                                    <option value="+52" class="flag-icon flag-icon-mx">+52 (MX)</option>
+                                                    <option value="+54" class="flag-icon flag-icon-mx">+54 (ARG)</option>
+                                                    <option value="+57" class="flag-icon flag-icon-gb">+57 (COL)</option>
+                                                    <option value="+53" class="flag-icon flag-icon-gb">+53 (CUB)</option>
+                                                    <option value="+1" class="flag-icon flag-icon-us">+1 (EE.UU)</option>
+                                                    <option value="+48" class="flag-icon flag-icon-us">+48 (PL)</option>
+                                                    <option value="+44" class="flag-icon flag-icon-gb">+44 (UK)</option>
+
+                                                </select>
+                                                <input type="tel" asp-for="Tel" min="0" maxlength="10" class="mt-2 ms-1 form-control NobtnNumber"
+                                                       onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                                            </div>
+                                        </div>
+                                        <div class="d-flex form-group flex-column col">
+                                            <label for="n_propiedad" class=" color_letter2 " style="font-size:16px;">Teléfono 2</label>
+                                            <div class="d-inline-flex" style="width:88%;">
+
+                                                <select class="d-flex form-control" style="width: 100px;" asp-for="Lada2">
+                                                    <option value="+52" class="flag-icon flag-icon-mx">+52 (MX)</option>
+                                                    <option value="+54" class="flag-icon flag-icon-mx">+54 (ARG)</option>
+                                                    <option value="+57" class="flag-icon flag-icon-gb">+57 (COL)</option>
+                                                    <option value="+53" class="flag-icon flag-icon-gb">+53 (CUB)</option>
+                                                    <option value="+1" class="flag-icon flag-icon-us">+1 (EE.UU)</option>
+                                                    <option value="+48" class="flag-icon flag-icon-us">+48 (PL)</option>
+                                                    <option value="+44" class="flag-icon flag-icon-gb">+44 (UK)</option>
+
+                                                </select>
+                                                <input type="tel" asp-for="Tel2" min="0" maxlength="10" class="mt-2 ms-1 form-control NobtnNumber"
+                                                       onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <hr>
+
+                                    <!--seccion de direccion-->
+                                    <div class="row">
+                                        <label for="direccion">
+                                            <h5 class="ms-1 mt-3 text-black">Dirección</h5>
+                                        </label>
+                                        <div class=" d-flex mt-2 row row-cols-4 ms-2">
+                                            <div class=" d-inline-flex col flex-column form-group  ">
+                                                <d class="d-inline form-group ">
+                                                    <label for="c.p" class=" control-label color_letter2">
+                                                        <h6>C.P.</h6>
+                                                    </label>
+                                                    <input type="number" asp-for="CP" min="0"
+                                                           class="form-control NobtnNumber" value="@Model.CPInt" />
+                                            </div>
+                                            <div class="  d-inline-flex col flex-column form-group size-nombre-calle  ">
+                                                <div class="d-inline form-group ">
+                                                    <label for="n_calle" class=" control-label color_letter2">
+                                                        <h6>Nombre de la calle</h6>
+                                                    </label>
+                                                    <input asp-for="Calle" type="text" id="n_calle"
+                                                           class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="d-inline-flex col flex-column form-group">
+                                                <div class="d-inline form-group ">
+                                                    <label for="n_exterior" class=" control-label color_letter2">
+                                                        <h6>No. exterior</h6>
+                                                    </label>
+                                                    <input type="number" asp-for="NoExt"
+                                                           class="form-control NobtnNumber size-numeros-ext" />
+                                                </div>
+                                            </div>
+                                            <div class="d-inline-flex col flex-column form-group">
+                                                <div class="d-inline form-group ">
+                                                    <label for="n_interior" class=" control-label color_letter2">
+                                                        <h6>No. interior</h6>
+                                                    </label>
+                                                    <input type="number" asp-for="NoInt"
+                                                           class="form-control NobtnNumber size-numeros-ext" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="ms-2 mt-2 d-flex justify-content-center row row-cols-4">
+
+                                        <div class="d-inline-flex size-nombre-calle col form-group flex-column">
+                                            <div class="d-inline form-group label-floating is-empty">
+                                                <label for="colonia" class="control-label color_letter2">
+                                                    <h6>Colonia</h6>
+                                                </label>
+
+                                                <!--COLONIA CON FUNCIONALIDAD-->
+                                                <select asp-for="Colonia" id="Colonia" class="w-100 mt-2 size-select2  form-control rounded" required>
+                                                    <option value="">--Seleccione una colonia--</option>
+                                                </select>
+
+                                                <input type="text" asp-for="Colonia" name="Colonia" id="colonia" class="d-none form-control"
+                                                       placeholder=" " value="@Model.Colonia" />
+                                                <input type="text" asp-for="NColonia" name="NColonia" id="NColonia" class="d-none form-control"
+                                                       placeholder=" " />
+
+                                                <input asp-for="IDcolonia" class="d-none" id="IDcolonia" value="" />
+
+                                            </div>
+                                        </div>
+
+                                        <div class="d-inline-flex size-nombre-calle col form-group flex-column">
+                                            <div class="d-inline form-group ">
+                                                <label for="municipio" class=" control-label color_letter2">
+                                                    <h6>Alcaldía o municipio</h6>
+                                                </label>
+                                                <input type="text" asp-for="Municipio" name="Municipio" id="n_Municipio"
+                                                       class="form-control" readonly />
+                                            </div>
+                                        </div>
+
+                                        <div class="d-inline-flex size-nombre-calle col form-group flex-column">
+                                            <div class="d-inline form-group ">
+                                                <label for="estado" class=" control-label color_letter2">
+                                                    <h6>Estado</h6>
+                                                </label>
+                                                <input type="text" asp-for="Estado" id="n_Estado"
+                                                       class="form-control" readonly />
+                                            </div>
+                                        </div>
+
+                                        <div class="d-inline-flex size-nombre-calle col form-group flex-column">
+                                            <div class="d-inline form-group ">
+                                                <label for="pais" class=" control-label color_letter2">
+                                                    <h6>País</h6>
+                                                </label>
+                                                <input type="text" asp-for="Pais" id="n_Pais"
+                                                       class="form-control" readonly />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <label class="mt-3 ms-3" style="font-size:16px;">
+                                        @Html.CheckBox("Facturacion", null, Model.Facturacion)
+                                        Esta dirección es la misma que la de facturación
+
+                                    </label> <br>
+
+                                    <hr />
+
+
+                                    <label for="">
+                                        <h5 class="ms-1 text-black">Zona</h5>
+                                    </label>
+
+                                    <div class="input-group justify-content-between d-lg-inline-flex mt-2">
+                                        <div class="mt-1 ms-2 col">
+                                            <label for="t_operacion" class=" align-content-start cotrol-label color_letter2 mb-3">Selecciona tus zonas</label>
+                                            <ul class="lista-estados row row-cols-lg-4 row-cols-md-2 row-cols-sm-1  fw-light" style=" font-size: 14px;">
+                                                @for (var i = 0; i < Model.ZonasL.Count; ++i)
+                                                {
+                                                    <li class="d-lg-inline-flex">
+                                                        @Html.CheckBoxFor(model => model.ZonasL[i].isSelected, new { @class = "form-check-input", @id = @Model.ZonasL[i].Zona, data_nombre = @Model.ZonasL[i].Zona })
+                                                        @Html.HiddenFor(model => model.ZonasL[i].Zona)
+                                                        <label class="ms-1">@Model.ZonasL[i].Zona</label>
+                                                    </li>
+
+
+
+                                                }
+
+                                            </ul>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="mb-2 ms-3 cotrol-label color_letter2">Zonas seleccionadas: <span id="estados-seleccionados"></span></div>
+
+                                    <hr />
+                                    <div class="row row-cols-2 ">
+                                        <div class="d-flex flex-column col">
+
+                                            @{
+                                                var idBroker = Model.IDBroker;
+                                                var correo = Model.Correo;
+
+
+                                            }
+
+                                            <div class="mb-4">
+                                                <label class="d-flex align-items-center">
+                                                    <h6 class="ms-1 mb-0 text-black fs-5">Estatus broker:</h6>
+                                                    <span class="ms-1 color_letter2 fs-6" id="EstatusBroker">@Model.EstatusBroker</span>
+                                                </label>
+
+                                                <div class="row row-cols-3 ms-1">
+                                                    <div class="col">
+
+                                                        <label class="d-flex  color_letter2 size-text control-label  fs-6 text-black fs-6">Inactivar</label>
+
+
+                                                        <div class="form-check form-switch mt-1 d-flex ">
+                                                            @Html.CheckBox("EstatusBoolS", Model.EstatusBoolS, new { @class = "form-check-input margin-l-sw suspenderCheck", @id = "flexSwitchCheckDefault", @checked = Model.EstatusBoolS, @onchange = "changeStatus(this,'Suspender')", @onclick = "getBroker('" + @idBroker + "','Suspender','" + correo + "')" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col">
+
+
+                                                        <label class="d-flex  color_letter2 size-text control-label  text-black fs-6">Bloquear</label>
+
+
+                                                        <div class="form-check form-switch mt-1 d-flex ">
+                                                            @Html.CheckBox("EstatusBoolB", Model.EstatusBoolB, new { @class = "form-check-input margin-l-sw bloquearCheck", @id = "flexSwitchCheckDefault", @checked = Model.EstatusBoolB, @onchange = "changeStatus(this, 'Bloquear')", @onclick = "getBroker('" + @idBroker + "','Bloquear','" + correo + "')" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+
+                                                        <label class="d-flex  color_letter2 size-text control-label fs-6 text-black fs-6">Cancelar </label>
+
+
+                                                        <div class="form-check form-switch   mt-1 d-flex ">
+                                                            @Html.CheckBox("EstatusBoolC", Model.EstatusBoolC, new { @class = "form-check-input margin-l-sw cancelarCheck", @id = "flexSwitchCheckDefault", @checked = Model.EstatusBoolC, @onchange = "changeStatus(this, 'Cancelar')", @onclick = "getBroker('" + @idBroker + "','Cancelar','" + correo + "')" })
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        @if (UserManager.GetUserName(User) == Model.Correo)
+                                        {
+                                            <div class="d-flex flex-column col">
+                                                <label><h6 class=" text-black ">¿Deseas cambiar tu contraseña?</h6></label>
+                                                <div class="mb-4">
+                                                    <a type="button" class="btn btn-fill btn-dark-blue text-white btn-wd" asp-controller="Accesos" asp-action="CambiarPassword">Cambiar contraseña</a>
+
+                                                </div>
+                                            </div>
+                                        }
+                                        <div class="d-flex flex-column col">
+                                            <label for="datos_personales" class="fw-bold ms-1">
+                                                <h5 class=" text-black"> Recuperar contraseña </h5>
+                                            </label>
+                                            <div class="mb-4 ms-3">
+                                                <button type="button" class="btn btn-fill btn-dark-blue text-white btn-wd" data-toggle="modal" data-target="#RecuContra">Restablecer contraseña</button>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                </div>
+
+                                <button type="button" class="btn  next-step btn-next  btn-warning  btn-fill btn-wd" name="siguiente">Siguiente</button>
+
+                            </div>
+
+                            <!--VISTA 2 pestaña => personales-->
+                            <div class="tab-pane" role="tabpanel" id="step2" name="personales">
+                                <div class="row">
+
+                                    <label for="datos_personales" class="fw-bolder ms-lg-2">
+                                        <h5 class="ms-1 text-black">Datos personales</h5>
+                                    </label>
+
+                                    <div class="mt-3 input-group d-inline-flex row row-cols-2 ms-3">
+
+
+                                        <!--columna del RFC Y EL CURP -->
+
+                                        <div class="d-flex form-group col flex-column ">
+                                            <label for="rfc" class="color_letter2 col ">RFC</label>
+                                            <input maxlength="13" type="text" asp-for="Rfc" class=" form-control datosMAyusc" /><!--required-->
+                                        </div>
+                                        <div class="d-flex form-group col flex-column ">
+                                            <label for="curp" class="color_letter2 ">CURP</label>
+                                            <input maxlength="18" type="text" asp-for="Curp" class=" form-control datosMAyusc" /><!--required-->
+                                        </div>
+
+
+                                    </div>
+                                    <hr />
+                                </div>
+                                <div class="row">
+
+
+                                    <div class=" ms-2 me-3">
+
+                                        <label for="d_bancarios" class=" align-content-start fw-bold  pe-lg-5 mb-3 size-text">
+                                            <h5 class="ms-1 text-black">Datos bancarios</h5>
+                                        </label>
+
+                                    </div>
+                                    <div class="input-group d-inline-flex row row-cols-2 ms-3 ">
+                                        <div class="d-flex form-group col flex-column">
+                                            <label for="clabe_inter" class="color_letter2 ">
+                                                Clabe
+                                                interbancaria
+                                            </label>
+                                            <input type="text" maxlength="18" min="0" asp-for="Clabe" class="mt-2 form-control NobtnNumber"
+                                                   min="0" class="form-control text-center ms-2 w-75 mt-1"
+                                                   onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                                        </div>
+
+                                        <div class="d-flex form-group col flex-column">
+                                            <label for="banco" class=" color_letter2 ">Banco</label>
+                                            @Html.DropDownListFor(model => model.Banco, new
+                                                     SelectList(Model.BancoL, "BancoList", "BancoList"), "--Banco--", new
+                                                     { @class = "mt-3  rounded text-center size-select2 w-50" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pull-right d-flex justify-content-between">
+
+                                    <button type="button" class="btn  prev-step btn-previous btn-fill btn-dark-blue  btn-wd text-white" name="regresar">Regresar</button>
+                                    <button type="button" class="btn  next-step btn-next  btn-warning  btn-fill btn-wd" name="siguiente">Siguiente</button>
+                                </div>
+                            </div>
+
+                            <!--VISTA 3 pestaña => documentacion-->
+                            <div class="tab-pane" role="tabpanel" id="step3" name="documentacion">
+                                <div class="row">
+
+                                    <input class="d-none" id="contorlador" value="Usuarios" />
+
+                                    <label for="documentos" class="">
+                                        <h5 class="ms-1  text-black">Documentos</h5>
+                                    </label>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class=" my-custom-scrollbar  table-height table-responsive">
+                                                @{
+                                                    var documento = Model.ListaDocumentos;
+                                                    var estadoDocumento = Model.ListaDocumentos[0].IDStatusDoc;
+
+                                                    int indice;
+                                                    int indice0;
+
+                                                }
+                                                <table class="table table-hover border-gray h-100 border">
+
+                                                    <tbody>
+                                                        <tr class="tabla-hover">
+
+                                                            @{
+                                                                indice = 1;
+                                                                indice0 = indice - 1;
+                                                                estadoDocumento = Model.ListaDocumentos[0].IDStatusDoc;
+                                                            }
+                                                            <th scope="row">@indice</th>
+                                                            <td colspan="2">Identificación oficial vigente (INE, Pasaporte, FM3)</td>
+                                                            <td>
+                                                                <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+                                                                    <input type="file" asp-for="DocEUsuario[indice0].Documento" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                           onchange="SubirVisualizar(@indice)">
+                                                                    <i class="fa-solid fa-file-arrow-up size-icon "></i>
+                                                                    <input asp-for="DocEUsuario[indice0].IDdocUsuario" class="d-none" value="@documento[indice0].IDdocUsuario" />
+                                                                    <input asp-for="DocEUsuario[indice0].IDtipoArchivo" value="@documento[indice0].IDtipoArchivo" class="d-none" id="IDtipoArchivo_@indice">
+                                                                    <input asp-for="DocEUsuario[indice0].archivoNombre" value="@documento[indice0].archivoNombre" class="d-none" id="DocumentoNombre_@indice">
+                                                                    <input class="d-none" id="txt64_@indice" value="@documento[indice0].txt64">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3   btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="d_archivo" onclick="borrarArchivo(1,'brokers',@documento[indice0].IDdocUsuario, @documento[indice0].IDStatusDoc)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-trash-can size-icon "></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="v_archivo4" id="" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-eye size-icon "></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input id="IDdoc_@indice" class="d-none" value="@documento[indice0].IDdocUsuario" />
+
+                                                                <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="tabla-hover">
+                                                            @{
+                                                                indice = 2;
+                                                                indice0 = indice - 1;
+                                                                estadoDocumento = Model.ListaDocumentos[indice0].IDStatusDoc;
+                                                            }
+                                                            <th scope="row">@indice</th>
+                                                            <td colspan="2">CURP</td>
+                                                            <td>
+                                                                <div class="fileContainer2 btn btnm " style="background-color:transparent;">
+                                                                    <input type="file" asp-for="DocEUsuario[indice0].Documento" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                           onchange="SubirVisualizar(@indice)">
+                                                                    <input asp-for="DocEUsuario[indice0].IDdocUsuario" class="d-none" value="@documento[indice0].IDdocUsuario" />
+                                                                    <input asp-for="DocEUsuario[indice0].IDtipoArchivo" value="@documento[indice0].IDtipoArchivo" class="d-none" id="IDtipoArchivo_@indice">
+                                                                    <input asp-for="DocEUsuario[indice0].archivoNombre" value="@documento[indice0].archivoNombre" class="d-none" id="DocumentoNombre_@indice">
+                                                                    <input class="d-none" id="txt64_@indice" value="@documento[indice0].txt64">
+                                                                    <i class="fa-solid fa-file-arrow-up size-icon  size-icon "></i>
+
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="d_archivo2" id="archivoInput_delete_@indice" onclick="borrarArchivo(@indice,'brokers',@documento[indice0].IDdocUsuario, @documento[indice0].IDStatusDoc)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-trash-can size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="v_archivo4" id="" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-eye  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input id="IDdoc_@indice" class="d-none" value="@documento[indice0].IDdocUsuario" />
+
+                                                                <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="tabla-hover">
+                                                            @{
+                                                                indice = 3;
+                                                                indice0 = indice - 1;
+                                                                estadoDocumento = Model.ListaDocumentos[indice0].IDStatusDoc;
+                                                            }
+
+
+                                                            <th scope="row">@indice</th>
+                                                            <td colspan="2">RFC</td>
+                                                            <td>
+                                                                <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+                                                                    <input type="file" asp-for="DocEUsuario[indice0].Documento" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                           onchange="SubirVisualizar(@indice)">
+                                                                    <input asp-for="DocEUsuario[indice0].IDdocUsuario" class="d-none" value="@documento[indice0].IDdocUsuario" />
+                                                                    <input asp-for="DocEUsuario[indice0].IDtipoArchivo" value="@documento[indice0].IDtipoArchivo" class="d-none">
+                                                                    <input asp-for="DocEUsuario[indice0].archivoNombre" value="@documento[indice0].archivoNombre" class="d-none" id="DocumentoNombre_@indice">
+                                                                    <input class="d-none" id="txt64_@indice" value="@documento[indice0].txt64">
+
+                                                                    <i class="fa-solid fa-file-arrow-up size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="d_archivo3" id="archivoInput_delete_@indice" onclick="borrarArchivo(@indice,'brokers',@documento[indice0].IDdocUsuario, @documento[indice0].IDStatusDoc)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="v_archivo4" id="" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-eye  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+
+                                                                <input id="IDdoc_@indice" class="d-none" value="@documento[indice0].IDdocUsuario" />
+
+                                                                <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="tabla-hover">
+                                                            @{
+                                                                indice = 4;
+                                                                indice0 = indice - 1;
+                                                                estadoDocumento = Model.ListaDocumentos[indice0].IDStatusDoc;
+                                                            }
+
+                                                            <th scope="row">@indice</th>
+                                                            <td colspan="2">Comprobante de domicilio </td>
+                                                            <td>
+                                                                <div class="fileContainer2 btn btnm" style="background-color:transparent;">
+                                                                    <input type="file" asp-for="DocEUsuario[indice0].Documento" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                           id="archivoInput_4" onchange="SubirVisualizar(4)">
+                                                                    <input asp-for="DocEUsuario[indice0].IDdocUsuario" class="d-none" value="@documento[indice0].IDdocUsuario" />
+                                                                    <input asp-for="DocEUsuario[indice0].IDtipoArchivo" value="@documento[indice0].IDtipoArchivo" class="d-none">
+                                                                    <input asp-for="DocEUsuario[indice0].archivoNombre" value="@documento[indice0].archivoNombre" class="d-none" id="DocumentoNombre_@indice">
+                                                                    <input class="d-none" id="txt64_@indice" value="@documento[indice0].txt64">
+
+                                                                    <i class="fa-solid fa-file-arrow-up size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="d_archivo3" id="archivoInput_delete_@indice" onclick="borrarArchivo(@indice,'brokers',@documento[indice0].IDdocUsuario, @documento[indice0].IDStatusDoc)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="v_archivo4" id="" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-eye  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+
+                                                                <input id="IDdoc_@indice" class="d-none" value="@documento[indice0].IDdocUsuario" />
+
+                                                                <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr class="tabla-hover">
+                                                            @{
+                                                                indice = 5;
+                                                                indice0 = indice - 1;
+                                                                estadoDocumento = Model.ListaDocumentos[indice0].IDStatusDoc;
+                                                            }
+                                                            <th scope="row">@indice</th>
+                                                            <td colspan="2">Constancia de situación fiscal</td>
+                                                            <td>
+                                                                <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+                                                                    <input type="file" asp-for="DocEUsuario[indice0].Documento" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                           onchange="SubirVisualizar(@indice)">
+                                                                    <input asp-for="DocEUsuario[indice0].IDdocUsuario" class="d-none" value="@documento[indice0].IDdocUsuario" />
+                                                                    <input asp-for="DocEUsuario[indice0].IDtipoArchivo" value="@documento[indice0].IDtipoArchivo" class="d-none">
+                                                                    <input asp-for="DocEUsuario[indice0].archivoNombre" value="@documento[indice0].archivoNombre" class="d-none" id="DocumentoNombre_@indice">
+                                                                    <input class="d-none" id="txt64_@indice" value="@documento[indice0].txt64">
+
+                                                                    <i class="fa-solid fa-file-arrow-up size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="d_archivo3" id="archivoInput_delete_@indice" onclick="borrarArchivo(@indice,'brokers',@documento[indice0].IDdocUsuario, @documento[indice0].IDStatusDoc)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="v_archivo4" id="" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-eye  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input id="IDdoc_@indice" class="d-none" value="@documento[indice0].IDdocUsuario" />
+
+
+                                                                <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr class="tabla-hover">
+                                                            @{
+                                                                indice = 6;
+                                                                indice0 = indice - 1;
+                                                                estadoDocumento = Model.ListaDocumentos[indice0].IDStatusDoc;
+                                                            }
+                                                            <th scope="row">@indice</th>
+                                                            <td colspan="2">Estado de cuenta (carátula)</td>
+                                                            <td>
+                                                                <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+                                                                    <input type="file" asp-for="DocEUsuario[indice0].Documento" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                           onchange="SubirVisualizar(@indice)">
+                                                                    <input asp-for="DocEUsuario[indice0].IDdocUsuario" class="d-none" value="@documento[indice0].IDdocUsuario" />
+                                                                    <input asp-for="DocEUsuario[indice0].IDtipoArchivo" value="@documento[indice0].IDtipoArchivo" class="d-none">
+                                                                    <input asp-for="DocEUsuario[indice0].archivoNombre" value="@documento[indice0].archivoNombre" class="d-none" id="DocumentoNombre_@indice">
+                                                                    <input class="d-none" id="txt64_@indice" value="@documento[indice0].txt64">
+
+                                                                    <i class="fa-solid fa-file-arrow-up size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="d_archivo3" id="archivoInput_delete_@indice" onclick="borrarArchivo(@indice,'brokers',@documento[indice0].IDdocUsuario, @documento[indice0].IDStatusDoc)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="v_archivo4" id="" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-eye  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input id="IDdoc_@indice" class="d-none" value="@documento[indice0].IDdocUsuario" />
+
+
+                                                                <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                                            </td>
+                                                        </tr>
+
+
+
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                            <div class="input-group d-flex justify-content-start">
+                                            </div>
+                                        </div>
+                                        <div class="col border">
+                                            <div class="input-group d-flex mx-auto">
+                                                <div id="visorArchivo" class="size-file d-flex justify-content-end  mx-auto">
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="pull-right d-flex justify-content-between">
+
+                                    <button type="button" class="btn  prev-step btn-previous btn-fill btn-dark-blue  btn-wd text-white" name="regresar">Regresar</button>
+                                    <button type="button" class="btn  next-step btn-next  btn-warning  btn-fill btn-wd" name="siguiente">Siguiente</button>
+                                </div>
+                            </div>
+
+
+                            <!--VISTA 4 pestaña => contratos-->
+                            <div class="tab-pane" role="tabpanel" id="step4" name="Contratos">
+                                <div class="row">
+
+                                    <input class="d-none" id="contorlador" value="Usuarios" />
+
+                                    <label for="documentos" class="">
+                                        <h5 class="ms-1  text-black">Documentos</h5>
+                                    </label>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class=" my-custom-scrollbar  table-height table-responsive">
+
+                                                <table class="table table-hover border-gray h-100 border">
+
+                                                    <tbody>
+
+                                                        <tr class="tabla-hover">
+                                                            @{
+                                                                indice = 7;
+                                                                indice0 = indice - 1;
+                                                                estadoDocumento = Model.ListaDocumentos[indice0].IDStatusDoc;
+                                                            }
+                                                            <th scope="row">1</th>
+                                                            <td colspan="2"> Contrato de prestación de servicios</td>
+                                                            <td>
+                                                                <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+                                                                    <input type="file" asp-for="DocEUsuario[indice0].Documento" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                           onchange="SubirVisualizar(@indice,2)">
+                                                                    <input asp-for="DocEUsuario[indice0].IDdocUsuario" class="d-none" value="@documento[indice0].IDdocUsuario" />
+                                                                    <input asp-for="DocEUsuario[indice0].IDtipoArchivo" value="@documento[indice0].IDtipoArchivo" class="d-none">
+                                                                    <input asp-for="DocEUsuario[indice0].archivoNombre" value="@documento[indice0].archivoNombre" class="d-none" id="DocumentoNombre_@indice">
+                                                                    <input class="d-none" id="txt64_@indice" value="@documento[indice0].txt64">
+
+                                                                    <i class="fa-solid fa-file-arrow-up size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="d_archivo3" id="archivoInput_delete_@indice" onclick="borrarArchivo(@indice,'Contratos',@documento[indice0].IDdocUsuario, @documento[indice0].IDStatusDoc)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="v_archivo4" id="" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-eye  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+
+
+                                                                <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                <div class="soloIconos" id="IconoEstatus_@indice"></div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="tabla-hover">
+                                                            @{
+                                                                indice = 8;
+                                                                indice0 = indice - 1;
+                                                                estadoDocumento = Model.ListaDocumentos[indice0].IDStatusDoc;
+                                                            }
+                                                            <th scope="row">2</th>
+                                                            <td colspan="2"> Términos y condiciones</td>
+                                                            <td>
+                                                                <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+                                                                    <input type="file" asp-for="DocEUsuario[indice0].Documento" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                           onchange="SubirVisualizar(@indice)">
+                                                                    <input asp-for="DocEUsuario[indice0].IDdocUsuario" class="d-none" value="@documento[indice0].IDdocUsuario" />
+                                                                    <input asp-for="DocEUsuario[indice0].IDtipoArchivo" value="@documento[indice0].IDtipoArchivo" class="d-none">
+                                                                    <input asp-for="DocEUsuario[indice0].archivoNombre" value="@documento[indice0].archivoNombre" class="d-none" id="DocumentoNombre_@indice">
+                                                                    <input class="d-none" id="txt64_@indice" value="@documento[indice0].txt64">
+
+                                                                    <i class="fa-solid fa-file-arrow-up size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="d_archivo3" id="archivoInput_delete_@indice" onclick="borrarArchivo(@indice,'Contratos',@documento[indice0].IDdocUsuario, @documento[indice0].IDStatusDoc)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="v_archivo4" id="" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-eye  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                                            </td>
+
+
+                                                        </tr>
+                                                        <tr class="tabla-hover">
+                                                            @{
+                                                                indice = 9;
+                                                                indice0 = indice - 1;
+                                                                estadoDocumento = Model.ListaDocumentos[indice0].IDStatusDoc;
+                                                            }
+                                                            <th scope="row">3</th>
+                                                            <td colspan="2"> Aviso de privacidad</td>
+                                                            <td>
+                                                                <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+                                                                    <input type="file" asp-for="DocEUsuario[indice0].Documento" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                           onchange="SubirVisualizar(@indice)">
+                                                                    <input asp-for="DocEUsuario[indice0].IDdocUsuario" class="d-none" value="@documento[indice0].IDdocUsuario" />
+                                                                    <input asp-for="DocEUsuario[indice0].IDtipoArchivo" value="@documento[indice0].IDtipoArchivo" class="d-none">
+                                                                    <input asp-for="DocEUsuario[indice0].archivoNombre" value="@documento[indice0].archivoNombre" class="d-none" id="DocumentoNombre_@indice">
+                                                                    <input class="d-none" id="txt64_@indice" value="@documento[indice0].txt64">
+
+                                                                    <i class="fa-solid fa-file-arrow-up size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="d_archivo3" id="archivoInput_delete_@indice" onclick="borrarArchivo(@indice,'Contratos',@documento[indice0].IDdocUsuario, @documento[indice0].IDStatusDoc)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="v_archivo4" id="" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-eye  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+
+                                                                <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="tabla-hover">
+                                                            @{
+                                                                indice = 10;
+                                                                indice0 = indice - 1;
+                                                                estadoDocumento = Model.ListaDocumentos[indice0].IDStatusDoc;
+                                                            }
+                                                            <th scope="row">4</th>
+                                                            <td colspan="2"> Código de ética</td>
+                                                            <td>
+                                                                <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+                                                                    <input type="file" asp-for="DocEUsuario[indice0].Documento" id="archivoInput_@indice" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                           onchange="SubirVisualizar(@indice)">
+                                                                    <input asp-for="DocEUsuario[indice0].IDdocUsuario" class="d-none" value="@documento[indice0].IDdocUsuario" />
+                                                                    <input asp-for="DocEUsuario[indice0].IDtipoArchivo" value="@documento[indice0].IDtipoArchivo" class="d-none">
+                                                                    <input asp-for="DocEUsuario[indice0].archivoNombre" value="@documento[indice0].archivoNombre" class="d-none" id="DocumentoNombre_@indice">
+                                                                    <input class="d-none" id="txt64_@indice" value="@documento[indice0].txt64">
+
+
+
+
+                                                                    <i class="fa-solid fa-file-arrow-up size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="d_archivo3" id="archivoInput_delete_@indice" onclick="borrarArchivo(@indice,'Contratos',@documento[indice0].IDdocUsuario, @documento[indice0].IDStatusDoc)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                    <input type="button" name="v_archivo4" id="" onclick="visorExt(@indice)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <i class="fa-solid fa-eye  size-icon"></i>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+
+                                                                <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                            <div class="input-group d-flex justify-content-start">
+                                            </div>
+                                        </div>
+                                        <div class="col border">
+                                            <div class="input-group d-flex">
+                                                <div id="visorArchivoContratos" class="size-file d-flex justify-content-end">
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="pull-right d-flex justify-content-between">
+                                    <button type="button" class="btn  prev-step btn-previous btn-fill btn-dark-blue  btn-wd text-white" name="regresar">Regresar</button>
+                                    <button type='submit' name="finalizar" class="btn btn-finish btn-fill btn-warning  btn-wd">Guardar cambios</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="wizard-footer d-none">
+                            <div class="pull-right d-flex justify-content-between">
+
+                                <input type='button' class='btn btn-previous btn-fill btn-dark-blue  btn-wd text-white' name='Regresar' value='Regresar' />
+                                <input type='button' class='btn btn-next     btn-fill btn-warning    btn-wd' name='siguiente' value='Siguiente' />
+
+                            </div>
+
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- wizard container -->
+</div>
+
+
+
+<!-- MODAL PARA RECUPERACION DE CONTRASEÑA -->
+<div class="modal fade " id="RecuContra" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: rgba(128,128,128,0.5)">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Usuarios" asp-action="ResetPassword" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title fs-5" id="exampleModalLabel">Recuperar de contraseña</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border:none;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body px-4 ">
+
+                    <input type="hidden" name="idUsuarioP" />
+                    <input type="hidden" name="emailUser" id="eU" value="@Model.Correo" autocomplete="off" />
+
+                    <!--new agregado por Thaliz -->
+                    <p class="text-danger msnContraseña" style="text-align:justify">La contraseña debe tener al menos 8 caracteres, un valor alfanumérico, un caracter especial y al menos 1 caracter en mayúsculas.</p>
+
+
+                    <div class="form-group is-empty">
+                        <div class="d-inline form-group label-floating is-empty ms-3">
+                            <div class="d-flex">
+                                <label for="modalResetPassword" class="color_letter2 fs-6">Nueva contraseña</label>
+                            </div>
+                            <input type="password" id="modalResetPassword" class="mt-2 form-control inputContraseñaModal" style="width:85%;">
+                            <span class="password-toggle1" onclick="togglePasswordVisibility1()"><i class="far fa-eye"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group is-empty">
+                        <div class="d-inline form-group label-floating is-empty ms-3">
+                            <div class="d-flex">
+                                <label for="modalconfirmPassword" class="color_letter2 fs-6">Confirma la contraseña</label>
+                            </div>
+                            <input type="password" id="modalconfirmPassword" class="mt-2 form-control inputContraseñaModal" style="width:85%;">
+                            <span class="password-toggle2" onclick="togglePasswordVisibility2()"><i class="far fa-eye"></i></span>
+                        </div>
+                    </div>
+
+                    <!--hasta aqui lo nuevo agregado por Thaliz-->
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark-blue text-white" id="btnEnviarContraseña" data-bs-dismiss="modal" style="text-transform:inherit;">Guardar cambios</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA APROBAR O RECHAZAR DOCUMENTOS-->
+<div id="openModal" class="modalDialog" style="display:none;">
+    <div>
+        <a href="#close" title="Close" class="close" onclick="resetModal()">X</a>
+        <div>
+            <div class="modal-header" id="modal-header">
+                <h1 class="modal-title fs-5 mt-2"> ¿Qué deseas hacer con este documento?</h1>
+
+            </div>
+            <div class="modal-body mx-auto">
+                <div class="d-flex d-inline-flex " style="margin: 0 0 0 68px;">
+                    <button class="btn btn-success mr-1" id="aprbarBtn" style="text-transform:none;" onclick="aprovar()">Aprobar</button>
+
+                    <button class="btn btn-danger ms-1" id="rechazrBtn" style="text-transform:none;" onclick="rechazar()">Rechazar</button>
+                </div>
+                <!--submodal rechazar -->
+                <div class=" text-danger " id="motivoRechazo" style="display:none;">
+                    <h4 class="text-danger modal-title fs-5">Motivo de rechazo </h4>
+                    <div class="form-floating">
+                        <!--<label for="floatingTextarea" style="display:none;">¿Por que rechazas el documento?</label>-->
+                        <textarea class="txtareaModalrechazo" placeholder="¿Por qué rechazas el documento?" id="mensajeRechazado" style="height:100px;"></textarea>
+                    </div>
+
+
+                    <div id="alertaRazonRechazo" class="mt-1">
+                    </div>
+
+                    <a class="btn btn-danger " onclick="guardarCambiosRechazar()" style=" margin: 0 0 0 132px; text-transform:capitalize;">Rechazar</a>
+                </div>
+                <!--submodal aprobar -->
+                <div class=" text-success" id="motivoAprovado" style="display:none;">
+                    <h6 class="modal-title fs-5">¿Estás seguro que deseas aprobar este documentos?</h6>
+                    <button class="btn btn-success " href="#close" id="GuardarCambios" style="margin: 10px 0 0 132px;text-transform:capitalize;" onclick="guardarCambiosAprobar()">
+                        Aprobar
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!--MODAL PARA SUSPENDER UN BROKER-->
+<div class="modal fade" id="suspenderModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="suspenderModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title tituloSuspender" id="exampleModalLabel2">Inactivar</h5>
+                <button type="button" class="btn-close closeSuspender" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label color_letter2" id="textSuspender">Deja el motivo por el que quieres inactivar a este broker. </label>
+                        <textarea class="modal-text-area" id="mensajeBrokerS"></textarea>
+                        <input type="hidden" name="EstatusSuspender" id="EstatusSuspender" value="" />
+                        <input type="hidden" name="SSuspender" id="SSuspender" value="" />
+                    </div>
+
+                </div>
+            </form>
+            <div class="modal-footer">
+                <a class="btn btn-dark-blue text-white" id="close1" onclick="funBroker('Suspender')" style="text-transform:inherit;">Guardar</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA BLOQUEAR UN BROKER -->
+<div class="modal fade" id="bloquearModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title  fs-5 tituloBloquear" id="staticBackdropLabel">Bloquear</h5>
+                <button type="button" class="btn-close closeBloquear" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label color_letter2" id="textBloquear">Deja el motivo por el que quieres bloquear a este broker </label>
+                        <textarea class="modal-text-area" id="mensajeBrokerB"></textarea>
+                        <input type="hidden" name="EstatusBloquear" id="EstatusBloquear" value="" />
+                        <input type="hidden" name="SBloquear" id="SBloquear" value="" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-dark-blue text-white" onclick="funBroker('Bloquear')" id="close2" style="text-transform:inherit;">Guardar</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA CANCELAR UN BROKER -->
+<div class="modal fade" id="cancelarModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title tituloCancelar" id="exampleModalLabel2">Cancelar</h5>
+                <button type="button" class="btn-close closeCancelar" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label color_letter2" id="textCancelar">Deja el motivo por el que quieres congelar a este broker </label>
+                        <textarea class="modal-text-area" id="mensajeBrokerC"></textarea>
+                        <input type="hidden" name="EstatusCancelar" id="EstatusCancelar" value="" />
+                        <input type="hidden" name="SCancelar" id="SCancelar" value="" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-dark-blue text-white" onclick="funBroker('Cancelar')" id="close3" style="text-transform:inherit;">Guardar</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    window.UsuarioTienepermiso = true;
+
+    var puedeAprobarse = true;
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+
+    const siguientebtn = document.getElementsByName('siguiente')
+    const regresarbtn = document.getElementsByName('regresar')
+
+    var seccion = "";
+
+    var regresarOavanzar = 0;
+
+    function verificarCamposLlenos(pane) {
+        const campos = pane.querySelectorAll('input[required]');
+        for (const campo of campos) {
+            if (campo.value.trim() === '') {
+                return false;
+            }
+        }
+
+        const textarea = pane.querySelector('textarea[required]');
+        return textarea ? textarea.value.trim() !== '' : true;
+
+        return true;
+    }
+
+
+    tabPanes.forEach(tabPane => {
+        tabPane.addEventListener('click', () => {
+            const currentSection = tabPane.name;
+        });
+    });
+
+    siguientebtn.forEach(boton => {
+        boton.addEventListener('click', () => {
+            console.log("entro en siguiente ")
+            // Verificar si todos los campos están llenos antes de avanzar
+            const camposLlenos = verificarCamposLlenos(tabPanes[regresarOavanzar]);
+
+            if (camposLlenos) {
+                regresarOavanzar++;
+                seccion = tabPanes[regresarOavanzar].attributes.name.value;
+                console.log(`Avanzando a la sección: ${tabPanes[regresarOavanzar].attributes.name.value}`);
+            }
+        });
+    });
+
+    regresarbtn.forEach(boton => {
+        boton.addEventListener('click', () => {
+            /*console.log("entro en avanzar ")*/
+            if (regresarOavanzar > 0) {
+                regresarOavanzar--;
+                seccion = tabPanes[regresarOavanzar].attributes.name.value;
+                console.log(`Regresando a la sección: ${tabPanes[regresarOavanzar].attributes.name.value}`);
+            }
+        });
+    });
+
+
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+
+<script src="~/js/script.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script src="~/js/archivo.js"></script>
+<script src="~/js/script-step.js"></script>
+
+
+
+
+<!--   Core JS Files   -->
+
+<script src="~/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="~/assets/js/jquery.bootstrap.js" type="text/javascript"></script>
+
+<!--  Plugin for the Wizard -->
+<script src="~/assets/js/material-bootstrap-wizard.js"></script>
+
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+<script src="~/assets/js/jquery.validate.min.js"></script>
+
+
+
+<!--funcion para cargar la imagen de perfil-->
+<script>
+    function cargarImagen() {
+        var archivoSeleccionado = document.getElementById('archivo').files[0];
+        var lector = new FileReader();
+
+        lector.onload = function (evento) {
+            var imagenPerfil = document.getElementById('preview');
+            imagenPerfil.src = evento.target.result;
+        }
+
+        lector.readAsDataURL(archivoSeleccionado);
+    }
+
+
+
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+</script>
+
+<!--este script es para que por defaul al cargar la pagina en ella se muestren las zonas seleccionadas -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Obtener todas los check
+        var checkboxes = document.querySelectorAll('.lista-estados input[type="checkbox"]');
+
+        // Obtener los nombres de los check seleccionados
+        var nombresSeleccionados = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                nombresSeleccionados.push(checkboxes[i].getAttribute('data-nombre'));
+            }
+        }
+
+        // Meter los seleccionados en un arreglo con comas
+        var cadenaSeleccionados = nombresSeleccionados.join(', ');
+
+        // Actualizar  id="estados-seleccionados"
+        var estadosSeleccionados = document.getElementById('estados-seleccionados');
+        estadosSeleccionados.innerText = cadenaSeleccionados;
+
+        // Ejecutar la función cada vez que se cambia un check
+        document.addEventListener('change', function () {
+            // Obtener los nombres de check seleccionados
+            var nombresSeleccionados = [];
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    nombresSeleccionados.push(checkboxes[i].getAttribute('data-nombre'));
+                }
+            }
+
+            // arreglo separado por comas
+            var cadenaSeleccionados = nombresSeleccionados.join(', ');
+
+            // Actualizar l contenido id "estados-seleccionados"
+            var estadosSeleccionados = document.getElementById('estados-seleccionados');
+            estadosSeleccionados.innerText = cadenaSeleccionados;
+        });
+    });
+
+
+
+    // Obtener el elemento
+    var SinToolTip = document.querySelectorAll(".fileContainer3");
+
+    for (elemento of SinToolTip) {
+        // Remover el atributo data-toggle
+        elemento.removeAttribute("data-toggle");
+
+        // Remover el atributo data-placement
+        elemento.removeAttribute("data-placement");
+    }
+
+
+</script>
+
+<script>
+    // Agregar evento mouseleave a los elementos con la clase fileContainer3
+    /*  $('.fileContainer3').mouseleave(function () {
+          $(this).css('height', '40px'); // Mantener la misma altura al quitar el mouse
+      });*/
+</script>
+
+
+<script>
+    $(function () {
+        var successMessage = '@TempData["SuccessMessage"]';
+        console.log(successMessage);
+        if (successMessage) {
+            // Mostrar Sweet Alert si hay un mensaje de éxito
+            Swal.fire({
+                title: '¡Registro exitoso!',
+                html: successMessage,
+                icon: 'success',
+                confirmButtonText: "Ok",
+                customClass: {
+                    confirmButton: 'button_confirmacion'
+                }
+            });
+        }
+    });
+
+</script>
+
+
+<!--script para comprobar que la contraseña de confirmacion sea igual a la contraseña nueva :)*******************************************************-->
+<script>
+    document.getElementById('btnEnviarContraseña').addEventListener('click', function () {
+        var password = document.getElementById('modalResetPassword').value;
+        var confirmPassword = document.getElementById('modalconfirmPassword').value;
+
+        console.log(confirmPassword);
+        if (password !== confirmPassword) {
+            // Si las contraseñas no coinciden, muestra una alerta
+            alert("Las contraseñas no coinciden. Por favor, asegúrate de ingresar la misma contraseña en ambos campos.");
+        } else {
+
+            var user = $('#eU').val();
+            var mensajeError = document.getElementsByClassName("msnContraseña")[0];
+            mensajeError.textContent = "";
+
+            if (password.length < 8) {
+                mensajeError.textContent = "La contraseña debe tener al menos 8 caracteres, un valor alfanumérico y al menos 1 caracter en mayúsculas.";
+
+            } else {
+
+                var newPassword = confirmPassword;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Usuarios/ResetPassword',
+                    data: {
+                        emailUser: user,
+                        newPassword: password
+                    },
+                    success: function (result) {
+                        Swal.fire({
+                            title: '¡Registro exitoso!',
+                            html: 'La contraseña se actualizó correctamente.',
+                            icon: 'success',
+                            confirmButtonText: "Ok",
+                            customClass: {
+                                confirmButton: 'button_confirmacion'
+                            }
+                        }).then(function () {
+                            location.reload();
+                        });
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        // Manejar el resultado no exitoso aquí
+                        console.log('Error:', textStatus);
+                        console.log('Error lanzado:', errorThrown);
+                    }
+                });
+            }
+        }
+    });
+</script>
+
+
+
+<!--script para la animacion de la visivilidad de la contraseña en el modal*******************************************************************-->
+<script>
+    function togglePasswordVisibility1() {
+        var passwordInput = document.getElementById("modalResetPassword");
+        var passwordToggle = document.querySelector(".password-toggle1");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordToggle.innerHTML = '<i class="far fa-eye-slash"></i>'; // Cambia el icono a un ojo tachado
+        } else {
+            passwordInput.type = "password";
+            passwordToggle.innerHTML = '<i class="far fa-eye"></i>'; // Cambia el icono a un ojo
+        }
+    }
+    function togglePasswordVisibility2() {
+        var passwordInput = document.getElementById("modalconfirmPassword");
+        var passwordToggle = document.querySelector(".password-toggle2");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordToggle.innerHTML = '<i class="far fa-eye-slash"></i>'; // Cambia el icono a un ojo tachado
+        } else {
+            passwordInput.type = "password";
+            passwordToggle.innerHTML = '<i class="far fa-eye"></i>'; // Cambia el icono a un ojo
+        }
+    }
+</script>
+
+
+<!--este scrip es un wizard especial para edicion broker-->
+<script src="~/js/editBrokerWizard.js"></script>
+<script src="~/js/brokersScript.js" cache=true></script>
+
+<script src="~/js/modalFunciones.js"></script>
+
+
+
+<script src="~/js/bloquearBoton.js"></script>
+
+
+<!--Autocomplete-->
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $("#asociadoName").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "@Url.Action("BusquedaUsuarioVinc", "Brokers")?busqueda=" + request.term,
+                    dataType: "json",
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+
+            },
+            select: function (event, ui) {
+                // Actualizar el campo visible con la etiqueta seleccionada
+                $("#asociadoName").val(ui.item.label);
+
+                // Actualizar el campo oculto con el valor seleccionado
+                $("#asociadoId").val(ui.item.value);
+
+                return false; // Evitar que la etiqueta se coloque automáticamente en el campo visible
+            },
+            change: function (event, ui) {
+                var selectedItem = ui.item;
+                if (!selectedItem) {
+                    // El valor seleccionado no existe en la fuente de datos
+                    $("#asociadoId").val("0"); // Establecer el valor en 0
+                    $("#asociadoName").val(""); // Establecer el valor en 0
+                }
+            }
+        });
+
+    });
+
+
+</script>

@@ -1,0 +1,555 @@
+﻿@model ContactCenterModel;
+
+@{
+    Layout = "_NavUsuarios";
+    ViewBag.Title = "Contact center";
+}
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/logo_oficial.png">
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="~/css/styles-tablero-contact-center.css">
+    <link href="~/assets/css/material-bootstrap-wizard.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/estilosGenerales.css">
+
+    <link rel="stylesheet" href="~/assets/css/material-bootstrap-wizard.css" />
+    <link rel="stylesheet" href="~/assets/css/material-bootstrap-wizard-2.css" />
+
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="~/js/locales-all.js"></script>
+
+</head>
+
+<!--animacion-->
+<ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+<h4 class="ms-4 tituloVista">Contact center</h4>
+<!--contenido de la pagina-->
+
+<div class="container-fluid contenedorGeneralBlanco mt-3" style="margin: 0px 2rem; width: -webkit-fill-available;">
+    <!--heading page-->
+    <div class="col-12">
+        <div class="message-user">
+            <div class="name-user">Bienvenid&#64; Alexandra</div>
+            <div class="message-default">
+                Es un gusto tenerte de vuelta, aquí tienes un resumen...
+            </div>
+        </div>
+    </div>
+    <div class="row row-cols-2">
+        <!--container-->
+        <div class="col-9">
+            <div class="btn-option shadow">
+                <div class="message-default">
+                    <h5>¿Qué deseas hacer?</h5>
+                </div>
+                <!--botones de renderizacion-->
+                <div class="btn-option-cards  mt-2 d-flex justify-content-center">
+
+                    <div class="col-3 border-0 active2 option-card  bg-card-1" id="btnOnboarding">
+                        <span class="cart-count" id="cart-count">+@Model.conteoOnBoarding</span>
+                        <div class="title">On boarding broker</div>
+
+                    </div>
+                    <div class="col-3 option-card border-0 bg-card-2" id="btnVenta">
+                        <span class="cart-count" id="cart-count">+@Model.conteoVenta</span>
+                        <div class="title">Venta</div>
+                    </div>
+                    <div class="col-3 option-card border-0 bg-card-3" id="btnEntrega">
+                        <span class="cart-count" id="cart-count">+@Model.conteoEntrega</span>
+                        <div class="title">Entrega</div>
+                    </div>
+                    <!--<div class="col-4 option-card-cc bg-card-4-cc  " id="btnPostventa">
+                        <span class="cart-count" id="cart-count">+@Model.conteoLealtad</span>
+                        <div class="title">Lealtad</div>
+                    </div>-->
+                </div>
+            </div>
+            <!--VISTA 1 -->
+            <div class="data-table active border shadow" id="tblOnboarding">
+                <div class="message-btn-option">
+                    Leads nuevos:
+                    <p>&nbsp @Model.conteoOB</p>
+                </div>
+                <br />
+
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+
+                        <tr>
+                            <th class="col-1">Fecha</th>
+                            <th class="col-3">Nombre</th>
+                            <th class="col-2">Correo</th>
+                            <th class="col-1">Teléfono</th>
+                            <th class="col-1">Etapa</th>
+                            <th class="col-3">Acciones</th>
+                        </tr>
+                        @foreach (var ob in Model.DatosOnboarding)
+                        {
+                            <tr class="tabla-hover">
+                                <td>@ob.Fecha</td>
+                                <td>@ob.Broker</td>
+                                <td>@ob.Correo</td>
+                                <td>@ob.Telefono</td>
+                                <td>
+                                    @{
+                                        var condicionPLan = ob.Etapa;
+                                        var colorPlan = "";
+
+                                        if (condicionPLan == "Interesado")
+                                        {
+                                            colorPlan = "bg-interesado";
+                                        }
+                                        else
+                                        {
+                                            colorPlan = "bg-pagadoSuscripcion";
+                                        }
+
+                                    }
+                                    <p class="@colorPlan etiquetadoCntacCentrSuscripcion">@ob.Etapa</p>
+                                </td>
+                                <td>
+                                    <a class="bg-status-blue-btns-gnrl " asp-controller="Administracion" asp-action="LeadBrokerTab">
+                                        Ver más
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+
+                <div class="view-all mt-3">
+                    <nav aria-label="" class="mt-4">
+                        <ul class="pagination justify-content-lg-center justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link me-1" href="#" tabindex="-1" aria-disabled="true">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active me-1" aria-current="page"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item me-1">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item me-1"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <!--VISTA 2 -->
+            <div class="data-table" id="tblVenta">
+                <div class="message-btn-option">
+                    Venta nuevos:
+                    <p>&nbsp; @Model.conteoV </p>
+                </div>
+                <br />
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table>
+                        <tr class="table-hover">
+                            <th class="col-1">Fecha</th>
+                            <th class="col-3">Cliente</th>
+                            <th class="col-2">Propiedad</th>
+                            <th class="col-1">Visita</th>
+                            <th class="col-3">Broker</th>
+                            <th class="col-2">Acciones</th>
+                        </tr>
+                        @foreach (var v in Model.DatosVenta)
+                        {
+                            <tr class="tabla-hover">
+                                <td>@v.Fecha</td>
+                                <td>@v.Cliente</td>
+                                <td>@v.Propiedad</td>
+                                <td>@v.Visita </td>
+                                <td>@v.Broker</td>
+                                <td><a href="#" class="bg-status-blue-btns-gnrl ">Ver más</a></td>
+                            </tr>
+                        }
+
+
+                    </table>
+                </div>
+                <!--footer-->
+                <div class="view-all mt-3">
+                    <nav aria-label="" class="mt-4">
+                        <ul class="pagination justify-content-lg-center justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link me-1" href="#" tabindex="-1" aria-disabled="true">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active me-1" aria-current="page"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item me-1">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item me-1"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <!--VISTA 3 -->
+            <div class="data-table" id="tblEntrega">
+                <div class="message-btn-option">
+                    Entrega nuevos:
+                    <p>&nbsp; @Model.conteoE</p>
+                </div>
+                <br />
+                <!-- <div class="message-default">
+                          Aquí viven los leads que se encuentran en una etapa de seguimiento.
+                      </div> -->
+                <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <tr>
+                            <th class="col-1">Fecha</th>
+                            <th class="col-2">Propiedad</th>
+                            <th class="col-2">Cliente</th>
+                            <th class="col-2">Broker</th>
+                            <th class="col-2">Notario</th>
+                            <th class="col-1">Etapa</th>
+                            <th class="col-2">Acciones</th>
+                            <!--<th>Visita</th>
+                            <th>Estatus</th>-->
+                        </tr>
+                        @foreach (var entrega in Model.DatosEntrega)
+                        {
+                            <tr class="tabla-hover">
+                                <td>@entrega.Fecha</td>
+                                <td>@entrega.Propiedad</td>
+                                <td>@entrega.Cliente</td>
+                                <td>@entrega.Broker</td>
+                                <td>@entrega.Notario</td>
+                                <td>
+                                    @{
+                                        //  Firma de contrato
+                                        //  Copia de escritura
+                                        var etapaProceso = entrega.Etapa;
+                                        var colorEtapa = "";
+
+                                        if (etapaProceso == "Cita con notario")
+                                        {
+                                            colorEtapa = "bg-etapa-oportunidad";
+                                        }
+                                        else if (etapaProceso == "Pago total del inmueble")
+                                        {
+                                            colorEtapa = "bg-etapa-entrega";
+
+                                        }
+                                        else { colorEtapa = "bg-etapa-cierre"; }
+
+                                    }
+                                    <p class="@colorEtapa etapaProcesoPill">@entrega.Etapa</p>
+                                </td>
+                                <td>
+                                    <a class="bg-status-blue-btns-gnrl " asp-controller="Propiedades" asp-action="DetallesPropiedadPP">
+                                        Ver más
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+                <div class="view-all mt-3">
+                    <nav aria-label="" class="mt-4">
+                        <ul class="pagination justify-content-lg-center justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link me-1" href="#" tabindex="-1" aria-disabled="true">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active me-1" aria-current="page"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item me-1">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item me-1"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <!--VISTA 4 -->
+      <!--  <div class="data-table" id="tblPostventa">
+                <div class="message-btn-option">
+                    Lealtad broker:
+                    <p>&nbsp; 0</p>
+                </div>
+                <br />
+          
+                <div class=" table-responsive mt-2 shadow">
+                    <table class="table table-hover">
+                        <tr>
+                            <th class="col-1">Fecha</th>
+                            <th class="col-5">Broker</th>
+                            <th class="col-4">Tipo de encuesta</th>
+                            <th class="col-2">Acciones</th>
+                        </tr>
+
+
+                    </table>
+                </div>
+           
+                <div class="view-all mt-3">
+                    <nav aria-label="" class="mt-4">
+                        <ul class="pagination justify-content-lg-center justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link me-1" href="#" tabindex="-1" aria-disabled="true">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active me-1" aria-current="page"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item me-1">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item me-1"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>-->
+        </div>
+        <div class="col-3">
+            <div class="more-options d-cards ">
+              
+
+                <div class="col col-md-4 col-lg-4 col-xl-12">
+                    <div class="enterate shadow">
+                        <div class="title-enterate">Entérate</div>
+                        <div class="img-enterate">
+                            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="~/img/imagenes-mesa-de-control/enterate.png" alt="" class="img-fluid d-block w-100" />
+
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="~/img/imagenes-mesa-de-control/enterate2.jpg" alt="" class="img-fluid d-block w-100" />
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="~/img/imagenes-mesa-de-control/enterate3.jpg" alt="" class="img-fluid d-block w-100" />
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!--Scripts-->
+<script>
+    // Script para tab de tablero de brokers
+    function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+
+    //Función 2
+    function openCity2(evt, cityName2) {
+        var i, tabcontent2, tablinks2;
+        tabcontent2 = document.getElementsByClassName("tabcontent2");
+        for (i = 0; i < tabcontent2.length; i++) {
+            tabcontent2[i].style.display = "none";
+        }
+        tablinks2 = document.getElementsByClassName("tablinks2");
+        for (i = 0; i < tablinks2.length; i++) {
+            tablinks2[i].className = tablinks2[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName2).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen2").click();
+
+    // Función 3
+    function openCity3(evt, cityName3) {
+        var i, tabcontent3, tablinks3;
+        tabcontent3 = document.getElementsByClassName("tabcontent3");
+        for (i = 0; i < tabcontent3.length; i++) {
+            tabcontent3[i].style.display = "none";
+        }
+        tablinks3 = document.getElementsByClassName("tablinks3");
+        for (i = 0; i < tablinks3.length; i++) {
+            tablinks3[i].className = tablinks3[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName3).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen3").click();
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var initialLocaleCode = 'es';
+        var localeSelectorEl = document.getElementById('locale-selector');
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,listMonth'
+            },
+            locale: 'es',
+            initialDate: '2022-09-12',
+            locale: initialLocaleCode,
+            theme: true,
+            editable: false,
+            buttonIcons: false, // show the prev/next text
+            // weekNumbers: true,
+            navLinks: false, // can click day/week names to navigate views
+            editable: true,
+            dayMaxEvents: true, // allow "more" link when too many events
+            events: [
+                {
+                    title: 'All Day Event',
+                    start: '2022-09-01'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2020-09-07',
+                    end: '2020-09-10'
+                },
+                {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2020-09-09T16:00:00'
+                },
+                {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2020-09-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2020-09-11',
+                    end: '2020-09-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2020-09-12T10:30:00',
+                    end: '2020-09-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2020-09-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2020-09-12T14:30:00'
+                },
+                {
+                    title: 'Happy Hour',
+                    start: '2020-09-12T17:30:00'
+                },
+                {
+                    title: 'Dinner',
+                    start: '2020-09-12T20:00:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2020-09-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'http://google.com/',
+                    start: '2020-09-28'
+                }
+            ]
+        });
+
+        calendar.render();
+
+        // build the locale selector's options
+        calendar.getAvailableLocaleCodes().forEach(function (localeCode) {
+            var optionEl = document.createElement('option');
+            optionEl.value = localeCode;
+            optionEl.selected = localeCode == initialLocaleCode;
+            optionEl.innerText = localeCode;
+            localeSelectorEl.appendChild(optionEl);
+        });
+
+        // when the selected option changes, dynamically change the calendar option
+        localeSelectorEl.addEventListener('change', function () {
+            if (this.value) {
+                calendar.setOption('locale', this.value);
+            }
+        });
+
+    });
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="~/js/script.js"></script>
+<script src="~/js/effects.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+

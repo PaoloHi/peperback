@@ -1,0 +1,986 @@
+﻿@model PropietariosModel;
+@{
+    Layout = "_NavUsuarios";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Proyecto_administracion</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
+    <link href="~/assets/css/material-bootstrap-wizard.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/style_form_nuevo_usuario.css">
+    <link rel="stylesheet" href="~/css/Style_form.css" />
+    <link rel="stylesheet" href="~/css/estilosGenerales.css" />
+
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/logo_oficial.png">
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+
+
+    <title>Formulario nuevo usuario</title>
+</head>
+
+
+<ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+
+
+<div class="container-fluid px-5">
+    <div class="row">
+        <div class="col">
+            <!--      Wizard container        -->
+
+
+            <h4 class="tituloVista ">Datos del propietario</h4>
+
+            <div class="card wizard-card contenedorGeneralBlanco" data-color="orange" id="wizardProfile">
+                <form  id="myform" sp-controller="Propietarios" asp-action="Editar" enctype="multipart/form-data">
+
+                    <div class="wizard-navigation">
+                        <ul>
+                            <li><a href="#generales" data-toggle="tab">Generales</a></li>
+                            <li><a href="#documentos" data-toggle="tab">Documentos</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-content">
+                        <div class="tab-pane" id="generales">
+                            <div class="row">
+                                <label for="documentos" class=" ms-lg-1 mt-lg-2">
+                                    <h5 class=" text-black">Datos Generales</h5>
+                                </label>
+
+                                <div class="container-fluid d-flex justify-content-center mb-4">
+                                    <div class="input-group  justify-content-start">
+                                        <div class=" row row-cols-3 ms-1">
+
+                                            <div class="col ">
+                                                <div class="d-inline form-group label-floating w-100">
+                                                    <label for="nombre_p" class=" control-label color_letter2"> <h6>Nombre</h6></label>
+                                                    <input type="text" asp-for="Nombre" class="form-control" required />
+                                                </div>
+                                            </div>
+
+                                            <div class="col  ">
+                                                <div class="d-inline form-group label-floating w-100">
+                                                    <label for="a_paterno" class=" control-label color_letter2"> <h6>Apellido paterno</h6></label>
+                                                    <input type="text" asp-for="ApellidoP" class="form-control" required />
+                                                </div>
+                                            </div>
+
+                                            <div class="col ">
+                                                <div class="d-inline form-group label-floating  w-100">
+                                                    <label for="a_materno" class=" control-label color_letter2"> <h6>Apellido materno</h6></label>
+                                                    <input type="text" asp-for="ApellidoM" class="form-control" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr />
+
+                                        <h5 class="text-black">Contacto</h5>
+                                        <div class="row row-cols-3">
+
+                                            <div class="col d-flex ">
+                                                <div class=" form-group label-floating mt-2 ">
+                                                    <label for="correo" class=" control-label color_letter2"> <h6>Correo</h6></label>
+                                                    <input type="text" asp-for="Correo" id="correo" class="form-control" style="width:300px;" required />
+                                                    <input type="hidden" asp-for="CorreoPE" id="correo" class="form-control" style="width:300px;" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col d-lg-inline-block form-group mt-1 label-floating p-1 ">
+                                                <label for="tel" class=" color_letter2 size-text control-label ">Teléfono</label>
+
+                                                <div class="d-inline-flex">
+
+                                                    <select class="d-flex form-control" style="width: 100px;" asp-for="Lada">
+                                                        <option value="+52" class="flag-icon flag-icon-mx">+52 (MX)</option>
+                                                        <option value="+54" class="flag-icon flag-icon-mx">+54 (ARG)</option>
+                                                        <option value="+57" class="flag-icon flag-icon-gb">+57 (COL)</option>
+                                                        <option value="+53" class="flag-icon flag-icon-gb">+53 (CUB)</option>
+                                                        <option value="+1" class="flag-icon flag-icon-us">+1 (EE.UU)</option>
+                                                        <option value="+48" class="flag-icon flag-icon-us">+48 (PL)</option>
+                                                        <option value="+44" class="flag-icon flag-icon-gb">+44 (UK)</option>
+
+                                                    </select>
+                                                    <input type="tel" asp-for="Tel" min="0" maxlength="10" class="mt-2 ms-1 form-control NobtnNumber"
+                                                           onkeypress="return event.charCode >= 48 && event.charCode <= 57" required />
+                                                </div>
+                                            </div>
+
+                                            <div class="col d-lg-inline-block form-group mt-1 label-floating p-1 ">
+                                                <label for="tel" class=" color_letter2 size-text control-label ">Teléfono</label>
+
+                                                <div class="d-inline-flex">
+
+                                                    <select class="d-flex form-control" style="width: 100px;" asp-for="Lada2">
+                                                        <option value="+52" class="flag-icon flag-icon-mx">+52 (MX)</option>
+                                                        <option value="+54" class="flag-icon flag-icon-mx">+54 (ARG)</option>
+                                                        <option value="+57" class="flag-icon flag-icon-gb">+57 (COL)</option>
+                                                        <option value="+53" class="flag-icon flag-icon-gb">+53 (CUB)</option>
+                                                        <option value="+1" class="flag-icon flag-icon-us">+1 (EE.UU)</option>
+                                                        <option value="+48" class="flag-icon flag-icon-us">+48 (PL)</option>
+                                                        <option value="+44" class="flag-icon flag-icon-gb">+44 (UK)</option>
+
+                                                    </select>
+                                                    <input type="tel" asp-for="Tel2" min="0" maxlength="10" class="mt-2 ms-1 form-control NobtnNumber"
+                                                           onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="d-flex row row-cols-2">
+
+                                            <div class="col-4 d-flex ">
+                                                <div class=" form-group label-floating mt-2 ">
+                                                    <label class=" control-label color_letter2"> <h6>Fecha de cumpleaños</h6></label>
+
+
+
+                                                    <input type="date" asp-for="FecCump" class=" form-control mt-2 " style="width:300px;">
+                                                </div>
+                                            </div>
+
+                                            <div class="col d-flex ">
+                                                <div class=" form-group label-floating mt-2 ">
+                                                    <label class=" control-label color_letter2"> <h6>Ocupación</h6></label>
+                                                    <input type="text" class="form-control mt-4" asp-for="Ocupacion" style="width:300px;" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <!--pestaña de documentos-->
+                        <div class="tab-pane" id="documentos">
+                            <div class="row">
+                                <label for="documentos" class=" ms-lg-2">
+                                    <h5 class="color_letter">Documentos</h5>
+                                </label>
+                                <br>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class=" my-custom-scrollbar table-responsive table-height">
+
+                                            @{
+                                                var documento = Model.DocEUsuario;
+                                            }
+                                            <table class="table table-hover border-gray ">
+                                                <thead>
+                                                <tbody>
+                                                    <tr class="tabla-hover">
+                                                        <th scope="row">1</th>
+                                                        <td colspan="2">Identificacion oficial vigente (INE, Pasaporte, FM3)</td>
+                                                        <td>
+                                                            <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+
+                                                                <i class="fa-solid fa-file-arrow-up size-icon ">
+                                                                    <input type="file" asp-for="DocEUsuario[0].Documento" id="archivoInput_1" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                           onchange="SubirVisualizar(1)">
+
+                                                                </i>
+                                                                <input asp-for="DocEUsuario[0].IDdocUsuario" class="d-none" value="@documento[0].IDdocUsuario" />
+                                                                <input asp-for="DocEUsuario[0].IDtipoArchivo" value="@documento[0].IDtipoArchivo" class="d-none">
+                                                                <input asp-for="DocEUsuario[0].archivoNombre" value="@documento[0].archivoNombre" class="d-none">
+                                                                <input class="d-none" id="txt64_1" value="@documento[0].txt64">
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3   btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="d_archivo" onclick="borrarArchivo(1)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-trash-can size-icon "></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="v_archivo4" id="" onclick="visorExt(1)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-eye size-icon "></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+
+                                                                @{
+                                                                    var EstatusDoc = @documento[0].Estatus;
+                                                                }
+
+                                                                @if (@EstatusDoc == "En proceso")
+
+                                                                {
+                                                                <div class="fileContainer3 " id="IconoProceso_1">
+
+                                                                    <a class="btn fileContainer3 btnm botonProceso" onclick="getDocumentID(@documento[0].IDdocUsuario,1)" href="#openModal" data-toggle="tooltip" data-placement="top" title="Documento en proceso" style="background-color:transparent;">
+
+                                                                        <i class="fa-solid fa-arrow-rotate-right size-icon "></i>
+
+                                                                        <input type="button" name="p_archivo1" id=""
+                                                                               class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    </a>
+
+                                                                </div>
+
+                                                                <div class="fileContainer3 d-none" id="IconoAprobado_1">
+                                                                    <input type="button" name="a_archivo1" class="position-absolute top-0 start-0 claseBtnTruco ">
+                                                                    <button class="btn  fileContainer3  btn btnm" title="Documento en proceso">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="fileContainer3 input-group me-4 d-none" id="IconoRechazado_1">
+                                                                    <input type="button" name="a_archivo2" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <button class="btn  fileContainer3  btn btnm">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+                                                                    </button>
+
+                                                                </div>
+
+                                                                }
+                                                                else if (@EstatusDoc == "Aprobado")
+                                                                {
+                                                                <div class="fileContainer3 ">
+                                                                    <input type="button" name="a_archivo1" class="position-absolute top-0 start-0 claseBtnTruco ">
+                                                                    <button class="btn  fileContainer3  btn btnm">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+                                                                        <h6 class="font-size-visualizador">Aprobado</h6>
+                                                                    </button>
+                                                                </div>
+
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    /** RECHAZADO **/
+                                                                <div class="fileContainer3 input-group me-4">
+                                                                    <input type="button" name="a_archivo2" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <button class="btn  fileContainer3  btn btnm">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+                                                                        <h6 class="font-size-visualizador">Rechazado</h6>
+                                                                    </button>
+
+                                                                </div>
+                                                                }
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="tabla-hover">
+                                                        <th scope="row">2</th>
+                                                        <td colspan="2">CURP</td>
+                                                        <td>
+                                                            <div class="fileContainer2 btn btnm " style="background-color:transparent;">
+                                                                <input type="file" asp-for="DocEUsuario[1].Documento" id="archivoInput_2" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                       onchange="SubirVisualizar(2)">
+                                                                <input asp-for="DocEUsuario[1].IDdocUsuario" class="d-none" value="@documento[1].IDdocUsuario" />
+                                                                <input asp-for="DocEUsuario[1].IDtipoArchivo" value="@documento[1].IDtipoArchivo" class="d-none">
+                                                                <input asp-for="DocEUsuario[1].archivoNombre" value="@documento[1].archivoNombre" class="d-none">
+                                                                <input class="d-none" id="txt64_2" value="@documento[1].txt64">
+                                                                <i class="fa-solid fa-file-arrow-up size-icon  size-icon "></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="d_archivo2" id="archivoInput_delete_2" onclick="borrarArchivo(2)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-trash-can size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="v_archivo4" id="" onclick="visorExt(2)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-eye  size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                                @{
+                                                                    var EstatusDoc2 = @documento[1].Estatus;
+                                                                }
+
+                                                                @if (@EstatusDoc2 == "En proceso")
+
+                                                                {
+                                                                <div class="fileContainer3 " id="IconoProceso_2">
+
+                                                                    <a class="btn fileContainer3 btnm" href="#openModal" onclick="getDocumentID(@documento[1].IDdocUsuario,2)" data-toggle="tooltip" data-placement="top" title="Documento en proceso" style="background-color:transparent;">
+                                                                        <input type="button" name="p_archivo1" id=""
+                                                                               class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-arrow-rotate-right size-icon "></i>
+
+                                                                    </a>
+
+                                                                    <div class="fileContainer3 d-none" id="IconoAprobado_2">
+                                                                        <input type="button" name="a_archivo1" class="position-absolute top-0 start-0 claseBtnTruco ">
+                                                                        <button class="btn  fileContainer3  btn btnm" title="Documento en proceso">
+
+                                                                            <i class="fa-solid fa-circle-check"></i>
+
+                                                                        </button>
+                                                                    </div>
+
+                                                                    <div class="fileContainer3 input-group me-4 d-none" id="IconoRechazado_2">
+                                                                        <input type="button" name="a_archivo2" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <button class="btn  fileContainer3  btn btnm">
+                                                                            <i class="fa-solid fa-circle-xmark"></i>
+                                                                        </button>
+
+                                                                    </div>
+
+                                                                </div>
+
+
+
+                                                                }
+                                                                else if (@EstatusDoc2 == "Aprobado")
+                                                                {
+                                                                <div class="fileContainer3  input-group me-4">
+                                                                    <a class="btn fileContainer3 btnm" href="#openModal" data-toggle="tooltip" data-placement="top" title="Documento aprobado" style="background-color:transparent;">
+                                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+
+                                                                    </a>
+                                                                </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    /** RECHAZADO **/
+                                                                <div class="fileContainer3 input-group ">
+                                                                    <a class="btn fileContainer3 btnm" href="#openModal" data-toggle="tooltip" data-placement="top" title="Documento aprobado" style="background-color:transparent;">
+                                                                        <input type="button" name="a_archivo2" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+
+                                                                    </a>
+
+                                                                </div>
+                                                                }
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="tabla-hover">
+                                                        <th scope="row">3</th>
+                                                        <td colspan="2">RFC</td>
+                                                        <td>
+                                                            <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+                                                                <input type="file" asp-for="DocEUsuario[2].Documento" id="archivoInput_3" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                       onchange="SubirVisualizar(3)">
+
+                                                                <input asp-for="DocEUsuario[2].IDdocUsuario" class="d-none" value="@documento[2].IDdocUsuario" />
+                                                                <input asp-for="DocEUsuario[2].IDtipoArchivo" value="@documento[2].IDtipoArchivo" class="d-none">
+                                                                <input asp-for="DocEUsuario[2].archivoNombre" value="@documento[2].archivoNombre" class="d-none">
+                                                                <input class="d-none" id="txt64_3" value="@documento[2].txt64">
+
+                                                                <i class="fa-solid fa-file-arrow-up size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="d_archivo3" id="archivoInput_delete_3" onclick="borrarArchivo(3)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="v_archivo4" id="" onclick="visorExt(3)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-eye  size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+
+                                                                @{
+                                                                    var EstatusDoc3 = @documento[2].Estatus;
+                                                                }
+                                                                @if (@EstatusDoc3 == "En proceso")
+
+                                                                {
+                                                                <div class="fileContainer3 " id="IconoProceso_3">
+                                                                    <a class="btn fileContainer3 btnm" href="#openModal" onclick="getDocumentID(@documento[2].IDdocUsuario,3)" data-toggle="tooltip" data-placement="top" title="Documento en proceso" style="background-color:transparent;">
+
+                                                                        <input type="button" name="p_archivo1" id=""
+                                                                               class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-arrow-rotate-right size-icon "></i>
+
+                                                                    </a>
+
+
+
+                                                                </div>
+
+                                                                <div class="fileContainer3 d-none" id="IconoAprobado_3">
+                                                                    <input type="button" name="a_archivo1" class="position-absolute top-0 start-0 claseBtnTruco ">
+                                                                    <button class="btn  fileContainer3  btn btnm" title="Documento en proceso">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="fileContainer3 input-group me-4 d-none" id="IconoRechazado_3">
+                                                                    <input type="button" name="a_archivo2" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <button class="btn  fileContainer3  btn btnm">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+                                                                    </button>
+
+                                                                </div>
+
+
+
+                                                                }
+                                                                else if (@EstatusDoc3 == "Aprobado")
+                                                                {
+                                                                <div class="fileContainer3  ">
+                                                                    <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <a class="position-absolute top-0 start-0 claseBtnTruco" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Documento aprobado">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+
+                                                                    </a>
+                                                                </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    /** RECHAZADO **/
+                                                                <div class="fileContainer3 input-group me-4">
+                                                                    <input type="button" name="a_archivo2" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <a class="position-absolute top-0 start-0 claseBtnTruco" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Documento rechazado">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+
+                                                                    </a>
+
+                                                                </div>
+                                                                }
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="tabla-hover">
+                                                        <th scope="row">4</th>
+                                                        <td colspan="2">Acta de nacimiento</td>
+                                                        <td>
+                                                            <div class="fileContainer2 btn btnm" style="background-color:transparent;">
+                                                                <input type="file" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                       asp-for="DocEUsuario[3].Documento" id="archivoInput_4" onchange="SubirVisualizar(4)">
+                                                                <input asp-for="DocEUsuario[3].IDdocUsuario" class="d-none" value="@documento[3].IDdocUsuario" />
+                                                                <input asp-for="DocEUsuario[3].IDtipoArchivo" value="@documento[3].IDtipoArchivo" class="d-none">
+                                                                <input asp-for="DocEUsuario[3].archivoNombre" value="@documento[3].archivoNombre" class="d-none">
+                                                                <input class="d-none" id="txt64_4" value="@documento[3].txt64">
+                                                                <i class="fa-solid fa-file-arrow-up size-icon  "></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="d_archivo4" id="archivoInput_delete_4" onclick="borrarArchivo(4)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-trash-can size-icon "></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="v_archivo4" id="" onclick="visorExt(4)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-eye size-icon "></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                                @{
+                                                                    var EstatusDoc4 = @documento[3].Estatus;
+                                                                }
+
+                                                                @if (@EstatusDoc4 == "En proceso")
+
+                                                                {
+                                                                <div class="fileContainer3  " id="IconoProceso_4">
+
+                                                                    <a class="btn  fileContainer3  btnm" href="#openModal" onclick="getDocumentID(@documento[3].IDdocUsuario,4)" data-toggle="tooltip" data-placement="top" title="Documento en proceso" style="background-color:transparent;">
+                                                                        <input type="button" name="p_archivo1" id=""
+                                                                               class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-arrow-rotate-right size-icon"></i>
+
+                                                                    </a>
+
+
+                                                                </div>
+
+                                                                <div class="fileContainer3 d-none" id="IconoAprobado_4">
+                                                                    <input type="button" name="a_archivo1" class="position-absolute top-0 start-0 claseBtnTruco ">
+                                                                    <button class="btn  fileContainer3  btn btnm" title="Documento en proceso">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="fileContainer3 input-group me-4 d-none" id="IconoRechazado_4">
+                                                                    <input type="button" name="a_archivo2" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <button class="btn  fileContainer3  btn btnm">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+                                                                    </button>
+
+                                                                </div>
+
+
+                                                                }
+                                                                else if (@EstatusDoc4 == "Aprobado")
+                                                                {
+                                                                <div class="fileContainer3  ">
+                                                                    <a class="btn  fileContainer3   btnm" data-toggle="tooltip" data-placement="top" title="Documento aprobado" style="background-color:transparent;">
+                                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+                                                                        <h6 class="font-size-visualizador">Aprobado</h6>
+                                                                    </a>
+                                                                </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    /** RECHAZADO **/
+                                                                <div class="fileContainer3 btnm" data-toggle="tooltip" data-placement="top" title="Documento rechazado" style="background-color:transparent;">
+                                                                    <a class="btn  fileContainer3   btnm">
+                                                                        <input type="button" name="a_archivo2" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+                                                                        <h6 class="font-size-visualizador">Rechazado</h6>
+                                                                    </a>
+
+                                                                </div>
+                                                                }
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="tabla-hover">
+                                                        <th scope="row">5</th>
+                                                        <td colspan="2">Comprobante domicilio</td>
+                                                        <td>
+                                                            <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+                                                                <input type="file" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                       asp-for="DocEUsuario[4].Documento" id="archivoInput_5" onchange="SubirVisualizar(5)">
+                                                                <input asp-for="DocEUsuario[4].IDdocUsuario" class="d-none" value="@documento[4].IDdocUsuario" />
+                                                                <input asp-for="DocEUsuario[4].IDtipoArchivo" value="@documento[4].IDtipoArchivo" class="d-none">
+                                                                <input asp-for="DocEUsuario[4].archivoNombre" value="@documento[4].archivoNombre" class="d-none">
+                                                                <input class="d-none" id="txt64_5" value="@documento[4].txt64">
+                                                                <i class="fa-solid fa-file-arrow-up size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3 btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="d_archivo3" id="archivoInput_delete_5" onclick="borrarArchivo(5)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3 btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="v_archivo4" id="" onclick="visorExt(5)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-eye size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                                @{
+                                                                    var EstatusDoc5 = @documento[4].Estatus;
+                                                                }
+
+                                                                @if (@EstatusDoc5 == "En proceso")
+
+                                                                {
+                                                                <div class="fileContainer3 " id="IconoProceso_5">
+                                                                    <a class="btn  fileContainer3  btnm" href="#openModal" onclick="getDocumentID(@documento[4].IDdocUsuario,5)" data-toggle="tooltip" data-placement="top" title="Documento en proceso" style="background-color:transparent;">
+
+                                                                        <input type="button" name="p_archivo1" id=""
+                                                                               class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-arrow-rotate-right size-icon "></i>
+
+                                                                    </a>
+
+
+
+
+                                                                </div>
+
+                                                                <div class="fileContainer3 d-none" id="IconoAprobado_5">
+                                                                    <input type="button" name="a_archivo1" class="position-absolute top-0 start-0 claseBtnTruco ">
+                                                                    <button class="btn  fileContainer3  btn btnm" title="Documento en proceso">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="fileContainer3 input-group me-4 d-none" id="IconoRechazado_5">
+                                                                    <input type="button" name="a_archivo2" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <button class="btn  fileContainer3  btn btnm">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+                                                                    </button>
+
+                                                                </div>
+
+
+                                                                }
+                                                                else if (@EstatusDoc5 == "Aprobado")
+                                                                {
+                                                                <div class="fileContainer3 ">
+                                                                    <a class="position-absolute top-0 start-0 claseBtnTruco" data-toggle="tooltip" data-placement="top" title="Documento aprobado" style="background-color:transparent;">
+                                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+
+                                                                    </a>
+                                                                </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    /** RECHAZADO **/
+                                                                <div class="fileContainer3 input-group me-4">
+                                                                    <a class="position-absolute top-0 start-0 claseBtnTruco" data-toggle="tooltip" data-placement="top" title="Documento rechazado" style="background-color:transparent;">
+                                                                        <input type="button" name="a_archivo2" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+
+                                                                    </a>
+
+                                                                </div>
+                                                                }
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="tabla-hover">
+                                                        <th scope="row">6</th>
+                                                        <td colspan="2">Constancia de situación fiscal</td>
+                                                        <td>
+                                                            <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+                                                                <input type="file" asp-for="DocEUsuario[5].Documento" id="archivoInput_6" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                       onchange="SubirVisualizar(6)">
+                                                                <input asp-for="DocEUsuario[5].IDdocUsuario" class="d-none" value="@documento[5].IDdocUsuario" />
+                                                                <input asp-for="DocEUsuario[5].IDtipoArchivo" value="@documento[5].IDtipoArchivo" class="d-none">
+                                                                <input asp-for="DocEUsuario[5].archivoNombre" value="@documento[5].archivoNombre" class="d-none">
+                                                                <input class="d-none" id="txt64_6" value="@documento[5].txt64">
+                                                                <i class="fa-solid fa-file-arrow-up size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="d_archivo3" id="archivoInput_delete_6" onclick="borrarArchivo(6)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-trash-can size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="v_archivo4" id="" onclick="visorExt(6)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-eye me-5 size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+
+                                                                @{
+                                                                    var EstatusDoc6 = @documento[5].Estatus;
+                                                                }
+                                                                @if (@EstatusDoc6 == "En proceso")
+
+                                                                {
+                                                                <div class="fileContainer3 " id="IconoProceso_6">
+
+                                                                    <a class="btn  fileContainer3   btnm" href="#openModal" onclick="getDocumentID(@documento[5].IDdocUsuario,6)" data-toggle="tooltip" data-placement="top" title="Documento en proceso" style="background-color:transparent;">
+                                                                        <input type="button" name="p_archivo1" id=""
+                                                                               class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-arrow-rotate-right size-icon "></i>
+
+                                                                    </a>
+
+
+
+                                                                </div>
+
+                                                                <div class="fileContainer3 d-none" id="IconoAprobado_6">
+                                                                    <input type="button" name="a_archivo1" class="position-absolute top-0 start-0 claseBtnTruco ">
+                                                                    <button class="btn  fileContainer3  btn btnm" title="Documento en proceso">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="fileContainer3 input-group me-4 d-none" id="IconoRechazado_6">
+                                                                    <input type="button" name="a_archivo2" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <button class="btn  fileContainer3  btn btnm">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+                                                                    </button>
+
+                                                                </div>
+
+                                                                }
+                                                                else if (@EstatusDoc6 == "Aprobado")
+                                                                {
+                                                                <div class="fileContainer3  ">
+                                                                    <a class="position-absolute top-0 start-0 claseBtnTruco" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Documento aprobado">
+                                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+
+                                                                    </a>
+                                                                </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    /** RECHAZADO **/
+                                                                <div class="fileContainer3 input-group me-4">
+                                                                    <a class="position-absolute top-0 start-0 claseBtnTruco" data-toggle="tooltip" data-placement="top" title="Documento rechazado">
+                                                                        <input type="button" name="a_archivo2" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+
+                                                                    </a>
+
+                                                                </div>
+                                                                }
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="tabla-hover">
+                                                        <th scope="row">7</th>
+                                                        <td colspan="2">Acta de matrimoio ( de ser el caso, original al momento de la firma)</td>
+                                                        <td>
+                                                            <div class="fileContainer2  btn btnm" style="background-color:transparent;">
+                                                                <input type="file" asp-for="DocEUsuario[7].Documento" id="archivoInput_7" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                       onchange="SubirVisualizar(7)">
+                                                                <input asp-for="DocEUsuario[6].IDdocUsuario" class="d-none" value="@documento[6].IDdocUsuario" />
+                                                                <input asp-for="DocEUsuario[6].IDtipoArchivo" value="@documento[6].IDtipoArchivo" class="d-none">
+                                                                <input asp-for="DocEUsuario[6].archivoNombre" value="@documento[6].archivoNombre" class="d-none">
+                                                                <input class="d-none" id="txt64_7" value="@documento[6].txt64">
+                                                                <i class="fa-solid fa-file-arrow-up size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3 btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="d_archivo3" id="archivoInput_delete_7" onclick="borrarArchivo(7)" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-trash-can size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="fileContainer3  btn btnm" style="background-color:transparent;">
+                                                                <input type="button" name="v_archivo4" id="" onclick="visorExt(7)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                <i class="fa-solid fa-eye size-icon"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                                @{
+                                                                    var EstatusDoc7 = @documento[6].Estatus;
+                                                                }
+
+                                                                @if (@EstatusDoc7 == "En proceso")
+
+                                                                {
+                                                                <div class="fileContainer3 " id="IconoProceso_7">
+
+                                                                    <a class="btn  fileContainer3   btnm" href="#openModal" onclick="getDocumentID(@documento[6].IDdocUsuario,7)" data-toggle="tooltip" data-placement="top" title="Documento en proceso" style="background-color:transparent;">
+                                                                        <input type="button" name="p_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-arrow-rotate-right size-icon "></i>
+
+                                                                    </a>
+
+
+
+                                                                </div>
+
+                                                                <div class="fileContainer3 d-none" id="IconoAprobado_7">
+                                                                    <input type="button" name="a_archivo1" class="position-absolute top-0 start-0 claseBtnTruco ">
+                                                                    <button class="btn  fileContainer3  btn btnm" title="Documento en proceso">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="fileContainer3 input-group me-4 d-none" id="IconoRechazado_7">
+                                                                    <input type="button" name="a_archivo2" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                    <button class="btn  fileContainer3  btn btnm">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+                                                                    </button>
+
+                                                                </div>
+
+                                                                }
+                                                                else if (@EstatusDoc7 == "Aprobado")
+                                                                {
+                                                                <div class="fileContainer3  input-group me-4">
+                                                                    <a class="btn  fileContainer3   btnm" data-toggle="tooltip" data-placement="top" title="Documento aprobado" style="background-color:transparent;">
+                                                                        <input type="button" name="a_archivo1" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+
+                                                                        <i class="fa-solid fa-circle-check"></i>
+
+                                                                    </a>
+                                                                </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    /** RECHAZADO **/
+                                                                <div class="fileContainer3 input-group me-4">
+                                                                    <a class="btn  fileContainer3   btnm" data-toggle="tooltip" data-placement="top" title="Documento rechazado" style="background-color:transparent;">
+                                                                        <input type="button" name="a_archivo2" id="" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        <i class="fa-solid fa-circle-xmark"></i>
+
+                                                                    </a>
+
+                                                                </div>
+                                                                }
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+
+@*                                                 </thead>
+ *@
+                                            </table>
+                                        </div>
+                                        <div class=" d-flex justify-content-start">
+                                        </div>
+                                    </div>
+                                    <div class="col border">
+                                        <div class="d-flex justify-content-center">
+                                            <div id="visorArchivo" class="size-file d-flex justify-content-center">
+                                                <h5>Visualizador</h5>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" asp-for="IDusuario" />
+                    </div>
+                    <div class="wizard-footer">
+                        <div class="pull-right d-flex justify-content-between">
+                            <input type='button' class='btn btn-previous btn-fill btn-dark-blue  btn-wd text-white' name='Regresar' value='Regresar' />
+                            <input type='button' class='btn btn-next btn-fill btn-warning  btn-wd' name='siguiente' value='Siguiente' />
+                            <input type='submit' class="btn btn-finish btn-fill btn-warning  btn-wd" name='finalizar' value='Finalizar' />
+                        </div>
+
+                        <div class="pull-right d-flex justify-content-end">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div><!-- fin del row -->
+</div>
+
+
+
+<!-- Modal para aprobar o rechazar documentos-->
+<div id="openModal" class="modalDialog">
+    <div>
+        <a href="#close" title="Close" class="close" onclick="resetModal()">X</a>
+        <div>
+            <div class="modal-header" id="modal-header">
+                <h1 class="modal-title fs-5">¿Que deseas hacer con este documento?</h1>
+
+            </div>
+            <div class="modal-body mx-auto">
+                <div class="d-flex d-inline-flex " style="margin: 0 0 0 5vw;">
+                    <button class="btn btn-success mr-1" id="aprbarBtn" onclick="aprovar()">Aprobar</button>
+
+                    <button class="btn btn-danger ms-1" id="rechazrBtn" onclick="rechazar()">Rechazar</button>
+                </div>
+                <!--submodal rechazar -->
+                <div class="mt-2 text-danger " id="motivoRechazo" style="display:none;">
+                    <h4 class="text-danger ">Motivo de rechazo </h4>
+                    <div class="form-floating">
+                        <label for="floatingTextarea" style="display:none;">¿Por que rechazas el documento?</label>
+                        <textarea class="txtareaModalrechazo" placeholder="¿Por que rechazas el documento?" id="mensajeRechazado"></textarea>
+                    </div>
+                    <a class="btn btn-danger " href="#close" onclick="guardarCambiosRechazar()" style=" margin: 0 0 0 25%;">Guardar cambios</a>
+                </div>
+
+                <!--submodal aprobar -->
+                <div class=" text-success" id="motivoAprovado" style="display:none;">
+                    <h6>¿Estas seguro que deseas aprovar este documentos?</h6>
+
+                    <button class="btn btn-success " id="guardarCambios" style="margin: 1vw 0 0 8vw;" href="#close" onclick="guardarCambiosAprobar()">
+                        Guardar cambios
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!--SCRIPT-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+<script src="~/js/script-step.js"></script>
+<script src="~/js/script.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="~/js/archivo.js"></script>
+
+
+
+<!--   Core JS Files   -->
+
+<script src="~/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="~/assets/js/jquery.bootstrap.js" type="text/javascript"></script>
+
+
+<!--  Plugin for the Wizard -->
+<script src="~/assets/js/material-bootstrap-wizard.js"></script>
+
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+<script src="~/assets/js/jquery.validate.min.js"></script>
+
+<script src="~/js/modalFuncUsuarios.js"></script>
+
+<!--SCRIPTS//////////////////////-->
+<script>
+
+    function rechazar() {
+        document.getElementById('motivoRechazo').style.display = 'block';
+        document.getElementById('rechazrBtn').style.display = 'none';
+        document.getElementById('aprbarBtn').style.display = 'none';
+        document.getElementById('modal-header').style.display = 'none';
+    }
+
+    function aprovar() {
+        document.getElementById('rechazrBtn').style.display = 'none';
+        document.getElementById('aprbarBtn').style.display = 'none';
+        document.getElementById('motivoAprovado').style.display = 'block'
+        document.getElementById('modal-header').style.display = 'none';
+    }
+
+    function resetModal() {
+        document.getElementById('motivoRechazo').style.display = 'none';
+        document.getElementById('motivoAprovado').style.display = 'none';
+        document.getElementById('aprbarBtn').style.display = 'block';
+        document.getElementById('rechazrBtn').style.display = 'block';
+        document.getElementById('modal-header').style.display = 'block';
+    }
+
+
+</script>
+
+
+
+
+<script src="~/js/bloquearBoton.js"></script>

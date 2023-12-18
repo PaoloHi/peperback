@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+<div class="container-lg mt-2">
+    <div class="row">
+        <div class="col">
+            <div class="shadow rounded mb-3 py-2">
+                <div class="d-inline-flex mt-2">
+                    <h6 class="ms-3">Estatus</h6>
+
+                        @{
+                            var statuscolor = "";
+                            var statusCorrect = "";
+                            var estatusPropiedad = "";
+
+
+                            if (@Model.StatusPropiedad == "En revisión")
+                            {
+                                statuscolor = "redbgr";
+                                statusCorrect = "No publicada";
+                                estatusPropiedad = "Nopublicada";
+                            }
+                            if ((@Model.StatusPublicacion == "En proceso de venta" || @Model.StatusPublicacion == "En proceso de renta") && Model.StatusPropiedad == "Aprobada")
+                            {
+                                statuscolor = "yellowbgr";
+                                statusCorrect = "En proceso";
+                            }
+                            else if (@Model.StatusPropiedad == "Aprobada")
+                            {
+                                statuscolor = "greenbgr";
+                                statusCorrect = "Publicada";
+                                estatusPropiedad = "Publicada";
+                            }
+                        }
+
+                    <h6 class="ms-2 status text-light @statuscolor w-auto text-center px-2  ">
+                        @statusCorrect
+                    </h6>
+                </div>
+                <div class="d-flex mt-2">
+                    <h6 class="ms-3 ">Tipo de operación</h6>
+                    <h6 class="ms-2 text-center  color-tipo-oper-venta ">@Model.Operacion</h6>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+}

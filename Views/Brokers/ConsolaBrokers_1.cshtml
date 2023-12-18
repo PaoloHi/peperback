@@ -1,0 +1,1256 @@
+﻿@model BrokersModelConsola
+
+@{
+    ViewData["Title"] = "Consola brokers";
+    Layout = "_NavUsuarios";
+}
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Proyecto_administracion</title>
+
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/logo_oficial.png">
+    <link rel="stylesheet" href="~/css/styleGeneral.css" />
+    <link rel="stylesheet" href="~/css/estilosGenerales.css" />
+    <link rel="stylesheet" href="~/css/style_tablero_propiedades.css">
+    <link rel="stylesheet" href="~/css/style_tablero_brokers.css">
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+</head>
+
+<!--animacion-->
+<ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+
+<!--MAIN CONTAINER ///////////////////////////////////////////////////////////////////////////////////////////////-->
+<h4 class="ms-4 tituloVista">Brokers</h4>
+<div class="container-fluid contenedorGeneralBlanco mt-3 " style="margin: 0px 2rem; width: -webkit-fill-available;">
+
+    <!--indicadores-->
+    <div class="container-fluid indicadores_Container mt-3" style="width:fit-content;">
+        <div class="row tab margin-tablinks mx-auto">
+
+            @{
+                var BA = 0;
+                var BI = 0;
+                var BC = 0;
+                var BB = 0;
+
+                foreach (var ContB in Model.ConteoBrokers)
+                {
+                    if (ContB.EstatusBroker == "Afiliado")
+                    {
+                        BA = ContB.Conteo;
+
+                    }
+                    if (ContB.EstatusBroker == "Inactivo")
+                    {
+
+                        BI = ContB.Conteo;
+                    }
+                    if (ContB.EstatusBroker == "Cancelado")
+                    {
+                        BC = ContB.Conteo;
+                    }
+                    if (ContB.EstatusBroker == "Bloqueado")
+                    {
+                        BB = ContB.Conteo;
+
+                    }
+
+                }
+
+            }
+            <!--Broker Afiliados-->
+            <div class="col p-0">
+                <button type="button" class="border-0 d-flex tablinks2" onclick="vertablas(event, 'Tabla2')" id="defaultOpen2">
+                    <!--verAfiliados-->
+                    <div class="caja-a-b mb-2 mb-xl-0  ">
+                        <div class="card-main col-12 d-flex align-items-center">
+                            <div class="col-6 mt-2 d-flex justify-content-center">
+
+
+                                <div class="d-flex mt-1">
+                                    <i class="fa-solid fa-user-check fa-2x" style="color: #18CB2A; font-size: 37px;"></i>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex justify-content-center">
+                                <div class="text-cards d-flex mt-2 indicator-active">
+                                    <h6 class="mx-auto text-white my-auto size-number-indicator">@BA</h6>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="">
+                            <div class=" d-flex justify-content-center">
+                                <p class="size-letter-cards-first ms-2 mt-2">Afiliados</p>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!------------------------>
+            <!--Broker inactivos-->
+            <div class="col p-0">
+                <button type="button" class="border-0 d-flex tablinks2" onclick="vertablas(event, 'Tablapubli')">
+                    <div class="caja-a-b mb-xl-0 ">
+                        <div class="card-main col-12 d-flex align-items-center">
+                            <div class="col-6 mt-2 justify-content-center d-flex">
+
+
+                                <div class="d-flex mt-1">
+                                    <i class="fa-solid fa-user-large " style="color:rgb(129, 129, 129); font-size: 37px;"></i>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex justify-content-center">
+                                <div class="text-cards d-flex mt-2  indicator-inactive">
+                                    <h6 class="mx-auto text-white my-auto size-number-indicator ">@BI</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" ">
+                            <div class=" d-flex justify-content-center">
+                                <p class="size-letter-cards-first ms-2 mt-1">Inactivos</p>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+
+            <!------------------------>
+            <!--Broker cancelado-->
+
+            <div class="col p-0">
+                <button type="button" class="border-0 d-flex tablinks2" onclick="vertablas(event, 'TablaprocesoEntrega')">
+                    <div class="caja-a-b mx-auto mb-2 mb-xl-0">
+                        <div class="card-main col-12 d-flex align-items-center">
+                            <div class="col-6 mt-1 justify-content-center d-flex ">
+
+
+                                <div class="d-flex mt-1">
+                                    <i class="fa-solid fa-user-xmark fa-2x" style="color: rgb(255, 0, 0); font-size: 37px;"></i>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center col-6">
+                                <div class="text-cards d-flex mt-2 indicator-cancel">
+                                    <h6 class="mx-auto text-white my-auto size-number-indicator">@BC</h6>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col">
+                            <div class=" d-flex justify-content-center">
+                                <p class="size-letter-cards-first mt-1">Cancelados</p>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!------------------------>
+            <!--Broker bloqueado-->
+            <div class="col p-0">
+                <button type="button" class="border-0 d-flex tablinks2" onclick="vertablas(event, 'Tabla6')">
+                    <div class="caja-a-b mx-auto mb-2 mb-xl-0">
+                        <div class="card-main col-12 d-flex align-items-center">
+                            <div class="col-6 mt-3 justify-content-center d-flex">
+
+
+                                <div class="d-flex  ">
+                                    <i class="fa-solid fa-user-slash fa-2x" style="font-size: 37px"></i>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center col-6">
+                                <div class="text-cards d-flex mt-2 indicator-block">
+                                    <h6 class="mx-auto text-white my-auto size-number-indicator">@BB</h6>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col">
+                            <div class=" d-flex d-block justify-content-center">
+                                <p class="size-letter-cards-first ms-2 mt-1">Bloqueados</p>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+
+            <!------------------------>
+
+        </div>
+    </div>
+
+
+    <!--Aqui empieza la barra de busqueda-->
+    <form class="container-fluid mt-3">
+
+        <div class="row row-cols-lg-2 row-cols-sm-1 mt-1 responsiveExtraSmall px-1 d-inline-flex w-100" style="margin: 0 0 0 2vw;">
+
+
+            <!--barra de busqueda y boton-->
+            <div class="col d-inline-flex  col-sm-12 ms-1 " style="width: 82%;">
+
+                <!--boton de nueva propiedad-->
+                <div class="d-flex col-2 px-0">
+                    <a class="btn-nueva-propTblrs text-center d-flex justify-content-center align-items-center" data-toggle="tooltip" data-placement="bottom"
+                       title="Añadir nuevo broker" asp-controller="Brokers" asp-action="NuevoBroker">
+                        <i class="fa-solid fa-plus"></i>  Nuevo broker
+                    </a>
+                </div>
+
+                <div class="d-flex px-0 " style="width:66%;">
+                    <input class="form-control inputs size-search " type="search" placeholder="Buscar"
+                           aria-label="Search" style="font-size:0.8rem">
+                </div>
+
+                <div class="d-flex col-2 px-0">
+                    <button class="btn-s  text-light d-inline-flex justify-content-center align-items-center
+                           size-icons-t-b ms-lg-1" data-toggle="tooltip" data-placement="bottom" title="Buscar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="col flex-item d-inline-flex " style="width:10%;">
+
+                <select class="form-select inputFiltros d-none" aria-label="Default select example"
+                        style="font-size:0.8rem">
+                    <option disabled selected>Filtros</option>
+                    <option value="1">Zonas</option>
+                    <option value="2">Antigüedad</option>ss
+                </select>
+
+
+                <button id="tablaExcel" class="btn-s ms-1" data-toggle="tooltip" data-placement="bottom"
+                        title="Descargar datos a excel" onclick="exportTableToExcel('tablaExcel')">
+
+                    <i class="fa-solid  fa-file-excel"></i>
+                </button>
+
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <!--tabla para afiliados-->
+    <div class="px-0  tabcontent2 mb-3" id="Tabla2">
+        <div class="container-fluid px-0 mx-auto row">
+            <div class="col">
+
+                <!--Botones de visualización para ver las tarjetas o la tabla-->
+                <div class="tab rounded">
+                    <button class="tablinks" onclick="openCity(event, 'Tarjetas')" id="defaultOpen" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            data-bs-title="Vista tarjeta">
+                        <svg class="size-icons-table" fill="none" stroke="currentColor"
+                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <button class="tablinks" onclick="openCity(event, 'Tabla')" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Vista tabla">
+                        <i class="fa-solid fa-table mt-1" style="font-size:20px; color: rgb(71, 71, 71);"></i>
+                    </button>
+                </div>
+
+                <!--Aqui termina los botones de visualización-->
+                <div id="Tarjetas" class="tabcontent">
+
+                    <div class="container-fluid row px-0">
+                        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 responsiveExtraSmall" style="margin: 0px 11px;">
+                            @{
+                                var statusBroker = "Afiliado";
+                                var colorStatusBroker = "";
+                                if (statusBroker == "Afiliado")
+                                {
+                                    colorStatusBroker = "bg-status-afiliado";
+                                }
+                                else if (statusBroker == "Inactivo")
+                                {
+                                    colorStatusBroker = "bg-status-inactivo";
+                                }
+                                else if (statusBroker == "Cancelado")
+                                {
+                                    colorStatusBroker = "bg-status-cancelado";
+                                }
+                                else
+                                {
+                                    colorStatusBroker = "bg-status-bloqueado";
+                                }
+                            }
+                            <!--Afiliado-->
+                            @foreach (var aliado in Model.BrokersAL)
+                            {
+                                <div class="mt-2 col mx-auto mb-2 ">
+
+                                    <div class="cardBroker h-auto mx-auto mb-2  fw-bold p-1">
+
+                                        <div class="card-center-1  d-flex justify-content-end">
+
+
+                                            <div class="etiquetadoBrokers  @colorStatusBroker  size-letter-card-t">
+                                                <p class="txtEtiquetado  ">Afiliado</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class=" col-12  d-flex mt-1  mx-auto color-letter-cards align-items-center row row-cols-1">
+                                            <!--fila de la informacon prinipal de la tarjeta-->
+                                            <div class="card-mainInfo row d-inline-flex mx-auto">
+
+                                                <div class="col-3">
+
+
+                                                    @{
+
+                                                        bool userExists = Model.BrokerImgAL.Exists(u => u.IDBrokerImg == aliado.IDBroker);
+
+                                                        if (userExists)
+                                                        {
+                                                            foreach (var imgB in Model.BrokerImgAL)
+                                                            {
+                                                                if (imgB.IDBrokerImg == aliado.IDBroker && @imgB.txtBase64 != null)
+                                                                {
+                                                                    <img src="@imgB.txtBase64" alt="" class="img-size-t d-flex mx-auto ">
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/img/Imagenes-tab-brockers/profile.png" alt="" class="img-size-t d-flex mx-auto ">
+
+                                                        }
+
+
+
+
+                                                    }
+
+                                                </div>
+                                                <div class="col-9 text-cards ">
+                                                    <div class="ms-3  color-icons-cards">
+                                                        <h6 class=" text-orange NombreBrokerCard  longitudDePruebaBroker">
+                                                            <i class="fa-solid fa-user me-2"></i>
+
+                                                            @aliado.Nombre @aliado.ApellidoP
+                                                        </h6>
+                                                        <h6 class="subTextBrokerCard  ">
+                                                            <i class="fa-solid fa-phone me-2"></i>@aliado.Telefono
+                                                        </h6>
+                                                        <h6 class="subTextBrokerCard">
+                                                            <i class="fa-solid fa-envelope me-2 longitudDePruebaBroker"></i>@aliado.Correo
+                                                        </h6>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--fila de los iconos-->
+                                            <div class="row d-flex justify-content-end col-7 row row-cols-4 ms-auto mt-2">
+                                                <a class="size-letter-card-t border-0 bg-transparent d-flex style-vermas2 " asp-controller="Brokers" asp-action="EdicionBroker" asp-route-IDBroker="@aliado.IDBroker"
+                                                   data-toggle="tooltip" data-placement="top" title="Ver detalles">
+                                                    <i class="fa-sharp fa-solid fa-eye "></i>
+                                                </a>
+                                                <a class="size-letter-card-t border-0 bg-transparent d-flex style-vermas2" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña">
+                                                    <i class="fa-solid fa-key"></i>
+                                                </a>
+
+                                                <a class="size-letter-card-t border-0 bg-transparent d-flex style-vermas2" onclick="validateDataDelate(@aliado.IDBroker, 'Broker')"
+                                                   data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+
+
+
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                            <!--FIN DEL AFILIADO-->
+                            <footer class="d-flex row  mx-auto  justify-content-center">
+                                <nav aria-label="" class="mt-4">
+                                    <ul class="pagination justify-content-lg-center justify-content-center">
+                                        <li class="page-item disabled">
+                                            <a class="page-link me-1" href="#" tabindex="-1" aria-disabled="true">
+                                                <i class="fa-solid fa-chevron-left"></i>
+                                            </a>
+                                        </li>
+                                        <li class="page-item active me-1" aria-current="page"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item me-1">
+                                            <a class="page-link" href="#">2</a>
+                                        </li>
+                                        <li class="page-item me-1"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">
+                                                <i class="fa-solid fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </footer>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="Tabla" class="tabcontent">
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 bg-light rounded table-bordered ">
+                        <table class="table table-hover ">
+                            <thead class="backgr-gray-head">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">A.paterno</th>
+                                    <th scope="col">A.materno</th>
+                                    <th scope="col" class="text-center">Teléfono</th>
+                                    <th scope="col" class="text-center">Correo</th>
+
+                                    <th scope="col">Estatus</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <!--Back-End team: cuando hagan el ciclo por favor tomen en cuenta solamente la primmera columna de la tabla
+                                    ya que hay se encuentran todos los cambios que he hecho-->
+                                @foreach (var afiliado in Model.BrokersAL)
+                                {
+                                    <tr class="tabla-hover">
+                                        <th scope="row">@afiliado.IDBroker</th>
+                                        <td> @afiliado.Nombre </td>
+                                        <td> @afiliado.ApellidoP </td>
+                                        <td> @afiliado.ApellidoM</td>
+                                        <td class="text-center">@afiliado.Telefono</td>
+                                        <td class="text-center">@afiliado.Correo</td>
+
+                                        <td class="text-center">
+                                            <!--esto hay que conectarlo solamente es de prueba-->
+                                            <p class="bg-status-afiliado  etiquetadoTabla   text-white">Afiliado</p>
+                                        </td>
+
+                                        <td>
+                                            <div class=" d-flex justify-content-between ">
+                                                <a asp-controller="Brokers" asp-action="EdicionBroker" asp-route-IDBroker="@afiliado.IDBroker" class="style-vermas2" data-toggle="tooltip" data-placement="top" title="Ver detalles">
+                                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                                </a>
+
+                                                <a class="style-vermas2" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña">
+                                                    <i class="fa-solid fa-key "></i>
+                                                </a>
+                                                <a class="style-vermas2" onclick="validateDataDelate(@afiliado.IDBroker, 'Broker')" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                    <i class="fa-solid fa-trash-can "></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                <!-- <== o sea... esta -->
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav aria-label="" class="mt-4">
+                        <ul class="pagination justify-content-lg-center justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link me-1" href="#" tabindex="-1" aria-disabled="true">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active me-1" aria-current="page"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item me-1">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item me-1"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--tabla para inactivos-->
+    <div class="px-0  tabcontent2 mb-3" id="Tablapubli">
+        <div class="container-fluid px-0 mx-auto row">
+            <div class="col ">
+
+                <!--Botones de visualización para ver las tarjetas o la tabla-->
+                <div class="tab rounded">
+                    <button class="tablinks4" onclick="vercontenedor2(event, 'Tarjetaspubli')" id="defaultOpen4">
+                        <svg class="size-icons-table" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>
+                        </svg>
+                    </button>
+
+                    <button class="tablinks4" onclick="vercontenedor2(event, 'Tablapublicadas')">
+                        <i class="fa-solid fa-table mt-1" style="font-size:20px; color: rgb(71, 71, 71);"></i>
+                    </button>
+
+                </div>
+
+                <!--tarjetas de brokers inactivos-->
+                <div id="Tarjetaspubli" class="tabcontent4">
+
+                    <div class="container-fluid row px-0">
+                        <div class=" row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 m-auto responsiveExtraSmall">
+
+                            @foreach (var inactivo in Model.BrokersIL)
+                            {
+                                <div class="mt-2 col mx-auto mb-2 ">
+
+                                    <div class="cardBroker h-auto mx-auto mb-2  fw-bold p-1">
+
+                                        <div class="card-center-1  d-flex justify-content-end">
+
+
+                                            <div class="etiquetadoBrokers  bg-status-inactivo  size-letter-card-t">
+                                                <p class="txtEtiquetado  ">Inactivo</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class=" col-12  d-flex mt-1  mx-auto color-letter-cards align-items-center row row-cols-1">
+                                            <!--fila de la informacon prinipal de la tarjeta-->
+                                            <div class="card-mainInfo row d-inline-flex mx-auto">
+
+                                                <div class="col-3">
+
+
+                                                    @{
+
+                                                        bool userExists = Model.BrokerImgIL.Exists(u => u.IDBrokerImg == inactivo.IDBroker);
+
+                                                        if (userExists)
+                                                        {
+                                                            foreach (var imgB in Model.BrokerImgIL)
+                                                            {
+                                                                if (imgB.IDBrokerImg == inactivo.IDBroker && @imgB.txtBase64 != null)
+                                                                {
+                                                                    <img src="@imgB.txtBase64" alt="" class="img-size-t d-flex mx-auto ">
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/img/Imagenes-tab-brockers/profile.png" alt="" class="img-size-t d-flex mx-auto ">
+
+                                                        }
+
+
+
+
+                                                    }
+
+                                                </div>
+                                                <div class="col-9 text-cards ">
+                                                    <div class="ms-3  color-icons-cards">
+                                                        <h6 class=" text-orange NombreBrokerCard  longitudDePruebaBroker">
+                                                            <i class="fa-solid fa-user me-2"></i>
+
+                                                            @inactivo.Nombre @inactivo.ApellidoP
+                                                        </h6>
+                                                        <h6 class="subTextBrokerCard  ">
+                                                            <i class="fa-solid fa-phone me-2"></i>@inactivo.Telefono
+                                                        </h6>
+                                                        <h6 class="subTextBrokerCard">
+                                                            <i class="fa-solid fa-envelope me-2 longitudDePruebaBroker"></i>@inactivo.Correo
+                                                        </h6>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--fila de los iconos-->
+                                            <div class="row d-flex justify-content-end col-7 row row-cols-4 ms-auto mt-2">
+                                                <a class="size-letter-card-t border-0 bg-transparent d-flex style-vermas2 " asp-controller="Brokers" asp-action="EdicionBroker" asp-route-IDBroker="@inactivo.IDBroker"
+                                                   data-toggle="tooltip" data-placement="top" title="Ver detalles">
+                                                    <i class="fa-sharp fa-solid fa-eye "></i>
+                                                </a>
+                                                <a class="size-letter-card-t border-0 bg-transparent d-flex style-vermas2" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña">
+                                                    <i class="fa-solid fa-key"></i>
+                                                </a>
+
+                                                <a class="size-letter-card-t border-0 bg-transparent d-flex style-vermas2" onclick="validateDataDelate(@inactivo.IDBroker, 'Broker')"
+                                                   data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+
+
+
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+                        </div>
+
+                        <footer class="d-flex row justify-content-center">
+                            <nav aria-label="" class="mt-4">
+                                <ul class="pagination justify-content-lg-center justify-content-center">
+                                    <li class="page-item disabled">
+                                        <a class="page-link me-1" href="#" tabindex="-1" aria-disabled="true">
+                                            <i class="fa-solid fa-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active me-1" aria-current="page"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item me-1">
+                                        <a class="page-link" href="#">2</a>
+                                    </li>
+                                    <li class="page-item me-1"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </footer>
+
+                    </div>
+
+
+
+                </div>
+
+                <!--tabla de brokers inactivos-->
+                <div id="Tablapublicadas" class="tabcontent4 bg-light mt-3">
+
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 bg-light rounded table-bordered ">
+                        <table class="table table-hover ">
+                            <thead class="backgr-gray-head">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">A.paterno</th>
+                                    <th scope="col">A.materno</th>
+                                    <th scope="col" class="text-center">Teléfono</th>
+                                    <th scope="col" class="text-center">Correo</th>
+
+                                    <th scope="col">Estatus</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <!--Back-End team: cuando hagan el ciclo por favor tomen en cuenta solamente la primmera columna de la tabla
+                                    ya que hay se encuentran todos los cambios que he hecho-->
+                                @foreach (var inactivo in Model.BrokersIL)
+                                {
+                                    <tr class="tabla-hover">
+                                        <th scope="row">@inactivo.IDBroker</th>
+                                        <td> @inactivo.Nombre </td>
+                                        <td> @inactivo.ApellidoP </td>
+                                        <td> @inactivo.ApellidoM</td>
+                                        <td class="text-center">@inactivo.Telefono</td>
+                                        <td class="text-center">@inactivo.Correo</td>
+
+                                        <td class="text-center">
+                                            <!--esto hay que conectarlo solamente es de prueba-->
+                                            <p class="bg-status-inactivo  etiquetadoTabla   text-white">Inactivo</p>
+                                        </td>
+
+                                        <td>
+                                            <div class=" d-flex justify-content-between ">
+                                                <a asp-controller="Brokers" asp-action="EdicionBroker" asp-route-IDBroker="@inactivo.IDBroker" class="style-vermas2" data-toggle="tooltip" data-placement="top" title="Ver detalles">
+                                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                                </a>
+
+                                                <a class="style-vermas2" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña">
+                                                    <i class="fa-solid fa-key "></i>
+                                                </a>
+                                                <a class="style-vermas2" onclick="validateDataDelate(@inactivo.IDBroker, 'Broker')" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                    <i class="fa-solid fa-trash-can "></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <footer class="d-flex row justify-content-center">
+                        <nav aria-label="" class="mt-4  w-50 ">
+                            <ul class="pagination d-flex justify-content-lg-center justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link me-1" href="#" tabindex="-1" aria-disabled="true">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item active me-1" aria-current="page">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item me-1">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item me-1"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </footer>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <!--tabla para cancelados-->
+    <div class="px-0  tabcontent2 mb-3" id="TablaprocesoEntrega">
+        <div class="container-fluid px-0 mx-auto row">
+            <div class="col ">
+
+                <!--Botones de visualización para ver las tarjetas o la tabla-->
+                <div class="tab  rounded mb-1">
+                    <button class="tablinks5" onclick="vercontenedor3(event, 'Tarjetasproceso')" id="defaultOpen5"><svg class="size-icons-table" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path></svg></button>
+                    <button class="tablinks5" onclick="vercontenedor3(event, 'Tablaproceso')"><i class="fa-solid fa-table mt-1" style="font-size:20px; color: rgb(71, 71, 71);"></i></button>
+                </div>
+
+                <div id="Tarjetasproceso" class="tabcontent5 ">
+                    <div class="container-fluid  row px-0">
+                        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 responsiveExtraSmall" style=" margin: 0px 11px;">
+
+                            @foreach (var cancelado in Model.BrokersCL)
+                            {
+                                <div class="mt-2 col mx-auto mb-2 ">
+
+                                    <div class="cardBroker h-auto mx-auto mb-2  fw-bold p-1">
+
+                                        <div class="card-center-1  d-flex justify-content-end">
+
+
+                                            <div class="etiquetadoBrokers bg-status-cancelado  size-letter-card-t">
+                                                <p class="txtEtiquetado  ">Cancelado</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class=" col-12  d-flex mt-1  mx-auto color-letter-cards align-items-center row row-cols-1">
+                                            <!--fila de la informacon prinipal de la tarjeta-->
+                                            <div class="card-mainInfo row d-inline-flex mx-auto">
+
+                                                <div class="col-3">
+
+
+                                                    @{
+
+                                                        bool userExists = Model.BrokerImgCL.Exists(u => u.IDBrokerImg == cancelado.IDBroker);
+
+                                                        if (userExists)
+                                                        {
+                                                            foreach (var imgB in Model.BrokerImgCL)
+                                                            {
+                                                                if (imgB.IDBrokerImg == cancelado.IDBroker && @imgB.txtBase64 != null)
+                                                                {
+                                                                    <img src="@imgB.txtBase64" alt="" class="img-size-t d-flex mx-auto ">
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/img/Imagenes-tab-brockers/profile.png" alt="" class="img-size-t d-flex mx-auto ">
+
+                                                        }
+
+
+
+
+                                                    }
+
+                                                </div>
+                                                <div class="col-9 text-cards ">
+                                                    <div class="ms-3  color-icons-cards">
+                                                        <h6 class=" text-orange NombreBrokerCard  longitudDePruebaBroker">
+                                                            <i class="fa-solid fa-user me-2"></i>
+
+                                                            @cancelado.Nombre @cancelado.ApellidoP
+                                                        </h6>
+                                                        <h6 class="subTextBrokerCard  ">
+                                                            <i class="fa-solid fa-phone me-2"></i>@cancelado.Telefono
+                                                        </h6>
+                                                        <h6 class="subTextBrokerCard">
+                                                            <i class="fa-solid fa-envelope me-2 longitudDePruebaBroker"></i>@cancelado.Correo
+                                                        </h6>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--fila de los iconos-->
+                                            <div class="row d-flex justify-content-end col-7 row row-cols-4 ms-auto mt-2">
+                                                <a class="size-letter-card-t border-0 bg-transparent d-flex style-vermas2 " asp-controller="Brokers" asp-action="EdicionBroker" asp-route-IDBroker="@cancelado.IDBroker"
+                                                   data-toggle="tooltip" data-placement="top" title="Ver detalles">
+                                                    <i class="fa-sharp fa-solid fa-eye "></i>
+                                                </a>
+                                                <a class="size-letter-card-t border-0 bg-transparent d-flex style-vermas2" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña">
+                                                    <i class="fa-solid fa-key"></i>
+                                                </a>
+
+                                                <a class="size-letter-card-t border-0 bg-transparent d-flex style-vermas2" onclick="validateDataDelate(@cancelado.IDBroker, 'Broker')"
+                                                   data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+                        </div>
+                        <footer class="d-flex row justify-content-center">
+                            <nav aria-label="" class="mt-4  w-50 ">
+                                <ul class="pagination d-flex justify-content-lg-center justify-content-center">
+                                    <li class="page-item disabled">
+                                        <a class="page-link me-1" href="#" tabindex="-1" aria-disabled="true">
+                                            <i class="fa-solid fa-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active me-1" aria-current="page">
+                                        <a class="page-link" href="#">1</a>
+                                    </li>
+                                    <li class="page-item me-1">
+                                        <a class="page-link" href="#">2</a>
+                                    </li>
+                                    <li class="page-item me-1"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </footer>
+                    </div>
+                </div>
+
+                <div id="Tablaproceso" class="tabcontent5 bg-light mt-3">
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive mt-2 bg-light rounded">
+                        <table class="table table-hover ">
+                            <thead class="backgr-gray-head">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">A.paterno</th>
+                                    <th scope="col">A.materno</th>
+                                    <th scope="col" class="text-center">Teléfono</th>
+                                    <th scope="col" class="text-center">Correo</th>
+
+                                    <th scope="col">Estatus</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <!--Back-End team: cuando hagan el ciclo por favor tomen en cuenta solamente la primmera columna de la tabla
+                                    ya que hay se encuentran todos los cambios que he hecho-->
+                                @foreach (var cancelado in Model.BrokersCL)
+                                {
+                                    <tr class="tabla-hover">
+                                        <th scope="row">@cancelado.IDBroker</th>
+                                        <td> @cancelado.Nombre </td>
+                                        <td> @cancelado.ApellidoP </td>
+                                        <td> @cancelado.ApellidoM</td>
+                                        <td class="text-center">@cancelado.Telefono</td>
+                                        <td class="text-center">@cancelado.Correo</td>
+
+                                        <td class="text-center">
+                                            <!--esto hay que conectarlo solamente es de prueba-->
+                                            <p class="bg-status-cancelado  etiquetadoTabla   text-white">Cancelado</p>
+                                        </td>
+
+                                        <td>
+                                            <div class=" d-flex justify-content-between ">
+                                                <a asp-controller="Brokers" asp-action="EdicionBroker" asp-route-IDBroker="@cancelado.IDBroker" class="style-vermas2" data-toggle="tooltip" data-placement="top" title="Ver detalles">
+                                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                                </a>
+
+                                                <a class="style-vermas2" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña">
+                                                    <i class="fa-solid fa-key "></i>
+                                                </a>
+                                                <a class="style-vermas2" onclick="validateDataDelate(@cancelado.IDBroker, 'Broker')" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                    <i class="fa-solid fa-trash-can "></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <footer class="d-flex row justify-content-center">
+                        <nav aria-label="" class="mt-4  w-50 ">
+                            <ul class="pagination d-flex justify-content-lg-center justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link me-1" href="#" tabindex="-1" aria-disabled="true">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item active me-1" aria-current="page">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item me-1">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item me-1"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </footer>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--tabla para bloqueados-->
+    <div class="px-0  tabcontent2 mb-3" id="Tabla6">
+        <div class="container-fluid px-0 mx-auto row">
+            <div class="col">
+                <!--Botones de visualización para ver las tarjetas o la tabla-->
+                <div class="tab  rounded">
+                    <button class="tablinks3 " onclick="vercontenedor(event, 'Tabla4')" id="defaultOpen3">
+                        <svg class="size-icons-table" fill="none" stroke="currentColor"
+                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2">
+                            </path>
+                        </svg>
+                    </button>
+                    <button class="tablinks3 " onclick="vercontenedor(event, 'Tabla5')">
+                        <i class="fa-solid fa-table mt-1" style="font-size:20px; color: rgb(71, 71, 71);"></i>
+                    </button>
+                </div>
+
+
+                <div id="Tabla4" class="tabcontent3 mt-3 bg-light">
+                    <div class="container-fluid  row px-0">
+                        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 responsiveExtraSmall" style=" margin: 0px 11px;">
+
+
+                            @foreach (var bloqueado in Model.BrokersBL)
+                            {
+                                <div class="mt-2 col mx-auto mb-2 ">
+
+                                    <div class="cardBroker h-auto mx-auto mb-2  fw-bold p-1">
+
+                                        <div class="card-center-1  d-flex justify-content-end">
+
+
+                                            <div class="etiquetadoBrokers  bg-status-bloqueado  size-letter-card-t">
+                                                <p class="txtEtiquetado  ">Bloqueado</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class=" col-12  d-flex mt-1  mx-auto color-letter-cards align-items-center row row-cols-1">
+                                            <!--fila de la informacon prinipal de la tarjeta-->
+                                            <div class="card-mainInfo row d-inline-flex mx-auto">
+
+                                                <div class="col-3">
+
+
+                                                    @{
+
+                                                        bool userExists = Model.BrokerImgBL.Exists(u => u.IDBrokerImg == bloqueado.IDBroker);
+
+                                                        if (userExists)
+                                                        {
+                                                            foreach (var imgB in Model.BrokerImgBL)
+                                                            {
+                                                                if (imgB.IDBrokerImg == bloqueado.IDBroker && @imgB.txtBase64 != null)
+                                                                {
+                                                                    <img src="@imgB.txtBase64" alt="" class="img-size-t d-flex mx-auto ">
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/img/Imagenes-tab-brockers/profile.png" alt="" class="img-size-t d-flex mx-auto ">
+
+                                                        }
+
+
+
+
+                                                    }
+
+                                                </div>
+                                                <div class="col-9 text-cards ">
+                                                    <div class="ms-3  color-icons-cards">
+                                                        <h6 class=" text-orange NombreBrokerCard  longitudDePruebaBroker">
+                                                            <i class="fa-solid fa-user me-2"></i>
+
+                                                            @bloqueado.Nombre @bloqueado.ApellidoP
+                                                        </h6>
+                                                        <h6 class="subTextBrokerCard  ">
+                                                            <i class="fa-solid fa-phone me-2"></i>@bloqueado.Telefono
+                                                        </h6>
+                                                        <h6 class="subTextBrokerCard">
+                                                            <i class="fa-solid fa-envelope me-2 longitudDePruebaBroker"></i>@bloqueado.Correo
+                                                        </h6>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--fila de los iconos-->
+                                            <div class="row d-flex justify-content-end col-7 row row-cols-4 ms-auto mt-2">
+                                                <a class="size-letter-card-t border-0 bg-transparent d-flex style-vermas2 " asp-controller="Brokers" asp-action="EdicionBroker" asp-route-IDBroker="@bloqueado.IDBroker"
+                                                   data-toggle="tooltip" data-placement="top" title="Ver detalles">
+                                                    <i class="fa-sharp fa-solid fa-eye "></i>
+                                                </a>
+                                                <a class="size-letter-card-t border-0 bg-transparent d-flex style-vermas2" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña">
+                                                    <i class="fa-solid fa-key"></i>
+                                                </a>
+
+                                                <a class="size-letter-card-t border-0 bg-transparent d-flex style-vermas2" onclick="validateDataDelate(@bloqueado.IDBroker, 'Broker')"
+                                                   data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+
+                        </div>
+                    </div>
+                    <footer class="d-flex row justify-content-center">
+                        <nav aria-label="" class="mt-4  w-50 ">
+                            <ul class="pagination d-flex justify-content-lg-center justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link me-1" href="#" tabindex="-1" aria-disabled="true">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item active me-1" aria-current="page">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item me-1">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item me-1"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </footer>
+
+                </div>
+            </div>
+
+            <div id="Tabla5" class="tabcontent3 mt-3 bg-light">
+                <div class="container-fluid  row px-0">
+                    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 responsiveExtraSmall" style=" margin: 0px 11px;">
+                        <table class="table table-hover ">
+                            <thead class="backgr-gray-head">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">A.paterno</th>
+                                    <th scope="col">A.materno</th>
+                                    <th scope="col" class="text-center">Teléfono</th>
+                                    <th scope="col" class="text-center">Correo</th>
+
+                                    <th scope="col">Estatus</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <!--Back-End team: cuando hagan el ciclo por favor tomen en cuenta solamente la primmera columna de la tabla
+                                    ya que hay se encuentran todos los cambios que he hecho-->
+                                @foreach (var bloqueado in Model.BrokersBL)
+                                {
+                                    <tr class="tabla-hover">
+                                        <th scope="row">@bloqueado.IDBroker</th>
+                                        <td> @bloqueado.Nombre </td>
+                                        <td> @bloqueado.ApellidoP </td>
+                                        <td> @bloqueado.ApellidoM</td>
+                                        <td class="text-center">@bloqueado.Telefono</td>
+                                        <td class="text-center">@bloqueado.Correo</td>
+
+                                        <td class="text-center">
+                                            <!--esto hay que conectarlo solamente es de prueba-->
+                                            <p class="bg-status-bloqueado  etiquetadoTabla   text-white">Bloqueado</p>
+                                        </td>
+
+                                        <td>
+                                            <div class=" d-flex justify-content-between ">
+                                                <a asp-controller="Brokers" asp-action="EdicionBroker" asp-route-IDBroker="@bloqueado.IDBroker" class="style-vermas2" data-toggle="tooltip" data-placement="top" title="Ver detalles">
+                                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                                </a>
+
+                                                <a class="style-vermas2" data-toggle="tooltip" data-placement="top" title="Cambiar contraseña">
+                                                    <i class="fa-solid fa-key "></i>
+                                                </a>
+                                                <a class="style-vermas2" onclick="validateDataDelate(@bloqueado.IDBroker, 'Broker')" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                    <i class="fa-solid fa-trash-can "></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <footer class="d-flex row justify-content-center">
+                        <nav aria-label="" class="mt-4  w-50 ">
+                            <ul class="pagination d-flex justify-content-lg-center justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link me-1" href="#" tabindex="-1" aria-disabled="true">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item active me-1" aria-current="page">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item me-1">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item me-1"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </footer>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+
+<!--Scripts SECTION////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--SCRIPTS-->
+<script src="/js/PropiedadesTab.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+<script src="~/js/script-step.js"></script>
+<script src="~/js/script.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+
+
+
+
+<!--   Core JS Files   -->
+
+<script src="~/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="~/assets/js/jquery.bootstrap.js" type="text/javascript"></script>
+
+
+<!--  Plugin for the Wizard -->
+<script src="~/assets/js/material-bootstrap-wizard.js"></script>
+
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+<script src="~/assets/js/jquery.validate.min.js"></script>
+
+<script src="~/js/usuariosScript.js"></script>
+
+
+
+<script>
+
+    $(function () {
+
+        var successMessageNU = '@TempData["SuccessMessageNU"]';
+        var failedMessageNU = '@TempData["FailedMessageNU"]';
+
+        if (successMessageNU) {
+            Swal.fire(
+                '¡Éxito!',
+                successMessageNU,
+                'success'
+            );
+
+        } else if (failedMessageNU) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: failedMessageNU
+            })
+        }
+
+
+    })
+
+</script>
+
+

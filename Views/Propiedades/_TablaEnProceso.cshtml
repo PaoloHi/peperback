@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    var etapaT = "";
+    var colorT = "";
+
+    if (etapaT == "Oportunidad")
+    {
+        colorT = "backgr-etapa-oportunidadColor";
+    }
+    else if (etapaT == "Entrega")
+    {
+        colorT = "backgr-etapa-entregaColor";
+    }
+    else
+    {
+        colorT = "backgr-etapa-cierreColor";
+    }
+
+    var PVT = Model.propiedadTarjeta;
+}
+
+
+<tr id="IDPropiedadTabla_@PVT.IDPropiedad" class=" table PL tabla-hover">
+    <td scope="row">@PVT.IDPropiedadG</td>
+    <td class="fw-lighter text-center ">@PVT.Titulo</td>
+    <td class="fw-light text-center">@PVT.Direccion</td>
+    @if (SignInManager.IsSignedIn(User) && ((User.IsInRole("Ejecutivo comercial")) || (User.IsInRole("Mesa de control")) || (User.IsInRole("Contact Center")) || (User.IsInRole("Admin comercial")) || (User.IsInRole("Admin root"))))
+    {
+        <td class="fw-light text-center">@PVT.NBroker</td>
+    }
+    <td class="fw-light text-center">@PVT.Operacion</td>
+    <td class="fw-light text-center"><h6 class="backgr-etapa-entrega-t @colorT ">Oportunidad</h6></td>
+    <td>
+        <div class=" d-flex justify-content-evenly">
+            <a class="style-vermas2" asp-controller="Propiedades" asp-action="DetallesPropiedadPP" asp-route-PROPIEDADID=@PVT.IDPropiedadG
+               data-bs-toggle="tooltip" data-bs-placement="top" title="Ver detalles">
+                <i class="fa-solid fa-eye"></i>
+            </a>
+
+        </div>
+    </td>
+</tr>

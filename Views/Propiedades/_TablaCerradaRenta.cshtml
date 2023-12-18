@@ -1,0 +1,67 @@
+﻿@{
+    var PCR = Model.propiedadTarjeta;
+}
+
+
+<tr id="IDPropiedad_@PCR.IDPropiedad" class="tabla-hover tableRentadas PC" class="tabla-hover">
+    <td scope="row">@PCR.IDPropiedadG</td>
+    <td class="text-center">@PCR.FechaCerrada</td>
+    <td class="text-center limitado">@PCR.Titulo</td>
+    <td class="text-center">
+
+        @{
+
+            string numero = @PCR.Precio;
+            decimal valor = decimal.Parse(numero);
+
+            string precioTotalPCer;
+            if (valor % 1 == 0)
+            {
+                precioTotalPCer = valor.ToString("N0"); // Formato sin decimales ni separadores de miles
+            }
+            else
+            {
+                precioTotalPCer = valor.ToString("N2"); // Formato con dos decimales y separadores de miles
+            }
+
+        }
+
+        @precioTotalPCer @PCR.ISO
+
+    </td>
+    <td class="text-center">
+
+        @{
+
+            string numeroCom = @PCR.Comision;
+            decimal valorCom = decimal.Parse(numeroCom);
+
+            string precioTotalComi;
+            if (valorCom % 1 == 0)
+            {
+                precioTotalComi = valor.ToString("N0"); // Formato sin decimales ni separadores de miles
+            }
+            else
+            {
+                precioTotalComi = valor.ToString("N2"); // Formato con dos decimales y separadores de miles
+            }
+
+        }
+
+        @precioTotalComi @PCR.ISO
+    </td>
+    <td class="text-center">@PCR.Cliente</td>
+    <td>
+        <div class=" d-flex justify-content-evenly">
+            <a class="style-vermas2" asp-controller="Propiedades" asp-action="DetallesPropiedadPC" asp-route-PROPIEDADID=@PCR.IDPropiedadG
+               data-bs-toggle="tooltip" data-bs-placement="top" title="Ver detalles">
+                <i class="fa-solid fa-eye"></i>
+            </a>
+            @*
+            <button class="border-0 bg-transparent"><i class="fa-solid fa-pen-to-square style-vermas2"></i></button>
+            <a class="style-vermas2" data-toggle="tooltip" data-placement="top" title="Eliminar">
+            <i class="fa-solid fa-trash-can "></i>
+            </a>*@
+        </div>
+    </td>
+</tr>

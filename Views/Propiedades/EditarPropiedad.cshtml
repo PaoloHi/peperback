@@ -1,0 +1,2107 @@
+﻿@model PropiedadesModel;
+@using System.Net;
+@using adminRummet.Models;
+
+
+@using Microsoft.AspNetCore.Identity;
+
+<!--INYECCIÓN DE DEPENDENCIAS PARA EL USO DE INICIO DE SESIÓN-->
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+@{
+    Layout = "_NavUsuarios";
+    ViewData["Title"] = "Rummet / Editar propiedad";
+}
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Proyecto_administracion</title>
+
+    <link href="~/assets/css/material-bootstrap-wizard-2.css" rel="stylesheet">
+    <link href="~/assets/css/material-bootstrap-wizard.css" rel="stylesheet">
+
+
+    <!--<link rel="stylesheet" href="~/css/style_form_nuevo_usuario.css">
+        -->
+    <link rel="stylesheet" href="~/css/style_nueva_propiedad.css">
+    <link rel="stylesheet" href="~/css/Style_form.css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+
+
+
+    <link rel="stylesheet" href="~/css/estilosGenerales.css" />
+
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/logo_oficial.png">
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+
+</head>
+
+
+
+<ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+<div class="area">
+    <h4 class="ms-4 tituloVista">Editar propiedad </h4>
+
+    <div class="container-lg ">
+        <div class="row">
+            <div class="col">
+
+
+                <!--      Wizard container        -->
+                <div class="wizard-container" style="padding-top:0 !important; ">
+
+                    <div class="card wizard-card contenedorGeneralBlanco" data-color="orange" id="wizardProfile">
+
+                        <form id="myform" asp-controller="Propiedades" asp-action="GuardarEditarPropiedad" enctype="multipart/form-data" method="post">
+
+                            <div class="wizard-navigation">
+                                <ul>
+                                    <li><a href="#generales" data-toggle="tab">Generales</a></li>
+                                    <li><a href="#direccion" data-toggle="tab">Dirección</a></li>
+                                    <li><a href="#superficie" data-toggle="tab">Superficie</a></li>
+                                    <li><a href="#caracteristicas" data-toggle="tab">Características</a></li>
+                                    <li><a href="#documentos" data-toggle="tab">Documentos</a></li>
+                                    <li><a href="#propietario" data-toggle="tab">Propietario</a></li>
+                                    <!-- <li><a href="#progr_agenda" data-toggle="tab">Programar agenda</a></li>-->
+                                    <li><a href="#vista_previa" data-toggle="tab">Vista previa</a></li>
+
+                                </ul>
+                            </div>
+
+                            <div class="tab-content controlador_Propiedades">
+
+                                <!--Aqui empieza la seccion de GENERALES-->
+                                <div class="tab-pane" id="generales">
+                                    <div class="row">
+                                        <!-- Steps -->
+                                        <label for="">
+                                            <h5 class="ms-1 text-black">Datos generales</h5>
+
+                                        </label>
+                                        <div class="row row-cols-3 d-inline-flex w-100 mx-auto">
+
+                                            <div class="col d-flex flex-column">
+                                                <label class="ms-1 color_letter2">
+                                                    <h6>Tipo de operación</h6>
+                                                </label>
+                                                @if (Model.PropiedadEditar.Operacion == 1)
+                                                {
+                                                    <div style="margin: 2px 0 0 0;">
+                                                        <input asp-for="Operacion" type="radio" value="1" name="Operacion" class="btn-check size-select" id="comprar" autocomplete="off" checked />
+                                                        <label class="btn btn-outline-light ms-1 rounded-3 bg-white " for="comprar">Venta</label>
+                                                        <input asp-for="Operacion" type="radio" value="2" name="Operacion" class="btn-check" id="renta" autocomplete="off" />
+                                                        <label class="btn btn-outline-light rounded-3 bg-white" for="renta">Renta</label>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div style="margin: 2px 0 0 0;">
+                                                        <input asp-for="Operacion" type="radio" value="1" name="Operacion" class="btn-check" id="comprar" autocomplete="off" />
+                                                        <label class="btn btn-outline-light ms-1 rounded-3 bg-white" for="comprar">Venta</label>
+                                                        <input asp-for="Operacion" type="radio" value="2" name="Operacion" class="btn-check size-select" id="renta" autocomplete="off" checked />
+                                                        <label class="btn btn-outline-light rounded-3 bg-white" for="renta">Renta</label>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                            @if (SignInManager.IsSignedIn(User))
+                                            {
+                                                <input type="hidden" asp-for="UserM" value="@UserManager.GetUserName(User)">
+                                            }
+
+                                            <div class="col d-inline-flex width-n-propiedad">
+
+                                                <div class=" d-inline-flex form-group flex-column w-100" style="margin: -4px 0 0 -7rem;">
+                                                    <label for="n_propiedad" class=" color_letter2  ">
+                                                        <h6 class="mb-4">
+                                                            Nombre de la propiedad
+                                                        </h6>
+                                                    </label>
+                                                    <input type="text" asp-for="NombrePropiedad" name="NombrePropiedad" id="nombre_propiedad"
+                                                           class="form-control  w-100 margin-t-Npropiedad" value="@Model.PropiedadEditar.NombrePropiedad" required />
+
+                                                    <input type="text" asp-for="PropiedadGUID" name="PropiedadGUID" id="PropiedadID" class="form-control" placeholder="longitud"
+                                                           style="visibility: hidden; overflow: hidden; display: none;" value=@Model.PropiedadGUID required>
+
+                                                    <input type="text" asp-for="PropiedadID" name="PropiedadID" id="PropiedadID" class="form-control" placeholder="longitud"
+                                                           style="visibility: hidden; overflow: hidden; display: none;" value=@Model.PropiedadGUID required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col d-inline-block flex-row form-group label-floating is-empty">
+                                                <label for="t_propiedad" class="text-start color_letter2">
+                                                    <h6>Tipo de propiedad</h6>
+                                                </label>
+                                                <div class="d-inline-flex">
+                                                    @Html.DropDownListFor(model => model.TPropiedad, new
+                                                    SelectList(Model.TPropiedadL, "IDtipoP", "Tipo"), "--Tipo--", new
+                                                    { @class = "size-select2 form-control text-center", @id = "TipoPropiedadID", required = "required" })
+
+                                                    @Html.DropDownListFor(model => model.SubPropiedad, new List<SelectListItem>(),
+                                                    "--Subtipo--", new { @class = "size-select2 form-control text-center d-lg-inline-block ", @id = "SubTipoPropiedadID" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <!--SECCION DE PRECIO-->
+                                        <label for="" class="mt-lg-2">
+                                            <h5 class="ms-1 text-black">Precio</h5>
+                                        </label>
+                                        <!--Seccion de la comision-->
+                                        <div class="row row-cols-2 input-group d-lg-inline-flex  mt-lg-0 ">
+                                            <div class="col row row-cols-2">
+
+                                                <div class="d-lg-inline-block mt-1 col form-group label-floating is-empty">
+                                                    <label for="" class=" text-start color_letter2   ">
+                                                        <h6>Tipo de moneda</h6>
+                                                    </label>
+                                                    @Html.DropDownListFor(model => model.Moneda, new
+                                                    SelectList(Model.MonedaL, "IDMoneda", "Moneda"), "--Moneda--", new
+                                                    { @class = "size-select2  form-control text-center", @id = "IDMoneda", @required = "required", @style = "margin: 2px 0 0 0;" })
+
+                                                    <input id="EditarMoneda" value="@Model.PropiedadEditar.Moneda" class="d-none" />
+                                                </div>
+
+                                                <div class="d-lg-inline-block mt-1 col" style="margin: 0 0 0 -3%;">
+                                                    <div class="d-inline-flex flex-column form-group  ">
+                                                        <label for="precio" class=" control-label color_letter2">
+                                                            <h6 class="mb-3">Precio</h6>
+                                                        </label>
+                                                        <input type="number" asp-for="Precio" name="Precio" id="precioProp" class="form-control NobtnNumber"
+                                                               min="1" value=@Model.PropiedadEditar.Precio required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col row row-cols-3">
+                                                @*Se agrega una concion para poder mostrar los select*@
+                                                @{
+                                                    string radioPeriodo;
+                                                    string mantenimiento;
+                                                    string comicionOpcion;
+
+                                                    if (Model.PropiedadEditar.periodoRenta == null)
+                                                    {
+
+                                                        radioPeriodo = "display:none;";
+                                                        mantenimiento = "display:none;";
+                                                        comicionOpcion = "display:none;";
+
+                                                    }
+                                                    else
+                                                    {
+                                                        radioPeriodo = "display:inline-block;";
+                                                        mantenimiento = "display:inline-block;";
+                                                        comicionOpcion = "display:inline-block;";
+                                                    }
+                                                }
+
+
+                                                <!--periodo de renta-->
+                                                <div id="rentaOpcions2" class="display-a_r  col" style=@radioPeriodo>
+                                                    <label for="" class="me-3 color_letter2 ">
+                                                        <h6 class="color_letter2">Periodo</h6>
+                                                    </label>
+
+                                                    <label>
+                                                        <input asp-for="PeriodoRenta" type="radio" name="PeriodoRenta" value="3"
+                                                               class="d-inline-flex border-radio_buttons" />Semanal
+                                                    </label>
+                                                    <label>
+                                                        <input asp-for="PeriodoRenta" type="radio" name="PeriodoRenta" value="1"
+                                                               class="d-inline-flex border-radio_buttons" />Mensual
+                                                    </label>
+                                                    <label>
+                                                        <input asp-for="PeriodoRenta" type="radio" name="PeriodoRenta" value="2"
+                                                               class="d-inline-flex border-radio_buttons" />Anual
+                                                    </label>
+                                                </div>
+
+                                                <!--manenimiento-->
+                                                <div class="d-flex col">
+                                                    <div class=" form-group mt-0 " id="">
+                                                        <label for="n_propiedad" class=" control-label color_letter2">
+                                                            <h6 class="mb-4">Mantenimiento</h6>
+                                                        </label>
+                                                        <input asp-for="MantenimientoPrecio" type="number" name="MantenimientoPrecio"
+                                                               class="form-control NobtnNumber" value=@Model.PropiedadEditar.Mantenimiento />
+                                                    </div>
+                                                </div>
+
+                                                <!--periodo de mantenimiento-->
+                                                <div class="display-a_r col">
+                                                    <label for="" class="me-3 color_letter2 ">
+                                                        <h6 class="color_letter2">Periodo</h6>
+                                                    </label>
+
+
+                                                    <label>
+                                                        <input asp-for="PeriodoMantenimiento" type="radio" name="PeriodoMantenimiento" value="3"
+                                                                     class="d-inline-flex border-radio_buttons" />Semanal
+                                                    </label>
+                                                    <label>
+                                                        <input asp-for="PeriodoMantenimiento" type="radio" name="PeriodoMantenimiento" value="1"
+                                                                class="d-inline-flex border-radio_buttons" />Mensual
+                                                    </label>
+                                                    <label>
+                                                        <input asp-for="PeriodoMantenimiento" type="radio" name="PeriodoMantenimiento" value="2"
+                                                                class="d-inline-flex border-radio_buttons" />Anual
+                                                    </label>
+
+                                                
+                                                </div>
+
+                                            </div>
+
+
+                                            </ hr>
+                                        </div>
+
+                                        <hr>
+                                        <label for="comisión" class="flex-column">
+                                            <h5 class=" ms-1 text-black">Comisión</h5>
+                                            <p class="text-success ms-3 my-2" style="max-width: 37%;"> </p>
+                                        </label>
+                                        <div class=" d-flex justify-content-between  mt-lg-0 align-content-between ">
+                                            <div class="col d-inline-flex  " style="margin-left:18px;">
+                                                <div class=" form-group  mt-0">
+                                                    <label for="precio" class="control-label color_letter2 ">
+                                                        <h6 class="mb-3">Procentaje de comisión</h6>
+
+                                                    </label>
+                                                    <div class="input-group d-flex">
+                                                        <div class="input-group-prepend d-flex">
+                                                            <span class="input-group-text"><i class="fas fa-percent"></i></span>
+                                                        </div>
+                                                        <input id="comision" type="number" class="form-control NobtnNumber" step="0.01" min="0" pattern="\d+(\.\d{1,2})?" value="@Model.porcentaje">
+
+
+                                                        <input asp-for="porcentaje" class="d-none" value="@Model.porcentaje" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col  " id="comisionOpcion" style="display:none;">
+                                                <div class="form-group mt-0">
+                                                    <label for="n_propiedad" class=" control-label color_letter2">
+                                                        <h6 class="mb-3">Meses de comisión</h6>
+                                                    </label>
+                                                    <input id="mesesComision" type="number" class="mt-2 form-control NobtnNumber w-75" step="0.01" min="0" pattern="\d+(\.\d{1,2})?" value="@Model.mesesTotal" />
+                                                    <input asp-for="mesesTotal" value="@Model.mesesTotal" class="d-none" />
+
+                                                </div>
+                                            </div>
+
+
+                                            <!--Comision Pactada-->
+                                            <div class="col " id="">
+                                                <div class="form-group mt-0">
+                                                    <label for="n_propiedad" class=" control-label color_letter2">
+                                                        <h6 class="mb-3">Comisión pactada</h6>
+                                                    </label>
+                                                    <input id="comisionPactadaInput" type="number" class="mt-2 form-control NobtnNumber w-75" step="0.01" min="0" pattern="\d+(\.\d{1,2})?" value="@Model.comisionPactada" />
+                                                    <input asp-for="comisionPactada" class="d-none" value="@Model.comisionPactada" />
+
+                                                </div>
+                                            </div>
+
+
+                                            <!--Total de comision-->
+                                            <div class="d-block mx-auto user-select-none form-group">
+
+                                                <label for="n_propiedad" class=" control-label color_letter2 flex-column">
+                                                    <p class="text-danger txtcomision"></p>
+
+                                                    <h6 class="label-orange text-center mb-0 pt-1 pb-1 w-100 ">Total de comisión</h6>
+
+                                                </label>
+                                                <div class="bg-white  rounded-bottom">
+                                                    <h6 class="text-center d-flex justify-content-center">
+                                                        <i class="fa-solid fa-coins color_orange d-flex ms-2  align-items-center me-1"></i>
+
+
+                                                        <input id="comisionTotal" type="text" min="0" class="form-control NobtnNumber user-select-none" onkeypress="return event.charCode >= 48 && event.charCode <= 57" style="width:90%;" readonly value="@Model.TotalComision@Model.PropiedadEditar.Moneda" /><!--required-->
+                                                        <input asp-for="TotalComision" class="d-none" value="@Model.TotalComision" />
+
+                                                    </h6>
+
+                                                </div>
+
+
+
+                                            </div>
+
+
+                                            <p class="  mensaje-comision msnComision" style="margin: -8px 52px 22px 13px;">Recuerda que recibirás el 75% de la comisión generada en la operación</p>
+                                        </div>
+                                        <hr>
+                                        <!--SECCION DE Descripcion-->
+                                        <label for="">
+                                            <h5 class="ms-1 text-black">Descripción</h5>
+                                        </label>
+                                        <div class=" d-inline label-floating ms-1 ">
+
+                                            <textarea asp-for="Descripcion" id="descripcion" class="size-text-area2" required>@Model.Descripcion</textarea>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <!--Aqui empieza la seccion de Direccion -->
+                                <div class="tab-pane" id="direccion">
+                                    <div class="row">
+                                        <label for="direccion">
+                                            <h5 class="text-black">Dirección</h5>
+                                        </label>
+
+                                        <!--row 1 -->
+                                        <div class="d-flex justify-content-between">
+
+                                            <div class="d-lg-inline-block me-3 " style="margin-left:1.5rem;">
+                                                <div class="d-inline form-group label-floating">
+                                                    <label for="c.p" class=" control-label color_letter2">
+                                                        <h6>C.P</h6>
+                                                    </label>
+                                                    <input type="text" asp-for="CP" name="CP" onkeypress="return event.charCode >= 48 && event.charCode <= 57" min="0" id="CP" class="form-control NobtnNumber" value=@Model.PropiedadEditar.CP required />
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="d-lg-inline-block me-3 size-nombre-calle ">
+                                                <div class="d-inline form-group label-floating">
+                                                    <label for="n_calle" class=" control-label color_letter2">
+                                                        <h6>Nombre de la calle</h6>
+                                                    </label>
+                                                    <input type="text" asp-for="Calle" name="Calle" id="n_calle" class="form-control"
+                                                           placeholder="" value=@Model.PropiedadEditar.Calle required />
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="d-lg-inline-block me-3">
+                                                <div class="d-inline form-group label-floating">
+                                                    <label for="n_exterior" class=" control-label color_letter2">
+                                                        <h6>No. Ext.</h6>
+                                                    </label>
+                                                    <input type="text" asp-for="NoExt" name="NoExt" id="n_exterior"
+                                                           class="form-control size-numeros-ext NobtnNumber w-75" value="@Model.PropiedadEditar.NoExt" />
+                                                </div>
+                                            </div>
+
+                                            <div class="d-lg-inline-block">
+                                                <div class="d-inline form-group label-floating">
+                                                    <label for="n_interior" class=" control-label color_letter2">
+                                                        <h6>No. Int.</h6>
+                                                    </label>
+                                                    <input type="text" asp-for="NoInt" name="NoInt" id="n_interior" style="margin: 0 3vw 0 0;"
+                                                           class="form-control size-numeros-ext NobtnNumber w-75" value="@Model.PropiedadEditar.NoInt" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--row 2 colonia/ alcaldia o municipio / estado o ciudad / pais-->
+                                        <div class="mx-2 d-inline-flex justify-content-between mt-4 row row-cols-4">
+                                            <!--colonia-->
+                                            <div class=" col form-group label-floating">
+
+                                                <label for="colonia" class="control-label color_letter2">
+                                                    <h6>Colonia</h6>
+                                                </label>
+
+                                                <select asp-for="Colonia" name="Colonia" id="Colonia" class="form-control longitudColonia" required>
+                                                    <option id="selected">Selecciona una colonia</option>
+                                                </select>
+
+                                                <input type="text" id="colonia" class="d-none form-control"
+                                                       placeholder=" " value=@Model.PropiedadEditar.Colonia required />
+
+
+                                                <input type="text" asp-for="IDcolonia" name="IDcolonia" id="IDcolonia" class="d-none"
+                                                       placeholder=" " value="@Model.PropiedadEditar.IDcolonia" required /><!--required-->
+
+
+
+                                            </div>
+                                            <!--alcaldia o municipio-->
+                                            <div class="d-inline-flex col form-group label-floating flex-column">
+                                                <div class="d-inline form-group label-floating">
+                                                    <label for="alc-muni" class=" control-label color_letter2">
+                                                        <h6>Alcaldía o Municipio</h6>
+                                                    </label>
+                                                    <input type="text" asp-for="Municipio" name="Municipio" id="alc-municipio" class="form-control" value=@Model.PropiedadEditar.Municipio required />
+                                                </div>
+                                            </div>
+                                            <!--Estado o Ciudad-->
+                                            <div class="d-inline-flex col form-group label-floating flex-column">
+                                                <div class="d-inline form-group label-floating">
+                                                    <label for="estado" class=" control-label color_letter2">
+                                                        <h6>Estado o Ciudad</h6>
+                                                    </label>
+                                                    <input type="text" asp-for="Estado" name="Estado" id="estado" class="form-control" value=@Model.PropiedadEditar.Estado required />
+                                                </div>
+                                            </div>
+                                            <!--pais-->
+                                            <div class="d-inline-flex col form-group label-floating flex-column">
+                                                <div class="d-inline form-group label-floating">
+                                                    <label for="pais" class=" control-label color_letter2">
+                                                        <h6>País</h6>
+                                                    </label>
+                                                    <input type="text" asp-for="Pais" name="Pais" id="pais" class="form-control" style="width:77%;" value=@Model.PropiedadEditar.Pais required />
+                                                </div>
+                                            </div>
+
+                                            <div class="d-none">
+                                                <div class="col-md-4">
+                                                    <input type="text" asp-for="txtLat" name="txtLat" id="txtLat" class="form-control" placeholder="latitude"
+                                                           style="visibility: hidden; overflow: hidden; display: none;" value=@Model.PropiedadEditar.txtLat>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" asp-for="txtLng" name="txtLng" id="txtLng" class="form-control" placeholder="longitud"
+                                                           style="visibility: hidden; overflow: hidden; display: none;" value=@Model.PropiedadEditar.txtLng>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <!--row 3 direccion completa-->
+                                        <div class="input-group mt-3 ms-3 flex-column">
+                                            <label for="Direccion completa" class="color_letter2">
+                                                <h6>Dirección completa</h6>
+                                            </label>
+
+                                            <div class="row">
+                                                <div class="col-7">
+
+                                                    <input type="text" asp-for="DireccionC" name="DireccionC" id="direccion_completa" class="form-control me-2 w-100" value=@Model.PropiedadEditar.DireccionC readonly />
+                                                </div>
+
+
+
+                                                <label class="color_letter2 col-4">
+                                                    <input class="shadow-none" type="checkbox" id="cambiarDireccion" />
+
+                                                    <p class="ms-2   d-flex justify-content-center align-items-center"> Cambiar la dirección al mover el pin <i class="fa-solid fa-location-dot ms-2 me-2 pin-brand-color "></i></p>
+
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!--mapa-->
+                                        <div class="input-group mt-3 mx-auto">
+                                            <div class="input-group mt-3" id="map" style="height:350px"></div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+                                <!--Aqui empieza la seccion de Superficie -->
+                                <div class="tab-pane" id="superficie">
+                                    <div class="row">
+
+                                        <label for="superficie" class="fw-bold  ms-2">
+                                            <h5 class="text-black">Superficie</h5>
+                                        </label>
+                                        <br>
+                                        <div class="justify-content-between row row-cols-4 mt-3 mx-3">
+
+                                            <div class="d-flex col flex-column  flex-column form-group label-floating is-empty">
+
+                                                <label for="n_interior" class="control-label color_letter2">
+                                                    <h6>Terreno</h6>
+                                                </label>
+                                                <input type="text" asp-for="Superficie" name="Superficie" min="0" id="Superficieval"
+                                                       class="form-control NobtnNumber text-center me-3" placeholder="" value=@Model.PropiedadEditar.Superficie pattern="[0-9]+(\.[0-9]+)?" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 46" required />
+                                                @Html.DropDownListFor(model => model.SuperficieUMedida, new
+                                                SelectList(Model.UMedidaL, "IDUm", "UnidadMedida"), "-- Unidad Medida --", new
+                                                { @class = "size-select2 form-control text-center me-2 w-100 my-0", @id = "UnidadSuperficie", required = "required" })
+                                            </div>
+
+                                            <div class="d-flex col flex-column  flex-column form-group label-floating is-empty">
+                                                <label for="n_interior" class=" control-label color_letter2">
+                                                    <h6>Construcción</h6>
+                                                </label>
+                                                <input type="text" asp-for="SuperficieContruccion" name="SuperficieContruccion" min="0" id="SuperficieContruccion"
+                                                       class="form-control NobtnNumber text-center ms-2" value=@Model.PropiedadEditar.SuperficieContruccion pattern="[0-9]+(\.[0-9]+)?" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode === 46" required />
+                                                @Html.DropDownListFor(model => model.SuperficieContruccionUMedida, new
+                                                SelectList(Model.UMedidaL, "IDUm", "UnidadMedida"), "-- Unidad Medida --", new
+                                                { @class = "size-select2 form-control text-center ms-2 my-0", @id = "UnidadConstruccion", required = "required" })
+                                            </div>
+
+                                            <div class="d-flex col flex-column">
+                                                <label for="n_interior" class=" control-label color_letter2">
+                                                    <h6>Antigüedad (Años)</h6>
+                                                </label>
+                                                <input type="number" asp-for="Antiguedad" id="valueantiguedad" min="0" required
+                                                       class=" form-control text-center me-3 NobtnNumber" value=@Model.PropiedadEditar.Antiguedad>
+                                            </div>
+
+                                            <div class="d-flex col flex-column borderadio">
+                                                <label for="uso_de_suelo" class=" control-label color_letter2 ">
+                                                    <h6>Uso de suelo</h6>
+                                                </label>
+                                                @Html.DropDownListFor(model => model.UsoSuelo, new
+                                                SelectList(Model.SueloL, "IDSuelo", "Suelo"), "-- Uso de suelo --", new
+                                                { @class = "size-select3 mt-suelo me-5 form-control   text-center ", @id = "UsoSuelo", @required = "required", style = "margin-top:1px;" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Aqui empieza la seccion de  CARACTERISTICAS-->
+                                <div class="tab-pane" id="caracteristicas">
+                                    <div class="row" style="margin-left:1rem;">
+                                        <label for="caracteristicas" class="fw-bold">
+                                            <h5 class="text-black ms-2">Características</h5>
+                                        </label>
+                                        <!---item 1-->
+                                        <div id="accordion " class="accordion ms-3">
+                                            <div class="card m-b-0 bg-transparent">
+
+                                                <div class="card-header collapsed collapsible2 " data-toggle="collapse" data-patent="#accordion" href="#collapseOne">
+                                                    <a class="card-title color_letter2">Principales</a>
+                                                </div>
+                                                <div class="card-block collapse text-aling-left fs-8 " id="collapseOne" style="max-height:fit-content">
+                                                    <div class="row row-cols-3 mt-3 ms-4 " style="margin: 0 66px;">
+
+                                                        @for (var i = 0; i < Model.CaracteristicasCheckPropiedadEditar.Count; ++i)
+                                                        {
+                                                            if (Model.CaracteristicasCheckPropiedadEditar[i].TipoCaract == "Principales")
+                                                            {
+                                                                <div class="d-inline-flex ms-4 me-4 mb-3 form-group">
+                                                                    @Html.TextBoxFor(model => model.CaracteristicasCheckPropiedadEditar[i].Cantidad, new { @class = "text-center caracteriticasGenerales form-control", @id = @Model.CaracteristicasCheckPropiedadEditar[i].Caracteristica, maxlength = 3, oninput = "soloNumeros(this)" })
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].IDCaracteristica)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].tipoSelect)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].PreCantidad)
+
+
+                                                                    <label for="" class="ms-2 color_letter2 control-label fs-6 align-items-center">
+                                                                        @Html.DisplayFor(model => model.CaracteristicasCheckPropiedadEditar[i].Caracteristica)
+                                                                    </label>
+
+                                                                </div>
+                                                            }
+                                                        }
+
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!--item 2 -->
+                                        <div id="accordion" class="accordion ms-3">
+                                            <div class="card m-b-0 bg-transparent">
+                                                <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseTwo">
+                                                    <a class="card-title color_letter2">Generales</a>
+                                                </div>
+                                                <div class="card-block collapse" id="collapseTwo" style="max-height:fit-content">
+
+                                                    <div class="row row-cols-4 mt-3 ms-4">
+
+                                                        @for (var i = 0; i < Model.CaracteristicasCheckPropiedadEditar.Count; ++i)
+                                                        {
+                                                            if (Model.CaracteristicasCheckPropiedadEditar[i].TipoCaract == "Generales")
+                                                            {
+                                                                <div class="d-inline-flex ms-4 me-4 mb-3 ">
+                                                                    @Html.CheckBoxFor(model => model.CaracteristicasCheckPropiedadEditar[i].isSelected, new { @class = "caracteriticasGeneralesJS   size-adicionales", @id = @Model.CaracteristicasCheckPropiedadEditar[i].Caracteristica })
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].IDCaracteristica)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].tipoSelect)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].PreSelect)
+
+                                                                    <label for="" class="ms-2 color_letter2">
+                                                                        @Html.DisplayFor(model => model.CaracteristicasCheckPropiedadEditar[i].Caracteristica)
+                                                                    </label>
+
+                                                                </div>
+                                                            }
+                                                        }
+
+
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--item 3-->
+                                        <div id="accordion" class="accordion ms-3">
+                                            <div class="card m-b-0 bg-transparent">
+                                                <div class="card-header collapsed collapsible2 " data-toggle="collapse" data-patent="#accordion" href="#collapseThree">
+                                                    <a class="card-title color_letter2">Servicios</a>
+                                                </div>
+                                                <div class="card-block collapse fSizeDireciones" id="collapseThree" style="max-height:fit-content">
+                                                    <div class="row row-cols-4 mt-3 ms-4">
+                                                        @for (var i = 0; i < Model.CaracteristicasCheckPropiedadEditar.Count; ++i)
+                                                        {
+                                                            if (Model.CaracteristicasCheckPropiedadEditar[i].TipoCaract == "Servicios")
+                                                            {
+                                                                <div class="d-inline-flex ms-4 me-4 mb-3 ">
+                                                                    @Html.CheckBoxFor(model => model.CaracteristicasCheckPropiedadEditar[i].isSelected, new { @class = "  caracteristicasServicios  size-adicionales", @id = @Model.CaracteristicasCheckPropiedadEditar[i].Caracteristica })
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].IDCaracteristica)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].tipoSelect)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].PreSelect)
+
+                                                                    <label for="" class="ms-2 color_letter2">
+                                                                        @Html.DisplayFor(model => model.CaracteristicasCheckPropiedadEditar[i].Caracteristica)
+                                                                    </label>
+
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--item 4 -->
+                                        <div id="accordion" class="accordion ms-3">
+                                            <div class="card m-b-0 bg-transparent">
+                                                <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseFour">
+                                                    <a class="card-title color_letter2">Exteriores</a>
+                                                </div>
+
+                                                <div class="card-block collapse" id="collapseFour" style="max-height:fit-content">
+                                                    <div class="row row-cols-4 mt-3 ms-4">
+                                                        @for (var i = 0; i < Model.CaracteristicasCheckPropiedadEditar.Count; ++i)
+                                                        {
+                                                            if (Model.CaracteristicasCheckPropiedadEditar[i].TipoCaract == "Exteriores")
+                                                            {
+                                                                <div class="d-inline-flex ms-4 me-4 mb-3 ">
+                                                                    @Html.CheckBoxFor(model => model.CaracteristicasCheckPropiedadEditar[i].isSelected, new { @class = "caracteristicasExteriores  size-adicionales", @id = @Model.CaracteristicasCheckPropiedadEditar[i].Caracteristica })
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].IDCaracteristica)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].tipoSelect)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].PreSelect)
+
+                                                                    <label for="" class="ms-2 color_letter2">
+                                                                        @Html.DisplayFor(model => model.CaracteristicasCheckPropiedadEditar[i].Caracteristica)
+                                                                    </label>
+
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!--item 5-->
+                                        <div id="accordion" class="accordion ms-3">
+                                            <div class="card m-b-0 bg-transparent">
+
+                                                <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseFive">
+                                                    <a class="card-title color_letter2">Ambientes</a>
+                                                </div>
+                                                <div class="card-block collapse" id="collapseFive" style="max-height:fit-content">
+                                                    <div class="row row-cols-4 mt-3 ms-4">
+                                                        @for (var i = 0; i < Model.CaracteristicasCheckPropiedadEditar.Count; ++i)
+                                                        {
+                                                            if (Model.CaracteristicasCheckPropiedadEditar[i].TipoCaract == "Ambientes " && Model.CaracteristicasCheckPropiedadEditar[i].tipoSelect == "check")
+                                                            {
+                                                                <div class="d-inline-flex ms-4 me-4 mb-3 ">
+                                                                    @Html.CheckBoxFor(model => model.CaracteristicasCheckPropiedadEditar[i].isSelected, new { @class = "caracteriticasGenerales caracteristicasAmbientes size-adicionales", @id = @Model.CaracteristicasCheckPropiedadEditar[i].Caracteristica })
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].IDCaracteristica)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].tipoSelect)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].PreSelect)
+
+                                                                    <label for="" class="ms-2 color_letter2">
+                                                                        @Html.DisplayFor(model => model.CaracteristicasCheckPropiedadEditar[i].Caracteristica)
+                                                                    </label>
+
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--item 6-->
+                                        <div id="accordion" name="carctAdicionales" class="accordion ms-3">
+                                            <div class="card m-b-0 bg-transparent">
+                                                <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseSix">
+                                                    <a class="card-title color_letter2">Adicionales</a>
+                                                </div>
+                                                <div class="card-block collapse" id="collapseSix" style="max-height:fit-content">
+                                                    <div class="row row-cols-3 mt-3 ms-4">
+                                                        @for (var i = 0; i < Model.CaracteristicasCheckPropiedadEditar.Count; ++i)
+                                                        {
+                                                            if (Model.CaracteristicasCheckPropiedadEditar[i].TipoCaract == "Ambientes " && Model.CaracteristicasCheckPropiedadEditar[i].tipoSelect == "num")
+                                                            {
+                                                                <div class="d-inline-flex ms-4 me-4 mb-3 form-group">
+                                                                    @Html.TextBoxFor(model => model.CaracteristicasCheckPropiedadEditar[i].Cantidad, new { @class = "caracteristicasAdicionales text-center  form-control", @id = @Model.CaracteristicasCheckPropiedadEditar[i].Caracteristica, maxlength = 3, oninput = "soloNumeros(this)" })
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].IDCaracteristica)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].tipoSelect)
+                                                                    @Html.HiddenFor(model => model.CaracteristicasCheckPropiedadEditar[i].PreCantidad)
+
+                                                                    <label for="" class="ms-2 color_letter2 control-label fs-6 align-items-center">
+                                                                        @Html.DisplayFor(model => model.CaracteristicasCheckPropiedadEditar[i].Caracteristica)
+                                                                    </label>
+
+                                                                </div>
+                                                            }
+                                                        }
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Aqui empieza la seccon de Documentos-->
+                                <div class="tab-pane" id="documentos">
+                                    <div class="row">
+
+                                        <input class="d-none" id="contorlador" value="Propiedades" />
+
+                                        <label for="documentos" class=" ms-lg-2">
+                                            <h5 class="text-black">Fotografías de la propiedad</h5>
+                                        </label>
+                                        <label for="documentos" class=" color_letter2 ms-lg-2">
+                                            <h6>Por favor, adjunta un <b class="text-danger">mínimo de 5 fotografías </b> y, si es posible, hasta 20 imágenes</h6>
+                                        </label>
+                                        <div class="container-fluid d-flex justify-content-center">
+                                            <section id="Images" class="images-cards">
+                                                <div id="imagenesLista" class="row">
+
+
+                                                    @foreach (var imagen in Model.ImagenesPropiedadEditar)
+                                                    {
+                                                        <div class="col-xl col-lg-2 col-md-3 col-sm-4 col-xs-12" data-id="@imagen.imgName" id="Img_@imagen.numImg">
+                                                            <div class="image-container">
+                                                                <figure>
+                                                                    <img src=@imagen.txt64 alt="Guardada_@imagen.numImg">
+                                                                    <figcaption onclick="eliminarimg(@imagen.IDimgPropiedad,@imagen.numImg)">
+                                                                        <i class="fa-solid fa-trash-can"></i>
+                                                                    </figcaption>
+                                                                </figure>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-xs-12 " id="add-photo-container">
+                                                        <div class="add-new-photo first" id="add-photo">
+                                                            <i class="fa-solid fa-file-image ms-5 mt-4"></i>
+                                                            <br>
+                                                            <div class="">
+                                                                <h6 class=" size-text-add-photo  text-center">Sube tus fotografías</h6>
+                                                            </div>
+                                                        </div>
+                                                        <input asp-for="Files" type="file" multiple id="add-new-photo" accept="image/jpeg,image/jpg,image/png">
+
+                                                    </div>
+
+                                                    <br>
+                                                </div>
+                                            </section>
+
+                                        </div>
+                                        <label for="documentos" class=" ms-lg-2">
+                                            <h5 class="text-black">Documentos</h5>
+                                        </label>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <div class=" my-custom-scrollbar table-responsive table-height">
+
+
+                                                    @{
+                                                        var documento = Model.DocumentosPropiedadEditar;
+                                                        int indice;
+                                                        int estadoDocumento;
+                                                    }
+
+                                                    <input id="DocumentoNombre_1" value="@documento[0].archivoNombre" class="d-none">
+                                                    <input id="DocumentoNombre_2" value="@documento[1].archivoNombre" class="d-none">
+                                                    <input id="DocumentoNombre_3" value="@documento[2].archivoNombre" class="d-none">
+                                                    <input id="DocumentoNombre_4" value="@documento[3].archivoNombre" class="d-none">
+                                                    <input id="DocumentoNombre_5" value="@documento[4].archivoNombre" class="d-none">
+                                                    <input id="DocumentoNombre_6" value="@documento[5].archivoNombre" class="d-none">
+                                                    <table class="table table-hover border-gray h-100">
+
+                                                        <tbody>
+                                                            <tr class="tabla-hover">
+                                                                <th scope="row">1</th>
+                                                                <td colspan="2">Pago de ultimo predial</td>
+                                                                <td>
+                                                                    <div class="fileContainer2 input-group btn bg-transparent">
+
+                                                                        <i class="fa-solid fa-file-arrow-up size-icon ">
+                                                                            <input asp-for="DocumentosPropiedadEditar[0].Documento" type="file" id="archivoInput_1" class=" position-absolute top-0 start-0 claseBtnTruco"
+                                                                                   onchange="return SubirVisualizar(1)">
+                                                                        </i>
+
+                                                                        <input asp-for="DocumentosPropiedadEditar[0].IDdocPropiedad" class="d-none" value="@documento[0].IDdocPropiedad" />
+                                                                        <input asp-for="DocumentosPropiedadEditar[0].IDtipoArchivo" value="@documento[0].IDtipoArchivo" class="d-none">
+                                                                        <input asp-for="DocumentosPropiedadEditar[0].archivoNombre" value="@documento[0].archivoNombre" class="d-none">
+
+
+                                                                        <input class="d-none" id="txt64_1" value="@documento[0].txt64">
+
+
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3  input-group btn bg-transparent">
+                                                                        <i class="fa-solid fa-trash-can size-icon">
+                                                                            <input type="button" name="d_archivo" id="archivoInput_delete"
+                                                                                   class="eliminarprueba  position-absolute top-0 start-0 claseBtnTruco" id="" onclick="borrarArchivo(1,'propiedades',@documento[0].IDdocPropiedad, @documento[0].IDStatusDoc)" />
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn bg-transparent">
+                                                                        <i class="fa-solid fa-eye size-icon me-5 ">
+                                                                            <input type="button" name="v_archivo4" id="" onclick="visorExt(1)" class="position-absolute top-0 start-0 claseBtnTruco">
+
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+                                                                    @{
+                                                                        indice = 1;
+                                                                        estadoDocumento = Model.DocumentosPropiedadEditar[0].IDStatusDoc;
+                                                                    }
+
+                                                                    <input id="IDdoc_@indice" class="d-none" value="@documento[0].IDdocPropiedad" />
+
+                                                                    <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr class="tabla-hover">
+                                                                <th scope="row">2</th>
+                                                                <td colspan="2">Escritura</td>
+                                                                <td>
+                                                                    <div class="fileContainer2 input-group btn bg-transparent">
+                                                                        <i class="fa-solid fa-file-arrow-up size-icon">
+                                                                            <input asp-for="DocumentosPropiedadEditar[1].Documento" type="file" id="archivoInput_2" class="position-absolute top-0 start-0 claseBtnTruco"
+                                                                                   onchange="return SubirVisualizar(2)">
+                                                                            <input asp-for="DocumentosPropiedadEditar[1].IDdocPropiedad" class="d-none" value="@documento[1].IDdocPropiedad" />
+                                                                            <input asp-for="DocumentosPropiedadEditar[1].IDtipoArchivo" value="@documento[1].IDtipoArchivo" class="d-none">
+                                                                            <input asp-for="DocumentosPropiedadEditar[1].archivoNombre" value="@documento[1].archivoNombre" class="d-none">
+                                                                            <input class="d-none" id="txt64_2" value="@documento[1].txt64">
+
+
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn bg-transparent">
+
+                                                                        <i class="fa-solid fa-trash-can size-icon ">
+                                                                            <input type="button" name="d_archivo2" id="archivoInput_delete2"
+                                                                                   class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco" onclick="borrarArchivo(2,'propiedades',@documento[1].IDdocPropiedad, @documento[1].IDStatusDoc)">
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn bg-transparent">
+
+                                                                        <i class="fa-solid fa-eye me-5 size-icon ">
+                                                                            <input type="button" name="v_archivo4" id="" onclick="visorExt(2)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @{
+                                                                        indice = 2;
+                                                                        estadoDocumento = Model.DocumentosPropiedadEditar[1].IDStatusDoc;
+                                                                    }
+
+                                                                    <input id="IDdoc_@indice" class="d-none" value="@documento[1].IDdocPropiedad" />
+
+                                                                    <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="tabla-hover">
+                                                                <th scope="row">3</th>
+                                                                <td colspan="2">Regimen de condominio</td>
+                                                                <td>
+                                                                    <div class="fileContainer2 input-group btn bg-transparent">
+
+                                                                        <i class="fa-solid fa-file-arrow-up size-icon">
+                                                                            <input asp-for="DocumentosPropiedadEditar[2].Documento" type="file" id="archivoInput_3" class="position-absolute top-0 start-0 claseBtnTruco "
+                                                                                   onchange="return SubirVisualizar(3)">
+                                                                        </i>
+                                                                        <input asp-for="DocumentosPropiedadEditar[2].IDdocPropiedad" class="d-none" value="@documento[2].IDdocPropiedad" />
+                                                                        <input asp-for="DocumentosPropiedadEditar[2].IDtipoArchivo" value="@documento[2].IDtipoArchivo" class="d-none">
+                                                                        <input asp-for="DocumentosPropiedadEditar[2].archivoNombre" value="@documento[2].archivoNombre" class="d-none">
+                                                                        <input class="d-none" id="txt64_3" value="@documento[2].txt64">
+
+
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn bg-transparent">
+
+                                                                        <i class="fa-solid fa-trash-can size-icon">
+                                                                            <input type="button" name="d_archivo3" id="archivoInput_delete3"
+                                                                                   class="eliminarprueba  position-absolute top-0 start-0 claseBtnTruco" onclick="borrarArchivo(3,'propiedades',@documento[2].IDdocPropiedad, @documento[2].IDStatusDoc)">
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn bg-transparent">
+                                                                        <i class="fa-solid fa-eye size-icon">
+                                                                            <input type="button" name="v_archivo4" id="" onclick="visorExt(3)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @{
+                                                                        indice = 3;
+                                                                        estadoDocumento = Model.DocumentosPropiedadEditar[2].IDStatusDoc;
+                                                                    }
+                                                                    <input id="IDdoc_@indice" class="d-none" value="@documento[2].IDdocPropiedad" />
+
+                                                                    <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="tabla-hover">
+                                                                <th scope="row">4</th>
+                                                                <td colspan="2"><h6 class="font-size-visualizador">Certificado de no gravamen</h6></td>
+                                                                <td>
+                                                                    <div class="fileContainer2 input-group btn bg-transparent">
+                                                                        <i class="fa-solid fa-file-arrow-up size-icon ">
+                                                                            <input asp-for="DocumentosPropiedadEditar[3].Documento" type="file" id="archivoInput_4" class=" position-absolute top-0 start-0 claseBtnTruco"
+                                                                                   onchange="return SubirVisualizar(4)" />
+
+
+                                                                        </i>
+
+                                                                        <input asp-for="DocumentosPropiedadEditar[3].IDdocPropiedad" class="d-none" value="@documento[3].IDdocPropiedad" />
+                                                                        <input asp-for="DocumentosPropiedadEditar[3].IDtipoArchivo" value="@documento[3].IDtipoArchivo" class="d-none">
+                                                                        <input asp-for="DocumentosPropiedadEditar[3].archivoNombre" value="@documento[3].archivoNombre" class="d-none">
+                                                                        <input class="d-none" id="txt64_4" value="@documento[3].txt64">
+
+
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn bg-transparent">
+                                                                        <input type="button" name="d_archivo3" id="archivoInput_delete4" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco" onclick="borrarArchivo(4,'propiedades',@documento[3].IDdocPropiedad, @documento[3].IDStatusDoc)">
+                                                                        <i class="fa-solid fa-trash-can  size-icon"></i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+
+                                                                    <div class="fileContainer3 input-group btn bg-transparent">
+
+                                                                        <i class="fa-solid fa-eye me-5 size-icon">
+                                                                            <input type="button" name="v_archivo4" id="" onclick="visorExt(4)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @{
+                                                                        indice = 4;
+                                                                        estadoDocumento = Model.DocumentosPropiedadEditar[3].IDStatusDoc;
+                                                                    }
+
+                                                                    <input id="IDdoc_@indice" class="d-none" value="@documento[3].IDdocPropiedad" />
+
+
+                                                                    <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="tabla-hover">
+                                                                <th scope="row">5</th>
+                                                                <td colspan="2"><h6 class="font-size-visualizador">Certificado de no adeudo</h6></td>
+                                                                <td>
+                                                                    <div class="fileContainer2 input-group btn bg-transparent">
+                                                                        <i class="fa-solid fa-file-arrow-up size-icon">
+                                                                            <input asp-for="DocumentosPropiedadEditar[4].Documento" type="file" id="archivoInput_5" class=" position-absolute top-0 start-0 claseBtnTruco"
+                                                                                   onchange="return SubirVisualizar(5)">
+
+                                                                        </i>
+
+                                                                        <input asp-for="DocumentosPropiedadEditar[4].IDdocPropiedad" class="d-none" value="@documento[4].IDdocPropiedad" />
+                                                                        <input asp-for="DocumentosPropiedadEditar[4].IDtipoArchivo" value="@documento[4].IDtipoArchivo" class="d-none">
+                                                                        <input asp-for="DocumentosPropiedadEditar[4].archivoNombre" value="@documento[4].archivoNombre" class="d-none">
+
+                                                                        <input class="d-none" id="txt64_5" value="@documento[4].txt64">
+
+
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn bg-transparent">
+                                                                        <input type="button" name="d_archivo4" id="archivoInput_delete5" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco" onclick="borrarArchivo(5,'propiedades',@documento[4].IDdocPropiedad, @documento[4].IDStatusDoc)">
+                                                                        <i class="fa-solid fa-trash-can size-icon "></i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn bg-transparent">
+
+                                                                        <i class="fa-solid fa-eye size-icon me-5">
+                                                                            <input type="button" name="v_archivo4" id="" onclick="visorExt(5)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        </i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @{
+                                                                        indice = 5;
+                                                                        estadoDocumento = Model.DocumentosPropiedadEditar[4].IDStatusDoc;
+                                                                    }
+
+
+                                                                    <input id="IDdoc_@indice" class="d-none" value="@documento[4].IDdocPropiedad" />
+
+                                                                    <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                                                </td>
+
+
+                                                            </tr>
+                                                            <tr class="tabla-hover">
+                                                                <th scope="row">6</th>
+                                                                <td colspan="2"><h6 class="font-size-visualizador">Avaluo</h6></td>
+                                                                <td>
+                                                                    <div class="fileContainer2 input-group btn bg-transparent">
+                                                                        <i class="fa-solid fa-file-arrow-up size-icon">
+                                                                            <input asp-for="DocumentosPropiedadEditar[5].Documento" type="file" id="archivoInput_6" class=" position-absolute top-0 start-0 claseBtnTruco"
+                                                                                   onchange="return SubirVisualizar(6)">
+
+                                                                        </i>
+
+                                                                        <input asp-for="DocumentosPropiedadEditar[5].IDdocPropiedad" class="d-none" value="@documento[5].IDdocPropiedad" />
+                                                                        <input asp-for="DocumentosPropiedadEditar[5].IDtipoArchivo" value="@documento[5].IDtipoArchivo" class="d-none">
+                                                                        <input asp-for="DocumentosPropiedadEditar[5].archivoNombre" value="@documento[5].archivoNombre" class="d-none">
+
+                                                                        <input class="d-none" id="txt64_6" value="@documento[5].txt64">
+
+
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn bg-transparent">
+                                                                        <input type="button" name="d_archivo4" id="archivoInput_delete6" class="eliminarprueba position-absolute top-0 start-0 claseBtnTruco" onclick="borrarArchivo(6,'propiedades',@documento[5].IDdocPropiedad, @documento[5].IDStatusDoc)">
+                                                                        <i class="fa-solid fa-trash-can size-icon "></i>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fileContainer3 input-group btn bg-transparent">
+
+                                                                        <i class="fa-solid fa-eye size-icon me-5">
+                                                                            <input type="button" name="v_archivo5" id="" onclick="visorExt(6)" class="position-absolute top-0 start-0 claseBtnTruco">
+                                                                        </i></i>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+                                                                    @{
+                                                                        indice = 6;
+                                                                        estadoDocumento = Model.DocumentosPropiedadEditar[5].IDStatusDoc;
+                                                                    }
+
+                                                                    <input id="IDdoc_@indice" class="d-none" value="@documento[5].IDdocPropiedad" />
+
+                                                                    <input id="statusDoc_@indice" value="@estadoDocumento" class="d-none">
+                                                                    <div class="soloIconos" id="IconoEstatus_@indice"></div>
+
+                                                                </td>
+
+                                                            </tr>
+
+
+
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                                <div class="input-group d-flex justify-content-start">
+                                                </div>
+                                            </div>
+                                            <div class="col border">
+                                                <div class="input-group d-flex mx-auto">
+                                                    <div id="visorArchivo" class="size-file d-flex justify-content-center mx-auto">
+                                                        <div id="id_1" class="juanito_1">
+                                                            <iframe id="visualizador" src="" width="270px" height="400px" frameborder="0" allowfullscreen></iframe>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--comienza la pestaña PROPIETARIO-->
+                                <div class="tab-pane" id="propietario">
+                                    <div class="row">
+                                        <label for="documentos" class=" ms-lg-1">
+                                            <h5 class="text-black">Propietario</h5>
+                                        </label>
+
+                                        <div class="container-fluid  mb-4">
+                                            <div class="">
+                                                <div class="row row-cols-2 mt-4 ms-2">
+
+                                                    <div class="col d-flex  flex-column">
+
+                                                        <label for="correo" class=" control-label color_letter2">
+                                                            <h6>Correo</h6>
+                                                        </label>
+                                                        <div class="form-group"><input type="string" name="email" id="email" class="form-control" value="@Model.email"><span class="material-input"></span></div>
+                                                    </div>
+                                                    <div class="col d-flex">
+                                                        <input type="button" class="correoVerif btn btn-orange-agenda" name="correoVerif " id="btncorreo" value="Verificar">
+                                                        <label id="labelVerif" class="d-none text-success posicionMSN">Propietario verificado</label>
+                                                        <label id="labelNoVerif" class="d-none text-danger posicionMSN">Propietario no existente, por favor llene los campos correspondientes</label>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="d-flex d-none mt-2 justify-content-lg-between justify-content-around row row-cols-4" id="datosPropietarioNoExistente" style="margin: 3px 11px;">
+
+                                                <div class="col d-inline-flex">
+                                                    <div class="d-inline form-group  "
+                                                        <label for="nombre_p" class=" control-label color_letter2" style="color:#696969">
+                                                            <h6>Nombre</h6>
+                                                        </label>
+
+                                                        <input asp-for="Nombre" type="string" name="Nombre" id="nombre" style="margin-top: 0.8rem;"
+                                                               class="form-control" required  />
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col d-inline-flex">
+                                                    <div class="d-inline form-group ">
+                                                        <label for="a_paterno" class=" control-label color_letter2">
+                                                            <h6>Apellido paterno</h6>
+                                                        </label>
+                                                        <input asp-for="apellidoPaterno" type="string" name="apellidoPaterno" id="apellidoPaterno"
+                                                               class="form-control" />
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col d-inline-flex">
+                                                    <div class="d-inline form-group ">
+                                                        <label for="a_materno" class=" control-label color_letter2">
+                                                            <h6>Apellido materno</h6>
+                                                        </label>
+                                                        <input asp-for="apellidoMaterno" type="string" name="apellidoMaterno" id="apellidoMaterno"
+                                                               class="form-control" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col d-inline-flex">
+                                                    <div class="d-inline form-group ">
+                                                        <label for="telefono" class=" control-label color_letter2">
+                                                            <h6>Teléfono</h6>
+                                                        </label>
+                                                        <div class="d-inline-flex">
+                                                            <select class="d-flex form-control" style="width: 90px;">
+                                                                <option value="+52" class="flag-icon flag-icon-mx">+52 (MX)</option>
+                                                                <option value="+54" class="flag-icon flag-icon-mx">+54 (ARG)</option>
+                                                                <option value="+57" class="flag-icon flag-icon-gb">+57 (COL)</option>
+                                                                <option value="+53" class="flag-icon flag-icon-gb">+53 (CUB)</option>
+                                                                <option value="+1" class="flag-icon flag-icon-us">+1 (EE.UU)</option>
+                                                                <option value="+48" class="flag-icon flag-icon-us">+48 (PL)</option>
+                                                                <option value="+44" class="flag-icon flag-icon-gb">+44 (UK)</option>
+
+                                                            </select>
+                                                            <input asp-for="telefono" type="text" name="telefono" id="telefono"
+                                                                   min="0" maxlength="10" class="form-control" required /><!--required-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <input type="hidden" asp-for="PExistente" id="Existente"
+                                                       class="form-control" required />
+
+                                            </div>
+
+
+                                            @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin root") || (User.IsInRole("Mesa de control")) || (User.IsInRole("Contact Center"))))
+                                            {
+                                                <div>
+                                                    <div class="mt-5 ui-widget col d-flex  flex-column" style="margin: 3px 22px;">
+
+                                                        <label class="color_letter2">Broker</label>
+                                                        <div class="d-flex flex-row">
+
+                                                            <div class="form-group ">
+
+                                                                <input class="form-control w-50 fw-normal" type="text" name="nombreBroker" id="nombreBroker" style="width: 300px!important" value="@Model.BrokerNombre" />
+                                                            </div>
+
+                                                            <label id="nombreBrokerLabel" class="d-none "></label>
+
+
+                                                        </div>
+
+                                                        <input class="d-none" id="emailBroker" asp-for="UserBId" />
+
+
+                                                    </div>
+
+                                                </div>
+
+                                            }
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!--Aqui empieza la seccion VISTA PREVIA-->
+                                <div class="tab-pane" id="vista_previa">
+                                    <div class="row">
+                                        <label for="">
+                                            <h4 class="text-black">Vista previa</h4>
+                                        </label>
+
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <!--calendario-->
+                                                <div class="col d-flex  ">
+
+                                                    <div class="caja-calendar ">
+                                                        <div class="d-flex mx-auto justify-content-center mt-3">
+                                                            <label for="">
+                                                                <h6 class=" color_letter2" style=" margin: -2px 0 0 0;">
+                                                                    Programa tu publicación en Rummet
+                                                                </h6>
+
+
+                                                            </label>
+                                                        </div>
+
+                                                        <div class=" justify-content-center mt-2  d-flex">
+                                                            @{
+                                                                DateTime? fechaPublicacion = Model.FechaPublicacion;
+                                                                string fechaPublicacionFormateada = fechaPublicacion?.ToString("yyyy-MM-dd") ?? string.Empty;
+
+                                                                DateTime fechaActual = DateTime.Today;
+                                                                DateTime fechaMinima = fechaActual.AddDays(1);
+                                                                string fechaMinimaFormateada = fechaMinima.ToString("yyyy-MM-dd");
+
+                                                                bool documentosAprobados = false;
+                                                                var documentos = Model.DocumentosPropiedadEditar;
+                                                                for (int p = 0; p < documentos.Count; p++)
+                                                                {
+                                                                    var doc = documentos[p];
+                                                                    if (doc.IDStatusDoc == 31)
+                                                                    {
+                                                                        break;
+                                                                    }
+                                                                    documentosAprobados = true;
+                                                                }
+                                                            }
+                                                            <div class="w-75 justify-content-center mt-2 d-flex">
+                                                                @if (documentosAprobados)
+                                                                {
+                                                                    <input asp-for="FechaPublicacion" type="date" name="FechaPublicacion" id="fecha" value="@fechaPublicacionFormateada" min="@fechaMinimaFormateada"
+                                                                           class="w-100 border back_orange-calendar date-prog-agenda text-center" />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input asp-for="FechaPublicacion" type="date" name="FechaPublicacion" id="fecha" value="" min="@fechaMinimaFormateada"
+                                                                           class="w-100 border back_orange-calendar date-prog-agenda text-center" />
+                                                                }
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                                <!--tarjeta de vista previa-->
+                                                <div class="col d-flex justify-content-start">
+                                                    <div class="caja-a-mp mb-3 mt-3  ms-lg-5 ms-md-4 h-auto ms-3 shadow position-relative row row-cols-1">
+                                                        <!--informacion principal de la tarjeta-->
+                                                        <div class="row card-main col-12 mb-3  d-flex  ms-1">
+                                                            <div class="col-6 mt-4 px-0">
+                                                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                                                    <div class="carousel-inner" id="lista_imgMini">
+                                                                        @foreach (var imgCarousellMini in Model.ImagenesPropiedadEditar)
+                                                                        {
+
+
+                                                                            string claseActive = (imgCarousellMini.numImg == 1) ? "active" : "";
+                                                                            string idConcatenado = "miniCar" + imgCarousellMini.numImg;
+
+
+                                                                            <div id="@idConcatenado" class="carousel-item image-contain @claseActive adaptar-car " data-lightbox="imagenes"
+                                                                                 style="background-image:url( @imgCarousellMini.txt64 );"></div>
+
+                                                                        }
+
+                                                                    </div>
+                                                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                        <span class="visually-hidden">Previous</span>
+                                                                    </a>
+                                                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                        <span class="visually-hidden">Next</span>
+                                                                    </a>
+                                                                </div>
+
+                                                                <div class="d-flex justify-content-center mt-2 size-mp-name-main-house ">
+                                                                    <!--baños previa-->
+                                                                    <div class="side-2-header d-inline-flex me-2">
+                                                                        <i class="fa-solid fa-toilet me-1  text-orange size-mp-icons"></i>
+                                                                        <h6 for="" class=" ms-1 me-1 ssize-mp-name-icons" id="verBanos"></h6>
+                                                                    </div>
+                                                                    <!--estacionamientos previa-->
+                                                                    <div class="side-2-header d-inline-flex me-1">
+                                                                        <i class="fa-solid fa-car-side ms-1  me-1 text-orange size-mp-icons"></i>
+                                                                        <h6 for="" class="ms-1 me-1 ssize-mp-name-icons" id="verEstacionamiento"></h6>
+                                                                    </div>
+                                                                    <!--recamaras-->
+                                                                    <div class="side-2-header d-inline-flex">
+                                                                        <i class="fa-solid fa-bed ms-1  me-1 text-orange size-mp-icons"></i>
+                                                                        <h6 for="" class="ms-1 me-1 size-mp-name-icon" id="verRecamaras"></h6>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <!--etiquetado de la tarjeta de vista previa-->
+                                                            <div class="col-5 text-cards ms-2 mt-2 position-relative">
+                                                                <div class="d-inline-flex  etiquetadoOperacion justify-content-between px-3">
+                                                                    <p class="px-1 text-white m-auto txtOperacion">
+                                                                    </p>
+                                                                </div>
+
+                                                                <div id="etiquetadoSM" class="d-flex etiquetadoSM justify-content-between title-cards-mp-depto">
+
+                                                                    <h6 class=" size-mp-cards mt-1 ms-1" id="verTipoProp"> </h6>
+                                                                    <h6 class=" size-mp-cards mt-1 me-2 d-flex justify-content-center">
+                                                                        <i class="fa-solid fa-maximize size-mp-cards  mr-2"></i> <p id="verSuperficie" class="ms-1"></p>
+                                                                    </h6>
+                                                                </div>
+
+                                                                <div class=" d-inline-flex w-100" style="margin-top:38px;">
+                                                                    <h6 class="fw-bold ms-2 text-orange w-100" id="verPrecio" style="font-size:11px;"></h6>
+                                                                </div>
+
+                                                                <div class="">
+                                                                    <h6 class="fw-bold ms-2 text-orange " id="verPrecio"></h6>
+
+                                                                </div>
+
+                                                                <div class=" size-mp-name-main-house fw-bold ms-2 ">
+
+
+                                                                    <h6 class="size-mp-name-house fw-bold longitudDePrueba" id="verNombre">
+                                                                    </h6>
+
+                                                                </div>
+
+                                                                <div class="size-mp-name-main-house ">
+
+                                                                    <h6 class="mt-1 size-mp-name-house ms-2 mb-1  longitudDePruebaUbicacion" id="verUbicacion"></h6>
+                                                                </div>
+
+                                                                @*   <div class="size-mp-name-house">
+                                                                <h6 class="size-mp-name-house ms-2" id="verEstado"></h6>
+
+                                                                </div> *@
+
+                                                                <!--iconos-->
+                                                                <!--fin iconos-->
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <!--botones de las tarjetas-->
+                                                        <div class="d-flex position-relative ms-2 row row-cols-2 ">
+                                                            <!--id de la tarjeta-->
+                                                            <div class="col-5 mt-2 d-flex  justify-content-center  size-mp-icons" style=" margin: 0 57px 0px -34px;">
+
+                                                                <h6 class=" size-mp-text mx-auto">
+                                                                    <i class="fa-solid fa-hashtag" style="color:darkorange;"></i> @Model.PropiedadGUID
+                                                                </h6>
+
+                                                            </div>
+
+                                                            <div class="col-7  d-inline-flex   row row-cols-2">
+
+                                                                <!--id de la propiedad-->
+                                                                <div class="col-8 d-inline-flex">
+
+                                                                    <div type="button" class="btn btn_white-mp mt-1 " id="btnNoHover" style="color:#ff7f40;pointer-events:none;">
+                                                                        Ver más
+                                                                    </div>
+                                                                </div>
+
+                                                                <!--boton de mas informacion enla tarjeta-->
+                                                                <div class="col-2 d-inline-flex mt-1" style="color:#ff7f40;">
+                                                                    <i class="fa-solid fa-circle-info"></i>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Aqui empieza la vista border del cuadro grande -->
+                                    <div class=" vista-border-r  mt-3 ">
+
+                                        <div class="container-fluid">
+                                            <div class="shadow vista-border-r mt-5 backgr-contain border">
+                                                <div class="row bg-white">
+                                                    <div class="col-lg-7 position-relative">
+                                                        <div class="d-inline-flex  etiquetadoOperacionXL justify-content-between px-3">
+                                                            <p class="px-1 text-white m-auto txtOperacion">
+                                                            </p>
+                                                        </div>
+                                                        <div id="etiquetadoXX" class="shadow d-flex etiquetadoXXClase ">
+                                                            <h6 class=" mx-auto my-auto" id="verTipoProp2"></h6>
+                                                        </div>
+
+                                                        <div id="carouselExampleFade" class="carousel slide-fade" data-ride="carousel">
+                                                            <div class="carousel-inner margin-t-imagen-s ms-3 mb-2" id="listaImagenes">
+
+
+
+                                                                @if (Model.ImagenesPropiedadEditar != null || Model.ImagenesPropiedadEditar.Count > 0)
+                                                                {
+
+                                                                    @foreach (var imgCarousell in Model.ImagenesPropiedadEditar)
+                                                                    {
+
+                                                                        if (imgCarousell.numImg > 2)
+                                                                        {
+
+                                                                            string activeCar = (imgCarousell.numImg == 3 ? "active" : "");
+                                                                            string IdCar = "Car" + imgCarousell.numImg;
+
+                                                                            <div id="@IdCar" class="carousel-item @activeCar image-contain  ">
+                                                                                <img src=@imgCarousell.txt64
+                                                                                     class="d-block vista-border-r size-v-image" alt="Foto-v-2">
+                                                                            </div>
+
+
+                                                                        }
+
+                                                                    };
+
+
+                                                                }
+                                                            </div>
+                                                            <a class="carousel-control-prev" href="#carouselExampleFade" role="button"
+                                                               data-slide="prev">
+                                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                <span class="sr-only">Previous</span>
+                                                            </a>
+                                                            <a class="carousel-control-next" href="#carouselExampleFade" role="button"
+                                                               data-slide="next">
+                                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                <span class="sr-only">Next</span>
+                                                            </a>
+                                                        </div>
+                                                        <div id="DespuesCarrusel" class="d-inline-flex ms-3 mt-1">
+
+
+                                                            @if (Model.ImagenesPropiedadEditar.Count > 0)
+                                                            {
+
+                                                                <img id="Car1" src=@Model.ImagenesPropiedadEditar[0].txt64 alt=""
+                                                                     class=" vista-border-r mt-1 size-v-second-image me-3 mb-3">
+                                                                <img id="Car2" src=@Model.ImagenesPropiedadEditar[1].txt64 alt=""
+                                                                     class=" vista-border-r size-v-second-image mt-1 mb-3">
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class=" d-flex justify-content-end mt-3">
+
+                                                            <div class="d-flex price-indicator shadow">
+                                                                <h4 class="mx-auto my-auto fw-bold" id="verPrecio2" style="font-size:22px;"></h4>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class=" d-flex color_orange">
+                                                            <div class="mt-3">
+
+                                                                <h4 class="longitudDePruebaXX" id="verNombre2"></h4>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="d-inline-flex justify-content-between size-np-name-main-house ">
+
+                                                            <div class="side-2-header d-inline-flex">
+                                                                <i class="fa-solid fa-toilet color_orange ms-1  mt-1"></i>
+                                                                <h6 for="" class="ms-1 me-1" id="verBanos2" style="font-size:1.1em;"> @*1 Baño *@</h6>
+                                                            </div>
+                                                            <div class="d-inline-flex">
+                                                                <i class="fa-solid fa-car-side ms-2 me-1 color_orange mt-1"></i>
+                                                                <h6 for="" class="ms-1 me-1 " id="verEstacionamiento2" style="font-size:1.1em;"> </h6>
+                                                            </div>
+                                                            <div class="d-inline-flex">
+                                                                <i class="fa-solid fa-bed ms-2 color_orange mt-1 "></i>
+                                                                <h6 for="" class="ms-1 me-1 " id="verRecamaras2" style="font-size:1.1em;"> </h6>
+                                                            </div>
+                                                        </div>
+
+                                                        <hr>
+
+                                                        <div class="">
+
+                                                            <a class="color_letter2 text-black ms-3" style="font-size:15px;">Descripción </a>
+
+                                                            <p id="verDescripcion" class=" mt-2 descriptionVPrv"></p>
+                                                        </div>
+
+                                                        <!--ACCORDION VISTA PREVIA start here -->
+                                                        <div class="row">
+                                                            <!--item 2 -->
+                                                            <div id="accordion" class="accordion">
+                                                                <div class="card m-b-0 bg-transparent">
+                                                                    <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseSeven">
+                                                                        <a class="color_letter2 text-black">Dirección</a>
+                                                                    </div>
+
+                                                                    <div class="card-block collapse mx-auto mt-2" id="collapseSeven" style="max-height:fit-content;  width: 23rem;">
+                                                                        <div class="row ">
+
+                                                                            <div class="d-flex">
+                                                                                <i class="fa-solid fa-location-dot mr-2" style="color:#f4971c"></i>
+                                                                                <h6 class="font-size-collapse ms-2" id="verCalle"></h6>
+                                                                            </div>
+
+
+
+                                                                        </div>
+                                                                        
+
+                                                                        <div class="input-group mt-3" id="map2" style="height:350px"></div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!--item 3-->
+                                                            <div id="accordion" class="accordion">
+                                                                <div class="card m-b-0 bg-transparent">
+                                                                    <div class="card-header collapsed collapsible2 " data-toggle="collapse" data-patent="#accordion" href="#collapseEight">
+                                                                        <a class="color_letter2 text-black">Características </a>
+                                                                    </div>
+                                                                    <div class="card-block collapse" id="collapseEight" style="max-height:fit-content">
+                                                                        <div class="accordion-body row row-cols-2 mt-4 ">
+
+                                                                            <p id="caracteristicasCollapsable" style="display:none;">No existen características seleccionadas.</p>
+
+                                                                            <div class="font-size-collapse" id="generalesDiv">
+                                                                                <h6 class="punto-vinetas">Generales</h6>
+                                                                                <ul id="caracteristicasSeleccionadasGenerales"></ul>
+                                                                            </div>
+                                                                            <div class="font-size-collapse" id="serviciosDiv">
+                                                                                <h6 class="punto-vinetas">Servicios</h6>
+                                                                                <ul id="caracteristicasSeleccionadasServicios"> </ul>
+                                                                            </div>
+                                                                            <div class="font-size-collapse" id="exterioresDiv">
+                                                                                <h6 class="punto-vinetas">Exteriores</h6>
+                                                                                <ul id="caracteristicasSeleccionadasExteriores">
+                                                                                </ul>
+                                                                            </div>
+                                                                            <div class="font-size-collapse" id="ambientesDiv">
+                                                                                <h6 class="punto-vinetas">Ambientes</h6>
+                                                                                <ul id="caracteristicasSeleccionadasAmbientes"></ul>
+                                                                            </div>
+                                                                            <div class="font-size-collapse" id="adicionalesDiv">
+
+                                                                                <h6 class="punto-vinetas">Adicionales</h6>
+                                                                                <ul id="caracteristicasSeleccionadasAdicionales">
+                                                                                    @*  <li id="verBodegas"></li>
+                                                                                    <li id="verClosets"></li>
+                                                                                    <li id="verElevadores"></li> *@
+                                                                                </ul>
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--item 4 -->
+                                                            <div id="accordion" class="accordion">
+                                                                <div class="card m-b-0 bg-transparent">
+
+                                                                    <div class="card-header collapsed collapsible2" data-toggle="collapse" data-patent="#accordion" href="#collapseNine">
+                                                                        <a class="color_letter2 text-black">Superficie</a>
+                                                                    </div>
+                                                                    <div class="card-block collapse" id="collapseNine" style="max-height:fit-content">
+                                                                        <div class="accordion-body d-flex justify-content-center mt-4">
+                                                                            <div class="d-block mx-auto">
+                                                                                <h6 class="label-orange text-center">Antigüedad</h6>
+                                                                                <h6 class="text-center d-flex justify-content-center">
+                                                                                    <i class="fa-solid fa-clock color_orange me-1"></i><p id="outputAntiguedad"></p>@*50m2*@
+                                                                                </h6>
+
+                                                                            </div>
+                                                                            <div class="d-block mx-auto">
+                                                                                @* <h6 class=" size-mp-cards mt-1 ms-1"> Terreno</h6>*@
+                                                                                <h6 class=" size-mp-cards mt-0 ms-1 m-0" id="verTipoProp"> </h6>
+
+                                                                                <h6 class="label-orange text-center">
+                                                                                    Terreno
+                                                                                </h6>
+                                                                                <h6 class="text-center d-flex  justify-content-center">
+                                                                                    <i class="fa-solid fa-maximize color_orange me-1"></i>
+                                                                                    <p id="verSuperficie2"></p>
+                                                                                </h6>
+
+                                                                            </div>
+                                                                            <div class="d-block mx-auto">
+                                                                                <h6 class="label-orange text-center">Construcción</h6>
+                                                                                <h6 class="text-center d-flex justify-content-center">
+                                                                                    <i class="fa-solid fa-maximize color_orange me-1"></i><p id="verConstruccion"></p>
+                                                                                </h6>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class=" d-flex justify-content-evenly mt-2 mb-2">
+
+                                                            <h6 class=" size-mp-text mt-2" style="font-size:13px;">
+                                                                <i class="fa-solid fa-hashtag" style="color:darkorange;"></i>  @Model.PropiedadGUID
+                                                            </h6>
+                                                            <div class="btn-sugerencias-agendar ">
+                                                                Más información
+                                                                <i class=" ms-3 fa-solid fa-circle-info"></i>
+                                                            </div>
+                                                            <!--<a class="style-whatsapp text-orange ms-3  mt-1 ">
+                                                                <i class="fa-solid fa-circle-info"></i>
+                                                            </a>-->
+                                                        </div>
+                                                        <div class="d-flex justify-content-center my-4">
+                                                            <img src="~/img/imagenes__e-commerce/Boton_rummet-removebg-preview 1 (1).png" class="btnHipoteca mx-auto" style=" width: 307px;" />
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                                <input type='submit' id="btn-finalizar" class='btn btn-finish btn-fill btn-warning border-r btn-wd' name='finalizar'
+                                       value='Guardar cambios'
+                                       style="position: absolute; right: 2%;" />
+
+                            </div>
+
+
+                            <!--Aqui Empieza el footer-->
+
+                            <div class="wizard-footer">
+                                <div class="pull-right d-flex justify-content-between">
+                                    <input type='button' class='btn btn-previous btn-fill btn-dark-blue border-r btn-wd text-white' name='Regresar'
+                                           value='Regresar' />
+                                    <input type='button' class='btn btn-next btn-fill btn-warning border-r btn-wd' name='siguiente'
+                                           value='Siguiente' />
+
+                                </div>
+                                <div class="pull-right d-flex justify-content-end">
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div> <!-- wizard container -->
+            </div>
+        </div><!-- fin del row -->
+    </div>
+</div>
+
+
+
+@*
+<partial name="_modalAprobarRechazar" />
+
+ *@
+@if (SignInManager.IsSignedIn(User) && (!User.IsInRole("Broker") && !User.IsInRole("Finanzas") && !User.IsInRole("Aliado") && !User.IsInRole("Legal") && !User.IsInRole("Propietario") && !User.IsInRole("Propietario") && !User.IsInRole("APJWR") && !User.IsInRole("Fotografia")))
+{
+
+    <!-- Modal para aprobar o rechazar documentos-->
+    <div id="openModal" class="modalDialog">
+        <div>
+            <a href="#close" title="Close" class="close" onclick="resetModal()">X</a>
+            <div>
+                <div class="modal-header" id="modal-header">
+                    <h1 class="modal-title mt-2 fs-5">¿Qué deseas hacer con este documento?</h1>
+                </div>
+                <div class="modal-body mx-auto">
+                    <div class="d-flex d-inline-flex " style="margin: 0 0 0 68px;">
+                        <button class="btn btn-success mr-1" id="aprbarBtn" onclick="aprovar()" style="text-transform:capitalize;">Aprobar</button>
+                        <button class="btn btn-danger ms-1" id="rechazrBtn" onclick="rechazar()" style="text-transform:capitalize;">Rechazar</button>
+                    </div>
+                    <!--submodal rechazar -->
+                    <div class=" text-danger " id="motivoRechazo" style="display:none;">
+                        <h4 class="text-danger modal-title fs-5" style="font-size:1rem;">Motivo de rechazo </h4>
+                        <div class="form-floating">
+                            <!--<label for="floatingTextarea" style="display:none;">¿Por que rechazas el documento?</label>-->
+                            <textarea class="txtareaModalrechazo" placeholder="¿Por qué rechazas el documento?" id="mensajeRechazado" style="height:100px;"></textarea>
+
+                        </div>
+
+                        <div id="alertaRazonRechazo" class="mt-1">
+                        </div>
+
+                        <a class="btn btn-danger " onclick="guardarCambiosRechazar(event)" style=" margin: 0 0 0 127px;text-transform:capitalize;">Rechazar</a>
+                    </div>
+                    <!--submodal aprobar -->
+                    <div class=" text-success" id="motivoAprovado" style="display:none;margin: -4px 0 0 0;">
+                        <h6 class="modal-title fs-5">¿Estás seguro que deseas aprobar este documento?</h6>
+                        <button class="btn btn-success " href="#close" id="GuardarCambios" style="margin: 12px 0 0 128px;text-transform:capitalize;" onclick="guardarCambiosAprobar()">
+                            Aprobar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+
+
+
+<script>
+
+    @{
+
+        bool TienePermisos = false;
+        @if (SignInManager.IsSignedIn(User) && (!User.IsInRole("Broker") && !User.IsInRole("Finanzas") && !User.IsInRole("Aliado") && !User.IsInRole("Legal") && !User.IsInRole("Propietario") && !User.IsInRole("Propietario") && !User.IsInRole("APJWR") && !User.IsInRole("Fotografia")))
+        {
+            TienePermisos = true;
+        }
+        else
+        {
+            TienePermisos = false;
+        }
+    }
+
+        window.UsuarioTienepermiso = JSON.parse('@Html.Raw(Json.Serialize(TienePermisos))');
+
+</script>
+
+
+
+@* <script>
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("activee");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+
+    var coll = document.getElementsByClassName("collapsible2");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("activee");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+</script> *@
+
+
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALRWuVx6gxkmUDTEJNiigxwGBgcYBX00Y&libraries=places&callback=initMap">
+</script>
+
+
+<script src="~/js/googleMaps.js"></script>
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script src="~/js/script.js"></script>
+<script src="~/assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="~/js/invoice.js"></script>
+
+<!--   Core JS Files   -->
+<script src="~/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="~/assets/js/jquery.bootstrap.js" type="text/javascript"></script>
+
+
+<!--  Plugin for the Wizard -->
+<script src="~/assets/js/material-bootstrap-wizard.js"></script>
+
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+<script src="~/assets/js/jquery.validate.min.js"></script>
+
+
+<script src="~/js/ajaxPropiedades.js"></script>
+
+<script src="~/js/archivo.js"></script>
+
+<script src="~/js/EditarPropiedad.js"></script>
+
+<script src="~/js/modalFunciones.js"></script>
+
+
+
+
+<script>
+
+
+    $(document).ready(function () {
+        console.log("Hola");
+        $("#TipoPropiedadID").change(function () {
+            $.get("/Propiedades/ObtSubtipoProp", { TipoP: $("#TipoPropiedadID").val() }, function (data) {
+                // VACIAMOS EL DropDownList
+                $("#SubTipoPropiedadID").empty();
+                $("#SubTipoPropiedadID").append("<option value> -- Subtipo --</option>")
+                // CONSTRUIMOS EL DropDownList A PARTIR DEL RESULTADO Json (data)
+                $.each(data, function (index, row) {
+                    console.log(data);
+                    $("#SubTipoPropiedadID").append("<option value='" + row.iDsubtipoP + "'>" + row.subtipo + "</option>")
+                });
+            });
+        });
+
+
+        var TipoPropiedad = @Model.PropiedadEditar.TipoPropiedad ;
+
+
+        $("#TipoPropiedadID").val(@Model.PropiedadEditar.TipoPropiedad);
+        $("#IDMoneda").val(@Model.PropiedadEditar.Moneda);
+
+
+
+        $("#UnidadSuperficie").val(@Model.PropiedadEditar.SuperficieUMedida);
+        $("#UnidadConstruccion").val(@Model.PropiedadEditar.SuperficieContruccionUMedida);
+        $("#UsoSuelo").val(@Model.PropiedadEditar.UsoSuelo);
+
+
+        visualizar();
+
+        //document.getElementById("add-new-photo").SetAttribute("Value", "C:\Users\ventu\Downloads\eeveegamer.jpg");
+
+
+    @{
+        string texto = "\" Gola \"";
+    }
+            // document.getElementById("descripcion").value = @Model.PropiedadEditar.Descripcion ;
+
+            $.get("/Propiedades/ObtSubtipoProp", { TipoP: $("#TipoPropiedadID").val() }, function (data) {
+                // VACIAMOS EL DropDownList
+                $("#SubTipoPropiedadID").empty();
+                $("#SubTipoPropiedadID").append("<option value> -- Subtipo --</option>")
+                // CONSTRUIMOS EL DropDownList A PARTIR DEL RESULTADO Json (data)
+                $.each(data, function (index, row) {
+                    console.log(data);
+                    $("#SubTipoPropiedadID").append("<option value='" + row.iDsubtipoP + "'>" + row.subtipo + "</option>");
+                    $("#SubTipoPropiedadID").val(@Model.PropiedadEditar.subTipoPropiedad);
+                });
+            });
+
+    });
+
+
+</script>
+@*
+para ordenar las imagenes  *@
+<!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+@* para comprimir las imagenes  *@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js"
+        integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    initMap(@Model.PropiedadEditar.txtLat, @Model.PropiedadEditar.txtLng);
+</script>
+
+
+
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="~/js/guardarNuevaPropiedad.js"></script>
+<script src="~/js/collapsable.js"></script>
+
+
+<script>
+    $(function () {
+        var successMessage = '@TempData["SuccessMessage"]';
+        console.log(successMessage);
+
+        if (successMessage) {
+            // Mostrar Sweet Alert si hay un mensaje de éxito
+            Swal.fire({
+                title: '¡Registro exitoso!',
+                html: successMessage,
+                icon: 'success',
+                confirmButtonText: "Ok",
+                customClass: {
+                    confirmButton: 'button_confirmacion'
+                }
+            });
+        }
+    });
+</script>
+
+@*
+
+@{
+
+
+    // En el código C# (Razor)
+    var idRenta = Model.PropiedadEditar.periodoRenta == null ? "null" : Model.PropiedadEditar.periodoRenta;
+var idManten = Model.PropiedadEditar.periodoMantenimiento  ? "null";
+
+} *@
+<script>
+    // obtener el valor de operación
+    var operacion = '@Model.PropiedadEditar.Operacion';
+
+    // encontrar los elementos de radio correspondientes y establecer el atributo "checked"
+    if (operacion == 1) {
+        document.getElementById('comprar').checked = true;
+        document.getElementById("rentaOpcions2").style.display = "none";
+    } else if (operacion == 2) {
+        document.getElementById('renta').checked = true;
+        document.getElementById("rentaOpcions2").style.display = "block";
+
+    }
+
+
+
+    // En el código C# (Razor)
+    var idRenta = @Model.PropiedadEditar.periodoRenta
+
+
+        const rInputs = document.querySelectorAll('[name="PeriodoRenta"]');
+    var idManten = @Model.PropiedadEditar.periodoMantenimiento;
+    if (idRenta) {
+
+        [...rInputs].forEach(input => {
+            if (idRenta == input.value) {
+                input.checked = true;
+            }
+        })
+
+
+    }
+
+    if (idManten) {
+
+        const mInputs = document.querySelectorAll('[name="PeriodoMantenimiento"]')
+
+        Array.from(mInputs).forEach(input => {
+            if (idManten == input.value) {
+                input.checked = true;
+            }
+        })
+
+    }
+    
+</script>
+
+<script>
+    function soloNumeros(input) {
+        input.value = input.value.replace(/[^0-9]/g, '');
+    }
+</script>
+
+<script>
+    // Agregar evento mouseleave a los elementos con la clase fileContainer3
+    /* $('.fileContainer3').mouseleave(function () {
+         $(this).css('height', '40px'); // Mantener la misma altura al quitar el mouse
+     });*/
+</script>
+
+<script>
+    // Obtener el elemento
+    var SinToolTip = document.querySelectorAll(".fileContainer3");
+
+    for (elemento of SinToolTip) {
+        // Remover el atributo data-toggle
+        elemento.removeAttribute("data-toggle");
+
+        // Remover el atributo data-placement
+        elemento.removeAttribute("data-placement");
+    }
+</script>
+
+<script src="~/js/comision.js"></script>
+
+
+<script src="~/js/bloquearBoton.js"></script>
+
+
+<script src="~/js/sweetAlert.js"></script>

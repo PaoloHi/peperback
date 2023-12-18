@@ -1,0 +1,470 @@
+﻿@model PropiedadesModelPropiedad;
+
+@{
+    Layout = "_NavUsuarios";
+    ViewData["Title"] = "Rummet / Detalles de la propiedad del propietario";
+}
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Proyecto_administracion</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/logo_oficial.png">
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/styleDetallePropiedad.css">
+    <link rel="stylesheet" href="~/css/estilosGenerales.css" />
+
+
+    <link rel="stylesheet" href="~/css/DetallePropiedadPropietario.css" />
+
+
+    <link rel="stylesheet" href="~/css/contenedorImagenes.css">
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <title>Detalle Propiedad</title>
+</head>
+
+<ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+
+<h4 class="ms-4 tituloVista">Detalles de la propiedad: <b>@Model.Titulo</b></h4>
+
+<div class="container-lg contenedorGeneralBlanco py-2 ">
+
+    @*
+    Aquí van los detalles de la cabecera
+    *@
+
+    <partial name="_DetallesHeadPropietarios" />
+
+
+    <div class="container-lg ">
+        <div class="row">
+
+            <div class="col-lg-5 col ">
+
+                <div class="botones-modal  d-flex justify-content-between shadow p-3 rounded position-relative ">
+
+                    @*
+                    <div class="icon-warning d-block">
+
+                    <i class="fa-solid fa-triangle-exclamation icon-style-warning size-icon-warning"></i>
+
+
+                    </div>
+
+                    *@
+
+                    <!-- BOTON MODAL 1 DOCUMENTOS -->
+                    <button type="button" class="btn btn-modals" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Documentos
+                    </button>
+
+
+                    <!--BOTON MODAL 2 FOTOS -->
+                    <button type="button" class="btn btn-modals" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                        Fotos
+                    </button>
+
+
+                    <!--BOTON MODAL 3 CONTRATOS-->
+                    <button type="button" class="btn btn-modals" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                        Contratos
+                    </button>
+
+
+                </div>
+
+
+                <div class="seccion-fecha-publicacion shadow mt-2 pt-2 mb-2 rounded">
+                    <div class="fecha-publi p-1 mt-1">
+                        <h5 class=" mx-auto text-center label-orange-3">Fecha de publicación</h5>
+                        <p class="text-center">@Model.fechaPublicacion</p>
+                    </div>
+
+
+
+                </div>
+
+                <!--Aquí empieza la seccion del propietario-->
+                <div class="col col-md-4 col-lg-4 col-xl-12">
+                    <div class="enterate shadow">
+                        <div class="title-enterate">InfoRumm</div>
+                        <div class="img-enterate">
+                            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+
+                                    <div class="carousel-item active">
+                                        <img src="~/img/imagenes-mesa-de-control/CAPACITACION-RUMMET.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                                    </div>
+                                    <div class="carousel-item">
+
+                                        <img src="~/img/imagenes-mesa-de-control/CRM-RUMMET.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="~/img/imagenes-mesa-de-control/POST-BROKERS.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="~/img/imagenes-mesa-de-control/POST-ESPACIOS.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="~/img/imagenes-mesa-de-control/POST-FOTOGRAFOS.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="~/img/imagenes-mesa-de-control/POST-PROPIEDAD.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="~/img/imagenes-mesa-de-control/POST-REDES.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="~/img/imagenes-mesa-de-control/TIPS-RUMMET.jpg" alt="" class="img-fluid d-block fotoInforumm" />
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            @*
+            Aquí va la informaciónDetalles
+            *@
+            <partial name="_InformacionDetalles" />
+
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de documentos -->
+<div class="modal fade" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: rgba(128, 128, 128, 0.5)">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label for="documentos" class="fw-bold color_letter ms-lg-2">
+                    Documentos
+                </label>
+                <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <br>
+                    <div class="row flex-column">
+                        <div class="col">
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive table-height">
+
+                                <partial name="_DocPropiedadesPropietario" />
+                             
+
+                            </div>
+                            <div class="input-group d-flex justify-content-start">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-group d-flex justify-content-center">
+                                <div id="visorArchivo" class="size-file d-flex h-auto">
+                                    <h5 class="text-center">Visualizador de archivos</h5>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de fotos-->
+<div class="modal fade" id="exampleModal2" tabindex="1" aria-labelledby="exampleModalLabel2" aria-hidden="true" style="background-color: rgba(128, 128, 128, 0.5)">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label for="documentos" class="fw-bold color_letter ms-lg-2">
+                   Fotografías
+                </label>
+                <h1 class="modal-title fs-5" id="exampleModalLabel2"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid d-flex  justify-content-center">
+                    <div class="container-img m-auto">
+
+
+                        @foreach (var img642 in Model.ImagenesPropiedad)
+                        {
+                            <div class="box-img">
+                                <a href="#">
+                                    <figure>
+                                        <img src="@img642.txt64" alt="img-galeria">
+
+                                    </figure>
+                                </a>
+                            </div>
+
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de contratos -->
+<div class="modal fade" id="exampleModal3" tabindex="1" aria-labelledby="exampleModalLabel3" aria-hidden="true" style="background-color: rgba(128, 128, 128, 0.5)">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label for="documentos" class="fw-bold color_letter ms-lg-2">
+                    Contratos
+                </label>
+                <h1 class="modal-title fs-5" id="exampleModalLabel3"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar table-responsive table-height">
+                            <table class="table table-hover border-gray h-100">
+                                <thead>
+                                <tbody>
+                                    <tr class="tabla-hover">
+                                        <th scope="row">1</th>
+                                        <td colspan="2"><h6 class="font-size-visualizador">Contrato intermediación</h6> </td>
+
+                                        <td>
+                                            <div class="fileContainer3 input-group btn btnm">
+                                                <input type="button" name="v_archivo5" id="" onclick="visorExt5()" class=" position-absolute top-0 start-0 claseBtnTruco">
+                                                <i class="fa-solid fa-eye size-icon"></i>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr class="tabla-hover">
+                                        <th scope="row">2</th>
+                                        <td colspan="2"><h6 class="font-size-visualizador">Contrato promesa</h6></td>
+
+                                        <td>
+                                            <div class="fileContainer3 input-group btn btnm">
+                                                <input type="button" name="v_archivo6" id="" onclick="visorExt6()" class="  position-absolute top-0 start-0 claseBtnTruco">
+                                                <i class="fa-solid fa-eye  size-icon"></i>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr class="tabla-hover">
+                                        <th scope="row">3</th>
+                                        <td colspan="2"><h6 class="font-size-visualizador">Contrato venta</h6></td>
+
+
+                                        <td>
+                                            <div class="fileContainer3 input-group btn btnm">
+                                                <input type="button" name="v_archivo7" id="" onclick="visorExt7()" class=" position-absolute top-0 start-0 claseBtnTruco">
+                                                <i class="fa-solid fa-eye  size-icon"></i>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="input-group d-flex justify-content-start">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group d-flex justify-content-center">
+                            <div id="visorArchivo2" class="size-file d-flex h-auto">
+                                <h5 class="text-center">Visualizador de archivos</h5>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-modals">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    modal()
+    function modal() {
+        const btnModal = document.getElementById('btn-modal'); // boton de calendario
+        btnCloseModal = document.getElementById('close-modal'); // boton de cerrar calendario
+
+        const contModal = document.getElementById('cont-modal'); // Contenido del calendario
+
+
+        // LLamado de FullCalendar
+        var initialLocaleCode = 'es';
+        var localeSelectorEl = document.getElementById('locale-selector');
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+            },
+            initialDate: '2020-09-12',
+            locale: initialLocaleCode,
+            theme: true,
+            editable: true,
+            buttonIcons: false, // show the prev/next text
+            // weekNumbers: true,
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            dayMaxEvents: true, // allow "more" link when too many events
+            events: [
+                {
+                    title: 'All Day Event',
+                    start: '2020-09-01'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2020-09-07',
+                    end: '2020-09-10'
+                },
+                {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2020-09-09T16:00:00'
+                },
+                {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2020-09-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2020-09-11',
+                    end: '2020-09-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2020-09-12T10:30:00',
+                    end: '2020-09-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2020-09-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2020-09-12T14:30:00'
+                },
+                {
+                    title: 'Happy Hour',
+                    start: '2020-09-12T17:30:00'
+                },
+                {
+                    title: 'Dinner',
+                    start: '2020-09-12T20:00:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2020-09-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'http://google.com/',
+                    start: '2020-09-28'
+                }
+            ]
+        });
+
+        btnModal.onclick = function () { // Funcion al precionar el boton de calendario
+            contModal.classList.add('active')
+
+            calendar.render();
+
+            // build the locale selector's options
+            calendar.getAvailableLocaleCodes().forEach(function (localeCode) {
+                var optionEl = document.createElement('option');
+                optionEl.value = localeCode;
+                optionEl.selected = localeCode == initialLocaleCode;
+                optionEl.innerText = localeCode;
+                localeSelectorEl.appendChild(optionEl);
+            });
+
+            // when the selected option changes, dynamically change the calendar option
+            localeSelectorEl.addEventListener('change', function () {
+                if (this.value) {
+                    calendar.setOption('locale', this.value);
+                }
+            });
+
+        }
+
+        btnCloseModal.onclick = function () { // boton de cerrar calendario
+            contModal.classList.remove('active')
+        }
+
+
+    }
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="~/js/script.js"></script>
+<script src="~/js/script-visualizadores.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="~/js/archivo.js"></script>

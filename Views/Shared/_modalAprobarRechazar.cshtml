@@ -1,0 +1,62 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User) && (!User.IsInRole("Broker") && !User.IsInRole("Finanzas") && !User.IsInRole("Aliado") && !User.IsInRole("Legal") && !User.IsInRole("Propietario") && !User.IsInRole("Propietario") && !User.IsInRole("APJWR") && !User.IsInRole("Fotografia")))
+{
+
+    <div id="openModal" class="modalDialog">
+        <div>
+            <a href="#close" title="Close" class="close" onclick="resetModal()">X</a>
+            <div class="">
+                <div class="modal-header" id="modal-header" style="border-bottom:none;">
+                    <h1 class="modal-title fs-5">¿Qué deseas hacer con este documento?</h1>
+
+                </div>
+                <div class="modal-body mx-auto p-0">
+
+                    <div class="d-flex d-inline-flex" style=" margin: 0px 0 22px 75px;">
+                        <button class="btn btn-success mr-1" id="aprbarBtn" onclick="aprovar()">Aprobar</button>
+
+                        <button class="btn btn-danger ms-1" id="rechazrBtn" onclick="rechazar()">Rechazar</button>
+                    </div>
+                    
+
+                    <div class=" " id="motivoRechazo" style="display:none;">
+                     
+                        <h4 class="text-danger my-2 fs-5 modal-title">Motivo de rechazo </h4>
+                        <div class="form-floating">
+                            <textarea class="form-control txtareaModalrechazo" placeholder="¿Por qué rechazas el documento?" id="mensajeRechazado" style="height: 103px;"></textarea>
+                            <!--<label for="floatingTextarea" style="font-size:12px;">¿Por qué rechazas el documento?</label>-->
+                        </div>
+
+
+                        <div id="alertaRazonRechazo" class="mt-1">
+                        </div>
+
+                        <a class="btn btn-danger " id="Rechazar" onclick="guardarCambiosRechazar()" style="margin: 8px 0 -22px 113px;">Rechazar</a>
+
+
+                    </div>
+
+                    <div class="mt-2 text-success" id="motivoAprovado" style="display:none;">
+                        <h6 class="modal-title fs-5">¿Estás seguro que deseas aprobar este documento?</h6>
+
+                        <button class="btn btn-success " id="guardarCambios" href="#close" onclick="guardarCambiosAprobar()" style=" margin:17px 0 -22px 125px;">
+                            Aprobar
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+}
+
+

@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/logo_oficial.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/styles_edit_config_planes.css">
+
+    <link rel="stylesheet" href="~/css/style_usuarios.css">
+
+
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+    <title>Usuarios</title>
+</head>
+
+<body id="body">
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+
+        <header class="d-flex">
+            <div class="icon__menu me-4 ms-3">
+                <i class="fas fa-bars" id="btn_open"></i>
+            </div>
+
+            <div class=" d-inline-flex col-lg-10">
+                <a class=" ms-3" style="color:#023D82;" asp-controller="Administracion" asp-action="PropiedadesTab">
+                    <h6 class="my-2 size-letter-menu">Propiedades</h6>
+                </a>
+                <a class=" ms-3" style="color:#023D82;" asp-controller="Administracion" asp-action="Brokers">
+                    <h6 class="my-2 size-letter-menu">Brokers</h6>
+                </a>
+                <a href="" class="ms-4" style="color:#023D82;">
+                    <h6 class="my-2 size-letter-menu">Informes</h6>
+                </a>
+            </div>
+            <div class="col-lg-1 ">
+
+                <a href="" class=" home-user">
+                    <img src="./img/persona1.jpg" alt=""
+                         class="back-image-header img-fluid m-1 my-2">
+                </a>
+            </div>
+
+        </header>
+
+        <div class="menu__side" id="side_menu">
+            <a class="" asp-controller="Administracion" asp-action="TabMesaControl">
+                <div class="name__page">
+                    <i class="fa-solid fa-house " title="home"></i>
+                    <h6>Home</h6>
+                </div>
+            </a>
+            <div class="options__menu">
+
+                <a class="" asp-controller="Administracion" asp-action="TabMesaControl">
+                    <div class="option">
+                        <i class="fa-solid fa-user" title="user"></i>
+                        <h6>Usuarios</h6>
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="option">
+                        <i class="fa-solid fa-gear" title="Configuración"></i>
+                        <h6>Configuración</h6>
+                    </div>
+                </a>
+
+                <a class=" option" asp-controller="Administracion" asp-action="EditConfigPlanes">
+                    <div class="option">
+                        <i class="fa-solid fa-cart-shopping" title="Planes"></i>
+                        <h6>Planes</h6>
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="option">
+                        <i class="fa-solid fa-box-archive" title="Catalogo"></i>
+                        <h6>Catalagos</h6>
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="option">
+                        <i class="fa-solid fa-gear" title="Configuración"></i>
+                        <h6>Permisos</h6>
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="option">
+                        <i class="fa-solid fa-file-lines" title="Documentos"></i>
+                        <h6>Documentos</h6>
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="option">
+                        <i class="fa-solid fa-headset" title="Nosotros"></i>
+                        <h6>Soporte</h6>
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="option">
+                        <i class="fa-solid fa-door-open" title="Salir"></i>
+                        <h6>Salir</h6>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,359 @@
+﻿@using adminRummet.Models.Contact;
+@model DetallesLeadInteresadoModel;
+
+@{
+    Layout = "_NavUsuarios";
+    ViewData["Title"] = "Rummet / Detalles de lead interesado";
+}
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/imagen-logo/logo_oficial.png">
+    <link rel="stylesheet" href="~/css/main.css">
+
+    <link rel="stylesheet" href="~/css/estilosGenerales.css">
+
+    <link rel="stylesheet" href="~/css/detallesDeLeads.css">
+
+    <script src="https://kit.fontawesome.com/e43b4d35fb.js" crossorigin="anonymous"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+
+<!--animacion-->
+<ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+
+
+<div class="container-fluid  mx-auto">
+    <!--contenedor general-->
+
+    <div class="row row-col-3 contenedorGeneralBlanco  mx-3 mt-3">
+        <!--row de las estapas -->
+        <div class="col-1"></div>
+        <div class="col-10 ">
+
+            <section class="stage-line-container ">
+                <ul class="stage-line mb-0">
+                    <li class="phase">
+                        <span class="phase-label">Prospectos</span>
+                        <span class="phase-number">1</span>
+                    </li>
+                    <li class="phase  ">
+                        <span class="phase-label">Oportunidad</span>
+                        <span class="phase-number">2</span>
+                    </li>
+                    <li class="phase ">
+                        <span class="phase-label">Entrega</span>
+                        <span class="phase-number">3</span>
+                    </li>
+                    <li class="phase  ">
+                        <span class="phase-label">Cierre</span>
+                        <span class="phase-number">4</span>
+                    </li>
+                    <li class="phase ">
+                        <span class="phase-label">Lealtad</span>
+                        <span class="phase-number">5</span>
+                    </li>
+                </ul>
+            </section>
+
+        </div>
+        <div class="col-1">
+            @* <div class="btnStatusHead mt-3 mx-auto">
+            <p class="py-1 mx-3 w-auto">Estatus: <span>Pendiente</span></p>
+            </div> *@
+        </div>
+    </div>
+
+
+    <div class="row row-cols-2  justify-content-between mx-3 my-3">
+
+        <!--columna izquierda de las etapas -->
+        <div class="col ">
+
+            <div class="contenedorGeneralBlanco row col row-cols-2 py-2  px-0 ">
+                <!--select de las etapas-->
+                <div class="col px-0">
+                    @{
+                        var etapa = Model.EstadoActual.FaseID;
+                        var activeStage = "";
+
+                        activeStage = etapa switch
+                        {
+                            1 => "phase-prospecto",
+                            2 => "phase-oportunidad",
+                            3 => "phase-entrega",
+                            4 => "phase-cierre",
+                            5 => "phase-lealtad",
+                            _ => throw new ArgumentOutOfRangeException(nameof(etapa))
+                        };
+                    }
+
+
+                    <!--aqui esta el valor que corresponde a la fase del select -->
+                    <div class="d-none" id="depositoDeSelect" data-active-stage="@activeStage"></div>
+
+
+                    <select class="customSelectStage customSelectStagePhase  d-flex mx-auto @activeStage">
+                        <option selected disabled>@Model.EstadoActual.EtapaNombre</option>
+                    </select>
+                </div>
+                <div class="col px-0">
+                    <select id="avalible-status-container" class="customSelectStage d-flex mx-auto">
+                        @foreach (var estatusDisponible in Model.EstatusDisponibles)
+                        {
+                            if (Model.EstadoActual.EstatusID == estatusDisponible.EstatusID)
+                            {
+                                <option value="@estatusDisponible.EstatusID" selected>@estatusDisponible.EstatusNombre</option>
+                            }
+                            else
+                            {
+                                <option value="@estatusDisponible.EstatusID">@estatusDisponible.EstatusNombre</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="contenedorGeneralBlanco row col flex-column my-2 py-2 px-0 ">
+                <div class="row my-2">
+                    <div class="col my-auto">
+
+                        <p class="col d-inline-flex my-auto text-black-50">Fecha de contacto </p>
+                    </div>
+
+                </div>
+                <div class="row row-cols-2 my-2">
+                    <div class="col w-auto">
+
+                        <input class=" customSelectDate  StylesTxtLabel text-white bg-status-blue-btns-gnrl px-4" type="datetime-local" id="fecha-contacto" asp-for="FechaContacto" />
+                    </div>
+                        <button type="button" class="ms-1 btn_Guardar" onclick="SaveFechaContacto()">Guardar</button>
+
+                </div>
+            </div>
+
+            <div class="contenedorGeneralBlanco row col flex-column my-2 py-2 px-0 ">
+                <div class="row my-2">
+                    <div class="col my-auto">
+
+                        <p class="col d-inline-flex my-auto text-black-50">¿Quieres reservar una cita?</p>
+                    </div>
+                </div>
+
+                <div class="row row-cols-2 my-2">
+                    <div class="col w-auto">
+
+                        <input class=" customSelectDate  StylesTxtLabel text-white bg-status-blue-btns-gnrl px-4" type="datetime-local" id="dateVisit" />
+                    </div>
+                    <button type="button" id="buttonVisit" onclick="leadVisit()" class="ms-1 btn_Guardar">Guardar</button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="row px-0 my-2 py-4 contenedorGeneralBlanco">
+                <!--datos del cliente-->
+
+                <h5 class="ms-3  tituloDeSeccion ">Datos del cliente</h5>
+
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label ">Nombre: </label>
+                    <input id="lead-nombre" type="text" value="@Model.ProspectoData?.Interesado.Nombre" class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label ">Apellido paterno: </label>
+                    <input id="lead-apellido-paterno" type="text" value="@Model.ProspectoData?.Interesado.ApellidoPaterno" class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Apellido materno: </label>
+                    <input id="lead-apellido-materno" type="text" value="@Model.ProspectoData?.Interesado.ApellidoMaterno" class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Correo: </label>
+                    <input id="lead-email" type="text" value="@Model.ProspectoData?.Interesado.Email" class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Teléfono: </label>
+                    <input id="lead-telefono" type="text" value="@Model.ProspectoData?.Interesado.Telefono" class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Medio de origen: </label>
+                    <input disabled type="text" value="@Model.MedioOrigen" class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Medio de contacto: </label>
+                    <input id="lead-medio-contacto" type="text" value="@Model.MedioContacto" class="mx-2 w-100 inputDisabledData">
+                </div>
+
+                <button type="button" onclick="UpdateLeadInteresadoData()" class="d-flex ms-auto mx-4 my-2 btn_Guardar">Guardar</button>
+
+            </div>
+            <div class="row px-0 my-2 py-4 contenedorGeneralBlanco">
+                <!--datos del cliente-->
+
+                <h5 class="ms-3  tituloDeSeccion">Datos de la propiedad</h5>
+
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label"> ID: </label>
+                    <input type="text" value="@Model.PropiedadID" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label ">Dirección : </label>
+                    <input type="text" value="@Model.Direccion" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Precio : </label>
+                    <input type="text" value="@Model.Precio" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Tipo de operación: </label>
+                    <input type="text" value="@Model.TipoOperacion" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Broker asignado: </label>
+                    <input type="text" value="@Model.BrokerNombre" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+
+
+            </div>
+            <div class="row px-0 my-2 py-4 contenedorGeneralBlanco">
+                <!--datos del cliente-->
+
+                <h5 class="ms-3  tituloDeSeccion">Datos del broker</h5>
+
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label"> Nombre</label>
+                    <input type="text" value="@Model.BrokerData?.UsuarioRealEcomm?.Nombre" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label ">Apellido Materno : </label>
+                    <input type="text" value="@Model.BrokerData?.UsuarioRealEcomm?.ApellidoPaterno" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Apellido Paterno : </label>
+                    <input type="text" value="@Model.BrokerData?.UsuarioRealEcomm?.ApellidoMaterno" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Telefono: </label>
+                    <input type="text" value="@Model.BrokerData?.UsuarioRealEcomm?.Telefono" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+                <div class="d-inline-flex my-2 w-100">
+                    <label class="ms-3 disabled-input-label">Correo: </label>
+                    <input type="text" value="@Model.BrokerData?.UsuarioRealEcomm?.Email" disabled class="mx-2 w-100 inputDisabledData">
+                </div>
+            </div>
+            <div class="row px-0 my-2 py-4 contenedorGeneralBlanco">
+                <div class="col my-auto d-inline-flex">
+                    @if (Model.MotivoRechazo is null)
+                    {
+                        <button type="button" class="checkbox-button btn my-auto" data-toggle="modal" data-target="#miModal"> </button>
+                    }
+                    else
+                    {
+                        <button type="button" class="checkbox-button btn my-auto checked" data-toggle="modal" data-target="#miModal"> </button>
+                    }
+                    <p class="col d-inline-flex my-auto text-black-50 ms-2">Lead no interesado </p>
+                </div>
+
+            </div>
+        </div>
+        <!--columna derecha de las la fecha -->
+        <div class="col ">
+
+            <div class="contenedorGeneralBlanco h-100  mr-0 ms-auto row" style="max-height: fit-content">
+                <div class="headerComments row px-0 mx-auto">
+                    <p class="my-3 ms-4">Comentarios </p>
+                </div>
+                <div class=" contenedorComentarios align-content-start mx-auto row h-100">
+                    <div id="dropAreaComment" class="dropAreaComment">
+
+                        <div id="ComentariosProspectos" >
+               
+                        </div>
+                        <div id="ComentariosOportunidad" >
+             
+                        </div>   
+            
+
+                        <div id="ComentariosEntrega">
+                        </div>
+
+                        <div id="ComentariosCierre">
+                        </div>
+
+                        <div id="ComentariosLealtad">
+                        </div>
+                    
+                    </div>
+                </div>
+
+           
+                <div id="message_Seccion" class="message_Seccion row  mt-auto mx-auto px-0">
+                    <div class="row row-cols-2  d-inline-flex">
+
+                        <div class="col-10 d-inline-flex">
+                            <textarea id="commentInput" class="w-100 message_textarea py-2" placeholder="escribe tus comentarios" maxlength="500"></textarea>
+                        </div>
+                        <div class="col-2 d-inline-flex">
+                            <button class="btnSendMesssage" onclick="SaveComment()"><i class="fa-solid fa-paper-plane"></i></button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal del rechazo del lead -->
+<div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Lead no interesado </h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="text-danger">Motivo de rechazo </h6>
+                <div class="form-floating">
+                    <textarea class="form-control" id="mensajeRechazo" style="height: 100px;" placeholder="Describe el motivo del rechazo" asp-for="MotivoRechazo" required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="rechazar-button" type="button" class="btn btn-secondary bg-status-blue-btns-gnrl" data-dismiss="modal" onclick="toggleCheckbox(this)">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/leadInteresado.js"></script>
+
+
+

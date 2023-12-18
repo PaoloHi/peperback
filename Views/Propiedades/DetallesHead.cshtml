@@ -1,0 +1,193 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+
+    <input id="IDPropiedad" class="d-none" value="@Model.IDPropiedadG" />
+    <div class="container-lg mt-3">
+        <div class="row">
+            <div class="col">
+                <div class="shadow  rounded mb-3">
+                    <div class="d-inline-flex mt-2 justify-content-between w-100">
+                        <div class="d-inline-flex col">
+                            <h6 class="ms-3">Estatus</h6>
+
+                            @{
+                                var statuscolor = "";
+                                var statusCorrect = "";
+                                var estatusPropiedad = "";
+
+
+                                if (@Model.StatusPropiedad == "En revisión")
+                                {
+                                    statuscolor = "redbgr";
+                                    statusCorrect = "No publicada";
+                                    estatusPropiedad = "Nopublicada";
+                                }
+                                else if ((@Model.StatusPublicacion == "En proceso de venta" || @Model.StatusPublicacion == "En proceso de renta") && Model.StatusPropiedad == "Aprobada")
+                                {
+                                    statuscolor = "yellowbgr";
+                                    statusCorrect = "En proceso";
+                                }
+                                if ((@Model.StatusPublicacion == "Cerrada") && Model.StatusPropiedad == "Aprobada")
+                                {
+                                    statuscolor = "bluesitobgr";
+                                    statusCorrect = "Cerrada";
+                                }
+                                else if (@Model.StatusPropiedad == "Aprobada" && @Model.StatusPublicacion == null)
+                                {
+                                    statuscolor = "greenbgr";
+                                    statusCorrect = "Publicada";
+                                    estatusPropiedad = "Publicada";
+                                }
+                            }
+
+                            <h6 class="ms-2 status text-light @statuscolor w-auto text-center px-2  ">
+                                @statusCorrect
+                            </h6>
+                        </div>
+
+
+                        <!--botones de rechazar o aprobar propiedad-->
+                        @if (@Model.StatusPropiedad == "En revisión")
+                        {
+
+
+                            @if (Model.statusAprobacion == 0)
+                            {
+
+                                @if (SignInManager.IsSignedIn(User) && (!User.IsInRole("Broker") && !User.IsInRole("Finanzas") && !User.IsInRole("Aliado") && !User.IsInRole("Legal") && !User.IsInRole("Propietario") && !User.IsInRole("Propietario") && !User.IsInRole("APJWR") && !User.IsInRole("Fotografia")))
+                                {
+
+                                    <div class="d-flex col justify-content-end px-2">
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Aprobar-modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Aprobar propiedad">Aprobar</button>
+                                        <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#Rechazar-modal" data-bs-toggle="tooltip" data-bs-placement="top" title="Rechazar propiedad">Rechazar</button>
+                                    </div>
+
+                                }
+
+                            }
+                            else if (Model.statusAprobacion == 1)
+                            {
+                                <a href="#modalRechazo" id="etiquetaRechazado" class="mx-3 btn btn-danger ">
+                                    <i class="fas fa-question-circle"></i>
+                                    Rechazada
+                                </a>
+                                <input id="PropiedadIdRechazo" value="@Model.IDPropiedadG" class="d-none" />
+
+                            }
+                            else if (Model.statusAprobacion == 2)
+                            {
+                                <button type="button" class="btn btn-success">Aprobada</button>
+                            }
+
+
+
+
+                        }
+
+
+                    </div>
+
+
+
+
+                    <div class="d-flex mt-2">
+                        <h6 class="ms-3 ">Tipo de operación</h6>
+                        <h6 class="ms-2 text-center px-1 color-tipo-oper-venta">
+                            @Model.Operacion
+                        </h6>
+
+
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <!-- Button trigger modal -->
+                        <!--  <button type="button" class="btn backgr-cale" id="btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModalcale">
+                              <h6 class=" size-text-cale"><i class="fa-solid fa-calendar-days"></i></h6>
+                          </button>-->
+                        <!-- Modal -->
+                        <div class="container-modal" id="cont-modal">
+
+                            <div class="header-modal">
+                                <label id="close-modal" for="evento-click">X</label>
+                            </div>
+
+                            <div class="body-modal">
+                                <h1 class="title-modal">Calendario</h1>
+                                <div id="calendar"></div>
+
+                            </div>
+
+                        </div>
+
+                        <form method="post" action="@Url.Action("PDFPropiedades", "PDFGenerador")" role="form">
+                            <input type="hidden" name="PROPIEDADID" value="@Model.IDPropiedadG" />
+                            <button type="submit" class="me-2 mb-2 " name="accion" value="Generar" style="border:none;margin-right:10px;">  <i class="fa-solid fa-file-pdf  backgr-edit text-center align-item-center" title="Descargar en PDF"></i></button>
+                        </form>
+
+                        @{
+                            if (@Model.StatusPropiedad == "En revisión")
+                            {
+                                <a class="me-2 mb-2 " asp-controller="Propiedades" asp-action="EditarPropiedad" asp-route-PROPIEDADID="@Model.IDPropiedadG" title="Editar propiedad">
+                                    <i class="fa-solid fa-pen-to-square backgr-edit text-center align-item-center"></i>
+                                </a>
+                                <a class="me-2 mb-2 seleccionarCursor" onclick="validateDataDelate('@Model.IDPropiedadG')" title="Eliminar propiedad">
+                                    <i class="fa-solid fa-trash-can backgr-edit text-center align-item-center"></i>
+                                </a>
+
+                            }
+
+                            if ((@Model.StatusPublicacion == "En proceso de venta" || @Model.StatusPublicacion == "En proceso de renta") && Model.StatusPropiedad == "Aprobada")
+                            {
+
+                            }
+                            if ((@Model.StatusPublicacion == "Cerrada") && Model.StatusPropiedad == "Aprobada")
+                            {
+
+                            }
+                            else if (@Model.StatusPropiedad == "Aprobada" && @Model.StatusPublicacion == null)
+                            {
+                                <a class="me-2 mb-2 " asp-controller="Propiedades" asp-action="EditarPropiedad" asp-route-PROPIEDADID="@Model.IDPropiedadG" title="Editar propiedad">
+                                    <i class="fa-solid fa-pen-to-square backgr-edit text-center align-item-center"></i>
+                                </a>
+                                <a class="me-2 mb-2 " onclick="validateDataDelate('@Model.IDPropiedadG')" title="Eliminar propiedad">
+                                    <i class="fa-solid fa-trash-can backgr-edit text-center align-item-center"></i>
+                                </a>
+                            }
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <input class="d-none" id="propiedad" value="@Model.IDPropiedadG" />
+
+}
+
+
+
+
+<!--obteniendo el id de la propiedad (por favor no eliminar )-->
+<script>
+    var idPropiedad = @Model.IDPropiedadG;
+
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var figures = document.querySelectorAll('.box-img figure');
+
+        figures.forEach(function (figure) {
+            var imgSrc = figure.querySelector('img').getAttribute('src');
+            figure.style.backgroundImage = 'url(' + imgSrc + ')';
+
+        });
+    });
+</script>

@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+@{
+    var NPT = Model.propiedadTarjeta;
+
+    <tr id="IDPropiedadTabla_@NPT.IDPropiedad" class=" table NP tabla-hover ">
+        <td scope="row">@NPT.IDPropiedadG</td>
+        <td class="fw-lighter text-center limitado longitudDePrueba"> @NPT.Titulo </td>
+        <td class="fw-light text-center limitado">@NPT.Direccion</td>
+        @if (SignInManager.IsSignedIn(User) && ((User.IsInRole("Ejecutivo comercial")) || (User.IsInRole("Mesa de control")) || (User.IsInRole("Contact Center")) || (User.IsInRole("Admin comercial")) || (User.IsInRole("Admin root"))))
+        {
+            <td class="fw-light text-center">@NPT.NBroker</td>
+        }
+        @{
+            var Colorstatus = "";
+            if (NPT.Status == "En revisión")
+            {
+                Colorstatus = "backgr-estatus-rechazado";
+            }
+            else
+            {
+                Colorstatus = "backgr-estatus-aprobado";
+            }
+
+
+        }
+        <td class="fw-light text-center"><h6 class="@Colorstatus">@NPT.Status</h6></td>
+        <td>
+            <div class="d-flex justify-content-between">
+                <a class="style-vermas2" asp-controller="Propiedades" asp-action="DetallesPropiedadNP" asp-route-PROPIEDADID=@NPT.IDPropiedadG
+               data-bs-toggle="tooltip" data-bs-placement="top" title="Ver detalles">
+                    <i class="fa-solid fa-eye"></i>
+                </a>
+                <a class="style-vermas2" asp-controller="Propiedades" asp-action="EditarPropiedad" asp-route-PROPIEDADID=@NPT.IDPropiedadG
+               data-toggle="tooltip" data-placement="top" title="Editar">
+                    <i class="fa-solid fa-pen-to-square "></i>
+                </a>
+                <a class="style-vermas2" onclick="validateDataDelate('@NPT.IDPropiedadG')" data-toggle="modal" data-placement="top" title="Eliminar">
+                    <i class="fa-solid fa-trash-can "></i>
+                </a>
+            </div>
+        </td>
+    </tr>
+}
