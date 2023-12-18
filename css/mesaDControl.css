@@ -1,0 +1,109 @@
+﻿:root {
+    --bg-pending: #bc98ff;
+    --bg-en-proceso: #F7D060;
+    --bg-oportunidad: #80b918;
+    --bg-entrega: #2B7C85;
+    --bg-cierre: #3a86ff;
+    --bg-color-auxiliar: #83c5be;
+}
+
+
+.bg-color-auxiliar {
+    background-color: var(--bg-color-auxiliar);
+    color: white;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+
+.bg-sattus-pending {
+    color: white;
+    background-color: var(--bg-pending);
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+.bg-sattus-en-proceso {
+    color: white;
+    background-color: var(--bg-en-proceso);
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+/*etapa de procesos*/
+.etapaProcesoPill {
+    height: auto;
+    width: 9rem;
+    border-radius: 20px;
+    color: white;
+    padding: 8px 0;
+    font-size: 13px;
+}
+
+
+.bg-etapa-opurtunidad {
+    background-color: var(--bg-oportunidad);
+}
+
+.bg-etapa-entrega {
+    background-color: var(--bg-entrega);
+}
+
+.bg-etapa-cierre {
+    background-color: var(--bg-cierre);
+}
+
+
+.table-responsive {
+    overflow-x: unset !important;
+}
+
+/*ESTOS ESTILOS SON PARA LA PAGINACIÓN*/
+/*Para la tabla de suscripciones*/
+.page-location-suscripcion {
+    background-color: var(--bg-pending) !important;
+    color: white !important;
+    /*font-weight: bold;*/
+}
+
+    .page-location-suscripcion:hover {
+        font-weight: bold;
+        color: white !important;
+    }
+
+#paginacionsuscripcion_ a {
+    color: var(--azul-oscuro);
+}
+
+/*Para la tabla de documentos*/
+.page-location-documentos {
+    background-color: var(--bg-en-proceso) !important;
+    color: white !important;
+}
+
+    .page-location-documentos:hover {
+        font-weight: bold;
+        color: white !important;
+    }
+
+#paginaciondocumentos_ a {
+    color: var(--azul-oscuro);
+}
+
+/*Para la tabla de servicios*/
+.page-location-service {
+    background-color: var(--bg-pending) !important;
+    color: white !important;
+}
+
+.page-location-service:hover {
+    font-weight: bold;
+    color: white !important;
+}
+
+#paginacioncontratos_ a {
+    color: var(--azul-oscuro);
+}

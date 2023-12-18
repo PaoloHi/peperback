@@ -1,0 +1,100 @@
+﻿/*HASTA AQUI CONSOLA USUARIOS  HOJA DE ESTILOS */
+
+:root {
+    /**colores para los roles de las targetas*/
+    --rol-propietarioc: #f27059;
+}
+
+/*Clases para los roles de usuarios*/
+
+.rol-propietario {
+    background-color: var(--rol-propietarioc);
+    color: #fff;
+}
+
+.contenedorInfoUsuarios {
+    width: 100%;
+    padding: 2vw 0vw;
+    border-top: none;
+    /* background: #fff5; */
+    border-radius: 0.8rem;
+    backdrop-filter: blur(7px);
+    overflow: hidden;
+    /* margin: 0 2%; */
+    margin-top: 1rem;
+}
+
+.size-letter-card-usuarios {
+    font-size: 1vw;
+}
+
+.longitudCardUser {
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/*para sacar los estilos del inline*/
+.propietariosTable thead {
+    background-color: lightgray;
+}
+.datos.style-vermas2 {
+    font-size: 17px;
+}
+.style-vermas2{
+    cursor: pointer;
+}
+.alineacion {
+    margin: 0px 2rem;
+    width: -webkit-fill-available;
+}
+.widthAuto {
+    width: -webkit-fill-available;
+}
+.fs-123 {
+    font-size: 12.3px;
+}
+.ml-48 {
+    margin: 0 0 0 48px;
+}
+
+.paraBoton {
+    width: 81%;
+    margin: 0px 151px;
+}
+.w-352 {
+    width: 352px;
+}
+.fs-08rem {
+    font-size: 0.8rem;
+}
+.tarjeta-color {
+    height: 17px;
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(242,112,80,1) 100%);
+}
+/*HASTA AQUI styleGeneral  HOJA DE ESTILOS */
+
+/*ESTOS ESTILOS SON PARA LA PAGINACIÓN*/
+.page-location a {
+    background-color: var(--principal) !important;
+    color: white !important;
+}
+
+    .page-location a:hover {
+        font-weight: bold;
+        color: white !important;
+    }
+
+.pagination a {
+    cursor: pointer;
+    color: var(--azul-oscuro);
+}
+
+.adorno {
+    border-left: 10px solid var(--rol-propietarioc);
+}
+.nombre{
+    color: #212529 !important;
+}

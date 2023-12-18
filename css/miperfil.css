@@ -1,0 +1,845 @@
+﻿:root {
+    --naranja: #eb611c;
+    --principal: #f4971c;
+    --amarillo: #fdc425;
+    --azul-oscuro: #102234;
+    --azul: #054e8a;
+    --gris: #626161;
+    --grisClaro: RGBA(98,97,97,0.5);
+}
+
+
+.contenedorGeneralBlanco {
+    background: rgba(255,255,255) !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border-radius: 8px !important;
+    padding: 30px !important;
+}
+
+    .contenedorGeneralBlanco h6 {
+        color: #797979 !important;
+        padding: 0px;
+    }
+
+/*estilos para la animacion de los cuadritos de administracion*/
+.circles {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+    .circles li {
+        position: fixed;
+        list-style: none;
+        width: 20px;
+        height: 20px;
+        background: #faa307;
+        animation: animate 25s linear infinite;
+        bottom: -150px;
+    }
+
+        .circles li:nth-child(1) {
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+
+        .circles li:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            background: #01284585;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+
+        .circles li:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            background: #01284585;
+            animation-delay: 4s;
+        }
+
+        .circles li:nth-child(4) {
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
+
+        .circles li:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+        }
+
+        .circles li:nth-child(6) {
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            background: #01284585;
+            animation-delay: 3s;
+        }
+
+        .circles li:nth-child(7) {
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+        }
+
+        .circles li:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+        }
+
+        .circles li:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+        }
+
+        .circles li:nth-child(10) {
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 30s;
+        }
+
+@keyframes animate {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 0%;
+    }
+}
+
+.fileContainer {
+    width: 155px;
+    height: 128px;
+    border-color: #f0f2f7;
+    border-bottom: none !important;
+}
+
+.profile_picture {
+    height: 150px;
+    width: 150px;
+    border: 2px solid black;
+}
+
+.rounded-circle {
+    border-radius: 50% !important;
+}
+
+.size_text_profile {
+    font-size: 80%;
+}
+
+.btn-orange {
+    background-color: var(--principal);
+}
+
+.inputFoto {
+    left: 136px;
+    position: absolute;
+    bottom: 32px;
+    top: 152px;
+}
+
+.editIcon img{
+    cursor: pointer;
+}
+
+.input-fieldData:focus {
+    border: 3px solid var(--principal);
+}
+
+/* Estilos para el campo de entrada en estado activo (al hacer clic) */
+.input-fieldData:active {
+    border: 3px solid var(--principal);
+}
+
+.inputsModified {
+    left: 15px !important;
+}
+
+/*BARRA DE EDICION */
+.bottomBar {
+    position: fixed;
+    left: 35%;
+    width: 34%;
+    padding: 10px 0;
+    background-color: #fff;
+    box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, .05);
+    text-align: center;
+    transition: all 300ms ease;
+    z-index: 2;
+}
+
+.oculta {
+    bottom: -151px;
+    transform: translateY(8px);
+}
+
+.mostrando {
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    transform: translateY(8px);
+    bottom: 0;
+}
+
+.btn-rechazar {
+    background-color: var(--azul-oscuro);
+    color: white;
+}
+
+
+.btn-aceptar {
+    background-color: var(--amarillo);
+    color: white;
+}
+
+.btn-rechazar,
+.btn-aceptar {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transform: translateY(8px);
+    border: none;
+    padding: 8px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    font-size: 12px;
+}
+
+    .btn-rechazar:hover,
+    .btn-aceptar :hover {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+
+
+
+/* Estilos para el contenedor del campo de entrada */
+.input-containerData {
+    position: relative;
+}
+
+.input-fieldData {
+    padding: 10px;
+    font-size: 14px;
+    height: 37px;
+    width: -webkit-fill-available;
+    border-style: none;
+    border-bottom: 1px solid var(--grisClaro);
+}
+
+
+.input-labelData {
+    position: absolute;
+    top: 9px;
+    left: 10px;
+    color: var(--gris);
+    font-size: 14px;
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+}
+
+    .input-labelData:not(:focus):valid,
+    .input-labelData:not(:focus):placeholder-shown {
+        color: #999 !important;
+    }
+
+
+
+/* Cuando el campo de entrada está vacío, cambia el color de fuente */
+.activeData {
+    color: var(--naranja);
+    top: -9px;
+    left: 2px;
+    z-index: 5;
+    background-color: rgba(255, 255, 255);
+    padding: 0 7px;
+}
+
+.activeDataGris {
+    color: #626161;
+    top: -9px;
+    left: 2px;
+    z-index: 5;
+    background-color: rgba(255, 255, 255);
+    padding: 0 7px;
+}
+
+/*PARA LOS LABELS DE LOS SELECTORES*/
+/*estado normal*/
+.input-labelData-select {
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    color: var(--gris);
+    font-size: 14px;
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+}
+    /*cuando esta activo el select*/
+    .activeSelect {
+        color: var(--principal);
+        top: -9px;
+        left: 10px;
+        z-index: 5;
+        background-color: rgba(255, 255, 255);
+        padding: 0 7px;
+        opacity: 1;
+    }
+.activeLada {
+    color: var(--principal);
+    top: -9px;
+    left: 8px;
+    z-index: 5;
+    background-color: rgba(255, 255, 255);
+    padding: 0 7px;
+    opacity: 1;
+}
+
+.opcionSeleccionada {
+    color: var(--gris);
+    opacity: 1;
+    top: -9px;
+    left: 17px;
+}
+
+
+.imgPerfilContainer > label > img {
+    width: 30px;
+    position: absolute;
+    top: 251px;
+    left: 24%;
+}
+
+.input-fieldData {
+    color: #212529 !important;
+}
+
+    .input-fieldData:focus-visible {
+        border: 2px solid var(--principal);
+    }
+
+
+/*ESTILOS SELECT*/
+.selector-estilos {
+    margin-top: 5px;
+    font-size: 14px;
+    border: none;
+    border-bottom: 1px solid var(--grisClaro);
+    color: var(--gris);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-align: left;
+}
+    .selector-estilos:focus {
+        outline: none;
+        border: 2px solid var(--principal); /* Cambia el estilo del borde al enfocar */
+    }
+
+    .selector-estilos#Banco:focus, .selector-estilos#Colonia:focus {
+        margin-top: 3px;
+    }
+
+    .selector-estilos#Lada:focus, .selector-estilos#Lada2:focus {
+        margin-top: 2px;
+    }
+    .selector-estilos#Lada, .selector-estilos#Lada2{
+        width: 88px;
+    }
+
+    .selector-estilos option {
+        font-size: 14px;
+    }
+
+
+.activeData[for="telefono"] {
+    left: 88px;
+} 
+.activeData[for="telefono2"]{
+    left: 88px;
+}
+label[for="telefono2"], label[for="telefono"] {
+    left: 91px;
+}
+.btn-dark-blue {
+    background-color: #012845 !important;
+}
+
+/* Estilo para el campo de entrada cuando está enfocado */
+.input-fieldData:focus {
+    outline: none;
+    color: var(--gris); /* Remueve el borde predeterminado del navegador */
+}
+
+.input-fieldData[type="date"]::-webkit-inner-spin-button,
+.input-fieldData[type="date"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-fieldData[type="date"]::before {
+    content: attr(placeholder) !important;
+    color: transparent !important; /* Hace el valor preestablecido transparente */
+}
+
+
+.table-height {
+    height: auto !important;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.border-gray {
+    color: rgb(118, 118, 118);
+}
+
+.table {
+    width: 100% !important;
+    align-items: center;
+}
+
+/*PARA LOS ESTILOS DE LOS BOTONES*/
+.fileContainer2 {
+    overflow: hidden;
+    position: relative;
+    width: 4rem;
+}
+
+
+/*------------------------------------------------------------------
+------------------------------------------------------------------
+------------------------------------------------------------------*/
+.tabla-hover {
+    background-color: white;
+}
+
+.fileContainer2 .input-group:hover {
+    box-shadow: 0 14px 26px -12px rgba(153, 153, 153, 0.62), 0 4px 23px 0px rgba(0, 0, 0, 0.22), 0 8px 10px -5px rgba(153, 153, 153, 0.7);
+}
+
+
+.table tr td {
+    font-size: 13px;
+    text-align: center;
+    padding: 17px;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+}
+
+/*Button*/
+.btn {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.fileContainer {
+    width: 155px;
+    height: 128px;
+    border-color: #f0f2f7;
+    border-bottom: none !important;
+}
+
+.fileContainer2 [type=file] {
+    cursor: pointer;
+}
+
+.fileContainer2 {
+    overflow: hidden;
+    position: relative;
+}
+
+    .fileContainer2 [type=file] {
+        cursor: inherit;
+        display: block;
+        filter: alpha(opacity=0);
+        height: 100px;
+        width: 200px;
+        cursor: pointer;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        text-align: right;
+        border-bottom: none !important;
+    }
+
+.fileContainer2 {
+    width: 4rem;
+}
+
+    .fileContainer2 [type=file] {
+        cursor: pointer;
+        width: 30px;
+    }
+
+/*Estilos de boton basura*/
+.fileContainer3 [type=button] {
+    cursor: inherit;
+    display: block;
+    filter: alpha(opacity=0);
+    height: 100px;
+    width: 500px;
+    cursor: pointer;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    border-bottom: none !important;
+}
+
+.fileContainer3 {
+    border-radius: 5px;
+    width: 60px;
+    height: auto;
+    border-color: #f0f2f7;
+    border-bottom: none !important;
+}
+
+    .fileContainer3 [type=button] {
+        cursor: pointer;
+        width: 30px;
+    }
+
+
+.size_text_profile {
+    font-size: 80%;
+}
+
+.size-file {
+    width: 300px;
+    height: 400px;
+}
+
+.size-icon {
+    font-size: 20px;
+}
+
+.lista-estados {
+    list-style: none;
+}
+
+.margin-l {
+    margin-left: 30px !important;
+}
+/*Estos estilos son para botones u otras secciones del formulario de pasos*/
+
+.btn:focus, .btn:active, .btn:hover, .btn.btn-default:focus, .btn.btn-default:active, .btn.btn-default:hover {
+    box-shadow: 0 14px 26px -12px rgba(153, 153, 153, 0.82), 0 4px 23px 0px rgba(0, 0, 0, 0.22), 0 8px 10px -5px rgba(153, 153, 153, 0.4);
+    background-color: #f4971c !important;
+    color: #FFFFFF !important;
+}
+
+.btn {
+    box-shadow: 0px 3px 4px -1px rgba(0,0,0,0.15);
+    -webkit-box-shadow: 0px 3px 4px -1px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 3px 4px -1px rgba(0,0,0,0.15);
+}
+/*Estilos para quitar los botones a un input number*/
+
+.NobtnNumber::-webkit-inner-spin-button,
+.NobtnNumber::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.NobtnNumber {
+    -moz-appearance: textfield;
+}
+
+/*Estilos para la tabla*/
+.table-height {
+    height: auto !important;
+}
+
+.border-gray {
+    color: rgb(118, 118, 118);
+}
+
+.font-size-visualizador {
+    font-size: 10px;
+}
+
+.foundImage {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 0;
+}
+
+
+.input-location {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+    backdrop-filter: blur(7.9px);
+}
+
+/*Estas caracteristicas no deberian de estar aqui pero aca las voy a dejar por necesidades de la trama*/
+
+.btn-outline-light {
+    color: #ff7f40 !important;
+    border-color: #ff7f40 !important;
+    border-radius: 10px;
+    border: 1px solid orange;
+}
+
+.botonProceso {
+    background-color: transparent;
+    color: black;
+}
+
+.tabla-hover:hover {
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    background-color: rgb(255 255 255 / 0%);
+}
+
+.color_letter {
+    color: gray;
+}
+
+.statusDoc {
+    text-align: -webkit-center !important;
+}
+
+.align-items-md-baseline {
+    align-items: baseline;
+}
+
+#modalResetPassword, #modalconfirmPassword {
+    border-radius: 0px;
+    border: none;
+    border-bottom: 2px #D2D2D2 solid;
+    transition: border-color 0.3s ease-in-out;
+    margin: 5px;
+    margin-bottom: 15px;
+}
+
+    #modalResetPassword:focus, #modalconfirmPassword:focus {
+        border-color: initial; /* Restaura el valor inicial del borde */
+        box-shadow: none; /* Quítale la sombra */
+        border-color: #ff7f40;
+    }
+
+#btnEnviarContraseña {
+    font-size: 12px;
+    padding: 10px 20px;
+}
+
+.contenedorInputEye {
+    width: 100%;
+}
+
+.uppercaseText {
+    text-transform: uppercase;
+}
+
+.password-toggle1, .password-toggle2 {
+    cursor: pointer;
+}
+
+.modal-modificado-titulo {
+    color: var(--gris);
+}
+
+.password-toggle1, .password-toggle2 {
+    position: absolute;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 12;
+    right: 23%;
+}
+
+.password-toggle1 {
+    top: 24%;
+}
+
+.password-toggle2 {
+    top: 56%;
+}
+
+label[for="modalResetPassword"], lable[for="modalconfirmPassword"] {
+    margin-bottom: 10px;
+}
+
+
+.size-icon {
+    font-size: 17px;
+}
+
+button[data-bs-target="#cambioPasswordperfil"] {
+    font-size: 12px;
+}
+/*-------------------------------- MEDIAS QUERYS RESPONSIVE -------------------------*/
+@media screen and (max-width: 451px) {
+    /*IMAGEN PERFIL USUARIO*/
+    .profile_picture {
+        width: 130px;
+        height: 130px;
+    }
+
+    .imgPerfilContainer > label > img {
+        left: 59%;
+        top: 164px;
+    }
+    /*ESPACIO defs CONTACTO USUARIO*/
+    .datosContacto .contenedorGeneralBlanco {
+        width: 103%;
+    }
+
+    .datosContacto {
+        padding: 0;
+        margin-left: -11px;
+    }
+
+    /*TABLA DOCUMENTOS*/
+    table {
+        overflow-x: auto;
+    }
+
+    .contenedorDocumentos, .contenedorVisualizador {
+        width: 100%;
+    }
+        .contenedorVisualizador{
+            height: 496px;
+        }
+
+        .tabla-documentos {
+            padding: 0;
+        }
+
+    /*CAMBIO CONTRASEÑA*/
+    .changepassword {
+        display: flex;
+    }
+
+        .changepassword h6 {
+            width: 100%;
+            text-align: center;
+        }
+
+        .changepassword button {
+            width: 223px;
+        }
+
+    /*MODAL CAMBIO CONTRASEÑA*/
+    #cambioPasswordperfil .modal-dialog {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+
+/*para las tarjetas de documentos*/
+.nav-link{
+    color: var(--grisClaro);
+}
+    .nav-link:hover, .nav-link:focus{
+        color: var(--principal);
+    }
+
+    .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+        color: var(--principal);
+    }
+
+@media screen and (min-width: 451px) and (max-width: 611px) {
+    .imgPerfilContainer > label > img {
+        left: 58%;
+    }
+
+    .contenedorGeneralBlanco {
+        width: 100%;
+    }
+
+    .datosContacto {
+        padding: 0;
+        margin-left: -13px;
+    }
+
+    table {
+        overflow-x: auto; /* Agrega un scroll horizontal cuando sea necesario */
+    }
+
+    .contenedorDocumentos, .contenedorVisualizador {
+        width: 100%;
+    }
+}
+
+button[data-toggle="modal"]{
+    font-size: 12px;
+}
+
+.condicionesContraseña li{
+    font-size: 14px;
+}
+
+.tareaConfirmada {
+    color: green;
+    list-style: none;
+}
+    .tareaConfirmada::before {
+        content: "\f058";
+        font-family: "FontAwesome";
+        margin-right: 7px;
+        margin-left: -14px;
+    }
+
+
+.condicionesContraseña li {
+    font-size: 12px;
+}
+#mensajeAlertaContra {
+    font-size: 14px;
+    padding: 5px;
+}
+
+@media screen and (min-width: 611px) and (max-width: 769px) {
+    .imgPerfilContainer > label > img {
+        left: 56%;
+    }
+
+    .datosContacto {
+        padding: 0;
+        margin-left: -12px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 992px) {
+    .imgPerfilContainer > label > img {
+        left: 54%;
+    }
+
+    .datosContacto {
+        padding: 0;
+        margin-left: -11px;
+    }
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+    .imgPerfilContainer > label > img {
+        left: 26% !important;
+    }
+
+}

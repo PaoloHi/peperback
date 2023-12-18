@@ -1,0 +1,776 @@
+﻿/*@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap');
+    esta era la antigua fuente que se era utilizada en inicio de seccion 
+*/
+
+:root {
+    --naranja: #eb611c;
+    --principal: #f4971c;
+    --amarillo: #fdc425;
+    --azul-oscuro: #102234;
+    --azul: #054e8a;
+    --gris: #626161
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+@font-face {
+    font-family: Gotham;
+    src: url("../fonts/Gotham-Light.otf");
+    font-weight: bold;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    overflow-y: scroll;
+}
+
+
+body {
+    background-color: #faf9f9;
+    /*margin-bottom: 180px;*/
+}
+
+
+
+footer {
+    background-color: var(--azul-oscuro);
+    padding: 20px;
+    color: white;
+    width: 100%;
+    bottom: 0;
+    font-size: 14px;
+}
+
+/*modal del inicio de seccion****************************************************************************/
+.modal-body {
+    font-family: Gotham;
+    font-size: 15px;
+}
+
+.titleIniSecion {
+    font-weight: 800;
+    text-shadow: 2px 2px 3px black;
+}
+
+.modalesInit {
+    text-decoration: none;
+}
+
+    .modalesInit:hover {
+        text-decoration: underline !important;
+    }
+
+
+
+
+.password-input-container {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 12;
+}
+
+    .password-toggle i {
+        color: #999;
+    }
+
+        .password-toggle i:hover {
+            color: #333;
+        }
+
+
+
+/*estilos para la animacion de los cuadritos de administracion*/
+.circles {
+    position: fixed;
+    /* top: 0; */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -3;
+}
+
+    .circles li {
+        position: fixed;
+        list-style: none;
+        width: 20px;
+        height: 20px;
+        background: #faa307;
+        animation: animate 25s linear infinite;
+        bottom: -150px;
+    }
+
+        .circles li:nth-child(1) {
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+
+        .circles li:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            background: #01284585;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+
+        .circles li:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            background: #01284585;
+            animation-delay: 4s;
+        }
+
+        .circles li:nth-child(4) {
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
+
+        .circles li:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+        }
+
+        .circles li:nth-child(6) {
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            background: #01284585;
+            animation-delay: 3s;
+        }
+
+        .circles li:nth-child(7) {
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+        }
+
+        .circles li:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+        }
+
+        .circles li:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+        }
+
+        .circles li:nth-child(10) {
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 30s;
+        }
+
+@keyframes animate {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 0%;
+    }
+}
+
+
+/*Estilos para el contenedor*/
+.contenedorGeneral {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: solid 1px rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(11.8px);
+    margin-top: 30px;
+    border-radius: 16px;
+    height: 80vh;
+    margin-bottom: 180px;
+}
+
+
+
+/*estilos de los inputs del formulario*/
+.contenedorForm {
+    padding: 5% 30% 5% 9%;
+    height: 100%;
+    color: black;
+    font-weight: 500;
+    font-family: 'Gotham';
+}
+
+.inputFormulario {
+    /* border-radius: 12px; */
+    outline: none;
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid gray;
+    background-color: transparent;
+    /*padding-bottom: 2%;*/
+    padding-left: 2%;
+    font-weight: lighter;
+    color: #495057;
+}
+/*y estos son especificamente para los inputs del formulario de contacto*/
+input.inputFormulario:-webkit-autofill,
+input.inputFormulario:-webkit-autofill:focus,
+input.inputFormulario:-webkit-autofill:hover {
+    -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+    box-shadow: 0 0 0 30px transparent inset !important;
+    -webkit-text-fill-color: initial !important;
+    -webkit-animation-name: auto-fill-cancel !important;
+    animation-name: auto-fill-cancel !important;
+    color: #495057 !important;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+    input:-webkit-autofill::first-line {
+        background-color: transparent !important;
+    }
+
+input:-internal-autofill-selected {
+    appearance: menulist-button;
+    background-image: none !important;
+    background-color: transparent !important;
+    color: transparent !important;
+}
+
+
+
+
+input:-moz-autofill {
+    background-color: transparent !important;
+    color: transparent !important;
+}
+
+input:-ms-autofill {
+    background-color: transparent !important;
+    color: transparent !important;
+}
+
+
+/*placeholders alineados */
+input::placeholder {
+    text-align: left;
+}
+
+
+.columnaDecortiva {
+    border-radius: 10px;
+    background-color: var(--azul-oscuro);
+    height: 100%;
+    position: absolute;
+    right: 0;
+    width: 351px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) -4px 1px 3px -3px;
+}
+
+.titlePrincipal {
+    text-shadow: 1px 2px 3px lightgray;
+    color: var(--principal);
+    font-size: 35px;
+    margin: 33px 0 33px 0px;
+}
+
+
+.btn-send {
+    margin-top: 22px;
+    background-color: var(--principal);
+    outline: none;
+    border: none;
+    width: 100%;
+    height: 48px;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    transition: box-shadow 0.3s ease-in-out;
+    position: static;
+}
+
+    .btn-send:hover {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    }
+
+
+.aLinkModal {
+    color: var(--gris);
+    font-size: 12px;
+    text-decoration: none !important;
+}
+
+    .aLinkModal:hover {
+        text-decoration: underline !important;
+        outline: none;
+    }
+
+
+
+.imgColumnaDecor {
+    max-width: 73%;
+    margin: 79px 0 0px 42px;
+}
+
+.imgSalir {
+    width: 100px;
+}
+
+.btnSalir {
+    display: flex;
+    justify-content: end;
+    /* margin: 0 -175px 0 0;*/
+}
+
+.legalDiv {
+    margin: 52px 0px;
+    width: fit-content;
+}
+
+
+
+/*FOOTER NUEVO UNLIMIT ********************************************************************************************************/
+/* Estilos generales para el footer*/
+.enlaze {
+    text-decoration: none;
+    color: #EbE5E5;
+    display: inline-flex; /* Mostrar el enlace como elemento flexbox */
+    align-items: center; /* Centrar verticalmente los elementos dentro del enlace */
+}
+
+    .enlaze:hover {
+        text-decoration: underline !important;
+        outline: none;
+        color: white;
+    }
+
+.absoluteColumnOrange {
+    background-color: var(--principal);
+    height: 304px;
+    top: 0;
+    left: 62px;
+    width: 300px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 0 27px;
+    margin: -21px -121px 0px 79px;
+}
+
+    .absoluteColumnOrange > ul > li > a {
+        color: white !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+.image-list {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+}
+
+.isotipo {
+    height: 180px;
+}
+
+.footer-columns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-column {
+    flex: 1;
+    /* padding: 32px 0;*/
+}
+
+.segundaColumna {
+    margin: 0 0 0 209px;
+}
+
+.logoCardPayment {
+    height: 57px;
+    width: -webkit-fill-available;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.borde {
+    border-top: 1px solid;
+}
+
+.cardDirection {
+    flex-direction: column;
+}
+
+
+/*MEDIA QUERYS CONFIGURATIONS *****************************************************************/
+/* EXTRA SMALL DEVICES <= 450px */
+@media screen and (max-width: 450px) {
+    .contenedorGeneral {
+        width: 80% !important;
+        height: auto;
+        padding: 2px;
+    }
+
+    .inputFormulario {
+        font-size: 3vw;
+    }
+
+    .columnaDecortivacontent {
+        display: none;
+    }
+
+    .contenedorForm {
+        padding: 2%;
+    }
+
+    .titlePrincipal {
+        font-size: 21px;
+        margin: 25px 0;
+    }
+
+    .btn-send {
+        margin-top: 14%;
+        background-color: var(--principal);
+        outline: none;
+        border: none;
+        width: 100%;
+        height: 35px;
+        color: white;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .legalDiv {
+        margin: 29px 0px 69px 0;
+        width: fit-content;
+    }
+
+    .aLinkModal {
+        font-size: 10px;
+    }
+
+    .btnSalir {
+        /* position: fixed; */
+        bottom: 1px;
+        right: 1px;
+        justify-content: end;
+        display: flex;
+        /* width: 1px; */
+        /* height: 74px; */
+    }
+
+
+    .footer-columns {
+        flex-direction: column;
+    }
+
+    .absoluteColumnOrange {
+        background-color: transparent;
+        width: 100vw;
+        padding: 0 7%;
+        margin: -5vw 0px 0px -20px;
+        box-shadow: none;
+    }
+
+    .segundaColumna {
+        margin: 0;
+    }
+
+        .segundaColumna > ul > li > a {
+            flex-direction: row,
+        }
+
+            .segundaColumna > ul > li > a > p {
+                display: none;
+            }
+
+        .segundaColumna > ul {
+            display: flex;
+            justify-content: space-evenly;
+            margin: auto;
+        }
+
+    .absoluteColumnOrange > ul > li > a > p {
+        font-size: 18px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+    }
+
+    .cardDirection {
+        flex-direction: initial;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .columnaLegal {
+        margin-top: 65px;
+        display: flex;
+        justify-content: center;
+    }
+
+        .columnaLegal > ul > li > a > p {
+            margin-right: auto !important;
+            margin-left: auto !important;
+        }
+
+    .alert-danger {
+        padding: 4px 11px;
+        font-size: 9px;
+    }
+
+        .alert-danger::before {
+            content: "⚠";
+            font-size: 8px;
+            margin-right: 10px;
+        }
+}
+
+/* Estilos para dispositivos pequeños a medianos (450px a 768px) */
+@media screen and (min-width: 451px) and (max-width: 768px) {
+    .contenedorGeneral {
+        width: 80% !important;
+        height: auto;
+        padding: 2px;
+    }
+
+    .columnaDecortivacontent {
+        display: none;
+    }
+
+    .contenedorForm {
+        padding: 5%;
+    }
+
+    .titlePrincipal {
+        font-size: 30px;
+        margin: 25px 0;
+    }
+
+    .legalDiv {
+        margin: 29px 0px 69px 0;
+        width: fit-content;
+    }
+
+    .btnSalir {
+        /* position: fixed; */
+        bottom: 1px;
+        right: 2vw;
+        justify-content: end;
+        display: flex;
+        /* width: 1px; */
+        /* height: 100px;*/
+    }
+
+    .footer-columns {
+        flex-direction: column;
+    }
+
+    .absoluteColumnOrange {
+        background-color: transparent;
+        width: 100vw;
+        padding: 0 7%;
+        margin: -5vw 0px 0px -20px;
+        box-shadow: none;
+    }
+
+    .segundaColumna {
+        margin: 0;
+    }
+
+        .segundaColumna > ul > li > a {
+            flex-direction: row,
+        }
+
+            .segundaColumna > ul > li > a > p {
+                display: none;
+            }
+
+        .segundaColumna > ul {
+            display: flex;
+            justify-content: space-evenly;
+            margin: auto;
+        }
+
+    .absoluteColumnOrange > ul > li > a > p {
+        font-size: 18px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+    }
+
+    .cardDirection {
+        flex-direction: initial;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .columnaLegal {
+        margin-top: 65px;
+        display: flex;
+        justify-content: center;
+    }
+
+        .columnaLegal > ul > li > a > p {
+            margin-right: auto !important;
+            margin-left: auto !important;
+        }
+
+    .alert-danger {
+        padding: 4px 11px;
+        font-size: 9px;
+    }
+
+        .alert-danger::before {
+            content: "⚠";
+            font-size: 8px;
+            margin-right: 10px;
+        }
+}
+
+
+/* Estilos para dispositivos medianos a grandes (769px a 992px) */
+@media screen and (min-width: 769px) and (max-width: 991px) {
+    .contenedorGeneral {
+        width: 80% !important;
+        height: auto;
+        padding: 2px;
+        margin-bottom:32vh;
+    }
+
+    .columnaDecortivacontent {
+        display: none;
+    }
+
+    .contenedorForm {
+        padding: 7%;
+    }
+
+    .contenedorGeneral {
+        height: auto;
+    }
+
+    .absoluteColumnOrange {
+        width: 20%;
+        margin: -22px -19% 0px 0%;
+    }
+
+    /*footer {
+        background-color: var(--azul-oscuro);
+        padding: 20px;
+        color: white;
+        width: 100%;
+        bottom: 0;
+        font-size: 14px;
+        position: fixed;
+    }*/
+}
+/* Estilos para dispositivos grandes (993px a 1200px) */
+@media screen and (min-width: 993px) and (max-width: 1200px) {
+    .contenedorGeneral {
+        width: 80% !important;
+        margin-bottom: 32vh;
+        height:80%;
+    }
+}
+/* Estilos para dispositivos muy grandes (1201px a 1400px) */
+@media screen and (min-width: 1201px) and (max-width: 1400px) {
+    .contenedorGeneral {
+        width: 80% !important;
+        margin-bottom: 21vh;
+        height: 80%;
+    }
+
+
+    .contenedorForm {
+        padding: 8% 20% 9% 7%;
+    }
+}
+/* Estilos para dispositivos extra grandes (> 1400px) */
+@media screen and (min-width: 1401px) {
+    .contenedorGeneral {
+        height: 80%;
+        width: 80% !important;
+        margin-bottom: 32vh;
+    }
+
+    .contenedorForm {
+        padding: 5% 20% 5% 7%;
+    }
+
+    .absoluteColumnOrange > ul > li > a > p {
+        font-size: 18px;
+        position: absolute;
+        left: 17%;
+        transform: translateX(-50%);
+    }
+}
+
+
+
+.alert-danger {
+    color: #842029;
+    background-color: #fff0f3;
+    /* border-color: #f5c2c7; */
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    /* Puedes añadir estilos adicionales para los enlaces dentro de la alerta */
+    .alert-danger a {
+        color: #842029;
+        font-weight: bold;
+    }
+
+    /* Personaliza el ícono o agrega un ícono según tus necesidades */
+    .alert-danger::before {
+        content: "⚠";
+        font-size: 20px;
+        margin-right: 10px;
+    }

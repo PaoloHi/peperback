@@ -1,0 +1,1711 @@
+﻿:root {
+    /*colores de las etapas y los estatus*/
+    /*esta es la paleta de colores para leads*/
+    /*PROSPECTOS*/
+    --prospectos: #FFC000;
+    --prospectos-etapa1: #FFDD00;
+    --prospectos-etapa1-status1: #A5A5A5;
+    --prospectos-etapa2: #FFE699;
+    --prospectos-etapa2-status1: #A5A5A5;
+    --prospectos-etapa3: #D0AD00;
+    --pendiente: #FFC000;
+    --negativo: #D00000;
+    --reagendada: #219EBC;
+    --cerrada-concluida: #44546A;
+    /*OPORTUNIDAD*/
+    --oportunidad: #004B23;
+    --oportunidad-etapa1: #72B01D;
+    --oportunidad-etapa2: #447604;
+    --oportunidad-etapa3: #006400;
+    --oportunidad-etapa4: #0B6E4F;
+    --oportunidad-etapa5: #358600;
+    --enviado: #065A82;
+    --firmado: #00B050;
+    --recibido: #008000;
+    /*ENTREGA*/
+    --entrega: #EB611C;
+    --entrega-etapa1: #E65100;
+    --entrega-etapa2: #FB8500;
+    --entrega-etapa3: #E77728;
+    --entrega-etapa4: #FF8811;
+    --agendada: #22C8C0;
+    /*CIERRE*/
+    --cierre: #102234;
+    --cierre-etapa1: #001D3D;
+    --cierre-etapa2: #1565C0;
+    --cierre-etapa3: #2196F3;
+    --cierre-etapa4: #054E8A;
+    /*LEALTAD*/
+    --lealtad: #3C096C;
+    --lealtad-etapa1: #7B2CBF;
+    /*no interesados*/
+    --no-interesados: #3c3c3c;
+    --no-interesados-etapa1: #515151;
+    --status-no-interesado: #b5b5b5;
+    /*colores de la pagina como tal*/
+    --naranja: #eb611c;
+    --principal: #f4971c;
+    --amarillo: #fdc425;
+    --azul-oscuro: #102234;
+    --azul: #054e8a;
+    --gris: #626161;
+    /* color fondos */
+    --bg-gray-default: #EFEFEF;
+    /* color textos */
+    --text-blue: #132C45;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gotham';
+    text-decoration: none !important;
+}
+
+
+body {
+    margin-left: 50.5px;
+    margin-top: 70px;
+    margin-bottom: 10px;
+    background-color: rgb(237, 236, 236);
+    transition: margin-left 300ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    overflow-x: hidden;
+}
+
+.size-letter-menu {
+    font-size: 85%;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Gotham;
+    src: url("../fonts/GothamBook.ttf");
+}
+
+
+/* Clases para el apartado de btn-option */
+.btn-option {
+    background-color: #ffff;
+    width: 97%;
+    height: auto;
+    border-radius: 5px;
+    margin: 10px 15px 15px 30px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+    .btn-option .message-btn-option {
+        font-size: 18px;
+        width: 100%;
+        height: 25px;
+        display: flex;
+        align-items: flex-start;
+        color: var(--text-blue);
+    }
+
+        .btn-option .message-btn-option p {
+            font-weight: 700;
+        }
+
+    .btn-option .message-default {
+        font-size: 15px;
+        width: 100%;
+        height: 25px;
+    }
+
+    .btn-option .btn-option-cards {
+        width: 92%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+
+
+        .btn-option .btn-option-cards .option-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0px 10px 0px 10px;
+            font-size: 15px;
+            padding: 0px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .btn-option .btn-option-cards .option-card .card-notification {
+                font-weight: 700;
+                font-size: 13px;
+            }
+
+
+
+
+
+
+/*tama�o para el titulo de propietario*/
+.title-propie {
+    font-size: 15px;
+}
+
+
+
+.btn-option .btn-option-cards .bg-card-1 {
+    background-color: #DFE7F6;
+    color: #2C58A0;
+}
+
+.btn-option .btn-option-cards .bg-card-2 {
+    background-color: #ffe2d3;
+    color: #ff8547;
+}
+
+.btn-option .btn-option-cards .bg-card-3 {
+    background-color: #D6F0E0;
+    color: #0D6832;
+}
+
+
+/*Clases para el color de de los botones de vista de la pagina de propietario*/
+/*.btn-option .btn-option-cards .bg-card-n-publi {
+    background-color: #fff;
+    color: #f62a2a;
+    border: 2px solid #f62a2a;
+}
+
+.btn-option .btn-option-cards .bg-card-publi {
+    background-color: #fff;
+    color: #10b028;
+    border: 2px solid #10b028;
+}
+
+.btn-option .btn-option-cards .bg-card-proceso {
+    background-color: #fff;
+    color: #73510D;
+    border: 2px solid #f3f33c;
+}*/
+
+
+/*Clase del apartado de btn-options para el tablero de contact center*/
+/*.btn-option-cc {
+    background-color: #ffff;
+    width: 97%;
+    height: auto;
+    border-radius: 5px;
+    margin: 10px 15px 15px 30px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
+}
+
+    .btn-option-cc .message-btn-option-cc {
+        font-size: 18px;
+        width: 100%;
+        height: 25px;
+        display: flex;
+        align-items: flex-start;
+        color: var(--text-blue);
+    }
+
+        .btn-option-cc .message-btn-option-cc p {
+            font-weight: 700;
+        }
+
+    .btn-option-cc .message-default-cc {
+        font-size: 15px;
+        width: 100%;
+        height: 25px;
+    }
+
+    .btn-option-cc .btn-option-cards-cc {
+        width: 68%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+
+
+        .btn-option-cc .btn-option-cards-cc .option-card-cc {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0px 10px 0px 10px;
+            font-size: 15px;
+            padding: 7px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-option-cc .btn-option-cards-cc .option-card-cc {
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+
+        .btn-option-cc .btn-option-cards-cc .bg-card-1-cc {
+            background-color: #DFE7F6;
+            color: #2C58A0;
+        }
+
+        .btn-option-cc .btn-option-cards-cc .bg-card-2-cc {
+            background-color: #ffe2d3;
+            color: #ff8547;
+        }
+
+        .btn-option-cc .btn-option-cards-cc .bg-card-3-cc {
+            background-color: #D6F0E0;
+            color: #0D6832;
+        }
+
+        .btn-option-cc .btn-option-cards-cc .bg-card-4-cc {
+            background-color: #F9F0FC;
+            color: #cc47f9;*/
+            /* color: #d66cfa; */
+        /*}*/
+
+
+/* Clases para el apartado de informacion de tabla de btn-option */
+.data-table {
+    background-color: #ffff;
+    width: 97%;
+    height: auto;
+    border-radius: 5px;
+    margin: 20px 15px 15px 30px;
+    padding: 15px;
+    display: none;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.active {
+    display: block;
+    visibility: visible;
+}
+
+/*.data-table .message-btn-option {
+    font-size: 18px;
+    width: 100%;
+    height: 25px;
+    display: flex;
+    align-items: flex-start;
+    color: var(--text-blue);
+}
+
+    .data-table .message-btn-option p {
+        font-weight: 700;
+    }*/
+
+.data-table table {
+    width: 100% !important;
+    align-items: center;
+}
+
+    .data-table table th {
+        font-size: 13px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .data-table table tr td {
+        font-size: 13px;
+        text-align: center;
+        padding: 17px;
+        border-bottom: 1px solid #ccc;
+        align-items: center;
+    }
+
+/*.bg-status-blue {
+    background: #DFE7F6;
+    color: #2C58A0;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+    color: white;
+}*/
+
+/*.bg-status-yellow {
+    background: #FBF0DA;
+    color: #73510D !important;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+    color: white;
+}*/
+
+/*.bg-status-yellow-btn {
+    background: #fff9b4;
+    color: #73510D;
+    border-radius: 5px;
+    margin: 0% !important;
+    padding: 5px 10px;
+    color: white;
+}*/
+
+
+/*.bg-status-green {
+    background: #dbfbda;
+    color: #73510D !important;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+    color: white;
+}*/
+
+/*.bg-status-purple {
+    background: #f3c5ff;
+    color: #b14fc9;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+    color: white;
+}*/
+
+/*.bg-status-orange {
+    background: #ffd3b9;
+    color: #ff7220;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}*/
+
+/*.bg-status-pink {
+    background: #ffcdd5;
+    color: #fc7289;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}*/
+
+/*.bg-status-black {
+    background: #EBEDEF;
+    color: #40464F;
+    border-radius: 5px;
+    margin: 0% !important;
+    padding: 5px 10px;
+    color: white;
+}*/
+
+/*.bg-status-red {
+    background: #fba1a1;
+    color: #b14949;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+    color: white;
+}*/
+
+/*.bg-status-black:hover {
+    background: #EBEDEF;
+    color: #40464F;
+    border-radius: 5px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+.bg-status-blue-sus-no {
+    background: #cdecff;
+    color: #40464F;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}*/
+
+.bg-status-blue-btns-gnrl {
+    background: #132c45;
+    color: #fff;
+    font-size: 11px;
+    border-radius: 5px;
+    margin: 0% !important;
+    padding: 5px 10px;
+    width: 100%;
+    display: block;
+}
+
+    .bg-status-blue-btns-gnrl:hover {
+        background: #132c45;
+        color: #fff;
+        font-size: 11px;
+        border-radius: 5px;
+        margin: 0% !important;
+        padding: 5px 10px;
+    }
+
+
+/*.bg-status-blue-2 {
+    background: #cdfff5;
+    color: #40464F;
+    border-radius: 5px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+.bg-status-blue-btns {
+    background: #132c45;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 5px;
+    margin: 0% !important;
+    padding: 3px 7px;
+}
+
+    .bg-status-blue-btns:hover {
+        background: #132c45;
+        color: #fff;
+        font-size: 12px;
+        border-radius: 5px;
+        margin: 0% !important;
+        padding: 3px 7px;
+    }*/
+
+/*.bg-status-blue-btns-env {
+    background: #132c45;
+    color: #fff;
+    border-radius: 5px;
+    margin: 0% !important;
+    padding: 2px 3px;
+    font-size: 11px;
+}
+
+    .bg-status-blue-btns-env:hover {
+        background: #132c45;
+        color: #fff;
+        font-size: 3px;
+        border-radius: 5px;
+        margin: 0% !important;
+        padding: 2px 3px;
+        font-size: 11px;
+    }*/
+
+
+/*.data-table .view-all {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .data-table .view-all .view-text {
+        color: #FF7F40;
+        cursor: pointer;
+    }*/
+
+/* Clases para el apartado de calendario */
+
+.calendar {
+    background-color: #ffff;
+    width: 95%;
+    height: 390px;
+    border-radius: 5px;
+    margin: 10px 0px 0px 0px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+/* Clases para el apartado de actividades */
+/*.activities {
+    background-color: #ffff;
+    width: 95%;
+    height: 37vh;
+    border-radius: 5px;
+    margin: 20px 0px 0px 0px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    overflow-y: scroll;
+}
+
+    .activities .content-activities {
+        width: 100%;
+        color: var(--text-blue);
+    }*/
+
+        /*Esta clase bg-activity-1 color verde es para algo no tan exigente*/
+        /*.activities .content-activities .bg-activity-1 {
+            background-color: #F0FCF1;
+        }*/
+        /*Esta clase bg-activity-2 es color rojo para actividades de prioridad*/
+        /*.activities .content-activities .bg-activity-2 {
+            background-color: #ffc5c5;
+        }*/
+        /*Esta clase bg-activity-3 es color amarillo para pendientes*/
+        /*.activities .content-activities .bg-activity-3 {
+            background-color: #FCF7F0;
+        }*/
+
+        /*Esta clase no importa la prioridad es para actividades del mesa de control*/
+        /*.activities .content-activities .bg-activity-4 {
+            background-color: #cdfff5;
+        }
+
+        .activities .content-activities .bg-activity-5 {
+            background-color: #ffcde9;
+        }
+
+
+        .activities .content-activities .list-activities {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            font-size: 14px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+            .activities .content-activities .list-activities .info-general {
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+                .activities .content-activities .list-activities .info-general .title-activity {
+                    font-size: 13px;
+                    font-weight: 700;
+                }
+
+                .activities .content-activities .list-activities .info-general .client-activity {
+                    font-size: 13px;
+                }
+
+            .activities .content-activities .list-activities .info-time {
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                color: var(--text-blue);
+            }
+
+        .activities .content-activities .view-all {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .activities .content-activities .view-all .view-text {
+                color: #FF7F40;
+                cursor: pointer;
+            }*/
+
+/* Clase para el apartado de enterate */
+/*.enterate {
+    background: linear-gradient(2.04deg, #073E64 -46.68%, #C2DBF4 78.97%);
+    width: 95%;
+    height: auto;
+    border-radius: 5px;
+    margin: 9px 0px 20px 0px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+    .enterate .img-enterate {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: auto;
+    }*/
+
+.btn-vermas {
+    text-decoration: none !important;
+    color: #012845 !important;
+    color:white !important;
+    text-transform:none !important;
+}
+
+    .btn-vermas:hover {
+        text-decoration: none;
+        color: #012845;
+    }
+
+.size-mp-icons-vermas {
+    font-size: 17px;
+}
+
+
+/*.fc .fc-button {
+    display: inline-block;
+    font-weight: 200 !important;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #d6d6d6 !important;
+    border: 1px solid transparent;
+    padding: .5px .5px;
+    font-size: .7em;
+    color: #132c45 !important;
+    line-height: 1.5;
+    border-radius: 0.25em;
+}*/
+
+/*Estilos de la paginaci�n*/
+/*.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+}*/
+
+.page-link {
+    text-decoration: none;
+    background-color: ghostwhite !important;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+    /*.page-link:focus {
+        z-index: 3;
+        color: #fff;
+        background-color: #ccc !important;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }*/
+
+/*.page-item:not(:first-child) .page-link {
+    margin-left: -2px;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #fff !important;
+    border: 1px #ff7f40 !important;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    border-color: #dee2e6;
+}*/
+
+/*.page-link {
+    padding: 0.375rem 0.75rem;
+}
+
+.page-item:first-child .page-link {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.page-item:last-child .page-link {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.pagination-lg .page-link {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.25rem;
+}
+
+.pagination-lg .page-item:first-child .page-link {
+    border-top-left-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+}
+
+.pagination-lg .page-item:last-child .page-link {
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+}
+
+.pagination-sm .page-link {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.pagination-sm .page-item:first-child .page-link {
+    border-top-left-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem;
+}
+
+.pagination-sm .page-item:last-child .page-link {
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+}*/
+
+.size-usuario-contra {
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.bg-etapa-notaria {
+    background: #433f5aea;
+    color: #fff;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+.bg-etapa-contrato-promesa {
+    background: #5c888d;
+    color: #fff;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+.bg-etapa-entrega {
+    background: #57493e;
+    color: #fff;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+.bg-etapa-transferencia {
+    background: #3f79a6;
+    color: #fff;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+
+.bg-etapa-notaria {
+    background: #433f5aea;
+    color: #fff;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+.bg-etapa-contrato-promesa {
+    background: #5c888d;
+    color: #fff;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+.bg-etapa-entrega {
+    background: #57493e;
+    color: #fff;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+.bg-etapa-transferencia {
+    background: #3f79a6;
+    color: #fff;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+/*tama�o de imagenes de seccion publicidad*/
+.size-image {
+    height: 200px;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 1em !important;
+    margin: 0;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+}
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 5px 10px;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+}
+
+.tabcontent2 {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+}
+
+.tabcontent3 {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+}
+
+.size-icons-table {
+    width: 30px;
+    height: 30px;
+    color: rgb(71, 71, 71);
+}
+
+
+.pa-vermas {
+    position: absolute;
+    margin-left: 315px;
+    margin-top: 170px;
+}
+
+.size-number-indicator {
+    font-size: 11px;
+}
+
+
+
+.size-mp-name-main-house {
+    font-size: 12px;
+}
+
+.title-cards-mp {
+    width: 100px;
+    height: 18px;
+    text-align: center;
+    margin-left: 16px;
+    position: absolute;
+    color: #F5F5F5;
+    margin-top: auto;
+    border-radius: 3px 0px 0px 3px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.size-mp-cards {
+    font-size: 10px;
+}
+
+.img-size-mp {
+    width: 200px;
+    height: 110px;
+    border-radius: 5px;
+    position: center;
+}
+
+
+.size-mp-name-house {
+    font-size: 9px;
+    margin: 0 auto;
+}
+
+.size-mp-icons {
+    font-size: 9px;
+}
+
+.size-mp-icons-vermas {
+    font-size: 13px;
+}
+
+.text-orange {
+    color: var(--principal);
+}
+
+
+/*tama�o de letra para los indicadores*/
+
+.size-text-publi {
+    font-size: 78%;
+}
+
+.size-text-etapa {
+    font-size: 12px;
+    color: #fff;
+    /* width: 191px; */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 247px;
+}
+
+.size-text-indicators {
+    font-size: 13px;
+}
+
+.size-icons-indicators {
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+/*Estilos para el icono de danger*/
+.icon-warning {
+    position: absolute;
+    margin-left: -150px;
+    margin-top: 90px;
+    animation: salto 0.8s infinite;
+}
+
+.icon-style-warning {
+    text-decoration: none;
+    color: rgb(235, 70, 5);
+}
+
+    .icon-style-warning :hover {
+        text-decoration: none;
+        color: rgb(235, 70, 5);
+    }
+
+    .icon-style-warning:visited {
+        text-decoration: none;
+        color: rgb(224, 87, 2);
+    }
+
+.size-icon-warning {
+    font-size: 15px;
+}
+
+/*Animaci�n para el icono de warning*/
+
+@keyframes salto {
+    0%, 100% {
+        top: 75px;
+    }
+
+    30% {
+        top: 68px;
+    }
+}
+
+
+
+/*Adaptar imagen del carousel*/
+
+.carousel-adaptar {
+    height: 100px !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    width: 100% !important;
+    background-color: rgb(234, 232, 232) !important;
+}
+
+.image-contain {
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+}
+
+
+.pos-fecha {
+    top: 175px;
+    left: 55px;
+}
+
+.nombre-inbueble {
+    width: 10px;
+    height: -300px;
+}
+
+.pos-etapa {
+    /* margin: 14px 0 0 184px; */
+    width: max-content;
+    padding: 0.3rem;
+    top: 135px;
+    right: 12px;
+}
+
+.pos-tipo-opera {
+    top: 160px;
+    left: 90px;
+}
+
+.pa-vermas-publi {
+    position: absolute;
+    margin-left: 315px;
+    margin-top: 190px;
+}
+
+/*clases para diferentes tipos de etapas*/
+.backgr-etapa-negociacion {
+    background-color: #0C1446;
+    width: 150px;
+    height: 20px;
+    border-radius: 0px 3px 3px 0px;
+}
+
+.backgr-etapa-contrato-promesa {
+    background-color: #2B7C85;
+    width: 170px;
+    height: 20px;
+    border-radius: 0px 3px 3px 0px;
+}
+
+.backgr-etapa-transferencia {
+    background-color: #055C9D;
+    width: 170px;
+    height: 20px;
+    border-radius: 0px 3px 3px 0px;
+}
+
+.backgr-etapa-notaria {
+    background-color: #221571dc;
+    width: 170px;
+    height: 20px;
+    border-radius: 0px 3px 3px 0px;
+}
+
+.backgr-etapa-entrega {
+    background-color: #523A28;
+    width: 170px;
+    height: 20px;
+    border-radius: 0px 3px 3px 0px;
+}
+
+.pos-img-usuario {
+    right: 60px;
+}
+
+
+/*Indicadores superiores*/
+.indicator-publicadas {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background: var(--activas);
+    border: 3px #fff solid;
+    top: 92px !important;
+}
+
+.indicator-nopublicadas {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background: var(--inactivas);
+    border: 3px #fff solid;
+}
+
+.indicator-enproceso {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background: var(--pendiente);
+    border: 3px #fff solid;
+}
+
+.indicator-cerradas {
+    width: 55px;
+    height: 53px;
+    border-radius: 50px;
+    background: var(--cerradas);
+    border: 3px #fff solid;
+}
+
+
+.pos-indicadores-vv {
+    top: 225px;
+    left: 66px;
+}
+
+
+
+.edit {
+    color: #fff;
+    background-color: blue !important;
+}
+
+
+.buttons {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons2 {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit {
+    color: #fff;
+    background-color: blue !important;
+}
+
+
+.active2 {
+    background-color: rgba(240, 240, 240, 0.596) !important;
+    box-shadow: 2px 2.5px 0px 1px;
+}
+
+.tabla-hover:hover {
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    background-color: #fff;
+}
+
+.contenedorGeneralBlanco {
+    background: rgba(255,255,255,0.5);
+    box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+    backdrop-filter: blur(6px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.backgr-etapa-oportunidad-t {
+    background-color: var(--oportunidad);
+    height: 2rem;
+    width: 9rem;
+    border-radius: 20px;
+    color: white;
+    padding: 8px 0;
+    font-size: 13px;
+}
+
+.backgr-etapa-cierre-t {
+    background-color: var(--cierre);
+    height: 2rem;
+    width: 9rem;
+    border-radius: 20px;
+    color: white;
+    padding: 7px 0;
+    font-size: 13px;
+}
+
+.backgr-etapa-entrega {
+    background-color: var(--entrega);
+    width: 170px;
+    height: 20px;
+    border-radius: 0px 3px 3px 0px;
+}
+
+
+.cart-count {
+    left: -6px;
+    margin-right: auto;
+    top: -10px;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 8px;
+    background-color: #55a630;
+    color: white;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 0.25rem;
+    bottom: 0;
+    position: relative;
+}
+
+/*SECCION DE LA ETAPA DE PROSPECTOS*/
+.bg-prospectos {
+    background-color: var(--prospectos);
+}
+.bg-prospectos-etapa1{
+    background-color: var(--prospectos-etapa1);
+}
+.bg-prospectos-nuevo{
+    background-color: var(--prospectos-etapa1-status1);
+    color: white;
+}
+.bg-prospectos-etapa2 {
+    background-color: var(--prospectos-etapa2);
+}
+.bg-prospectos-informes{
+    background-color: var(--prospectos-etapa2-status1);
+    color: white;
+}
+.bg-prospectos-etapa3 {
+    background-color: var(--prospectos-etapa3);
+}
+
+/*CLASES GENERALES DE LOS STATUS*/
+.bg-pendiente{
+    background-color: var(--pendiente);
+    color: black;
+}
+.bg-negativo{
+    background-color: var(--negativo);
+    color: white;
+}
+.bg-reagendada{
+    background-color: var(--reagendada);
+    color: white;
+}
+.bg-cerrado{
+    background-color: var(--cerrada-concluida);
+    color: white;
+}
+.bg-enviado{
+    background-color: var(--enviado);
+    color: white;
+}
+.bg-firmado{
+    background-color: var(--firmado);
+    color: white;
+}
+.bg-recibido{
+    background-color: var(--recibido);
+    color: white;
+}
+.bg-agendada{
+    background-color: var(--agendada);
+    color: white;
+}
+
+/*Seccion de la ETAPA DE OPORTUNIDAD*/
+.bg-oportunidad {
+    background-color: var(--oportunidad);
+}
+.bg-oportunidad-etapa1 {
+    background-color: var(--oportunidad-etapa1);
+    color: white;
+}
+.bg-oportunidad-etapa2 {
+    background-color: var(--oportunidad-etapa2);
+    color: white;
+}
+.bg-oportunidad-etapa3 {
+    background-color: var(--oportunidad-etapa3);
+    color: white;
+}
+.bg-oportunidad-etapa4 {
+    background-color: var(--oportunidad-etapa4);
+    color: white;
+}
+.bg-oportunidad-etapa5 {
+    background-color: var(--oportunidad-etapa5);
+    color: white;
+}
+
+
+/*PARA ENTREGA*/
+.bg-entrega {
+    background-color: var(--entrega);
+}
+.bg-entrega-etapa1 {
+    background-color: var(--entrega-etapa1);
+    color: white;
+}
+.bg-entrega-etapa2 {
+    background-color: var(--entrega-etapa2);
+    color: white;
+}
+.bg-entrega-etapa3 {
+    background-color: var(--entrega-etapa3);
+    color: white;
+}
+.bg-entrega-etapa4 {
+    background-color: var(--entrega-etapa4);
+    color: white;
+}
+
+/*Para CIERRE*/
+.bg-cierre {
+    background-color: var(--cierre);
+}
+.bg-cierre-etapa1 {
+    background-color: var(--cierre-etapa1);
+    color: white;
+}
+.bg-cierre-etapa2 {
+    background-color: var(--cierre-etapa2);
+    color: white;
+}
+.bg-cierre-etapa3 {
+    background-color: var(--cierre-etapa3);
+    color: white;
+}
+.bg-cierre-etapa4 {
+    background-color: var(--cierre-etapa4);
+    color: white;
+}
+
+/*PARA LEALTAD*/
+.bg-lealtad {
+    background-color: var(--lealtad);
+}
+.bg-lealtad-etapa1 {
+    background-color: var(--lealtad-etapa1);
+    color: white;
+}
+
+.bg-noInteresados-etapa1{
+    background-color: var(--no-interesados-etapa1);
+    color: white;
+}
+.bg-noInteresados-etapa1-status1{
+    background-color: var(--status-no-interesado);
+    color: white;
+}
+.noInteresados-tr-th{
+    background-color: var(--no-interesados);
+    color: white;
+}
+
+.bg-status-blue-btns-gnrl {
+    background: var(--azul-oscuro) !important;
+    color: #fff !important;
+    font-size: 11px !important;
+    border-radius: 5px !important;
+    margin: 0% !important;
+    padding: 5px 10px !important;
+    text-transform: none !important;
+}
+
+    .bg-status-blue-btns-gnrl:hover {
+        background: #132c45;
+        color: #fff;
+        font-size: 11px;
+        border-radius: 5px;
+        margin: 0% !important;
+        padding: 5px 10px;
+    }
+
+
+.table-responsive {
+    overflow-x: unset !important;
+}
+
+.etapaProcesoPill {
+/*    color: #fff;*/
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+
+p {
+    margin-bottom: 0;
+}
+
+
+.anchoCorreo {
+    width: 1px;
+    max-width: 0px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.textareaMensage {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid #D2D2D2;
+    background-color: transparent;
+    font-weight: lighter;
+
+}
+
+textarea::placeholder {
+    color: #212529;
+}
+
+/*Estilos para el modal de interesado*/
+.inputFormularioInteresado {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    border: none;
+    border-bottom: 1px solid var(--principal);
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.inputFormularioInteresado:focus{
+    border: 1px solid var(--principal);
+}
+
+/*Para el pequeño borde de las tablas entre el titulo y la tabla*/
+.prospectos {
+    border-bottom: 4px solid;
+    border-image: linear-gradient(90deg, var(--prospectos) 0%, rgba(255, 255, 255, 0) 100%);
+    border-image-slice: 1;
+}
+
+.oportunidad {
+    border-bottom: 4px solid;
+    border-image: linear-gradient(90deg, var(--oportunidad) 0%, rgba(255, 255, 255, 0) 100%);
+    border-image-slice: 1;
+}
+.entrega {
+    border-bottom: 4px solid;
+    border-image: linear-gradient(90deg, var(--entrega) 0%, rgba(255, 255, 255, 0) 100%);
+    border-image-slice: 1;
+}
+.cierre {
+    border-bottom: 4px solid;
+    border-image: linear-gradient(90deg, var(--cierre) 0%, rgba(255, 255, 255, 0) 100%);
+    border-image-slice: 1;
+}
+.lealtad {
+    border-bottom: 4px solid;
+    border-image: linear-gradient(90deg, var(--lealtad) 0%, rgba(255, 255, 255, 0) 100%);
+    border-image-slice: 1;
+}
+.bg-no-interesados {
+    border-bottom: 4px solid;
+    border-image: linear-gradient(90deg, var(--no-interesados) 0%, rgba(255, 255, 255, 0) 100%);
+    border-image-slice: 1;
+}
+
+/*Encabezados de las tablas*/
+.entrega-tr-th {
+    background-color: var(--entrega);
+    color: white;
+}
+.prospectos-tr-th{
+    background-color: var(--prospectos);
+    color: white;
+}
+.oportunidad-tr-th {
+    background-color: var(--oportunidad);
+    color: white;
+}
+.cierre-tr-th {
+    background-color: var(--cierre);
+    color: white;
+}
+.lealtad-tr-th {
+    background-color: var(--lealtad);
+    color: white;
+}
+
+/*Mis ajustes para la paginación de cada tabla */
+.paginacion-prospectos a:hover{
+    background-color: var(--prospectos-etapa3) !important;
+    color: white !important;
+}
+.paginacion-prospectos a:focus {
+    background-color: var(--prospectos) !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+.paginacion-oportunidad a:hover {
+    background-color: var(--oportunidad-etapa1) !important;
+    color: white !important;
+}
+.paginacion-oportunidad a:focus {
+    background-color: var(--oportunidad) !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+.paginacion-entrega a:hover {
+    background-color: var(--entrega-etapa4) !important;
+    color: white !important;
+}
+.paginacion-entrega a:focus {
+    background-color: var(--entrega) !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+.paginacion-cierre a:hover {
+    background-color: var(--cierre-etapa2) !important;
+    color: white !important;
+}
+.paginacion-cierre a:focus {
+    background-color: var(--cierre) !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+.paginacion-lealtad a:hover {
+    background-color: var(--lealtad-etapa1) !important;
+    color: white !important;
+}
+.paginacion-lealtad a:focus {
+    background-color: var(--lealtad) !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+.paginacion-noInteresados a:hover {
+    background-color: var(--no-interesados-etapa1) !important;
+    color: white !important;
+}
+
+.paginacion-noInteresados a:focus {
+    background-color: var(--no-interesados) !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+textarea{
+    resize: none;
+}
+
+/*Los siguientes estilos son para las 2 tablas de contacto*/
+.nuevos-contactos {
+    border-bottom: 4px solid;
+    border-image: linear-gradient(90deg, #00838F 0%, rgba(255, 255, 255, 0) 100%);
+    border-image-slice: 1;
+}
+.nuevosContactos-tr-th {
+    background-color: #00838F;
+    color: white;
+}
+.paginacion-nuevoContacto a:hover {
+    background-color: #0097A7 !important;
+    color: white !important;
+}
+
+.paginacion-nuevoContacto a:focus {
+    background-color: #00838F !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+.contactados {
+    border-bottom: 4px solid;
+    border-image: linear-gradient(90deg, #9E9D24 0%, rgba(255, 255, 255, 0) 100%);
+    border-image-slice: 1;
+}
+
+.contactados-tr-th {
+    background-color: #9E9D24;
+    color: white;
+}
+
+.paginacion-contactados a:hover {
+    background-color: #AFB42B !important;
+    color: white !important;
+}
+
+.paginacion-contactados a:focus {
+    background-color: #9E9D24 !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+/*Autocomple*/
+.autoComplete_wrapper > input::placeholder {
+    color: gray;
+    transition: all 0.3s ease;
+    -webkit-transition: all -webkit-transform 0.3s ease;
+}
+
+.autoComplete_wrapper > input:hover::placeholder {
+    color: rgba(244,151,28,0.6);
+    transition: all 0.3s ease;
+    -webkit-transition: all -webkit-transform 0.3s ease;
+}
+
+.autoComplete_wrapper > input:focus::placeholder {
+    padding: 0.1rem 0.6rem;
+    font-size: 0.95rem;
+    color: gray;
+}
+
+.autoComplete_wrapper > input:focus::selection {
+    background-color: rgba(255, 122, 122, 0.15);
+}
+
+.autoComplete_wrapper > input::selection {
+    background-color: rgba(255, 122, 122, 0.15);
+}
+
+.autoComplete_wrapper > input:hover {
+    color: var(--orange);
+    transition: all 0.3s ease;
+    -webkit-transition: all -webkit-transform 0.3s ease;
+}
+
+.autoComplete_wrapper > input:focus {
+    color: gray;
+    border: 0.06rem solid rgba(255, 122, 122, 0.8);
+}
+
+.autoComplete_wrapper > ul {
+    position: absolute;
+    max-height: 226px;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    left: 0;
+    right: 0;
+    margin: 0.5rem 0 0 0;
+    padding: 0;
+    z-index: 1;
+    list-style: none;
+    border-radius: 0.6rem;
+    background-color: #fff;
+    border: 1px solid rgba(33, 33, 33, 0.07);
+    box-shadow: 0 3px 6px rgba(149, 157, 165, 0.15);
+    outline: none;
+    transition: opacity 0.15s ease-in-out;
+    -moz-transition: opacity 0.15s ease-in-out;
+    -webkit-transition: opacity 0.15s ease-in-out;
+}
+
+    .autoComplete_wrapper > ul[hidden],
+    .autoComplete_wrapper > ul:empty {
+        display: block;
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    .autoComplete_wrapper > ul > li {
+        margin: 0.3rem;
+        padding: 0.3rem 0.5rem;
+        text-align: left;
+        font-size: 1rem;
+        color: #212121;
+        border-radius: 0.35rem;
+        background-color: rgba(255, 255, 255, 1);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.2s ease;
+    }
+
+        .autoComplete_wrapper > ul > li mark {
+            background-color: transparent;
+            color: var(--orange);
+            font-weight: bold;
+        }
+
+        .autoComplete_wrapper > ul > li:hover {
+            cursor: pointer;
+            background-color: var(--naranja-hover);
+        }
+
+        .autoComplete_wrapper > ul > li[aria-selected="true"] {
+            background-color: var(--naranja-hover);
+        }
+
+@media only screen and (max-width: 600px) {
+    .autocomplete_wrapper > input {
+        width: 18rem;
+    }
+}

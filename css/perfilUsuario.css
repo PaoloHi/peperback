@@ -1,0 +1,20 @@
+﻿div[name="fecha-nacimiento"] {
+    margin-bottom: 3.4375rem;
+}
+.imgPerfilContainer > label > img{
+    top: 257px;
+}
+
+.mb-6 {
+    margin-bottom: 1.9375rem;
+}
+
+#Lada, #Lada2{
+    width: 100%;
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+    #Lada, #Lada2 {
+        width: auto;
+    }
+}

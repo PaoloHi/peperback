@@ -1,0 +1,59 @@
+﻿.form-control, .form-group .form-control {
+    border: 0;
+    border-bottom: 1px solid darkorange;
+    background-size: 0 2px, 100% 1px;
+    background-repeat: no-repeat;
+    background-position: center bottom, center calc(100% - 1px);
+    background-color: transparent;
+    transition: background 0s ease-out;
+    float: none;
+    box-shadow: none;
+    border-radius: 0;
+    font-weight: 400;
+    margin: 0 0% 0 2%;
+    width: 80%;
+}
+
+.form-group .form-control {
+    margin-bottom: 7px;
+    margin: 5px;
+    padding-bottom: 10px;
+    display: block;
+    width: 100%;
+}
+
+
+input:focus {
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+ul {
+    list-style: none;
+}
+
+
+.password-toggle,
+.password-toggle2 {
+    position: absolute;
+    top: 83%;
+    right: 34%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 12;
+}
+
+    .password-toggle i,
+    .password-toggle2 i{
+        color: #999;
+    }
+
+        .password-toggle i:hover,
+        .password-toggle2 i:hover{
+            color: #333;
+        }
+

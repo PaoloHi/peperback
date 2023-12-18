@@ -1,0 +1,73 @@
+﻿
+
+
+
+.glass {
+    background: rgba(255, 243, 223, 0.58);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+    backdrop-filter: blur(11.8px);
+    -webkit-backdrop-filter: blur(11.8px);
+    border: 1px solid rgba(251, 215, 161, 0.28);
+    z-index: 2;
+}
+
+
+btn:hover {
+    box-shadow: 0 14px 26px -12px rgb(255 152 0 / 42%), 0 4px 23px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(255 152 0 / 20%);
+}
+
+
+
+/* Estilos globales*/
+input[type="text"] {
+    width: 95%;
+    padding: 4px;
+    border: none !important;
+    outline: none;
+   
+}
+
+input[type="number"] {
+    width: 95%;
+    padding: 4px;
+    border: none !important;
+    outline: none;
+}
+/*param ellipse input defs precio center nueva propiedad*/
+    input[type="number"]#precioProp{
+        width: 80%;
+    }
+
+    .input-group {
+        margin: 5px;
+        display: block;
+    }
+
+
+/*Este de aqui es para el bordeado bonito de los botones*/
+
+.btn-outline-light {
+    color: #ff7f40 !important;
+    border-color: #ff7f40 !important;
+    border-radius: 10px;
+    border: 1px solid orange;
+}
+
+
+.color_letter {
+    color: gray;
+    font-size:20px;
+    font-weight:700;
+}
+
+.color_letter2 {
+    color: #696969 !important;
+    font-size: 1rem;
+}
+
+
+mt-suelo{
+    margin:10px;
+}
+

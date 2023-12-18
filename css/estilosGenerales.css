@@ -1,0 +1,582 @@
+﻿
+/*colores para todo */
+:root {
+    --azulE-commerce: #132C45;
+    --naranja: #ff9800;
+    --bg_casa: #012845;
+    --bg_departamento: #b72727;
+    --bg_bodega: #ccd5ae;
+    --bg_lote: rgb(140, 89, 255);
+    --bg_terreno: rgba(0, 186, 124, 0.788);
+    --bg_edificio: #9b5de5;
+    --bg_local: salmon;
+    --bg_nave: #91bc2d;
+    --bg_oficina: #a2d2ff;
+    --bg_huerta: #588157;
+    --bg_quinta: #2a9d8f;
+    --bg_rancho: #7f4f24;
+    --bg_villa: #6b9080;
+    --bg_hospital: #023e8a;
+    --bg_escuela: #ff006e;
+    --label_color_subtext: #6C757D;
+}
+
+
+th, td {
+    vertical-align: middle !important;
+}
+
+
+/*esto de manera general es para que los inputs no cambien de estilos vuando son llenados seleccionando datos precargados */
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: initial !important;
+    -webkit-animation-name: auto-fill-cancel !important;
+    animation-name: auto-fill-cancel !important;
+    background-color: inherit !important;
+}
+
+
+body {
+    margin-left: 50.5px !important;
+    margin-top: 51px;
+    margin-bottom: 10px !important;
+    background-color: rgb(237, 236, 236) !important;
+    transition: margin-left 300ms cubic-bezier(0.785, 0.135, 0.15, 0.86) !important;
+}
+
+
+
+/*etiquetado de tipo de propiedades/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.operacionVenta {
+    background-color: var(--venta);
+    background: #43cea2;
+    background: -webkit-linear-gradient(to right, #185a9d, #43cea2);
+    background: linear-gradient(to right, #185a9d, #43cea2);
+}
+
+.operacionRenta {
+    background-color: var(--renta);
+    background: #1F1C2C;
+    background: -webkit-linear-gradient(to left, #928DAB, #1F1C2C);
+    background: linear-gradient(to left, #928DAB, #1F1C2C);
+}
+
+
+.title-cards-mp-casa {
+    color: #f5f5f5;
+    background-color: var(--bg_casa);
+}
+
+.title-cards-mp-depto {
+    color: #f5f5f5;
+    background-color: var(--bg_departamento);
+}
+
+.title-cards-mp-bodega {
+    color: #f5f5f5;
+    background-color: var(--bg_bodega);
+}
+
+.title-cards-mp-lote {
+    background-color: var(--bg_lote);
+    color: #f5f5f5;
+}
+
+.title-cards-mp-terreno {
+    color: #f5f5f5;
+    background-color: var(--bg_terreno);
+}
+
+.title-cards-mp-edificio {
+    background-color: var(--bg_edificio);
+    color: #f5f5f5;
+}
+
+.title-cards-mp-local {
+    color: #f5f5f5;
+    background-color: var(--bg_local);
+}
+
+.title-cards-mp-nave {
+    color: #f5f5f5;
+    background-color: var(--bg_nave);
+}
+
+.title-cards-mp-oficina {
+    color: #f5f5f5;
+    background-color: var(--bg_oficina);
+}
+
+.title-cards-mp-huerta {
+    color: #f5f5f5;
+    background-color: var(--bg_huerta);
+}
+
+.title-cards-mp-quinta {
+    color: #f5f5f5;
+    background-color: var(--bg_quinta);
+}
+
+.title-cards-mp-rancho {
+    color: #f5f5f5;
+    background-color: var(--bg_rancho);
+}
+
+.title-cards-mp-villa {
+    color: #f5f5f5;
+    background-color: var(--bg_villa);
+}
+
+.title-cards-mp-hospital {
+    color: #f5f5f5;
+    background-color: var(--bg_hospital);
+}
+
+.title-cards-mp-escuela {
+    color: #f5f5f5;
+    background-color: var(--bg_escuela);
+}
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*ETAPAS DE EN PROCESO*/
+
+.backgr-etapa-oportunidadColor {
+    background-color: var(--oportunidad)
+}
+
+.backgr-etapa-entregaColor {
+    background-color: var(--oportunidad)
+}
+
+.backgr-etapa-cierreColor {
+    background-color: var(--oportunidad)
+}
+
+
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.home-user {
+}
+
+
+
+.back-image-headerProfile {
+    border-radius: 25px;
+    width: 40px;
+    height: 40px;
+    box-shadow: 2px 2px 3px 3px rgba(191, 190, 190, 0.868);
+}
+
+
+.home-user img {
+    border-radius: 50%;
+    max-width: 100%;
+    max-height: 100%;
+    box-shadow: 1px 1px 1.5px 1.5px rgba(191, 190, 190, 0.868);
+    z-index: 0;
+    border: 2px solid #f4971c;
+    border-radius: 50%;
+    padding: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.contenedorGeneralBlanco {
+    background: rgba(255,255,255,0.5);
+    box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+    backdrop-filter: blur(6px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+
+.bg-orange {
+    background-color: var(--naranja);
+    color: white;
+}
+
+.bg-regresar {
+    background-color: var(--azulE-commerce);
+    color: white;
+}
+
+
+
+select {
+    background-color: transparent;
+    color: #334;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+    font-size: 12px;
+    width: 80px;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+option {
+    padding: 5px;
+    font-size: 16px;
+}
+
+/*este boton aplica para todo lo de añadir nuevo*/
+.btn-nueva-propTblrs {
+    background-color: #ff7f40 !important;
+    height: 43px !important;
+    width: 100px !important;
+    border-radius: 6px;
+    /* border: none; */
+    right: 29px;
+    color: #f5f5f5 !important;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    margin-left: 2rem;
+    font-size: 13px;
+    padding: 2px;
+}
+
+
+.tituloVista {
+    color: #3c4858;
+    font-weight: 500;
+    font-size: 1.75rem;
+    text-shadow: 1px 2px 3px darkgray;
+    margin: 0px 0 29px 0;
+}
+
+.backgr-etapa-negociacion-t {
+    */
+    /* padding: 3px; */
+    color: #fff;
+    /* height: 2rem; */
+    /* width: 12rem; */
+    font-size: 13px;
+    margin: 0 0 0 0;
+    border-radius: 0 11px 11px 0px;
+}
+
+/*botones de modal de documentos*/
+.claseBtnTruco {
+    margin: 0 0 0 0;
+    width: 4rem !important;
+    height: 3rem !important;
+}
+
+.claseBtnTrucoV {
+    margin: 0 0 0 0;
+    width: 5.5rem !important;
+    height: 3rem !important;
+}
+
+/*bloque de codigo para la barra de naveacion superior 
+    este bloque sera movido de aqui para ptimizar enl codigo muy pronto :) Thaliz
+*/
+header {
+    width: 100%;
+    height: 50px;
+    background: #e5e5e5;
+    display: flex;
+    border-radius: 5px;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 200;
+}
+
+
+.posicionamientoFijo {
+    position: fixed;
+    top: 0;
+    right: 124px;
+}
+
+
+.posicionamientoFijoIcono {
+    position: fixed;
+    top: 6px;
+    right: 49px;
+}
+
+
+.longitudDePrueba {
+    width: 148px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.longitudDePruebaD {
+    width: 132px;
+    height: -11rem;
+    white-space: break-spaces;
+    text-overflow: ellipsis !important;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    height: 32px;
+}
+
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 5px;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+.datosMAyusc {
+    text-transform: uppercase;
+}
+
+
+/*este es un estilo provicional para el odal de rechazar documentos*/
+.txtareaModalrechazo {
+    padding: 0px 0 0 1vw;
+    width: 100% !important;
+    /* background-color: transparent; */
+    margin: 9px 0 0 0 !important;
+    /* font-size: 13px !important; */
+    border-radius: 8px !important;
+    border: 1px solid #ced4da !important;
+}
+
+a:hover {
+    color: darkorange;
+}
+
+thead > tr {
+    background-color: #ccc;
+}
+
+.tooltip-inner {
+    max-width: 200px; /* Ajusta el ancho máximo del tooltip según tus necesidades */
+    /* Agrega otros estilos personalizados para el tooltip según sea necesario */
+}
+
+
+.button_confirmacion {
+    background-color: var(--naranja) !important;
+}
+
+    .button_confirmacion:focus {
+        box-shadow: 0 0 0 3px var(--naranja) !important;
+    }
+
+
+
+
+
+.soloIconos {
+    border-radius: 5px;
+    width: 60px;
+    height: auto;
+    border-color: #f0f2f7;
+    border-bottom: none !important;
+}
+
+.fsModalesAprovRechaz {
+    font-size: 18px;
+}
+
+
+
+.form-control::placeholder {
+    color: #888 !important;
+}
+
+
+
+
+
+
+/*Fondo animado de circulos*/
+.area {
+    background: rgb(237, 236, 236);
+    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+}
+
+/*
+
+*/
+.circles {
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 30%;
+    overflow: hidden;
+}
+
+    .circles li {
+        position: fixed;
+        list-style: none;
+        width: 20px;
+        height: 20px;
+        background: rgba(226, 117, 55, 0.258);
+        animation: animate 25s linear infinite;
+        bottom: -150px;
+    }
+
+        .circles li:nth-child(1) {
+            left: 1%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+        }
+
+        .circles li:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            background: #01284585;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+
+        .circles li:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            background: #01284585;
+            animation-delay: 4s;
+        }
+
+        .circles li:nth-child(4) {
+            left: 40%;
+            width: 30px;
+            height: 30px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
+
+        .circles li:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+        }
+
+        .circles li:nth-child(6) {
+            left: 75%;
+            width: 40px;
+            height: 40px;
+            background: #01284585;
+            animation-delay: 3s;
+        }
+
+        .circles li:nth-child(7) {
+            left: 35%;
+            width: 50px;
+            height: 50px;
+            animation-delay: 7s;
+        }
+
+        .circles li:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+        }
+
+        .circles li:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+        }
+
+        .circles li:nth-child(10) {
+            left: 85%;
+            width: 30px;
+            height: 30px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+        }
+
+@keyframes animate {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
+/*Aqui termina el fondo animado de los circulos*/
+
+
+.txtModales {
+    text-align: justify;
+}
+
+
+
+.pin-brand-color {
+    color: #ff9800;
+}
+
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateY(-5px);
+    }
+
+    20%, 40%, 60%, 80% {
+        transform: translateY(5px);
+    }
+}
+
+
+/* definir los keyhhframes */
+@keyframes saltar {
+    0%, 100% {
+        transform: translateY(20px); /* Posición inicial y final: no hay cambio en la posición vertical */
+    }
+
+    50% {
+        transform: translateY(0); /* Posición máxima hacia arriba */
+    }
+}
+
+/* Aplicar la animación al elemento con la clase "texto-animado" */
+.texto-animado {
+    animation-name: saltar; /* Nombre del keyframe */
+    animation-duration: 1s; /* Duración de la animación (en segundos) */
+    animation-timing-function: ease-in-out; /* Función de temporización */
+    animation-iteration-count: infinite; /* Repetir infinitamente */
+}
+
+
+.cambiar-fondo {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+    .cambiar-fondo.clicked {
+        background

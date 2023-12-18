@@ -1,0 +1,10 @@
+﻿.imgPerfilContainer > label > img {
+    top: 266px !important;
+}
+
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+    #Lada, #Lada2{
+        width: 100px;
+    }
+}

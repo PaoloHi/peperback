@@ -1,0 +1,752 @@
+﻿:root {
+    --azulE-commerce: #102234;
+    --naranja: #ff9800;
+    --enfacisColor: #f4971c;
+    --navbarColorItems: rgba(255, 255, 255, 0.55);
+    --principal: #f4971c;
+    /*colores de las etapas y los estatus*/
+    /*PROSPECTOS*/
+    --prospectos: #FFC000;
+    --prospectos-etapa1: #FFDD00;
+    --prospectos-etapa1-status1: #A5A5A5; /*nuevo|pendiente*/
+    --prospectos-etapa2: #FFE699;
+    --prospectos-etapa2-status1: #A5A5A5;
+    --prospectos-etapa3: #D0AD00;
+    --pendiente: #FFC000;
+    --negativo: #D00000;
+    --reagendada: #219EBC;
+    --cerrada-concluida: #44546A;
+    /*OPORTUNIDAD*/
+    --oportunidad: #004B23;
+    --oportunidad-etapa1: #72B01D;
+    --oportunidad-etapa2: #447604;
+    --oportunidad-etapa3: #006400;
+    --oportunidad-etapa4: #0B6E4F;
+    --oportunidad-etapa5: #358600;
+    --enviado: #065A82;
+    --firmado: #00B050;
+    --recibido: #008000;
+    /*ENTREGA*/
+    --entrega: #EB611C;
+    --entrega-etapa1: #E65100;
+    --entrega-etapa2: #FB8500;
+    --entrega-etapa3: #E77728;
+    --entrega-etapa4: #FF8811;
+    --agendada: #22C8C0;
+    /*CIERRE*/
+    --cierre: #102234;
+    --cierre-etapa1: #001D3D;
+    --cierre-etapa2: #1565C0;
+    --cierre-etapa3: #2196F3;
+    --cierre-etapa4: #054E8A;
+    /*LEALTAD*/
+    --lealtad: #3C096C;
+    --lealtad-etapa1: #7B2CBF;
+    --enfacis: #ff9800; /*default*/
+    /*FONTS*/
+    --font-size-xtraSmall: 9px;
+    --font-size-small: 12px;
+    --font-size-medium: 15px;
+    --font-size-large: 18px;
+    --font-size-extra-large: 24px;
+    /*font-color*/
+    --bg_dark_gray: #D9D9D9;
+    --cllor_gray_letter: #878787;
+    --black_letter: #000000;
+}
+
+
+
+
+
+.fase-prospecto {
+    background-color: var(--prospectos)
+}
+
+.fase-oportunidad {
+    background-color: var(--oportunidad)
+}
+
+.fase-entrega {
+    background-color: var(--entrega)
+}
+
+.fase-cierre {
+    background-color: var(--cierre)
+}
+
+.fase-lealtad {
+    background-color: var(--lealtad)
+}
+
+.status-nuevo {
+    background-color: var(--prospectos-etapa1-status1); /*informes | nuevo*/
+}
+
+.status-pendiente {
+    background-color: var(--pendiente);
+}
+
+.status-no_interesado {
+    background-color: var(--recibido);
+}
+
+.status-cancelada {
+    background-color: var(--negativo); /*cancelada | no firmado*/
+}
+
+.status-agendada {
+    background-color: var(--agendada);
+}
+
+.status-re_agendada {
+    background-color: var(--reagendada);
+}
+
+.status-cerrada {
+    background-color: var(--cerrada-concluida);
+}
+
+.status-no_firmado {
+    background-color: var(--negativo);
+}
+
+.status-firmado {
+    background-color: var(--firmado);
+}
+
+.status-enviado {
+    background-color: var(--recibido);
+}
+
+.status-recibido {
+    background-color: var(--recibido);
+}
+
+.status-fallido {
+    background-color: var(--negativo);
+}
+
+.status-realizada {
+    background-color: var(--negativo);
+}
+
+.status-no_realizada {
+    background-color: var(--negativo);
+}
+
+.status-realizada {
+    background-color: var(--recibido);
+}
+
+
+.contenedorGeneralBlanco {
+    background: rgba(255,255,255,0.5) !important;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    transition: box-shadow .3s ease-in-out;
+    /*    background-image: url("https://i.pinimg.com/564x/2d/4f/83/2d4f83adf95a8d4e537b0d1fe5a0f794.jpg") !important;*/
+}
+
+    .contenedorGeneralBlanco:hover {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+    }
+
+.disabled-input-label {
+    color: var(--black_letter);
+    width: fit-content;
+    display: flex;
+    flex-shrink: inherit;
+    font-size: var(--font-size-small);
+    align-self: flex-end;
+}
+
+
+.tituloDeSeccion {
+    color: var(--black_letter);
+    font-size: var(--font-size-large);
+}
+
+
+/*STEP PROGRES LINE ######################################################*/
+.stage-line-container {
+    /* background-color: #21d4fd;
+    background-image: linear-gradient(19deg, #21d4fd 0%, #b721ff 100%);
+    height: 100vh;*/
+    /*  width: 100%;
+    display: flex;*/
+    justify-content: center;
+    align-items: center;
+}
+
+.stage-line {
+    /*  background: #fff;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.1);*/
+    color: #333;
+    list-style-type: none;
+    border-radius: 10px;
+    display: flex;
+    padding: 20px 10px;
+    position: relative;
+    z-index: 10;
+}
+
+.phase {
+    padding: 0 20px;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    min-width: 170px;
+    position: relative;
+}
+
+    .phase + .phase:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50px;
+        background: var(--enfacis);
+        width: 100%;
+        height: 2px;
+        transform: translateX(-50%);
+        z-index: -10;
+    }
+
+.phase-number {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 600;
+    margin: 33px auto 0 auto;
+    position: relative;
+    z-index: 10;
+    color: transparent;
+}
+
+    .phase-number:after {
+        content: "";
+        height: 40px;
+        width: 40px;
+        background: var(--enfacis);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: -10;
+    }
+
+    .phase-number:before {
+        content: "";
+        height: 10px;
+        width: 20px;
+        border-left: 3px solid #fff;
+        border-bottom: 3px solid #fff;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -60%) rotate(-45deg);
+        transform-origin: center center;
+    }
+
+.phase-label {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    margin: 0px 0 -21px 0;
+    color: var(--black_letter);
+}
+
+.active-phase .phase-number:before,
+.active-phase ~ .phase .phase-number:before {
+    display: none;
+}
+
+.active-phase ~ .phase .phase-number:after {
+    height: 10px;
+    width: 10px;
+}
+
+.active-phase ~ .phase .phase-label {
+    opacity: 0.5;
+}
+
+.active-phase .phase-number:after {
+    background: #fff;
+    border: 2px solid var(--enfacis);
+}
+
+.active-phase .phase-number {
+    color: var(--enfacis);
+}
+
+/**#########################################################################################*/
+/*status button header*/
+.btnStatusHead {
+    background-color: var(--bg_dark_gray); /*colores*/
+    font-size: var(--font-size-small); /*tamaño de fuente*/
+    border: none; /*borde*/
+    width: fit-content; /*ancho*/
+}
+
+    .btnStatusHead > p > span {
+        color: var(--enfacis);
+    }
+
+
+/*select de las etapas*/
+.phase-prospecto {
+    background-color: var(--prospectos) !important;
+}
+
+.phase-oportunidad {
+    background-color: var(--oportunidad) !important;
+}
+
+.phase-entrega {
+    background-color: var(--entrega) !important;
+}
+
+.phase-cierre {
+    background-color: var(--cierre) !important;
+}
+
+.phase-lealtad {
+    background-color: var(--lealtad) !important;
+}
+
+.customSelectStage {
+    /*reset default browser styles*/
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: ' ';
+    font-size: var(--font-size-small);
+    /*select styles*/
+    /*   background-color: red;*/
+    width: 90%;
+    height: 40px;
+    border: 4px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding-left: 20px;
+    transition: box-shadow 0.3s ease-in-out;
+    color: white;
+}
+
+
+    .customSelectStage option {
+        background-color: white;
+        color: var(--black_letter);
+    }
+
+
+    .customSelectStage:after {
+        content: '\25BC';
+        font-size: 14px;
+        color: #333;
+        /*   position: absolute;*/
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    .customSelectStage select option {
+        background-color: #fff;
+        color: #333;
+    }
+
+.customSelectDate {
+    /*select styles*/
+    background-color: var(--bg_dark_gray);
+    height: 40px;
+    border: 4px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+    .customSelectDate::active {
+        outline: none;
+    }
+
+    .customSelectDate::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
+
+.bg-status-blue-btns-gnrl {
+    background: var(--azul-oscuro) !important;
+    color: #fff !important;
+}
+
+
+/*seccion de informacion del usuario*/
+.inputDisabledData {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--black_letter);
+    color: var(--black_letter);
+    font-size: var(--font-size-small);
+}
+
+
+/* Estilos para simular un checkbox con un botón */
+.checkbox-button {
+    border: 1px solid #ccc !important;
+    padding: 3px 7px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    background-color: #fff;
+    height: 16px;
+    width: 6px;
+    display: flex;
+}
+
+    .checkbox-button::before {
+        content: '\2713'; /* Carácter Unicode del símbolo de checkmark */
+        font-size: 18px;
+        color: transparent;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .checkbox-button.checked::before {
+        color: #102234; /* Cambiar color cuando está marcado */
+    }
+
+
+/*comments area*/
+.headerComments {
+    background-color: var(--enfacis);
+    height: fit-content;
+    color: white;
+    border-bottom: 1px solid #a39f9f;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 0.1rem 1rem hsla(0, 0%, 0%, .4);
+}
+
+/* Estilo para .dropAreaComment */
+/* Estilo para .contenedorComentarios */
+.contenedorComentarios {
+    position: absolute;
+    z-index: -1;
+    overflow-y: scroll;
+    /* max-height: 490px; */
+    /* margin-top: -163px; */
+    /* background-color: #E5E8E8; */
+    background-image: url(../img/imagenes__e-commerce/fondoChat.png);
+    background-size: cover;
+    background-position: center;
+    padding: 0 0;
+}
+
+/* Estilo para #dropAreaComment */
+.dropAreaComment {
+    position: relative;
+    margin-top: 10%;
+    overflow-y: scroll;
+    height: 90%;
+    padding: 0 0px -1px 0;
+    overflow-x: hidden;
+}
+
+
+
+
+
+    /* Estilos generales para todos los navegadores */
+    .dropAreaComment::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    .dropAreaComment::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 6px;
+    }
+
+    .dropAreaComment
+    ::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+
+    /* Estilos específicos para Firefox */
+    .dropAreaComment::-moz-scrollbar {
+        width: 12px;
+    }
+
+    .dropAreaComment::-moz-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 6px;
+    }
+
+    .dropAreaComment::-moz-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+
+    /* Estilos específicos para Edge e Internet Explorer */
+    .dropAreaComment::-ms-scrollbar {
+        width: 12px;
+    }
+
+    .dropAreaComment::-ms-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 6px;
+    }
+
+    .dropAreaComment::-ms-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+
+
+
+.elemento {
+    position: relative;
+    width: 24%;
+    height: 40px;
+    /*    background-color: aqua;*/
+    margin-bottom: 20px; /* Ajusta el margen entre los elementos según tus necesidades */
+}
+
+.fecha {
+    background-color: #f0f0f0;
+    z-index: 10;
+    position: absolute;
+    width: max-content;
+    padding: 0px 7px;
+}
+
+.etapa {
+    /* background-color: var(--enfacis);*/
+    z-index: 10;
+    position: absolute;
+    width: max-content;
+    padding: 0px 8px;
+    border-radius: 4px;
+    color: white;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.elemento:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    width: 160%;
+    height: 2px;
+    background-color: gray;
+    bottom: 0px;
+    top: 11px;
+    z-index: 1;
+}
+
+.elemento:last-child::after,
+.elemento:last-child::after {
+    display: none;
+}
+
+
+
+.comment_item {
+    background-color: #fff;
+    color: var(--black_letter);
+    border-radius: 4px;
+    padding: 20px;
+    margin: 10px 0;
+    height: fit-content;
+    font-size: var(--font-size-small);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /*    opacity: 0; */
+    transition: box-shadow 0.3s ease;
+}
+
+.comment_item {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.contenedorP {
+    /*max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: break-word;*/ /* Añadir esta línea para manejar palabras largas */
+    text-align: justify;
+}
+
+    .contenedorP > p {
+        text-wrap: wrap;
+        font-size: 14px;
+    }
+
+/* Agrega estilos para el hover si lo deseas */
+.comment_item:hover {
+    /*  background-color: #f0f0f0;*/
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.span_comment {
+    /* color: var(--enfacis);*/
+    color: orange;
+    font-size: 11px;
+}
+
+.status_id_comment {
+    /*  background-color: var(--enfacis);*/
+    height: fit-content;
+    border-radius: 2px;
+    color: white;
+}
+
+
+/*seccion para crear commentarios*/
+.message_Seccion {
+    background-color: var(--bg_dark_gray); /* fondo de la seccion*/
+    height: 70px; /*tamaño*/
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0px -5px 5px -5px rgba(0, 0, 0, 0.5);
+    background-color: white;
+    /* background-image: url("https://i.pinimg.com/564x/2d/4f/83/2d4f83adf95a8d4e537b0d1fe5a0f794.jpg")*/
+    background-color: #f0f0f0;
+}
+
+.message_textarea {
+    border: none; /*borde*/
+    border-radius: 4px;
+    padding: 0 0 0 9px;
+    color: var(--cllor_gray_letter);
+    background-color: #f0f0f0;
+    resize: none;
+}
+
+    .message_textarea:focus {
+        border: none;
+        outline: none;
+    }
+
+
+
+
+.message_Seccion ::placeholder {
+    color: var(--cllor_gray_letter);
+}
+
+
+
+.btnSendMesssage {
+    border: none;
+    background-color: transparent;
+}
+
+    .btnSendMesssage > i {
+        font-size: xx-large;
+    }
+
+
+.customSelectStage:hover,
+.customSelectDate :hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.border-gray {
+    color: rgb(118, 118, 118);
+}
+
+.fileContainer2 {
+    /* border-radius: 5px; */
+    width: 4rem;
+    /* height: 40px; */
+    /* border-color: #f0f2f7; */
+    /* border-bottom: none !important; */
+}
+
+.fileContainer2 {
+    overflow: hidden;
+}
+
+    .fileContainer2 [type=file] {
+        cursor: inherit;
+        display: block;
+        filter: alpha (opacity=0);
+        height: 100px;
+        width: 200px;
+        cursor: pointer;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        border-bottom: none !important;
+    }
+
+.claseBtnTruco {
+    margin: 0 0 0 0;
+    width: 4rem !important;
+    height: 3rem !important;
+}
+
+.fileContainer3 {
+    border-radius: 5px;
+    width: 60px;
+    height: auto;
+    border-color: #f0f2f7;
+    border-bottom: none !important;
+}
+
+
+    .fileContainer3 [type=button] {
+        cursor: inherit;
+        display: block;
+        filter: alpha(opacity=0);
+        height: 100px;
+        width: 200px;
+        cursor: pointer;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        text-align: right;
+        border-bottom: none !important;
+    }
+
+
+
+.btn_Guardar {
+    /* border-radius: 3px; */
+    background-color: var(--principal);
+    outline: none;
+    border: none;
+    width: fit-content;
+    height: fit-content;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    transition: box-shadow 0.3s ease-in-out;
+    padding: 8px 17px;
+}
+
+    .btn_Guardar[disabled] {
+        pointer-events: none;
+        filter: none;
+        opacity: 0.65;
+    }
+
+    .btn_Guardar:hover {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    }
+
+
+
+@media screen and (min-width: 1900px) {
+    .dropAreaComment {
+        margin-top: 7%;
+    }
+}

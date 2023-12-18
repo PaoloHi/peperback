@@ -1,0 +1,465 @@
+@import url(//fonts.googleapis.com/css?family=Montserrat:400,500,700);
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:100,300');
+
+:root {
+    --naranja: #eb611c;
+    --principal: #f4971c;
+    --amarillo: #fdc425;
+    --azul-oscuro: #102234;
+    --azul: #054e8a;
+    --gris: #626161
+}
+
+
+
+.static-slider7 {
+    font-family: "Montserrat", sans-serif;
+    color: #8d97ad;
+    font-weight: 300;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom center;
+    padding: 12% 0;
+}
+
+    .static-slider7 h1.title {
+        font-size: 122px;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 130px;
+    }
+
+@media (max-width: 767px) {
+    .static-slider7 h1.title {
+        font-size: 60px;
+        line-height: 70px;
+    }
+}
+
+.static-slider7 .btn-danger-gradiant {
+    background: #102234;
+    background: -webkit-linear-gradient(legacy-direction(to right), #102234 0%, #054e8a 100%);
+    background: -webkit-gradient(linear, left top, right top, from(#102234), to(#054e8a));
+    background: -webkit-linear-gradient(left, #102234 0%, #054e8a 100%);
+    background: -o-linear-gradient(left, #102234 0%, #054e8a 100%);
+    background: linear-gradient(to right, #102234 0%, #054e8a 100%);
+}
+
+    .static-slider7 .btn-danger-gradiant:hover {
+        background: #054e8a;
+        background: -webkit-linear-gradient(legacy-direction(to right), #054e8a 0%, #102234 100%);
+        background: -webkit-gradient(linear, left top, right top, from(#054e8a), to(#102234));
+        background: -webkit-linear-gradient(left, #054e8a 0%, #102234 100%);
+        background: -o-linear-gradient(left, #054e8a 0%, #102234 100%);
+        background: linear-gradient(to right, #054e8a 0%, #102234 100%);
+    }
+
+.static-slider7 .btn-md .botoncool {
+    padding: 15px 45px;
+    font-size: 16px;
+}
+
+
+/*img del banner*/
+.imgReloj {
+    width: 200px;
+    /* height: 236px; */
+    margin: -46px 0px 0px -12px;
+}
+
+
+/* Clase para el apartado de enterate */
+.enterate {
+    background: linear-gradient(2.04deg, #073E64 -46.68%, #C2DBF4 78.97%);
+    width: 100%; /* Modificado: Cambiado a 100% */
+    height: auto; /* Modificado: Cambiado a auto */
+    border-radius: 5px;
+    margin: 9px 0px 20px 0px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+    .enterate .img-enterate {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-height: 214px; /* Nuevo: Agregado max-height */
+        overflow: hidden; /* Nuevo: Agregado overflow */
+    }
+
+        .enterate .img-enterate .carousel-item img {
+            width: 100%;
+            height: auto;
+        }
+
+
+
+.cardCarousel {
+    width: 30vw;
+    height: 200px;
+    margin: 15px;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    transition: box-shadow 0.3s ease-in-out;
+    transition: margin 0.3s ease-in-out;
+}
+
+    .cardCarousel:hover {
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px !important;
+        margin-top: 4px
+    }
+
+
+.txtCarCarrusel {
+    color: var(--gris);
+    margin: 30px 0 0 33px;
+    font-weight: 500;
+}
+
+.cardAccesos {
+    width: 200px;
+    height: 100px;
+    margin: 15px;
+}
+
+
+.titletext {
+    color: var(--naranja);
+}
+
+.subtittletext {
+    /* color: var(--principal);*/
+    color: var(--gris);
+}
+
+.reloj {
+    color: var(--naranja);
+}
+
+#reloj {
+    margin: 32px 0 0 0;
+}
+
+.slick-slide {
+    height: 166px !important;
+}
+
+.overlay1 {
+    background: #00b09b; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #96c93d, #00b09b); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #96c93d, #00b09b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.overlay2 {
+    background: #24C6DC; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #514A9D, #24C6DC); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #514A9D, #24C6DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.overlay3 {
+    background: #AAFFA9; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #11FFBD, #AAFFA9); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #11FFBD, #AAFFA9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.overlay4 {
+    background: #ee9ca7; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #ffdde1, #ee9ca7); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #ffdde1, #ee9ca7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.cardAccesos, .card {
+    position: relative;
+    background: #444;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    letter-spacing: 0.1rem;
+    font-weight: 400;
+    padding: 10px 30px;
+    transition: 0.5s;
+    background: #ECE9E6; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 14px 26px rgba(0,0,0,0.04);
+    transition: all 0.3s ease-out;
+    text-decoration: none;
+    border: none;
+}
+
+.imgReloj {
+}
+
+.card:hover .overlay {
+    transform: scale(5) translateZ(0);
+}
+
+@media screen and (max-width: 768px) {
+    .card:hover .overlay {
+        transform: scale(3) translateZ(0);
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .card:hover .overlay {
+        transform: scale(2) translateZ(0);
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .card:hover .overlay {
+        transform: scale(8) translateZ(0);
+    }
+}
+
+
+.card:hover .circle {
+    border-color: var(--bg-color-light);
+    background: var(--bg-color);
+}
+
+    .card:hover .circle:after {
+        background: var(--bg-color-light);
+    }
+
+.card:hover p {
+    color: white;
+}
+
+.card:active {
+    transform: scale(1) translateZ(0);
+    box-shadow: 0 15px 24px rgba(0,0,0,0.11), 0 15px 24px var(--box-shadow-color);
+}
+
+.card p {
+    position: absolute;
+    font-size: 30px;
+    color: #4C5656;
+    z-index: 1000;
+    transition: color 0.3s ease-out;
+    z-index: 3;
+    top: 13px;
+    text-transform: capitalize;
+}
+
+.overlay {
+    width: 139px;
+    position: absolute;
+    height: 129px;
+    border-radius: 50%;
+    z-index: 0;
+    top: -10px;
+    left: -14px;
+    z-index: 0;
+    transition: transform 0.3s ease-out;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+.modal-content {
+    background-color: black;
+    margin: 3% auto;
+    max-width: 800px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.close {
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    border: 0;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-video {
+    width: 100%;
+    height: auto;
+}
+
+#openModalButton {
+    margin: 10px 14px 10px 21px;
+    width: 40px;
+    height: 39px;
+}
+
+.openModalButtondiv {
+    position: absolute;
+    /* right: -448px; */
+    top: 203px;
+    background-color: #fffffc;
+    /* width: 77px; */
+    border-radius: 0px 31px 31px 0px;
+    justify-content: end;
+    left: -68px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateX(-8px);
+}
+
+    .openModalButtondiv:hover {
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+        transform: translateX(8px);
+        left: -66px;
+    }
+
+[class^="hvr-"] {
+    margin: .4em;
+    padding: 1em;
+    cursor: pointer;
+    background: #e1e1e1;
+    text-decoration: none;
+    color: #666;
+    /* Prevent highlight colour when element is tapped */
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    /* Smooth fonts */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+.slick-prev {
+    left: -33px !important;
+}
+
+.slick-next {
+    right: -34px !important;
+}
+
+
+.imgB24 {
+    max-width: 75%;
+    margin: -25px 0 0 104px;
+}
+
+.imgMiPerfil {
+    max-width: 75%;
+    margin: 16px 0 0 65px;
+}
+
+.imgB24CloudMan {
+    max-width: 75%;
+    margin: 42px 0 0 85px;
+}
+
+.imgTblro {
+    max-width: 75%;
+    margin: -8px 0 0 103px;
+}
+
+.imgPrpiedds {
+    max-width: 75%;
+    margin: 17px 0 0 99px;
+}
+
+@media screen and (min-width:1300px) {
+    .imgB24 {
+        max-width: 53%;
+        margin: -82px 0 0 232px;
+    }
+
+    .imgMiPerfil {
+        max-width: 53%;
+        margin: -24px 0 0 211px;
+    }
+
+    .imgB24CloudMan {
+        max-width: 53%;
+        margin: 22px 0 0 205px;
+    }
+
+    .imgTblro {
+        max-width: 53%;
+        margin: -44px 0 0 208px;
+    }
+
+    .imgPrpiedds {
+        max-width: 53%;
+        margin: -17px 0 0 242px;
+    }
+}
+
+
+/*
+
+@media (max-width: 992px) {
+    .caruselContainer .card {
+        width: 75%;
+    }
+}
+
+@media (max-width: 768px) {
+    .caruselContainer .card {
+        width: 50%;
+    }
+}
+
+@media (max-width: 576px) {
+    .caruselContainer .card {
+        width: 100%; 
+    }
+}
+*/
+
+
+/*XXL*/
+@media screen and (max-width) {
+}
+
+/*MD */
+@media screen and (max-width:600px) {
+
+    .responsiveSmalldesaparecer {
+        display: none;
+    }
+
+    .imgCarrusel {
+        display: none;
+    }
+}
+
+/*SM*/
+@media screen and (max-width:300px) {
+
+    .responsiveSmalldesaparecer {
+        display: none;
+    }
+
+    .btnSalir {
+        bottom: -17px;
+        right: 114px;
+    }
+
+    .titletext {
+        font-size: 12px;
+    }
+}

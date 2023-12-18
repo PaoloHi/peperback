@@ -1,0 +1,1036 @@
+﻿
+:root {
+    /**colores para los roles de las targetas*/
+    --rol-admin: #555E7B;
+    --rol-contact-center: #B7D466;
+    --rol-comercial: #B576AD;
+    --rol-broker: #E04644;
+    --rol-finanzas: #DFCB71;
+    --rol-legal: #7CCCE5;
+    /*color del menu barra de navegacion*/
+    --naranja: #FC913A;
+    --menu-side: #555E7B;
+    /*Colores de los 
+        
+    iconos */
+    --iconos: #fff;
+    --background: #e9ecef;
+    --iconos-hover: #555E7B;
+}
+
+
+
+* {
+    padding: 0;
+    margin: 72;
+    box-sizing: border-box;
+    font-family: 'Gotham';
+    text-decoration: none !important;
+}
+
+a:visited {
+    color: #132c45;
+}
+
+
+body {
+    margin-left: 50.5px;
+    margin-top: 35px;
+    margin-bottom: 10px;
+    background-color: rgb(237, 236, 236);
+    transition: margin-left 300ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+@font-face {
+    font-family: Gotham;
+    src: url("../fonts/GothamBook.ttf");
+}
+
+.naranja {
+    background-color: var(--naranja);
+}
+
+header {
+    width: 100%;
+    height: 51px;
+    background: rgb(255, 254, 254);
+    display: flex;
+    border-radius: 5px;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 200;
+}
+
+/*Seccion para los iconos */
+
+.icon__menu {
+    width: 30px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(10px);
+    color: #132c45;
+}
+
+    .icon__menu i {
+        font-size: 16px;
+        cursor: pointer;
+        position: absolute;
+    }
+
+
+
+.menu__side {
+    width: 50px;
+    height: 100%;
+    background: var(--menu-side);
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #132c45;
+    font-size: 18px;
+    z-index: 300;
+    overflow: hidden;
+    overflow-y: scroll;
+    /* Por si hace falta volver a meterlo aunque no creo 
+    border-right: 2px solid rgb(255, 254, 254);
+    border-top-right-radius: 5px;
+    */
+    transition: all 300ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+    /*Ocultar scroll para chrome, safari y opera*/
+    .menu__side::-webkit-scrollbar {
+        display: none;
+    }
+
+.size-sub-indice {
+    font-size: 90%;
+}
+
+.size-letter-menu {
+    font-size: 85%;
+    font-weight: bold;
+}
+
+
+/*Ocultar scroll para chrome, safari y opera*/
+.menu__side::-webkit-scrollbar {
+    display: none;
+}
+
+.size-sub-indice {
+    font-size: 90%;
+}
+
+/*Ocultar scroll para IE, Edge y Firefox*/
+.menu__side {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.name__page {
+    padding: 8px 15px;
+    display: flex;
+    align-items: left;
+    margin-top: 25px;
+}
+
+    .name__page i {
+        width: 20px;
+        margin-right: 22px;
+    }
+
+
+
+.options__menu {
+    padding: 20px 15px;
+    position: absolute;
+    top: 80px;
+}
+
+    .options__menu a {
+        position: relative;
+        color: var(--iconos);
+        cursor: default;
+        display: block;
+        transition: color 300ms;
+    }
+    /* honestamente no entiendo para que puso estas clases el buen luis
+        
+    .options__menu a:last-child {
+            top: 90px;
+            align-items: left;
+        }
+
+        .options__menu a:nth-child(7) {
+            top: 100px;
+            align-items: center;
+        }
+
+        .options__menu a:nth-child(6) {
+            top: 110px;
+            font-size: 20px;
+            align-items: center;
+        }
+
+
+        ok ya entendi para que eran pero creo que tampoco esta chido , 
+        solo divide los iconos para que queden hasta el fondo 
+*/
+
+    .options__menu .option {
+        padding: 10px 0;
+        display: flex;
+        align-items: left;
+        position: relative;
+    }
+
+        .options__menu .option i {
+            width: 20px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+    /* esta calse ni siquiera aplica  , no tenemos h4 
+                    .options__menu .option h4 {
+            font-weight: 300;
+            cursor: pointer;
+        }
+        */
+
+
+    /*Esta seccion es para hacer que los hover se vean redondos  */
+
+
+    .options__menu a:hover::before,
+    .options__menu a.hovered::before {
+        content: "";
+        position: absolute;
+        right: 4.5px;
+        top: -50px;
+        width: 50px;
+        height: 50px;
+        background: transparent;
+        color: var(--iconos);
+        border-radius: 50%;
+        box-shadow: 30px 30px 0 10px var(--background);
+        z-index: 0;
+    }
+
+.small a:hover::before,
+.small a.hovered::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: -35px;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    color: var(--iconos);
+    border-radius: 50%;
+    box-shadow: 31px 26px 0 10px var(--background);
+    z-index: 0;
+}
+
+.samll a {
+    z-index: 500;
+}
+
+.options__menu a:hover,
+.options__menu a.hovered {
+    color: var(--iconos-hover);
+    background: var(--background);
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    width: 190px;
+    z-index: 4;
+    padding-left: 1rem;
+    transition: padding-left 400ms ease;
+}
+
+
+
+    .options__menu a:hover::after,
+    .options__menu a.hovered::after {
+        content: "";
+        position: absolute;
+        right: 4.5px;
+        bottom: -50px;
+        width: 50px;
+        height: 50px;
+        background: transparent;
+        color: var(--iconos);
+        border-radius: 50%;
+        box-shadow: 30px -30px 0 10px var(--background);
+        z-index: 1;
+    }
+
+.small a:hover::after,
+.small a.hovered::after {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 46px;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    color: var(--iconos);
+    border-radius: 50%;
+    box-shadow: 31px -26px 0 10px var(--background);
+    z-index: 0;
+}
+
+.options__menu a n:hover,
+.options__menu a.hovered {
+    align-items: center;
+}
+
+/*para cambiar el color de los iconos con el hoover */
+
+
+
+/*si lo quirtas te mueres , ah te creas pero desaparece el icono*/
+i {
+    z-index: 6;
+}
+/*
+        
+    .options__menu a .option.menu__side_move:hover {
+     
+    }
+    */
+
+.small a.option {
+    z-index: 200;
+}
+
+a.selected {
+    color: #132c45;
+}
+
+.selected:before {
+    content: '';
+    width: 3px;
+    height: 80%;
+    background: #012845;
+    position: absolute;
+    top: 10%;
+    left: -15px;
+}
+
+
+/*Tamaños de los inconos que estan en la barra*/
+
+.size-icons-menu {
+    font-size: 11.5px;
+    padding-top: 5px;
+    padding-left: 4px;
+}
+
+
+/*Clases para usar en JavaScript*/
+
+.body_move {
+    margin-left: 200px;
+}
+
+.menu__side_move {
+    width: 200px;
+}
+
+
+
+
+/*
+    @media screen and (max-width: 760px) {
+    .body_move {
+        margin-left: 0px;
+    }
+
+    .menu__side_move {
+        width: 80px;
+        left: -80px;
+    }
+}
+*/
+
+
+
+.back-image-header {
+    border-radius: 25px;
+    width: 40px;
+    height: 40px;
+    box-shadow: 2px 2px 3px 3px rgba(191, 190, 190, 0.868);
+}
+
+.size-letter-menu {
+    font-size: 85%;
+    font-weight: bold;
+}
+
+@media (min-width: 1000px) {
+    .container {
+        max-width: 700px;
+    }
+}
+
+@-webkit-keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@media (min-width : 400px) {
+    .border-labels {
+        width: 200px !important;
+    }
+}
+
+
+
+.backgr_orange {
+    background-color: #ff7f40 !important;
+    border-radius: 5px;
+}
+
+.text-orange {
+    color: rgb(235, 112, 41) !important;
+}
+
+.backgr_blue {
+    background-color: #012845;
+}
+
+.text-blue {
+    color: #012845;
+}
+
+.form-check-input:checked {
+    background-color: rgb(235, 112, 41) !important;
+    border-color: rgb(235, 112, 41) !important;
+}
+
+    .form-check-input:checked[type=radio] {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+    }
+
+.form-check-input[type=checkbox]:indeterminate {
+    background-color: #ff7f40 !important;
+    border-color: #ff7f40 !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
+}
+
+.size-search {
+    width: 100%;
+    height: 42px;
+    border-radius: 5px;
+}
+
+.size-select {
+    width: 150px;
+    height: 42px;
+    border-radius: 5px;
+}
+
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    color: #012845 !important;
+    text-decoration: none;
+    background-color: #fff !important;
+    border-radius: 5px !important;
+    border: 3px #ff7f40 !important;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-link {
+        transition: none;
+    }
+}
+
+.page-link:hover {
+    z-index: 2;
+    color: #0a58ca !important;
+    background-color: #e9ecef;
+}
+
+.page-link:focus {
+    z-index: 3;
+    color: #fff;
+    background-color: #ccc !important;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.page-item:not(:first-child) .page-link {
+    margin-left: -2px;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #fff !important;
+    border: 1px #ff7f40 !important;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    border-color: #dee2e6;
+}
+
+.page-link {
+    padding: 0.375rem 0.75rem;
+}
+
+.page-item:first-child .page-link {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.page-item:last-child .page-link {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.pagination-lg .page-link {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.25rem;
+}
+
+.pagination-lg .page-item:first-child .page-link {
+    border-top-left-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+}
+
+.pagination-lg .page-item:last-child .page-link {
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+}
+
+.pagination-sm .page-link {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.pagination-sm .page-item:first-child .page-link {
+    border-top-left-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem;
+}
+
+.pagination-sm .page-item:last-child .page-link {
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+}
+
+.border-labels {
+    border: 1px #ccc solid;
+    width: 170px !important;
+    height: 35px;
+    outline: none;
+}
+
+
+
+
+.color-excel {
+    color: green !important;
+}
+
+.caja-a {
+    background: rgba(255, 255, 255, 0.861);
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 1600px) {
+    .caja-a {
+        width: 260px;
+        height: 140px;
+        background: rgba(255, 255, 255, 0.861);
+        border-radius: 5px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .caja-a {
+        width: 255px;
+        height: 140px;
+        background: rgba(255, 255, 255, 0.861);
+        border-radius: 5px;
+    }
+}
+
+.title-cards-1 {
+    width: 80px;
+    height: 20px;
+    text-align: center;
+    color: #F5F5F5;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.img-size {
+    width: 52px;
+    height: 52px;
+    border-radius: 50px;
+}
+
+.text-cards {
+    font-size: 13px;
+    line-height: 5px;
+}
+
+.mar_t {
+    margin-top: 7px;
+}
+
+.size-letter-card-usuarios {
+    font-size: 10.5px;
+}
+
+/*Indicadores superiores*/
+.indicator-active {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background: #18CB2A;
+    border: 3px #fff solid;
+    top: 92px !important;
+}
+
+.indicator-inactive {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background: rgb(129, 129, 129);
+    border: 3px #fff solid;
+}
+
+.indicator-cancel {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background: rgb(255, 0, 0);
+    border: 3px #fff solid;
+}
+
+.indicator-block {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background: #000;
+    border: 3px #fff solid;
+}
+
+/*Aqui termina los indicadores*/
+
+
+/*Estilos para las tarjetas de los indicadores*/
+
+@media only screen and (max-width: 2500px) {
+    .caja-a-b {
+        width: 220px;
+        height: 100px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 5px 5px 5px rgb(179, 179, 179);
+        transition: transform 250ms;
+    }
+
+
+        .caja-a-b:hover {
+            transform: translateY(-5px);
+        }
+}
+
+.circles {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+    .circles li {
+        position: fixed;
+        list-style: none;
+        width: 20px;
+        height: 20px;
+        background: rgba(226, 117, 55, 0.258);
+        animation: animate 25s linear infinite;
+        bottom: -150px;
+    }
+
+        .circles li:nth-child(1) {
+            left: 1%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+        }
+
+
+        .circles li:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            background: #01284585;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+
+        .circles li:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            background: #01284585;
+            animation-delay: 4s;
+        }
+
+        .circles li:nth-child(4) {
+            left: 40%;
+            width: 30px;
+            height: 30px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
+
+        .circles li:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+        }
+
+        .circles li:nth-child(6) {
+            left: 75%;
+            width: 40px;
+            height: 40px;
+            background: #01284585;
+            animation-delay: 3s;
+        }
+
+        .circles li:nth-child(7) {
+            left: 35%;
+            width: 50px;
+            height: 50px;
+            animation-delay: 7s;
+        }
+
+        .circles li:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+        }
+
+        .circles li:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+        }
+
+        .circles li:nth-child(10) {
+            left: 85%;
+            width: 30px;
+            height: 30px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+        }
+
+
+
+
+@keyframes animate {
+
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
+/*Aqui termina el fondo animado de los circulos*/
+
+/*Tamaño de la letra del titulo de la tarjeta*/
+.size-letter-card-user {
+    font-size: 12.5px;
+}
+
+/*Estilos del boton*/
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 0px solid transparent !important;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn {
+        transition: none;
+    }
+}
+
+.btn:hover {
+    color: #212529;
+}
+
+.btn-check:focus + .btn, .btn:focus {
+    outline: 0;
+    box-shadow: 0rem rgba(29, 52, 31, 0.25) !important;
+}
+
+.btn:disabled, .btn.disabled, fieldset:disabled .btn {
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+}
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 5px 10px;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 25px;
+    border-top: none;
+    background: rgb(237, 236, 236);
+}
+
+.size-text-table {
+    font-size: 14px;
+}
+
+/*clase para los inactivos*/
+
+.text-inactive {
+    color: rgb(129, 129, 129);
+    ;
+}
+
+/*Clases para los roles de usuarios*/
+.rol-admin-ti {
+    background-color: var(--rol-admin);
+    color: #fff;
+}
+
+.rol-mesa-control {
+    background-color: var(--rol-mesa-control);
+    color: #ffd;
+}
+
+.rol-contact-center {
+    background-color: var(--rol-contact-center);
+    color: #fff;
+}
+
+.rol-comecial {
+    background-color: var(--rol-comercial);
+    color: #fff;
+}
+
+.rol-broker {
+    background-color: var(--rol-broker);
+    color: #fff;
+}
+
+.rol-legal {
+    background-color: var(--rol-legal);
+    color: #fff;
+}
+
+.rol-finanzas {
+    background-color: var(--rol-finanzas);
+    color: #fff;
+}
+
+.rol-soporte {
+    background-color: var(--rol-soporte);
+    color: #fff;
+}
+
+/*fin de clases de para los roles de usuario*/
+
+/*Tamaño de los iconos para ver más*/
+
+.size-mp-icons-vermas {
+    font-size: 17px;
+}
+
+
+.btn-vermas {
+    text-decoration: none;
+    /*
+    border: solid rgb(235, 112, 41) !important;
+    border-radius: 50%;
+    padding: 2px;
+    */
+}
+
+    .btn-vermas i {
+        font-size: 15px;
+    }
+
+    .btn-vermas:hover {
+        text-decoration: none;
+        color: #000;
+    }
+
+/*clases para los status*/
+.bg-status-green {
+    background: #dbfbda;
+    color: #0d7312;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+.bg-status-red {
+    background: #e7bcbc;
+    color: #4f4040;
+    border-radius: 20px;
+    margin: 0% !important;
+    padding: 5px 10px;
+}
+
+/*gris para los iconos */
+.style-vermas2 {
+    text-decoration: none;
+    color: rgb(85, 85, 85);
+}
+
+/*Azul para los iconos de la tarjeta*/
+
+.style-vermas3 {
+    text-decoration: none;
+    color: #132c45;
+}
+
+/* Clases para el apartado de informacion de tabla de btn-option */
+
+.data-table {
+    background-color: #ffff;
+    width: 97%;
+    height: auto;
+    border-radius: 5px;
+    margin: 20px 15px 15px 30px;
+    padding: 15px;
+    display: none;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+
+.table {
+    width: 100% !important;
+    align-items: center;
+}
+
+    .table th {
+        font-size: 13px;
+        text-align: center;
+        background-color: #c5c5c5;
+        padding: 10px;
+        font-weight: 700;
+    }
+
+
+    .table tr td {
+        font-size: 13px;
+        text-align: center;
+        padding: 17px;
+        border-bottom: 1px solid #ccc;
+        align-items: center;
+    }
+
+.pos-ver-mas {
+    top: 2px;
+    left: 230px;
+}
+
+.boton-tabla {
+    border-bottom: 50%;
+}
+
+
+
+.square {
+    height: 200px;
+    width: 200px;
+    background: orange;
+}
